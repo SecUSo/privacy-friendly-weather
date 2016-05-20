@@ -11,6 +11,11 @@ Privacy Friendly Weather App belongs to the group of Privacy Friendly Apps and h
 
 Further development requires Android Studio.
 
+## API Reference
+
+Mininum SDK: 14
+Target SDK: 23 
+
 ## License
 
 Privacy Friendly Weather App is licensed under the GPLv3.
