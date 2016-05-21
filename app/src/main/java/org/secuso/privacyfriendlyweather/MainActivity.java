@@ -3,8 +3,9 @@ package org.secuso.privacyfriendlyweather;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +27,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
+
+    /**
+     * Constants.
+     */
+    private final String PREFERENCES_NAME = "org.secuso.privacyfriendlyweather.preferences";
+    private final String PREFERENCES_IS_FIRST_START = "is_first_app_start";
 
     private ListView drawerList;
     private DrawerLayout drawerLayout;
@@ -55,6 +63,43 @@ public class MainActivity extends ActionBarActivity {
 
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.listview_item_row, drawerItem);
         drawerList.setAdapter(adapter);
+
+        showDialogOnFirstAppStart();
+    }
+
+    /**
+     * When the app is started for the very first time a dialog will be shown displaying some
+     * information to the user.
+     */
+    private void showDialogOnFirstAppStart() {
+        SharedPreferences preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+        boolean isFirstAppStart = preferences.getBoolean(PREFERENCES_IS_FIRST_START, true);
+        if (isFirstAppStart) {
+            // Set the preference that the app was started at least once
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(PREFERENCES_IS_FIRST_START, false);
+            editor.apply();
+
+            // Create and show the dialog
+            final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setMessage(R.string.dialog_first_app_start_message);
+            dialogBuilder.setCancelable(false);
+            dialogBuilder.setNegativeButton(R.string.dialog_help_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Fragment fragment = new HelpFragment();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+                }
+            });
+            dialogBuilder.setPositiveButton(R.string.dialog_close_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            dialogBuilder.create().show();
+        }
     }
 
     private void addDrawerItems() {

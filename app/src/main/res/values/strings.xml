@@ -20,4 +20,11 @@
     <string name="more_info">More information can be found on:</string>
     <string name="url"><a href="https://www.secuso.informatik.tu-darmstadt.de/en/research/results/privacy-friendly-apps">https://www.secuso.org</a></string>
 
+    <!-- Dialogs -->
+    <string name="dialog_first_app_start_message">
+        Using the button below, please add locations you would like to watch the weather for.\nThese can be removed at any time.
+    </string>
+    <string name="dialog_close_button">Close</string>
+    <string name="dialog_help_button">Help</string>
+
 </resources>
