@@ -10,6 +10,8 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -25,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -65,6 +68,7 @@ public class MainActivity extends ActionBarActivity {
         drawerList.setAdapter(adapter);
 
         showDialogOnFirstAppStart();
+        handleFloatingButtonAddLocationClick();
     }
 
     /**
@@ -100,6 +104,16 @@ public class MainActivity extends ActionBarActivity {
             });
             dialogBuilder.create().show();
         }
+    }
+
+    private void handleFloatingButtonAddLocationClick() {
+        FloatingActionButton fabAddLocation = (FloatingActionButton) findViewById(R.id.fab);
+        fabAddLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void addDrawerItems() {
