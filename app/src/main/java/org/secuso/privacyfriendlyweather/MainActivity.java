@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -68,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
         drawerList.setAdapter(adapter);
 
         showDialogOnFirstAppStart();
-        handleFloatingButtonAddLocationClick();
+        handleFloatingButtonAddLocationClick(this);
     }
 
     /**
@@ -106,12 +107,34 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private void handleFloatingButtonAddLocationClick() {
+    /**
+     * When the floating button for adding a new location is clicked, open a dialog to do so.
+     */
+    private void handleFloatingButtonAddLocationClick(final Context context) {
         FloatingActionButton fabAddLocation = (FloatingActionButton) findViewById(R.id.fab);
         fabAddLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+                dialogBuilder.setCancelable(false);
+                dialogBuilder.setMessage("Please enter the location to add.");
+                final AutoCompleteTextView edtLocation = new AutoCompleteTextView(context);
+                String[] countries = {"Darmstadt", "Daaad", "Kassel"};
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, countries);
+                edtLocation.setAdapter(adapter);
+                dialogBuilder.setView(edtLocation);
+                dialogBuilder.setNegativeButton(R.string.dialog_help_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                dialogBuilder.setPositiveButton(R.string.dialog_close_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                dialogBuilder.create().show();
             }
         });
     }

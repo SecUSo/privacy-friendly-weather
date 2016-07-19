@@ -27,6 +27,7 @@
                 android:layout_gravity="right|bottom"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/plus" />
+
         </FrameLayout>
 
     </RelativeLayout>
