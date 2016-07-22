@@ -1,21 +1,30 @@
-## Privacy Friendly Weather App
-The Privacy friendly Weather App belongs to the group of Privacy Friendly Apps. It enables users to add one or more locations to retrieve weather information for and provides an overview of these locations as well as detailed views. Furthermore, a 5 day forecast is available.
+## Privacy Friendly App Example
 
-This app is optimized regarding the user's privacy. It only uses the "Internet" permission in order to retrieve weather data. No personal or device information are accessed or collected.
+This application contains the basic design of a Privacy Friendly App without any other functionality. It includes a Navigation Drawer, examples for buttons, a help page and the about page. It further shows an example of the main menu for a Privacy Friendly Game App.
 
 ## Motivation
 
-Privacy Friendly Weather App belongs to the group of Privacy Friendly Apps and has been developed to provide a privacy friendly app to watch the weather for your favorite locations.
+This application has been developed to be used as a basis for a Privacy Friendly App. Privacy Friendly Apps are group of Android applications which are optimized regarding privacy. Further information can be found on secuso.org/pfa
 
-## Installation
+## Download and more Information
 
-Further development requires Android Studio.
+Further development requires Android Studio, we recommend to use at least version 2.1.2
+ 
+### API Reference
 
-## API Reference
-
-Mininum SDK: 14
+Mininum SDK: 17
 Target SDK: 23 
 
 ## License
 
-Privacy Friendly Weather App is licensed under the GPLv3.
+Privacy Friendly App example is licensed under the GPLv3. The icons used in the nagivation drawer are licensed under the CC BY 2.5 (http://creativecommons.org/licenses/by/2.5/).
+
+## Contributors
+
+Github-Users: <br />
+Yonjuni <br />
+Kamuno
+
+
+
+
