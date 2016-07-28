@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyexample;
+package org.secuso.privacyfriendlyweather;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -137,10 +137,6 @@ public class BaseActivity extends AppCompatActivity implements OnNavigationItemS
                 intent = new Intent(this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                break;
-            case R.id.nav_game:
-                intent = new Intent(this, GameActivity.class);
-                createBackStack(intent);
                 break;
             case R.id.nav_about:
                 intent = new Intent(this, AboutActivity.class);
