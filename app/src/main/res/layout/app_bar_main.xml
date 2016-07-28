@@ -6,30 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="org.secuso.privacyfriendlyexample.MainActivity">
+    tools:context="org.secuso.privacyfriendlyweather.MainActivity">
 
     <include layout="@layout/toolbar"/>
 
     <include layout="@layout/content_main" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabAddLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="right|bottom"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
-
-    <Button
-        android:id="@+id/button_welcomedialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:layout_gravity="bottom|start"
-        android:background="@drawable/button_normal"
-        android:text="@string/main_button_welcomedialog"
-        android:textColor="@color/white"
-        android:layout_margin="@dimen/fab_margin"/>
+        android:src="@drawable/plus" />
 
 </android.support.design.widget.CoordinatorLayout>

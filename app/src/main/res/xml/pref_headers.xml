@@ -3,7 +3,7 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="org.secuso.privacyfriendlyexample.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="org.secuso.privacyfriendlyweather.SettingsActivity$GeneralPreferenceFragment"
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/pref_header_general" />
 

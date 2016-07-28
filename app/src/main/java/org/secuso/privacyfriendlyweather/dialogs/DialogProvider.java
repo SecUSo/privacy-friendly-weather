@@ -1,0 +1,159 @@
+package org.secuso.privacyfriendlyweather.dialogs;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.secuso.privacyfriendlyweather.HelpActivity;
+import org.secuso.privacyfriendlyweather.R;
+
+/**
+ * This static class provides predefined dialogs.
+ */
+public class DialogProvider {
+
+    /**
+     * Visual components
+     */
+    private static LinearLayout addDialogLinearLayout;
+    private static TextView addDialogTvMessage;
+    private static AutoCompleteTextView addDialogEdtLocation;
+    private static CheckBox addDialogCbSave;
+
+    /**
+     * Other variables
+     */
+    private static boolean isAddLocationDialogInitialized = false;
+
+    /**
+     * Private constructor to make this class static.
+     */
+    private DialogProvider() {
+    }
+
+    /**
+     * @param context The context in which the dialog is to be displayed.
+     * @return Returns an AlertDialog object with an info text for the first app start and two
+     * buttons (1. Go to help page, 2. Close dialog).
+     */
+    public static AlertDialog getFirstAppStartDialog(final Context context) {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        dialogBuilder.setMessage(R.string.dialog_first_app_start_message);
+        dialogBuilder.setCancelable(false);
+        dialogBuilder.setNegativeButton(R.string.dialog_first_app_help_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                final Activity activity = (Activity) context;
+                Fragment fragment = new HelpActivity.HelpFragment();
+                FragmentManager fragmentManager = activity.getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack(null).commit();
+            }
+        });
+        dialogBuilder.setPositiveButton(R.string.dialog_first_app_close_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        return dialogBuilder.create();
+    }
+
+    /**
+     * Initializes the linear layout as well as its components that is used for the
+     * AddLocationDialog.
+     *
+     * @param context The context in which the dialog is to be displayed.
+     */
+    private static void initLayoutForAddLocationDialog(Context context) {
+        if (!isAddLocationDialogInitialized) {
+            final float scale = context.getResources().getDisplayMetrics().density;
+            int padding = 10;
+            int paddingInPD = (int) (padding * scale + 0.5f);
+
+            addDialogLinearLayout = new LinearLayout(context);
+            addDialogLinearLayout.setOrientation(LinearLayout.VERTICAL);
+            addDialogLinearLayout.setPadding(paddingInPD, paddingInPD, paddingInPD, paddingInPD);
+
+            addDialogTvMessage = new TextView(context);
+            addDialogTvMessage.setTextAppearance(context,
+                    android.R.style.TextAppearance_DeviceDefault_Medium);
+            addDialogTvMessage.setText("Enter the location to add:");
+
+            addDialogEdtLocation = new AutoCompleteTextView(context);
+            // TODO: Show keyboard by default
+
+            addDialogCbSave = new CheckBox(context);
+            addDialogCbSave.setText("Save this location");
+
+            addDialogLinearLayout.addView(addDialogTvMessage);
+            addDialogLinearLayout.addView(addDialogEdtLocation);
+            addDialogLinearLayout.addView(addDialogCbSave);
+        }
+    }
+
+    /**
+     * @param context The context in which the dialog is to be displayed.
+     * @return Returns an AlertDialog with a text input field for a location and a CheckBox for
+     * saving this location.
+     */
+    public static AlertDialog getAddLocationDialog(final Context context) {
+        initLayoutForAddLocationDialog(context);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        dialogBuilder.setCancelable(false);
+
+//        String[] countries = {"Darmstadt", "Daaad", "Kassel"};
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, countries);
+//        edtLocation.setAdapter(adapter);
+
+        dialogBuilder.setView(addDialogLinearLayout);
+
+        // Buttons are added but not their onClick implementation; this is done further below
+        // as explained here (as of 2016-07-27):
+        // http://stackoverflow.com/questions/6275677/alert-dialog-in-android-should-not-dismiss
+        dialogBuilder.setNegativeButton(R.string.dialog_add_add_button, null);
+        dialogBuilder.setPositiveButton(R.string.dialog_add_close_button, null);
+
+        final AlertDialog dialog = dialogBuilder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                Button btnClose = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                Button btnAdd = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+                // Close click event
+                btnClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                // Add click event
+                btnAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String trimmedInput = addDialogEdtLocation.getText().toString().trim();
+                        if (trimmedInput.length() > 0) {
+                            String location = trimmedInput;
+                            boolean store = addDialogCbSave.isChecked();
+                            dialog.dismiss();
+                        }
+                        else {
+                            addDialogEdtLocation.setError("Please enter a valid location!");
+                        }
+                    }
+                });
+            }
+        });
+
+        return dialog;
+    }
+
+}

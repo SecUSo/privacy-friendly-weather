@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="org.secuso.privacyfriendlyexample.SettingsActivity">
+        tools:context="org.secuso.privacyfriendlyweather.SettingsActivity">
 
         <include layout="@layout/toolbar"/>
 
@@ -28,10 +28,10 @@
             android:layout_marginTop="?attr/actionBarSize"
             android:weightSum="1">
 
-        <fragment android:name="org.secuso.privacyfriendlyexample.SettingsActivity$GeneralPreferenceFragment"
-            android:id="@+id/settings_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            <fragment android:name="org.secuso.privacyfriendlyweather.SettingsActivity$GeneralPreferenceFragment"
+                android:id="@+id/settings_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 

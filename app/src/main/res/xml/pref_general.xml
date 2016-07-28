@@ -1,18 +1,6 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="Example Category">
-        <SwitchPreference
-            android:id="@+id/pref_example_switch"
-            android:key="pref_example_switch"
-            android:title="@string/pref_example_switch"
-            android:summary="@string/pref_example_switch_summary"
-            android:defaultValue="false"/>
-        <Preference android:title="Test Setting"
-            android:summary="Text Summary"/>
-    </PreferenceCategory>
-
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <!-- <EditTextPreference
