@@ -1,6 +1,9 @@
 # Built application files
 /build/
 
+# Ignore the Database config file
+app/src/main/res/raw/ormlite_config.txt
+
 # Crashlytics configuations
 com_crashlytics_export_strings.xml
 
