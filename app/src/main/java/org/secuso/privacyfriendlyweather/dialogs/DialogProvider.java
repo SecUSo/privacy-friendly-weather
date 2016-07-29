@@ -49,15 +49,9 @@ public class DialogProvider {
 
     /**
      * Constructor.
-     */
-    public DialogProvider() {
-    }
-
-    /**
-     * Constructor.
      *
      * @param dbHelper The database helper is used to provide further features like look-ahead. If
-     *                 no DatabaseHelper is provided, these features are not available.
+     *                 no DatabaseHelper is provided (null), these features are not available.
      */
     public DialogProvider(DatabaseHelper dbHelper) {
         this.dbHelper = dbHelper;
