@@ -1,26 +1,36 @@
 package org.secuso.privacyfriendlyweather;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+
 import org.secuso.privacyfriendlyweather.dialogs.DialogProvider;
+import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.pojos.City;
 import org.secuso.privacyfriendlyweather.preferences.PreferencesManager;
+
+import java.sql.SQLException;
+import java.util.Iterator;
 
 public class MainActivity extends BaseActivity {
 
     /**
      * Visual components.
      */
-    FloatingActionButton fabAddLocation;
+    private FloatingActionButton fabAddLocation;
+
+    private DatabaseHelper dbHelper;
+    private DialogProvider dialogProvider;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +39,9 @@ public class MainActivity extends BaseActivity {
 
         overridePendingTransition(0, 0);
 
+        dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
+        dialogProvider = new DialogProvider(dbHelper);
+
         // Object for access to app preferences
         SharedPreferences preferences = getSharedPreferences(PreferencesManager.PREFERENCES_NAME,
                 Context.MODE_PRIVATE);
@@ -36,7 +49,7 @@ public class MainActivity extends BaseActivity {
 
         // Handle if app is started for the first time
         if (preferencesManager.isFirstAppStart()) {
-            AlertDialog firstAppStartDialog = DialogProvider.getFirstAppStartDialog(this);
+            AlertDialog firstAppStartDialog = dialogProvider.getFirstAppStartDialog(this);
             firstAppStartDialog.show();
         }
 
@@ -45,35 +58,17 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected int getNavigationDrawerID() {
-        return R.id.nav_example;
+    protected void onDestroy() {
+        if (dbHelper != null) {
+            dbHelper.close();
+        }
+
+        super.onDestroy();
     }
 
-
-    public static class WelcomeDialog extends DialogFragment {
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            LayoutInflater i = getActivity().getLayoutInflater();
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setIcon(R.mipmap.ic_launcher);
-            builder.setTitle(getActivity().getString(R.string.welcome));
-            builder.setPositiveButton(getActivity().getString(R.string.okay), null);
-            builder.setNegativeButton(getActivity().getString(R.string.viewhelp), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ((MainActivity) getActivity()).goToNavigationItem(R.id.nav_help);
-                }
-            });
-
-            return builder.create();
-        }
+    @Override
+    protected int getNavigationDrawerID() {
+        return R.id.nav_example;
     }
 
     /**
@@ -83,7 +78,7 @@ public class MainActivity extends BaseActivity {
         fabAddLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog addLocationDialog = DialogProvider.getAddLocationDialog(context);
+                AlertDialog addLocationDialog = dialogProvider.getAddLocationDialog(context);
                 addLocationDialog.show();
             }
         });
