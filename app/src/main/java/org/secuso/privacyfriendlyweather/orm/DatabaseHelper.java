@@ -92,7 +92,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     /**
      * @return Returns an instance of the DAO.
      */
-    public Dao<City, Integer> getDao() {
+    public Dao<City, Integer> getCityDao() {
         if (cityDao == null) {
             try {
                 cityDao = getDao(City.class);
