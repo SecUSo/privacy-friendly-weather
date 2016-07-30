@@ -1,3 +1,6 @@
+#Ignore Android studion files
+/.idea
+
 # Built application files
 /build/
 
