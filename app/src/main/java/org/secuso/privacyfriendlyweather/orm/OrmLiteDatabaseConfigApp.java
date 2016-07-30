@@ -2,8 +2,6 @@ package org.secuso.privacyfriendlyweather.orm;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
 
-import org.secuso.privacyfriendlyweather.pojos.City;
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,7 +12,7 @@ import java.sql.SQLException;
 public class OrmLiteDatabaseConfigApp extends OrmLiteConfigUtil {
 
     // All the classes to include in the config
-    private static final Class<?>[] classes = new Class[]{City.class};
+    private static final Class<?>[] classes = new Class[]{City.class, CityToWatch.class};
 
     public static void main(String[] args) throws IOException, SQLException {
         String currentDirectory = "user.dir";

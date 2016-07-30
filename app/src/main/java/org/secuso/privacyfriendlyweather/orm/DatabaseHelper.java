@@ -13,7 +13,6 @@ import com.j256.ormlite.table.TableUtils;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.files.FileReader;
-import org.secuso.privacyfriendlyweather.pojos.City;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,9 +31,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Context context;
 
     /**
-     * The data access object used to interact with the SQLite database to do C.R.U.D operations.
+     * The data access objects used to interact with the SQLite database to do C.R.U.D operations.
      */
     private Dao<City, Integer> cityDao;
+    private Dao<CityToWatch, Integer> cityToWatchDao;
 
     /**
      * @see OrmLiteSqliteOpenHelper
@@ -125,6 +125,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      */
     public Dao<City, Integer> getCityDao() {
         return cityDao;
+    }
+
+    /**
+     * @return Returns an instance of the DAO.
+     */
+    public Dao<CityToWatch, Integer> getCityToWatchDao() {
+        return cityToWatchDao;
     }
 
 }

@@ -1,10 +1,8 @@
 package org.secuso.privacyfriendlyweather.files;
 
-import org.secuso.privacyfriendlyweather.pojos.City;
+import org.secuso.privacyfriendlyweather.orm.City;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
