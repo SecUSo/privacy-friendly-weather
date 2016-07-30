@@ -3,10 +3,11 @@ package org.secuso.privacyfriendlyweather.orm;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -17,11 +18,9 @@ import org.secuso.privacyfriendlyweather.pojos.City;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ptrck on 28/07/16.
- */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     /**
@@ -33,7 +32,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Context context;
 
     /**
-     * The data access object used to interact with the Sqlite database to do C.R.U.D operations.
+     * The data access object used to interact with the SQLite database to do C.R.U.D operations.
      */
     private Dao<City, Integer> cityDao;
 
@@ -43,6 +42,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
+        if (cityDao == null) {
+            try {
+                cityDao = getDao(City.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void fillCitiesTable() {
@@ -55,9 +61,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             for (City city : cities) {
                 cityDao.create(city);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -90,16 +94,36 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
+     * @param cityFirstLetters Find only those cities where the first letters of the city name match
+     *                         this parameter.
+     * @param limit            Limits the number of returned cities.
+     * @return Returns a list of cities where each city starts with the provided letters.
+     */
+    public List<City> getCitiesWhereNameLike(String cityFirstLetters, long limit) {
+        List<City> cities = new ArrayList<>();
+        QueryBuilder<City, Integer> queryBuilder = cityDao.queryBuilder();
+
+        try {
+            queryBuilder.where().like("city_name", String.format("%s%%", cityFirstLetters));
+            queryBuilder.orderBy("city_name", true);
+            queryBuilder.limit(limit);
+
+            PreparedQuery<City> preparedQuery = queryBuilder.prepare();
+
+            for (City city : cityDao.query(preparedQuery)) {
+                cities.add(city);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cities;
+    }
+
+    /**
      * @return Returns an instance of the DAO.
      */
     public Dao<City, Integer> getCityDao() {
-        if (cityDao == null) {
-            try {
-                cityDao = getDao(City.class);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
         return cityDao;
     }
 

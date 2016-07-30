@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -16,18 +18,12 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
-
 import org.secuso.privacyfriendlyweather.HelpActivity;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.pojos.City;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -35,17 +31,19 @@ import java.util.List;
  */
 public class DialogProvider {
 
+    private final String DEBUG_TAG = "dp_tag";
+
     /**
      * Visual components
      */
     private LinearLayout addDialogLinearLayout;
-    private TextView addDialogTvMessage;
     private AutoCompleteTextView addDialogEdtLocation;
+    private ArrayAdapter<City> cityAdapter;
     private CheckBox addDialogCbSave;
 
     private boolean isAddLocationDialogInitialized = false;
+    private int selectedCityID;
     private DatabaseHelper dbHelper;
-    private Dao<City, Integer> cityDao;
 
     /**
      * Constructor.
@@ -55,7 +53,6 @@ public class DialogProvider {
      */
     public DialogProvider(DatabaseHelper dbHelper) {
         this.dbHelper = dbHelper;
-        cityDao = this.dbHelper.getCityDao();
     }
 
     /**
@@ -74,12 +71,13 @@ public class DialogProvider {
             addDialogLinearLayout.setOrientation(LinearLayout.VERTICAL);
             addDialogLinearLayout.setPadding(paddingInPD, paddingInPD, paddingInPD, paddingInPD);
 
-            addDialogTvMessage = new TextView(context);
-            addDialogTvMessage.setTextAppearance(context,
-                    android.R.style.TextAppearance_DeviceDefault_Medium);
+            TextView addDialogTvMessage = new TextView(context);
+            addDialogTvMessage.setTextAppearance(context, android.R.style.TextAppearance_DeviceDefault_Medium);
             addDialogTvMessage.setText("Enter the location to add:");
 
+            cityAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, new ArrayList<City>());
             addDialogEdtLocation = new AutoCompleteTextView(context);
+            addDialogEdtLocation.setAdapter(cityAdapter);
             addDialogEdtLocation.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -91,31 +89,29 @@ public class DialogProvider {
 
                 @Override
                 public void afterTextChanged(Editable s) {
+                    final long LIST_LIMIT = 8L;
+                    selectedCityID = -1;
                     if (dbHelper != null) {
                         String content = addDialogEdtLocation.getText().toString();
-                        if (content.length() > 2) {
-                            QueryBuilder<City, Integer> queryBuilder = cityDao.queryBuilder();
-                            try {
-                                queryBuilder.where().like("city_name", String.format("%s%%", content));
-                                queryBuilder.limit((long) 5);
-                                PreparedQuery<City> preparedQuery = queryBuilder.prepare();
-                                Iterator<City> iterator = cityDao.query(preparedQuery).iterator();
-                                List<String> matchedCities = new ArrayList<String>();
-                                while (iterator.hasNext()) {
-                                    City nextCity = iterator.next();
-                                    matchedCities.add(
-                                            String.format("%s, %s", nextCity.getCityName(), nextCity.getCountryCode())
-                                    );
-                                }
-                                ArrayAdapter<String> adapter = new ArrayAdapter<>(context,
-                                        android.R.layout.simple_list_item_1, matchedCities);
-                                addDialogEdtLocation.setAdapter(adapter);
-                                addDialogEdtLocation.showDropDown();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
+                        if (content.length() > 3) {
+                            // Get the matched cities
+                            List<City> cities = dbHelper.getCitiesWhereNameLike(content, LIST_LIMIT);
+                            // Set the drop down entries
+                            cityAdapter.clear();
+                            cityAdapter.addAll(cities);
+                            addDialogEdtLocation.showDropDown();
+                        } else {
+                            addDialogEdtLocation.dismissDropDown();
                         }
                     }
+                }
+            });
+            addDialogEdtLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    City selectedCity = (City) parent.getItemAtPosition(position);
+                    selectedCityID = selectedCity.getCityId();
+                    Log.d(DEBUG_TAG, "ID: " + selectedCityID);
                 }
             });
             // TODO: Show keyboard by default
@@ -162,7 +158,10 @@ public class DialogProvider {
      * saving this location.
      */
     public AlertDialog getAddLocationDialog(final Context context) {
-        initLayoutForAddLocationDialog(context);
+        if (!isAddLocationDialogInitialized) {
+            initLayoutForAddLocationDialog(context);
+        }
+
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         dialogBuilder.setCancelable(false);
         dialogBuilder.setView(addDialogLinearLayout);
@@ -192,7 +191,6 @@ public class DialogProvider {
                     public void onClick(View v) {
                         String trimmedInput = addDialogEdtLocation.getText().toString().trim();
                         if (trimmedInput.length() > 0) {
-                            String location = trimmedInput;
                             boolean store = addDialogCbSave.isChecked();
                             dialog.dismiss();
                         } else {

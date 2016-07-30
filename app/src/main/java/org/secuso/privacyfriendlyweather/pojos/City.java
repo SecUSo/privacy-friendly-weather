@@ -120,4 +120,11 @@ public class City {
         this.countryCode = countryCode;
     }
 
+    /**
+     * @return Returns "[cityName], [countryCode]".
+     */
+    @Override
+    public String toString() {
+        return String.format("%s, %s", cityName, countryCode);
+    }
 }
