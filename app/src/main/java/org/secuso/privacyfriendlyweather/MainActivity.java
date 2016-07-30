@@ -40,6 +40,14 @@ public class MainActivity extends BaseActivity {
         dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
         dialogProvider = new DialogProvider(dbHelper);
 
+        // It might be that the app was not closed properly (e. g. using a task manager); in that
+        // case the cities_to_watch table was not cleaned, so we do it now as well
+        try {
+            dbHelper.deleteNonPersistentCitiesToWatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         // Object for access to app preferences
         SharedPreferences preferences = getSharedPreferences(PreferencesManager.PREFERENCES_NAME,
                 Context.MODE_PRIVATE);

@@ -143,7 +143,7 @@ public class DialogProvider {
      *                      added to the database.
      */
     private boolean handleOnBtnAddCityClick(Context context) throws SQLException {
-        final String SUCCESS_MSG_TEMPLATE = "The location %s (%s) was added successfully.";
+        final String SUCCESS_MSG_TEMPLATE = context.getResources().getString(R.string.dialog_add_added_successfully_template);
         boolean dismissDialog;
         City addedCity = null;
         String trimmedInput = addDialogEdtLocation.getText().toString().trim();
