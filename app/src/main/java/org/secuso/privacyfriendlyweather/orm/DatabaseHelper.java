@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
@@ -123,6 +124,19 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
 
         return cities;
+    }
+
+    /**
+     * Deletes all entries in the cities_to_watch table whose field persistent is set to false.
+     *
+     * @return Returns the number of deleted entries.
+     * @throws SQLException This exception is thrown if something goes wrong while deleting
+     *                      records.
+     */
+    public int deleteNonPersistentCitiesToWatch() throws SQLException {
+        DeleteBuilder<CityToWatch, Integer> deletionQuery = cityToWatchDao.deleteBuilder();
+        deletionQuery.where().eq(CityToWatch.COLUMN_STORE_PERSISTENT, false);
+        return deletionQuery.delete();
     }
 
     /**

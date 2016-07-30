@@ -7,21 +7,19 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
 
 import org.secuso.privacyfriendlyweather.dialogs.DialogProvider;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-import org.secuso.privacyfriendlyweather.pojos.City;
 import org.secuso.privacyfriendlyweather.preferences.PreferencesManager;
 
 import java.sql.SQLException;
-import java.util.Iterator;
 
 public class MainActivity extends BaseActivity {
+
+    private final String DEBUG_TAG = "main_activity_debug";
 
     /**
      * Visual components.
@@ -60,6 +58,22 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         if (dbHelper != null) {
+            // Clear the database and show a message of how many locations were deleted
+            try {
+                int numberOfDeletions = dbHelper.deleteNonPersistentCitiesToWatch();
+                if (numberOfDeletions > 0) {
+                    final String DELETION_MSG_TEMPLATE = (numberOfDeletions == 1) ?
+                            getResources().getString(R.string.action_destroy_deletion_number_singular) :
+                            getResources().getString(R.string.action_destroy_deletion_number_plural);
+                    String deletionMsg = String.format(DELETION_MSG_TEMPLATE, numberOfDeletions);
+                    Toast.makeText(this, deletionMsg, Toast.LENGTH_LONG).show();
+                }
+            } catch (SQLException e) {
+                final String ERROR_MSG = getResources().getString(R.string.action_destroy_error_on_deletion);
+                Toast.makeText(this, ERROR_MSG, Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+            // Close the database connection
             dbHelper.close();
         }
 

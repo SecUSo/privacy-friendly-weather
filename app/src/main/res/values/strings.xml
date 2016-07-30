@@ -42,14 +42,7 @@
     <string name="pref_example_switch_summary">Example Switch Summary</string>
     <string name="pref_example_summary">Example Summary</string>
 
-    <!-- ### WELCOME DIALOG ### -->
-    <string name="welcome_text">Welcome to the Privacy Friendly Example App. This App serves as a guideline to see the basic design of Privacy Friendly Apps. The sourcecode is available at GitHub. For further explanations have a look at the Privacy Friendly App Guide.\n\nThe welcome screen should introduce the app and the key elements of the start page.</string>
-    <string name="welcome">Welcome</string>
-    <string name="okay">Okay</string>
-    <string name="viewhelp">View Help</string>
-    <string name="main_button_welcomedialog">Show Welcome</string>
-
-    <!-- Dialogs -->
+    <!-- ###DIALOGS### -->
     <string name="dialog_first_app_start_message">
         Using the button below, please add locations you would like to watch the weather for.\nThese can be removed at any time.
     </string>
@@ -68,5 +61,16 @@
     </string>
     <string name="dialog_add_close_button">Close</string>
     <string name="dialog_add_add_button">Add</string>
+
+    <!-- ###EXIT### -->
+    <string name="action_destroy_deletion_number_singular">
+        %s temporary location was deleted
+    </string>
+    <string name="action_destroy_deletion_number_plural">
+        %s temporary locations were deleted
+    </string>
+    <string name="action_destroy_error_on_deletion">
+        There was an unexpected error while deleting locations that were marked as not permanent
+    </string>
 
 </resources>
