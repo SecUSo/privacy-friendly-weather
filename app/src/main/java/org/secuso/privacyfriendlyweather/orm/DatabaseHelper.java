@@ -42,9 +42,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
-        if (cityDao == null) {
+        if (cityDao == null || cityToWatchDao == null) {
             try {
                 cityDao = getDao(City.class);
+                cityToWatchDao = getDao(CityToWatch.class);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -52,7 +53,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     private void fillCitiesTable() {
-        Log.d("debug_info", "Fill DB");
+        Log.d("debug_info", "Filling DB");
+        Log.d("debug_info", "Starting at:\t" + String.valueOf(System.currentTimeMillis()));
         InputStream inputStream = context.getResources().openRawResource(R.raw.city_list);
         FileReader fileReader = new FileReader();
         try {
@@ -64,6 +66,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
+        Log.d("debug_info", "Ending at:\t" + String.valueOf(System.currentTimeMillis()));
     }
 
     /**
@@ -73,6 +76,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, City.class);
+            TableUtils.createTable(connectionSource, CityToWatch.class);
             fillCitiesTable();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,6 +90,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             TableUtils.dropTable(connectionSource, City.class, false);
+            TableUtils.dropTable(connectionSource, CityToWatch.class, false);
             onCreate(database, connectionSource);
             fillCitiesTable();
         } catch (SQLException e) {
