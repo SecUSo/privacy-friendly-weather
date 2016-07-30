@@ -125,7 +125,7 @@ public class City {
      */
     @Override
     public String toString() {
-        return String.format("%s, %s", cityName, countryCode);
+        return String.format("%s (%s)", cityName, countryCode);
     }
 
 }
