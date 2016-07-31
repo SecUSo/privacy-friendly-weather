@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyweather.weather_api;
+package org.secuso.privacyfriendlyweather.http;
 
 import android.content.Context;
 
@@ -9,6 +9,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
+
 /**
  * This class implements the IHttpRequest interface. It provides HTTP requests by using Volley.
  * See: https://developer.android.com/training/volley/simple.html
@@ -16,7 +18,6 @@ import com.android.volley.toolbox.Volley;
 public class VolleyHttpRequest implements IHttpRequest {
 
     private Context context;
-    private IVolleyListener<String> listener;
 
     /**
      * Constructor.
@@ -24,19 +25,18 @@ public class VolleyHttpRequest implements IHttpRequest {
      * @param context Volley needs a context "for creating the cache dir".
      * @see Volley#newRequestQueue(Context)
      */
-    public VolleyHttpRequest(Context context, IVolleyListener<String> listener) {
+    public VolleyHttpRequest(Context context) {
         this.context = context;
-        this.listener = listener;
     }
 
     /**
-     * @see IHttpRequest#make(String, HttpType)
+     * @see IHttpRequest#make(String, HttpRequestType, IProcessHttpRequest)
      */
     @Override
-    public String make(String URL, HttpType method) {
+    public void make(String URL, HttpRequestType method, final IProcessHttpRequest requestProcessor) {
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        // Define the request method
+        // Set the request method
         int requestMethod;
         switch (method) {
             case POST:
@@ -55,24 +55,23 @@ public class VolleyHttpRequest implements IHttpRequest {
                 requestMethod = Request.Method.GET;
         }
 
-        // Execute the request
+        // Execute the request and handle the response
         StringRequest stringRequest = new StringRequest(requestMethod, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if (response.toString() != null)
-                            listener.getResult(response.toString());
+                        requestProcessor.processSuccessScenario(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        listener.getResult("");
+                        requestProcessor.processFailScenario(error);
                     }
-                });
+                }
+        );
 
         queue.add(stringRequest);
-        return null;
     }
 
 }

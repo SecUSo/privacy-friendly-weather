@@ -127,6 +127,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
+     * @return Returns all the records in the cities_to_watch table.
+     * @throws SQLException Might be thrown if there is some error while retrieving records.
+     */
+    public List<CityToWatch> getAllCitiesToWatch() throws SQLException {
+        return cityToWatchDao.queryForAll();
+    }
+
+    /**
      * Deletes all entries in the cities_to_watch table whose field persistent is set to false.
      *
      * @return Returns the number of deleted entries.

@@ -70,6 +70,11 @@
     <string name="action_destroy_deletion_number_plural">
         %s temporary locations were deleted
     </string>
+
+    <!-- ###ERRORS###-->
+    <string name="convert_to_json_error">
+        The retrieved weather data were not well-formed.
+    </string>
     <string name="action_destroy_error_on_deletion">
         There was an unexpected error while deleting locations that were marked as not permanent
     </string>
