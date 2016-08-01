@@ -12,6 +12,7 @@ public class CurrentWeatherData {
     /**
      * Constants
      */
+    public static final String COLUMN_TIME_MEASUREMENT = "time_of_measurement";
     public static final String COLUMN_WEATHER_ID = "weather_id";
     public static final String COLUMN_WEATHER_CATEGORY = "weather_category";
     public static final String COLUMN_WEATHER_DESCRIPTION = "weather_description";
@@ -26,11 +27,17 @@ public class CurrentWeatherData {
     public static final String COLUMN_TIME_SUNRISE = "time_sunrise";
     public static final String COLUMN_TIME_SUNSET = "time_sunset";
 
+    /**
+     * Database fields / member variables
+     */
     @DatabaseField(generatedId = true)
     private int id;
 
     @DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh = true, columnDefinition = "integer references cities(id) on delete cascade")
     private City city;
+
+    @DatabaseField(columnName = COLUMN_TIME_MEASUREMENT)
+    private long timeMeasurement;
 
     @DatabaseField(columnName = COLUMN_WEATHER_ID)
     private int weatherID;
@@ -62,6 +69,24 @@ public class CurrentWeatherData {
     private long timeSunrise;
     @DatabaseField(columnName = COLUMN_TIME_SUNSET)
     private long timeSunset;
+
+    /**
+     * Getters and setters
+     */
+
+    /**
+     * @return Returns the point of time when the data was measures in Unix, UTC.
+     */
+    public long getTimeMeasurement() {
+        return timeMeasurement;
+    }
+
+    /**
+     * @param timeMeasurement The point of time when the data was measured in Unix, UTC.
+     */
+    public void setTimeMeasurement(long timeMeasurement) {
+        this.timeMeasurement = timeMeasurement;
+    }
 
     /**
      * @return Returns the city that the weather data belong to.
