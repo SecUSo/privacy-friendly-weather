@@ -9,22 +9,26 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "cities")
 public class City {
 
+    /**
+     * Constants
+     */
+    public static final String COLUMN_CITY_ID = "city_id";
+    public static final String COLUMN_CITY_NAME = "city_name";
+    public static final String COLUMN_COUNTRY_CODE = "country_code";
+
+    /**
+     * Member variables
+     */
     @DatabaseField(generatedId = true)
     private int id;
 
-    @DatabaseField(columnName = "city_id")
+    @DatabaseField(columnName = COLUMN_CITY_ID)
     private int cityId;
 
-    @DatabaseField(columnName = "city_name")
+    @DatabaseField(columnName = COLUMN_CITY_NAME)
     private String cityName;
 
-    @DatabaseField(columnName = "latitude")
-    private double lat;
-
-    @DatabaseField(columnName = "longitude")
-    private double lon;
-
-    @DatabaseField(columnName = "country_code")
+    @DatabaseField(columnName = COLUMN_COUNTRY_CODE)
     private String countryCode;
 
     /**
@@ -39,15 +43,11 @@ public class City {
      * @param cityId      The ID of the city.
      * @param cityName    The name of the city.
      * @param countryCode The code of the country that the city belongs to.
-     * @param lat         Latitude.
-     * @param lon         Longitude.
      */
-    public City(int cityId, String cityName, String countryCode, double lat, double lon) {
+    public City(int cityId, String cityName, String countryCode) {
         this.cityId = cityId;
         this.cityName = cityName;
         this.countryCode = countryCode;
-        this.lat = lat;
-        this.lon = lon;
     }
 
     /**
@@ -76,34 +76,6 @@ public class City {
      */
     public void setCityName(String cityName) {
         this.cityName = cityName;
-    }
-
-    /**
-     * @return Returns the latitude.
-     */
-    public double getLat() {
-        return lat;
-    }
-
-    /**
-     * @param lat The latitude of the city to set.
-     */
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
-    /**
-     * @return Returns the longitude.
-     */
-    public double getLon() {
-        return lon;
-    }
-
-    /**
-     * @param lon The longitude of the city to set.
-     */
-    public void setLon(double lon) {
-        this.lon = lon;
     }
 
     /**

@@ -114,8 +114,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         QueryBuilder<City, Integer> queryBuilder = cityDao.queryBuilder();
 
         try {
-            queryBuilder.where().like("city_name", String.format("%s%%", cityFirstLetters));
-            queryBuilder.orderBy("city_name", true);
+            queryBuilder.where().like(City.COLUMN_CITY_NAME, String.format("%s%%", cityFirstLetters));
+            queryBuilder.orderBy(City.COLUMN_CITY_NAME, true);
             queryBuilder.limit(limit);
 
             PreparedQuery<City> preparedQuery = queryBuilder.prepare();
@@ -148,7 +148,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public City getCityByCityID(int cityID) {
         QueryBuilder<City, Integer> queryBuilder = cityDao.queryBuilder();
         try {
-            queryBuilder.where().eq("city_id", cityID);
+            queryBuilder.where().eq(City.COLUMN_CITY_ID, cityID);
             PreparedQuery<City> prepare = queryBuilder.prepare();
             List<City> cities = cityDao.query(prepare);
             return cities.size() == 0 ? null : cities.get(0);

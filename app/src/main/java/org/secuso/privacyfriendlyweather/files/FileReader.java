@@ -31,10 +31,8 @@ public class FileReader {
 
             int id = Integer.parseInt(fields[0]);
             String name = fields[1];
-            double lat = Double.parseDouble(fields[2]);
-            double lon = Double.parseDouble(fields[3]);
-            String countryCode = fields[4];
-            cities.add(new City(id, name, countryCode, lat, lon));
+            String countryCode = fields[2];
+            cities.add(new City(id, name, countryCode));
         }
         br.close();
         return cities;
