@@ -159,6 +159,18 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
+     * @return Returns all current weather information.
+     */
+    public List<CurrentWeatherData> getCurrentWeatherData() {
+        try {
+            return currentWeatherDataDao.queryForAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    /**
      * Deletes all entries in the cities_to_watch table whose field persistent is set to false.
      *
      * @return Returns the number of deleted entries.

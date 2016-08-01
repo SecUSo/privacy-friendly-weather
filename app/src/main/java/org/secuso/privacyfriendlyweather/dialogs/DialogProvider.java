@@ -190,6 +190,7 @@ public class DialogProvider {
 
         // dismissDialog == true => A city was added, so show a message
         if (dismissDialog) {
+            // TODO: Update the overview list when a new city is added
             String successMsg = String.format(SUCCESS_MSG_TEMPLATE, addedCity.getCityName(), addedCity.getCountryCode());
             Toast.makeText(context, successMsg, Toast.LENGTH_LONG).show();
         }

@@ -101,9 +101,9 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
                 weatherData.setCity(dbHelper.getCityByCityID(item.getInt("id")));
                 // TODO: Handle the case when the city is null: Extract the data from the response and create a new City record
                 dbHelper.getCurrentWeatherDataDao().create(weatherData);
-                
+
                 // Update the UI
-                UiUpdater uiUpdater = new UiUpdater();
+                UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
                 uiUpdater.updateCityList();
             }
         } catch (JSONException | SQLException e) {
