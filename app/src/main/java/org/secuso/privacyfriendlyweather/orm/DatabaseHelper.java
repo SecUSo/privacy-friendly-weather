@@ -36,6 +36,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      */
     private Dao<City, Integer> cityDao;
     private Dao<CityToWatch, Integer> cityToWatchDao;
+    private Dao<CurrentWeatherData, Integer> currentWeatherDataDao;
 
     /**
      * @see OrmLiteSqliteOpenHelper
@@ -47,6 +48,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             try {
                 cityDao = getDao(City.class);
                 cityToWatchDao = getDao(CityToWatch.class);
+                currentWeatherDataDao = getDao(CurrentWeatherData.class);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -159,6 +161,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      */
     public Dao<CityToWatch, Integer> getCityToWatchDao() {
         return cityToWatchDao;
+    }
+
+    /**
+     * @return Returns an instance of the DAO.
+     */
+    public Dao<CurrentWeatherData, Integer> getCurrentWeatherDataDao() {
+        return currentWeatherDataDao;
     }
 
 }

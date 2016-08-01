@@ -12,7 +12,11 @@ import java.sql.SQLException;
 public class OrmLiteDatabaseConfigApp extends OrmLiteConfigUtil {
 
     // All the classes to include in the config
-    private static final Class<?>[] classes = new Class[]{City.class, CityToWatch.class};
+    private static final Class<?>[] classes = new Class[]{
+            City.class,
+            CityToWatch.class,
+            CurrentWeatherData.class
+    };
 
     public static void main(String[] args) throws IOException, SQLException {
         String currentDirectory = "user.dir";
