@@ -13,6 +13,7 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.ui.UiUpdater;
 
 import java.sql.SQLException;
 
@@ -97,13 +98,13 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
             for (int i = 0; i < list.length(); i++) {
                 JSONObject item = new JSONObject(list.get(i).toString());
                 CurrentWeatherData weatherData = extractDataForItem(item);
-                // The city is still to be set
-                City city = dbHelper.getCityByCityID(item.getInt("id"));
-                // TODO: Handle the case when the city is null: Extract the data from the response
-                // and create a new City entry
-                weatherData.setCity(city);
-                Dao<CurrentWeatherData, Integer> currentWeatherDataDao = dbHelper.getCurrentWeatherDataDao();
-                currentWeatherDataDao.create(weatherData);
+                weatherData.setCity(dbHelper.getCityByCityID(item.getInt("id")));
+                // TODO: Handle the case when the city is null: Extract the data from the response and create a new City record
+                dbHelper.getCurrentWeatherDataDao().create(weatherData);
+                
+                // Update the UI
+                UiUpdater uiUpdater = new UiUpdater();
+                uiUpdater.updateCityList();
             }
         } catch (JSONException | SQLException e) {
             e.printStackTrace();

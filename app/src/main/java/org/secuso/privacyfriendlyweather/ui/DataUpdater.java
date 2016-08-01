@@ -8,9 +8,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * This class provides various methods for updating the UI, e.g. with the latest data.
+ * This class provides various methods for updating data which are to be displayed in the UI,
+ * e.g. with the latest weather data or forecasts..
  */
-public class UIUpdater {
+public class DataUpdater {
 
     /**
      * Constants.
@@ -27,7 +28,7 @@ public class UIUpdater {
      *
      * @param dbHelper A DatabaseHelper instance in order to perform database queries.
      */
-    public UIUpdater(DatabaseHelper dbHelper) {
+    public DataUpdater(DatabaseHelper dbHelper) {
         this.dbHelper = dbHelper;
     }
 
@@ -35,7 +36,7 @@ public class UIUpdater {
      * @param apiToUse An implementation of IHttpRequestForCityList which performs the HTTP request
      *                 to the weather API.
      */
-    public void updateCitiesList(IHttpRequestForCityList apiToUse) {
+    public void updateCurrentWeatherData(IHttpRequestForCityList apiToUse) {
         try {
             // Clear the CurrentWeatherData table
             int count = dbHelper.clearCurrentWeatherDataTable();
