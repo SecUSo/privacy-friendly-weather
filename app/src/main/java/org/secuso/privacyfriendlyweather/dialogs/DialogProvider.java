@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -121,7 +122,6 @@ public class DialogProvider {
                     Log.d(DEBUG_TAG, "ID: " + addDialogSelectedCity);
                 }
             });
-            // TODO: Show keyboard by default
 
             addDialogCbSave = new CheckBox(context);
             addDialogCbSave.setText(R.string.dialog_add_checkbox_save);
@@ -273,6 +273,17 @@ public class DialogProvider {
                         }
                     }
                 });
+            }
+        });
+
+        // Open the keyboard by default when the dialog is opened (saves one touch)
+        // Thanks to http://stackoverflow.com/questions/2403632/android-show-soft-keyboard-automatically-when-focus-is-on-an-edittext
+        addDialogEdtLocation.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                }
             }
         });
 

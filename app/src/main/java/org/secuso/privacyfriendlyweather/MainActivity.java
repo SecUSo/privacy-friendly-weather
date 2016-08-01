@@ -34,7 +34,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(DEBUG_TAG, "start");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
