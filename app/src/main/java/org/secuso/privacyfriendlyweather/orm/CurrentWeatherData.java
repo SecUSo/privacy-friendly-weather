@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 /**
  * This class represents the database model for current weather data of cities.
  */
-@DatabaseTable(tableName = "cities")
+@DatabaseTable(tableName = "current_weather_data")
 public class CurrentWeatherData {
 
     /**
@@ -37,7 +37,7 @@ public class CurrentWeatherData {
     private City city;
 
     @DatabaseField(columnName = COLUMN_TIME_MEASUREMENT)
-    private long timeMeasurement;
+    private long timestamp;
 
     @DatabaseField(columnName = COLUMN_WEATHER_ID)
     private int weatherID;
@@ -77,15 +77,15 @@ public class CurrentWeatherData {
     /**
      * @return Returns the point of time when the data was measures in Unix, UTC.
      */
-    public long getTimeMeasurement() {
-        return timeMeasurement;
+    public long getTimestamp() {
+        return timestamp;
     }
 
     /**
-     * @param timeMeasurement The point of time when the data was measured in Unix, UTC.
+     * @param timestamp The point of time when the data was measured in Unix, UTC.
      */
-    public void setTimeMeasurement(long timeMeasurement) {
-        this.timeMeasurement = timeMeasurement;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     /**

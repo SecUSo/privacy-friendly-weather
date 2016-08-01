@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.weather_api;
 
 import org.secuso.privacyfriendlyweather.orm.CityToWatch;
+import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 
 import java.util.List;
 
@@ -11,8 +12,8 @@ import java.util.List;
 public interface IHttpRequestForCityList {
 
     /**
-     * @param cities A list of CityToWatch objects to get the latest weather data for. These data
-     *               are then displayed on the front page of the app.
+     * @param cities   A list of CityToWatch objects to get the latest weather data for. These data
+     *                 are then displayed on the front page of the app.
      */
     void perform(List<CityToWatch> cities);
 

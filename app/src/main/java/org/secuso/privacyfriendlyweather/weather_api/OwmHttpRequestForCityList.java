@@ -7,6 +7,7 @@ import org.secuso.privacyfriendlyweather.http.HttpRequestType;
 import org.secuso.privacyfriendlyweather.http.IHttpRequest;
 import org.secuso.privacyfriendlyweather.http.VolleyHttpRequest;
 import org.secuso.privacyfriendlyweather.orm.CityToWatch;
+import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,15 @@ import java.util.List;
 public class OwmHttpRequestForCityList implements IHttpRequestForCityList {
 
     private Context context;
+    private DatabaseHelper dbHelper;
 
-    public OwmHttpRequestForCityList(Context context) {
+    /**
+     * @param context
+     * @param dbHelper
+     */
+    public OwmHttpRequestForCityList(Context context, DatabaseHelper dbHelper) {
         this.context = context;
+        this.dbHelper = dbHelper;
     }
 
     /**
@@ -51,7 +58,7 @@ public class OwmHttpRequestForCityList implements IHttpRequestForCityList {
                 groupID,
                 OwmApiData.API_KEY
         );
-        httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmUpdateCityListRequest(context));
+        httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmUpdateCityListRequest(context, dbHelper));
     }
 
 }

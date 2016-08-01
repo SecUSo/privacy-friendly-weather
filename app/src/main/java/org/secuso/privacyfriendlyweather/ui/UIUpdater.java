@@ -37,6 +37,9 @@ public class UIUpdater {
      */
     public void updateCitiesList(IHttpRequestForCityList apiToUse) {
         try {
+            // Clear the CurrentWeatherData table
+            int count = dbHelper.clearCurrentWeatherDataTable();
+            // TODO: Get only those cities where the last CurrentWeatherData is older than one hour
             // Get all the added cities and build the groupID for the HTTP request
             List<CityToWatch> cityToWatches = dbHelper.getCityToWatchDao().queryForAll();
             apiToUse.perform(cityToWatches);

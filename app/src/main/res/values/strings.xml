@@ -73,7 +73,10 @@
 
     <!-- ###ERRORS###-->
     <string name="convert_to_json_error">
-        The retrieved weather data were not well-formed.
+        The retrieved weather data were not well-formed
+    </string>
+    <string name="insert_into_db_error">
+        There was an error while writing the data into the database
     </string>
     <string name="action_destroy_error_on_deletion">
         There was an unexpected error while deleting locations that were marked as not permanent

@@ -44,7 +44,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
-        if (cityDao == null || cityToWatchDao == null) {
+        if (cityDao == null || cityToWatchDao == null || currentWeatherDataDao == null) {
             try {
                 cityDao = getDao(City.class);
                 cityToWatchDao = getDao(CityToWatch.class);
@@ -80,6 +80,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, City.class);
             TableUtils.createTable(connectionSource, CityToWatch.class);
+            TableUtils.createTable(connectionSource, CurrentWeatherData.class);
             fillCitiesTable();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,6 +95,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.dropTable(connectionSource, City.class, false);
             TableUtils.dropTable(connectionSource, CityToWatch.class, false);
+            TableUtils.dropTable(connectionSource, CurrentWeatherData.class, false);
             onCreate(database, connectionSource);
             fillCitiesTable();
         } catch (SQLException e) {
@@ -137,6 +139,26 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
+     * Retrieves a city by its cityID.
+     *
+     * @param cityID The cityID (value in the column city_id).
+     * @return Returns the city that matches the city ID or null in case non was found or an
+     * SQLException occurred.
+     */
+    public City getCityByCityID(int cityID) {
+        QueryBuilder<City, Integer> queryBuilder = cityDao.queryBuilder();
+        try {
+            queryBuilder.where().eq("city_id", cityID);
+            PreparedQuery<City> prepare = queryBuilder.prepare();
+            List<City> cities = cityDao.query(prepare);
+            return cities.size() == 0 ? null : cities.get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * Deletes all entries in the cities_to_watch table whose field persistent is set to false.
      *
      * @return Returns the number of deleted entries.
@@ -146,6 +168,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public int deleteNonPersistentCitiesToWatch() throws SQLException {
         DeleteBuilder<CityToWatch, Integer> deletionQuery = cityToWatchDao.deleteBuilder();
         deletionQuery.where().eq(CityToWatch.COLUMN_STORE_PERSISTENT, false);
+        return deletionQuery.delete();
+    }
+
+    /**
+     * Clears the table that corresponds to CurrentWeatherData.
+     *
+     * @return Returns the number of deleted rows.
+     * @throws SQLException This exception might be thrown while cleating the table.
+     */
+    public int clearCurrentWeatherDataTable() throws SQLException {
+        DeleteBuilder<CurrentWeatherData, Integer> deletionQuery = currentWeatherDataDao.deleteBuilder();
         return deletionQuery.delete();
     }
 
