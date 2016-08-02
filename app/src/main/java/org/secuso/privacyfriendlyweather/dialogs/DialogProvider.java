@@ -96,11 +96,7 @@ public class DialogProvider {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    final long LIST_LIMIT = 8L;
+                    final long LIST_LIMIT = 8;
                     addDialogSelectedCity = null;
                     if (dbHelper != null) {
                         String content = addDialogEdtLocation.getText().toString();
@@ -115,6 +111,11 @@ public class DialogProvider {
                             addDialogEdtLocation.dismissDropDown();
                         }
                     }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
                 }
             });
             addDialogEdtLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -193,7 +194,6 @@ public class DialogProvider {
 
         // dismissDialog == true => A city was added, so show a message
         if (dismissDialog) {
-            // TODO: Update the overview list when a new city is added
             IHttpRequestForCityList requestForCityList = new OwmHttpRequestForCityToList(context, dbHelper);
             List<CityToWatch> toAdd = new ArrayList<>();
             toAdd.add(newCityToWatch);
