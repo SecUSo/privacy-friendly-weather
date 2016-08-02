@@ -15,7 +15,7 @@ import org.secuso.privacyfriendlyweather.dialogs.DialogProvider;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.preferences.PreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.DataUpdater;
-import org.secuso.privacyfriendlyweather.weather_api.OwmHttpRequestForCityList;
+import org.secuso.privacyfriendlyweather.weather_api.OwmHttpRequestForUpdatingCityList;
 
 import java.sql.SQLException;
 
@@ -66,8 +66,8 @@ public class MainActivity extends BaseActivity {
         handleFloatingButtonAddLocationClick(this);
 
         // Update the cities list
-        DataUpdater uiUpdater = new DataUpdater(dbHelper);
-        uiUpdater.updateCurrentWeatherData(new OwmHttpRequestForCityList(this, dbHelper));
+        DataUpdater dataUpdater = new DataUpdater(dbHelper);
+        dataUpdater.updateCurrentWeatherData(new OwmHttpRequestForUpdatingCityList(this, dbHelper));
     }
 
     @Override

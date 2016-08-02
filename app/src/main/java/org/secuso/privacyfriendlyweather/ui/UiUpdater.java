@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class provides the functionality to update different UI components. This is useful when
+ * This singleton class provides the functionality to update different UI components. This is useful when
  * database records were inserted or deleted.
  */
 public class UiUpdater {
@@ -25,23 +25,23 @@ public class UiUpdater {
     /**
      * Member variables
      */
-    Context context;
     private DatabaseHelper dbHelper;
-    private List<CityOverviewListItem> overviewListItems;
+    // Make it static because only one list shall exist during runtime
+    private static List<CityOverviewListItem> overviewListItems = null;
 
     /**
-     * Constructor.
-     *
+     * @param context  The context in which the UI updater is to be used.
      * @param dbHelper A DatabaseHelper instance which is used to retrieve data from the database.
      */
     public UiUpdater(Context context, DatabaseHelper dbHelper) {
-        this.context = context;
         this.dbHelper = dbHelper;
-        // Initialize the overview list
-        overviewListItems = new ArrayList<>();
-        ListView listView = (ListView) ((Activity) context).findViewById(R.id.listViewCities);
-        CityOverviewListAdapter listAdapter = new CityOverviewListAdapter(context, R.layout.city_overview_list_item, overviewListItems);
-        listView.setAdapter(listAdapter);
+        // Initialize the overview list and corresponding the visual component only once
+        if (overviewListItems == null) {
+            overviewListItems = new ArrayList<>();
+            ListView listView = (ListView) ((Activity) context).findViewById(R.id.listViewCities);
+            CityOverviewListAdapter listAdapter = new CityOverviewListAdapter(context, R.layout.city_overview_list_item, overviewListItems);
+            listView.setAdapter(listAdapter);
+        }
     }
 
     /**
@@ -75,10 +75,22 @@ public class UiUpdater {
     }
 
     /**
-     * @return Returns the list that provides the data for the overview list.
+     * This private method serves the purpose of encapsulating the logic of how a list item looks.
+     *
+     * @param data The data that will be used to generate the new list item.
+     * @return Returns the list item that can be added to the overview.
      */
-    public List<CityOverviewListItem> getOverviewListItems() {
-        return overviewListItems;
+    private CityOverviewListItem createNewCityOverviewListItem(CurrentWeatherData data) {
+        String text = String.format("%s, %s°C", data.getCity().getCityName(), Math.round(data.getTemperatureCurrent()));
+        int img = getImageResourceForWeatherCategory(data.getWeatherID());
+        return new CityOverviewListItem(text, img);
+    }
+
+    /**
+     * @param weatherData The current weather data that will be used to generate a new item.
+     */
+    public void addItemToOverview(CurrentWeatherData weatherData) {
+        overviewListItems.add(createNewCityOverviewListItem(weatherData));
     }
 
     /**
@@ -87,9 +99,7 @@ public class UiUpdater {
     public void updateCityList() {
         List<CurrentWeatherData> currentWeatherData = dbHelper.getCurrentWeatherData();
         for (CurrentWeatherData data : currentWeatherData) {
-            String text = String.format("%s, %s°C", data.getCity().getCityName(), Math.round(data.getTemperatureCurrent()));
-            int img = getImageResourceForWeatherCategory(data.getWeatherID());
-            overviewListItems.add(new CityOverviewListItem(text, img));
+            overviewListItems.add(createNewCityOverviewListItem(data));
         }
     }
 

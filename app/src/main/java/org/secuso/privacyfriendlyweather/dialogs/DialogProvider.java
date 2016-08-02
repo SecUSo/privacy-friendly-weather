@@ -27,6 +27,8 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.CityToWatch;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
+import org.secuso.privacyfriendlyweather.weather_api.OwmHttpRequestForCityToList;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -146,13 +148,14 @@ public class DialogProvider {
         final String SUCCESS_MSG_TEMPLATE = context.getResources().getString(R.string.dialog_add_added_successfully_template);
         boolean dismissDialog;
         City addedCity = null;
+        CityToWatch newCityToWatch = new CityToWatch();
         String trimmedInput = addDialogEdtLocation.getText().toString().trim();
 
         if (trimmedInput.length() > 0) {
             boolean storePermanent = addDialogCbSave.isChecked();
             // User selected a city from the dropdown, this is the nice case
             if (addDialogSelectedCity != null) {
-                CityToWatch newCityToWatch = new CityToWatch(addDialogSelectedCity, storePermanent);
+                newCityToWatch = new CityToWatch(addDialogSelectedCity, storePermanent);
                 dbHelper.getCityToWatchDao().create(newCityToWatch);
                 addedCity = addDialogSelectedCity;
                 dismissDialog = true;
@@ -191,6 +194,11 @@ public class DialogProvider {
         // dismissDialog == true => A city was added, so show a message
         if (dismissDialog) {
             // TODO: Update the overview list when a new city is added
+            IHttpRequestForCityList requestForCityList = new OwmHttpRequestForCityToList(context, dbHelper);
+            List<CityToWatch> toAdd = new ArrayList<>();
+            toAdd.add(newCityToWatch);
+            requestForCityList.perform(toAdd);
+
             String successMsg = String.format(SUCCESS_MSG_TEMPLATE, addedCity.getCityName(), addedCity.getCountryCode());
             Toast.makeText(context, successMsg, Toast.LENGTH_LONG).show();
         }

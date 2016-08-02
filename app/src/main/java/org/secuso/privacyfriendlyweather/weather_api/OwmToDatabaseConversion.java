@@ -1,7 +1,7 @@
 package org.secuso.privacyfriendlyweather.weather_api;
 
 /**
- * Created by ptrck on 01/08/16.
+ * This class implements the IApiToDatabaseConversion interface for the OpenWeatherMap API.
  */
 public class OwmToDatabaseConversion implements IApiToDatabaseConversion {
 
