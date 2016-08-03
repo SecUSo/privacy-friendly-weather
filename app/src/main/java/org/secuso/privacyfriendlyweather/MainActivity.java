@@ -37,7 +37,9 @@ public class MainActivity extends BaseActivity {
     private ServiceReceiver createDatabaseReceiver;
     private ProgressDialog progressAddDialog;
     private AlertDialog addLocationDialog;
-    // It is safer to initialize this to true;
+    private boolean isProgressDialogOpen = false;
+    // It is safer to initialize this to true; if it is not, in the worst case a progress dialog
+    // will appear on add location
     private boolean canOpenAddDialog = true;
 
 
@@ -126,6 +128,7 @@ public class MainActivity extends BaseActivity {
                 // database is setup, the receiver will close this dialog and show the add location
                 // dialog
                 if (!canOpenAddDialog) {
+                    isProgressDialogOpen = true;
                     progressAddDialog.setTitle(getResources().getString(R.string.progress_dialog_add_location_title));
                     progressAddDialog.setMessage(getResources().getString(R.string.progress_dialog_add_location_msg));
                     progressAddDialog.setCancelable(false);
@@ -161,9 +164,10 @@ public class MainActivity extends BaseActivity {
                 // Next time the floating action button is clicked the add location dialog will
                 // appear
                 canOpenAddDialog = true;
-
-                progressAddDialog.dismiss();
-                addLocationDialog.show();
+                if (isProgressDialogOpen) {
+                    progressAddDialog.dismiss();
+                    addLocationDialog.show();
+                }
             }
         });
     }
