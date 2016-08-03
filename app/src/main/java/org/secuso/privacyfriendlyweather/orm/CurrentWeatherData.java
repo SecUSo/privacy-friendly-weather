@@ -75,6 +75,13 @@ public class CurrentWeatherData {
      */
 
     /**
+     * @return Returns the ID of the record (Fwhich uniquely identifies the record).
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * @return Returns the point of time when the data was measures in Unix, UTC.
      */
     public long getTimestamp() {

@@ -51,6 +51,13 @@ public class City {
     }
 
     /**
+     * @return Returns the unique ID of the record.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * @return Returns the ID of the city.
      */
     public int getCityId() {

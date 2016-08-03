@@ -28,4 +28,5 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-core:5.0'
     compile 'com.j256.ormlite:ormlite-android:5.0'
     compile 'com.android.volley:volley:1.0.0'
+    compile 'com.android.support:recyclerview-v7:23.2.0'
 }

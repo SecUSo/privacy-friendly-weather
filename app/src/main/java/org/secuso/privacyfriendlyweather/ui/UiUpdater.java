@@ -2,17 +2,21 @@ package org.secuso.privacyfriendlyweather.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.widget.ListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.ui.RecycleList.CityOverviewListItem;
+import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
+import org.secuso.privacyfriendlyweather.ui.RecycleList.SimpleItemTouchHelperCallback;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This singleton class provides the functionality to update different UI components. This is useful when
+ * This class provides the functionality to update different UI components. This is useful when
  * database records were inserted or deleted.
  */
 public class UiUpdater {
@@ -23,11 +27,13 @@ public class UiUpdater {
     private final String DEBUG_TAG = "ui_updated_debug_tag";
 
     /**
-     * Member variables
+     * Member variables (makes sense to have them only once => static)
      */
+    private RecyclerView recyclerView;
+    private RecyclerOverviewListAdapter adapter;
+    private ItemTouchHelper.Callback callback;
+    private ItemTouchHelper touchHelper;
     private DatabaseHelper dbHelper;
-    // Make it static because only one list shall exist during runtime
-    private static List<CityOverviewListItem> overviewListItems = null;
 
     /**
      * @param context  The context in which the UI updater is to be used.
@@ -35,13 +41,17 @@ public class UiUpdater {
      */
     public UiUpdater(Context context, DatabaseHelper dbHelper) {
         this.dbHelper = dbHelper;
-        // Initialize the overview list and corresponding the visual component only once
-        if (overviewListItems == null) {
-            overviewListItems = new ArrayList<>();
-            ListView listView = (ListView) ((Activity) context).findViewById(R.id.listViewCities);
-            CityOverviewListAdapter listAdapter = new CityOverviewListAdapter(context, R.layout.city_overview_list_item, overviewListItems);
-            listView.setAdapter(listAdapter);
-        }
+        // Initialize the overview list and corresponding the visual component
+        recyclerView = (RecyclerView) ((Activity) context).findViewById(R.id.list_view_cities);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        adapter = new RecyclerOverviewListAdapter(dbHelper);
+        recyclerView.setAdapter(adapter);
+
+        callback = new SimpleItemTouchHelperCallback(adapter);
+        touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
     }
 
     /**
@@ -75,31 +85,27 @@ public class UiUpdater {
     }
 
     /**
-     * This private method serves the purpose of encapsulating the logic of how a list item looks.
-     *
-     * @param data The data that will be used to generate the new list item.
-     * @return Returns the list item that can be added to the overview.
-     */
-    private CityOverviewListItem createNewCityOverviewListItem(CurrentWeatherData data) {
-        String text = String.format("%s, %s°C", data.getCity().getCityName(), Math.round(data.getTemperatureCurrent()));
-        int img = getImageResourceForWeatherCategory(data.getWeatherID());
-        return new CityOverviewListItem(text, img);
-    }
-
-    /**
      * @param weatherData The current weather data that will be used to generate a new item.
      */
     public void addItemToOverview(CurrentWeatherData weatherData) {
-        overviewListItems.add(createNewCityOverviewListItem(weatherData));
+        String text = String.format("%s, %s°C", weatherData.getCity().getCityName(), Math.round(weatherData.getTemperatureCurrent()));
+        int img = getImageResourceForWeatherCategory(weatherData.getWeatherID());
+        RecyclerOverviewListAdapter.getListItems().add(new CityOverviewListItem(weatherData.getId(), text, img));
     }
 
     /**
      * Retrieves the latest data from the database and updates the list in the main activity.
      */
     public void updateCityList() {
+        // Clear the list
+        // See TODO in DataUpdater (when this TODO is implemented the entire list cannot just be cleared)
+        RecyclerOverviewListAdapter.getListItems().clear();
+        // Add the new items
         List<CurrentWeatherData> currentWeatherData = dbHelper.getCurrentWeatherData();
         for (CurrentWeatherData data : currentWeatherData) {
-            overviewListItems.add(createNewCityOverviewListItem(data));
+            String text = String.format("%s, %s°C", data.getCity().getCityName(), Math.round(data.getTemperatureCurrent()));
+            int img = getImageResourceForWeatherCategory(data.getWeatherID());
+            RecyclerOverviewListAdapter.getListItems().add(new CityOverviewListItem(data.getId(), text, img));
         }
     }
 

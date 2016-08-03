@@ -15,12 +15,11 @@
     tools:context="org.secuso.privacyfriendlyweather.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <ListView
-        android:id="@+id/listViewCities"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_view_cities"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:divider="@null"
-        android:dividerHeight="0dp" />
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

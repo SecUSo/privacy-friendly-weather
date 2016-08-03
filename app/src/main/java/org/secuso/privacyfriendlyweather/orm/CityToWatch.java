@@ -14,6 +14,7 @@ public class CityToWatch {
     /**
      * Column names
      */
+    public static final String CITY_ID = "city_id";
     public static final String COLUMN_STORE_PERSISTENT = "persistent";
 
     /**
@@ -22,7 +23,7 @@ public class CityToWatch {
     @DatabaseField(generatedId = true)
     private int id;
 
-    @DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh = true, columnDefinition = "integer references cities(id) on delete cascade")
+    @DatabaseField(columnName = CITY_ID, canBeNull = false, foreign = true, foreignAutoRefresh = true, columnDefinition = "integer references cities(id) on delete cascade")
     private City city;
 
     @DatabaseField(columnName = COLUMN_STORE_PERSISTENT)

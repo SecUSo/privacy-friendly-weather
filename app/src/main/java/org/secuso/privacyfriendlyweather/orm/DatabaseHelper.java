@@ -172,6 +172,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
+     * Retrieves a CurrentWeatherData record by ID.
+     *
+     * @param ID The ID to get the record for.
+     * @return Either returns an instance of CurrentWeatherData if the record was found or null
+     * instead.
+     * @throws SQLException This exception is thrown if some error during querying the database
+     *                      occurs.
+     */
+    public CurrentWeatherData getCurrentWeatherDataByID(final int ID) throws SQLException {
+        QueryBuilder<CurrentWeatherData, Integer> queryBuilder = currentWeatherDataDao.queryBuilder();
+        queryBuilder.where().eq("id", ID);
+        PreparedQuery<CurrentWeatherData> prepare = queryBuilder.prepare();
+        List<CurrentWeatherData> result = currentWeatherDataDao.query(prepare);
+        return (result.size() == 0) ? null : result.get(0);
+    }
+
+    /**
      * @return Returns all current weather information.
      */
     public List<CurrentWeatherData> getCurrentWeatherData() {
@@ -205,6 +222,34 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public int clearCurrentWeatherDataTable() throws SQLException {
         DeleteBuilder<CurrentWeatherData, Integer> deletionQuery = currentWeatherDataDao.deleteBuilder();
         return deletionQuery.delete();
+    }
+
+    /**
+     * Deletes an entry from the CurrentWeatherData table.
+     *
+     * @param ID The ID that identifies the record to delete.
+     * @return Returns the number of deleted row which can be either 0 (record could not be found)
+     * or 1 (record was deleted),
+     * @throws SQLException This exception is thrown if the deletion query could not be executed.
+     */
+    public int deleteCurrentWeatherRecordByID(final int ID) throws SQLException {
+        DeleteBuilder<CurrentWeatherData, Integer> deleteQuery = currentWeatherDataDao.deleteBuilder();
+        deleteQuery.where().eq("ID", ID);
+        return deleteQuery.delete();
+    }
+
+    /**
+     * Deletes an entry from the CityToWatch table.
+     *
+     * @param CITY_TO_WATCH_ID The ID of the city that identifies the record to delete.
+     * @return Returns the number of deleted row which can be either 0 (record could not be found)
+     * or 1 (record was deleted),
+     * @throws SQLException This exception is thrown if the deletion query could not be executed.
+     */
+    public int deleteCityToWatchRecordByCityID(final int CITY_TO_WATCH_ID) throws SQLException {
+        DeleteBuilder<CityToWatch, Integer> deleteQuery = cityToWatchDao.deleteBuilder();
+        deleteQuery.where().eq(CityToWatch.CITY_ID, CITY_TO_WATCH_ID);
+        return deleteQuery.delete();
     }
 
     /**
