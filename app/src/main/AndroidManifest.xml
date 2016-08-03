@@ -48,6 +48,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
+        <service
+            android:name=".services.CreateDatabaseService"
+            android:exported="false" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>

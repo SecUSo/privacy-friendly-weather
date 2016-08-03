@@ -48,6 +48,10 @@
     </string>
     <string name="dialog_first_app_help_button">Help</string>
     <string name="dialog_first_app_close_button">Close</string>
+
+    <string name="progress_dialog_add_location_title">Setting up database...</string>
+    <string name="progress_dialog_add_location_msg">Please wait a few seconds</string>
+
     <string name="dialog_add_label">Enter the location to add:</string>
     <string name="dialog_add_checkbox_save">Save this location permanently</string>
     <string name="dialog_add_textedit_error">Please enter a valid location!</string>
