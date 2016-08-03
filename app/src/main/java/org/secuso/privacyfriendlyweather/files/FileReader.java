@@ -15,10 +15,9 @@ import java.util.List;
 public class FileReader {
 
     /**
-     *
-     * @param is
-     * @return
-     * @throws IOException
+     * @param is The input stream of the file to read.
+     * @return Returns a list of City instances.
+     * @throws IOException In case the file cannot be read this exception will be thrown.
      */
     public List<City> readCitiesFromFile(InputStream is) throws IOException {
         List<City> cities = new ArrayList<>();
