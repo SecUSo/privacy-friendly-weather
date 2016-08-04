@@ -79,41 +79,11 @@ public class UiUpdater {
     }
 
     /**
-     * @param categoryNumber The category number. See IApiToDatabaseConversion#WeatherCategories
-     *                       for details.
-     * @return Returns the image resource that belongs to the given category number.
-     */
-    private int getImageResourceForWeatherCategory(int categoryNumber) {
-        switch (categoryNumber) {
-            case 10:
-                return R.drawable.weather_icon_sunny;
-            case 20:
-                return R.drawable.weather_icon_sunny_with_clouds;
-            case 30:
-                return R.drawable.weather_icon_cloudy_scattered;
-            case 40:
-                return R.drawable.weather_icon_cloudy_broken;
-            case 50:
-                return R.drawable.weather_icon_shower_rain;
-            case 60:
-                return R.drawable.weather_icon_rain;
-            case 70:
-                return R.drawable.weather_icon_thunderstorm;
-            case 80:
-                return R.drawable.weather_icon_snow;
-            case 90:
-                return R.drawable.weather_icon_foggy;
-            default:
-                return R.drawable.weather_icon_sunny_with_clouds;
-        }
-    }
-
-    /**
      * @param weatherData The current weather data that will be used to generate a new item.
      */
     public void addItemToOverview(CurrentWeatherData weatherData) {
         String text = String.format("%s, %s°C", weatherData.getCity().getCityName(), Math.round(weatherData.getTemperatureCurrent()));
-        int img = getImageResourceForWeatherCategory(weatherData.getWeatherID());
+        int img = UiResourceProvider.getIconResourceForWeatherCategory(weatherData.getWeatherID());
         RecyclerOverviewListAdapter.getListItems().add(new CityOverviewListItem(weatherData.getId(), text, img));
     }
 
@@ -128,7 +98,7 @@ public class UiUpdater {
         List<CurrentWeatherData> currentWeatherData = dbHelper.getCurrentWeatherData();
         for (CurrentWeatherData data : currentWeatherData) {
             String text = String.format("%s, %s°C", data.getCity().getCityName(), Math.round(data.getTemperatureCurrent()));
-            int img = getImageResourceForWeatherCategory(data.getWeatherID());
+            int img = UiResourceProvider.getIconResourceForWeatherCategory(data.getWeatherID());
             RecyclerOverviewListAdapter.getListItems().add(new CityOverviewListItem(data.getId(), text, img));
         }
     }

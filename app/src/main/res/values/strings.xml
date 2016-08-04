@@ -43,7 +43,14 @@
     <string name="pref_example_summary">Example Summary</string>
 
     <!-- ###CITY_WEATHER_ACTIVIY### -->
-    <string name="title_activity_city_weather">Weather Details</string>
+    <string name="activity_city_weather_iv_description">An image that fits the weather category</string>
+    <string name="activity_city_weather_iv_title">Weather Details</string>
+    <string name="activity_city_weather_tv_category">Weather:</string>
+    <string name="activity_city_weather_tv_humidity">Humidity:</string>
+    <string name="activity_city_weather_tv_pressure">Pressure:</string>
+    <string name="activity_city_weather_tv_wind_speed">Wind Speed:</string>
+    <string name="activity_city_weather_tv_sunrise">Time Sunrise:</string>
+    <string name="activity_city_weather_tv_sunset">Time Sunset:</string>
 
     <!-- ###DIALOGS### -->
     <string name="dialog_first_app_start_message">
@@ -52,7 +59,7 @@
     <string name="dialog_first_app_help_button">Help</string>
     <string name="dialog_first_app_close_button">Close</string>
 
-    <string name="progress_dialog_add_location_title">Setting up database...</string>
+    <string name="progress_dialog_add_location_title">Setting up database…</string>
     <string name="progress_dialog_add_location_msg">Please wait a few seconds</string>
 
     <string name="dialog_add_label">Enter the location to add:</string>
