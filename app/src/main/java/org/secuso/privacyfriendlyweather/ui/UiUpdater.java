@@ -5,11 +5,15 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityOverviewListItem;
+import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerItemClickListener;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.SimpleItemTouchHelperCallback;
 
@@ -48,6 +52,14 @@ public class UiUpdater {
 
         adapter = new RecyclerOverviewListAdapter(dbHelper);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Log.d(DEBUG_TAG, "touch");
+                    }
+                })
+        );
 
         callback = new SimpleItemTouchHelperCallback(adapter);
         touchHelper = new ItemTouchHelper(callback);
