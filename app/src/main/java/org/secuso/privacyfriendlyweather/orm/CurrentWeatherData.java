@@ -1,15 +1,16 @@
 package org.secuso.privacyfriendlyweather.orm;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
-import java.io.Serializable;
 
 /**
  * This class represents the database model for current weather data of cities.
  */
 @DatabaseTable(tableName = "current_weather_data")
-public class CurrentWeatherData implements Serializable {
+public class CurrentWeatherData implements Parcelable {
 
     /**
      * Constants
@@ -71,6 +72,19 @@ public class CurrentWeatherData implements Serializable {
     private long timeSunrise;
     @DatabaseField(columnName = COLUMN_TIME_SUNSET)
     private long timeSunset;
+
+    /**
+     * Constructors
+     */
+    /**
+     * Constructor.
+     */
+    public CurrentWeatherData() {
+    }
+
+    public CurrentWeatherData(Parcel in) {
+        readFromParcel(in);
+    }
 
     /**
      * Getters and setters
@@ -296,5 +310,86 @@ public class CurrentWeatherData implements Serializable {
     public void setTimeSunset(long timeSunset) {
         this.timeSunset = timeSunset;
     }
+
+    /**
+     * Other methods
+     */
+
+    /**
+     * Reads the data from the parcel.
+     *
+     * @param in The parcel that provides the data.
+     */
+    public void readFromParcel(Parcel in) {
+        id = in.readInt();
+        city = (City) in.readSerializable();
+        timestamp = in.readLong();
+        weatherID = in.readInt();
+        weatherCategory = in.readString();
+        weatherDescription = in.readString();
+        temperatureCurrent = in.readFloat();
+        temperatureMin = in.readFloat();
+        temperatureMax = in.readFloat();
+        humidity = in.readFloat();
+        pressure = in.readFloat();
+        windSpeed = in.readFloat();
+        windDirection = in.readFloat();
+        cloudiness = in.readFloat();
+        timeSunrise = in.readLong();
+        timeSunset = in.readLong();
+    }
+
+    /**
+     * @see Parcelable#describeContents()
+     * Not implemented.
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * @see Parcelable#writeToParcel(Parcel, int)
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeSerializable(city);
+        dest.writeLong(timestamp);
+        dest.writeInt(weatherID);
+        dest.writeString(weatherCategory);
+        dest.writeString(weatherDescription);
+        dest.writeFloat(temperatureCurrent);
+        dest.writeFloat(temperatureMin);
+        dest.writeFloat(temperatureMax);
+        dest.writeFloat(humidity);
+        dest.writeFloat(pressure);
+        dest.writeFloat(windSpeed);
+        dest.writeFloat(windDirection);
+        dest.writeFloat(cloudiness);
+        dest.writeLong(timeSunrise);
+        dest.writeLong(timeSunset);
+    }
+
+    /**
+     * This field is needed for Android to be able to create new objects, individually or as arrays.
+     * This also means that you can use use the default constructor to create the object and use
+     * another method to hydrate it as necessary.
+     * (This has been taken
+     * from http://stackoverflow.com/questions/6743084/how-to-pass-an-object-to-another-activity
+     * as of 2016-08-04)
+     */
+    @SuppressWarnings("unchecked")
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        @Override
+        public CurrentWeatherData createFromParcel(Parcel in) {
+            return new CurrentWeatherData(in);
+        }
+
+        @Override
+        public Object[] newArray(int size) {
+            return new CurrentWeatherData[size];
+        }
+    };
 
 }

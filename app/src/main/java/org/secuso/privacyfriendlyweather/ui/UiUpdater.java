@@ -17,6 +17,7 @@ import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerItemClickListene
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.SimpleItemTouchHelperCallback;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class UiUpdater {
      * @param CONTEXT  The context in which the UI updater is to be used.
      * @param dbHelper A DatabaseHelper instance which is used to retrieve data from the database.
      */
-    public UiUpdater(final Context CONTEXT, DatabaseHelper dbHelper) {
+    public UiUpdater(final Context CONTEXT, final DatabaseHelper dbHelper) {
         this.dbHelper = dbHelper;
         // Initialize the overview list and corresponding the visual component
         recyclerView = (RecyclerView) ((Activity) CONTEXT).findViewById(R.id.list_view_cities);
@@ -57,10 +58,17 @@ public class UiUpdater {
                     @Override
                     public void onItemClick(View view, int position) {
                         // Get the corresponding weather data and pass it on to the started activity
-                        int weatherData = RecyclerOverviewListAdapter.getListItems().get(position).getCurrentWeatherDataID();
-                        Intent intent = new Intent(CONTEXT, CityWeatherActivity.class);
-                        intent.putExtra("weatherData", weatherData);
-                        CONTEXT.startActivity(intent);
+                        try {
+                            int weatherDataId = RecyclerOverviewListAdapter.getListItems().get(position).getCurrentWeatherDataID();
+                            CurrentWeatherData currentWeatherData = dbHelper.getCurrentWeatherDataByID(weatherDataId);
+                            Intent intent = new Intent(CONTEXT, CityWeatherActivity.class);
+                            intent.putExtra("weatherData", currentWeatherData);
+                            CONTEXT.startActivity(intent);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            // TODO: Handle error case
+                        }
+
                     }
                 })
         );

@@ -3,11 +3,13 @@ package org.secuso.privacyfriendlyweather.orm;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 /**
  * This plain old Java class is the database model for cities.
  */
 @DatabaseTable(tableName = "cities")
-public class City {
+public class City implements Serializable {
 
     /**
      * Constants
