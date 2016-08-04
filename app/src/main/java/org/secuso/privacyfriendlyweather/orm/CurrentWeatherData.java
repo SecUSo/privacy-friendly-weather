@@ -3,11 +3,13 @@ package org.secuso.privacyfriendlyweather.orm;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 /**
  * This class represents the database model for current weather data of cities.
  */
 @DatabaseTable(tableName = "current_weather_data")
-public class CurrentWeatherData {
+public class CurrentWeatherData implements Serializable {
 
     /**
      * Constants

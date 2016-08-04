@@ -42,6 +42,9 @@
     <string name="pref_example_switch_summary">Example Switch Summary</string>
     <string name="pref_example_summary">Example Summary</string>
 
+    <!-- ###CITY_WEATHER_ACTIVIY### -->
+    <string name="title_activity_city_weather">Weather Details</string>
+
     <!-- ###DIALOGS### -->
     <string name="dialog_first_app_start_message">
         Using the button below, please add locations you would like to watch the weather for.\nThese can be removed at any time.

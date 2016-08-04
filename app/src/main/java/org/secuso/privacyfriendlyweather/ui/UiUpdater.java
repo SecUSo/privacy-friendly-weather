@@ -2,13 +2,13 @@ package org.secuso.privacyfriendlyweather.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
+import org.secuso.privacyfriendlyweather.CityWeatherActivity;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
@@ -40,23 +40,27 @@ public class UiUpdater {
     private DatabaseHelper dbHelper;
 
     /**
-     * @param context  The context in which the UI updater is to be used.
+     * @param CONTEXT  The context in which the UI updater is to be used.
      * @param dbHelper A DatabaseHelper instance which is used to retrieve data from the database.
      */
-    public UiUpdater(Context context, DatabaseHelper dbHelper) {
+    public UiUpdater(final Context CONTEXT, DatabaseHelper dbHelper) {
         this.dbHelper = dbHelper;
         // Initialize the overview list and corresponding the visual component
-        recyclerView = (RecyclerView) ((Activity) context).findViewById(R.id.list_view_cities);
+        recyclerView = (RecyclerView) ((Activity) CONTEXT).findViewById(R.id.list_view_cities);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setLayoutManager(new LinearLayoutManager(CONTEXT));
 
         adapter = new RecyclerOverviewListAdapter(dbHelper);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(CONTEXT, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Log.d(DEBUG_TAG, "touch");
+                        // Get the corresponding weather data and pass it on to the started activity
+                        int weatherData = RecyclerOverviewListAdapter.getListItems().get(position).getCurrentWeatherDataID();
+                        Intent intent = new Intent(CONTEXT, CityWeatherActivity.class);
+                        intent.putExtra("weatherData", weatherData);
+                        CONTEXT.startActivity(intent);
                     }
                 })
         );

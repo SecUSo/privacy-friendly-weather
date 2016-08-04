@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -41,7 +42,6 @@ public class MainActivity extends BaseActivity {
     // It is safer to initialize this to true; if it is not, in the worst case a progress dialog
     // will appear on add location
     private boolean canOpenAddDialog = true;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
