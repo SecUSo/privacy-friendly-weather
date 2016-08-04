@@ -11,7 +11,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
  */
 public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
-    private final ItemTouchHelperAdapter mAdapter;
+    private final ItemTouchHelperAdapter adapter;
 
     /**
      * Constructor.
@@ -19,7 +19,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
      * @param adapter The adapter to bind the ItemTouchHelper to.
      */
     public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter) {
-        mAdapter = adapter;
+        this.adapter = adapter;
     }
 
     /**
@@ -52,11 +52,11 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     /**
      * @see android.support.v7.widget.helper.ItemTouchHelper.Callback#onMove(RecyclerView, RecyclerView.ViewHolder, RecyclerView.ViewHolder)
-     * As dragging is not supported, false will be returned.
      */
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-        return false;
+        adapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+        return true;
     }
 
     /**
@@ -65,7 +65,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
      */
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
+        adapter.onItemDismiss(viewHolder.getAdapterPosition());
     }
 
 }

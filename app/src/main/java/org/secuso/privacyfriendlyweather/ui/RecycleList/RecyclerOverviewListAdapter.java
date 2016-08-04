@@ -12,6 +12,7 @@ import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -93,6 +94,23 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @see ItemTouchHelperAdapter#onItemMove(int, int)
+     */
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(listItems, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(listItems, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
     }
 
 }
