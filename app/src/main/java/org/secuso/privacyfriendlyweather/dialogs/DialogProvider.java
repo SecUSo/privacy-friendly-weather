@@ -89,6 +89,8 @@ public class DialogProvider {
             cityAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, new ArrayList<City>());
             addDialogEdtLocation = new AutoCompleteTextView(context);
             addDialogEdtLocation.setAdapter(cityAdapter);
+            // The following listener implementation provides the functionality / logic for the
+            // lookahead dropdown
             addDialogEdtLocation.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -128,6 +130,7 @@ public class DialogProvider {
 
             addDialogCbSave = new CheckBox(context);
             addDialogCbSave.setText(R.string.dialog_add_checkbox_save);
+            addDialogCbSave.setChecked(true);
 
             addDialogLinearLayout.addView(addDialogTvMessage);
             addDialogLinearLayout.addView(addDialogEdtLocation);
@@ -194,6 +197,8 @@ public class DialogProvider {
 
         // dismissDialog == true => A city was added, so show a message
         if (dismissDialog) {
+            addDialogEdtLocation.setText("");
+
             IHttpRequestForCityList requestForCityList = new OwmHttpRequestForCityToList(context, dbHelper);
             List<CityToWatch> toAdd = new ArrayList<>();
             toAdd.add(newCityToWatch);
