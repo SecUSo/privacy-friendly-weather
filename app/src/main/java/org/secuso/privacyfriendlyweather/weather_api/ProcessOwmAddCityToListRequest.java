@@ -106,6 +106,9 @@ public class ProcessOwmAddCityToListRequest implements IProcessHttpRequest {
                 // Update the UI
                 UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
                 uiUpdater.addItemToOverview(weatherData);
+                // Show success message
+                final String SUCCESS_MSG = context.getResources().getString(R.string.dialog_add_added_successfully_template);
+                Toast.makeText(context, SUCCESS_MSG, Toast.LENGTH_LONG).show();
             } catch (SQLException e) {
                 e.printStackTrace();
                 final String ERROR_MSG = context.getResources().getString(R.string.insert_into_db_error);

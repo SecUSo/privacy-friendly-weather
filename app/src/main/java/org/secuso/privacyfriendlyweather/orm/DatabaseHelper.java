@@ -152,6 +152,26 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
+     * Checks if a given city is already in the CityToWatch table.
+     *
+     * @param city The city to check if already present.
+     * @return Returns true if the given city is already watched else false.
+     */
+    public boolean isCityAlreadyWatched(City city) {
+        QueryBuilder<CityToWatch, Integer> queryBuilder = cityToWatchDao.queryBuilder();
+        try {
+            queryBuilder.where().eq(CityToWatch.CITY_ID, city.getId());
+            PreparedQuery<CityToWatch> preparedQuery = queryBuilder.prepare();
+            List<CityToWatch> cities = cityToWatchDao.query(preparedQuery);
+            return (cities.size() > 0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // In case of error return false => worse case: city will be present several times
+            return false;
+        }
+    }
+
+    /**
      * Retrieves a city by its cityID.
      *
      * @param cityID The cityID (value in the column city_id).

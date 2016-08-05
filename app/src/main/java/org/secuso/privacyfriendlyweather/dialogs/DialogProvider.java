@@ -149,10 +149,8 @@ public class DialogProvider {
      *                      added to the database.
      */
     private boolean handleOnBtnAddCityClick(Context context) throws SQLException {
-        final String SUCCESS_MSG_TEMPLATE = context.getResources().getString(R.string.dialog_add_added_successfully_template);
-        boolean dismissDialog;
-        City addedCity = null;
-        CityToWatch newCityToWatch = new CityToWatch();
+        boolean dismissDialog = false;
+        CityToWatch newCityToWatch = null;
         String trimmedInput = addDialogEdtLocation.getText().toString().trim();
 
         if (trimmedInput.length() > 0) {
@@ -160,9 +158,6 @@ public class DialogProvider {
             // User selected a city from the dropdown, this is the nice case
             if (addDialogSelectedCity != null) {
                 newCityToWatch = new CityToWatch(addDialogSelectedCity, storePermanent);
-                dbHelper.getCityToWatchDao().create(newCityToWatch);
-                addedCity = addDialogSelectedCity;
-                dismissDialog = true;
             }
             // No city selected => Get matches of entered string and handle the cases
             else {
@@ -175,9 +170,7 @@ public class DialogProvider {
                 }
                 // 2) 1 city found,
                 else if (foundCities.size() == 1) {
-                    City foundCity = foundCities.get(0);
-                    dbHelper.getCityToWatchDao().create(new CityToWatch(foundCity, storePermanent));
-                    addedCity = foundCity;
+                    newCityToWatch = new CityToWatch(foundCities.get(0), storePermanent);
                     dismissDialog = true;
                 }
                 // 3) > 1 cities found
@@ -195,17 +188,26 @@ public class DialogProvider {
             dismissDialog = false;
         }
 
-        // dismissDialog == true => A city was added, so show a message
-        if (dismissDialog) {
-            addDialogEdtLocation.setText("");
-
-            IHttpRequestForCityList requestForCityList = new OwmHttpRequestForCityToList(context, dbHelper);
-            List<CityToWatch> toAdd = new ArrayList<>();
-            toAdd.add(newCityToWatch);
-            requestForCityList.perform(toAdd);
-
-            String successMsg = String.format(SUCCESS_MSG_TEMPLATE, addedCity.getCityName(), addedCity.getCountryCode());
-            Toast.makeText(context, successMsg, Toast.LENGTH_LONG).show();
+        // City was found / selected => check if the city can be added, i.e. if it has not been
+        // added before
+        if (newCityToWatch != null) {
+            // Check if this location was added before; if so, do not add it again
+            boolean isAlreadyWatched = dbHelper.isCityAlreadyWatched(newCityToWatch.getCity());
+            if (isAlreadyWatched) {
+                // Show a message and do not close dialog
+                String msg = context.getResources().getString(R.string.dialog_add_already_added);
+                Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+                dismissDialog = false;
+            } else {
+                addDialogEdtLocation.setText("");
+                // Add city, get further data and close the dialog
+                dbHelper.getCityToWatchDao().create(newCityToWatch);
+                IHttpRequestForCityList requestForCityList = new OwmHttpRequestForCityToList(context, dbHelper);
+                List<CityToWatch> toAdd = new ArrayList<>();
+                toAdd.add(newCityToWatch);
+                requestForCityList.perform(toAdd);
+                dismissDialog = true;
+            }
         }
 
         return dismissDialog;

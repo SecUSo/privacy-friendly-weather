@@ -65,7 +65,7 @@
     <string name="dialog_add_label">Enter the location to add:</string>
     <string name="dialog_add_checkbox_save">Save this location permanently</string>
     <string name="dialog_add_textedit_error">Please enter a valid location!</string>
-    <string name="dialog_add_added_successfully_template" formatted="false">The location %s (%s) was added successfully</string>
+    <string name="dialog_add_added_successfully_template">The location was added successfully</string>
     <string name="dialog_add_no_city_found">
         No location was found that matches your input. It is recommended to select one of the
         items from the dropdown list.
@@ -73,6 +73,9 @@
     <string name="dialog_add_too_many_cities_found">
         Your input is not unique. It is recommended to select one of the items from the
         dropdown list.
+    </string>
+    <string name="dialog_add_already_added">
+        This location is already in the list
     </string>
     <string name="dialog_add_close_button">Close</string>
     <string name="dialog_add_add_button">Add</string>
