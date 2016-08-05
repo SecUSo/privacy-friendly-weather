@@ -12,6 +12,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- ###MAIN### -->
+    <string name="activity_main_icon_descriptor">
+        An icon that matches the current weather condition of the corresponding list item
+    </string>
 
     <!--###HELP###-->
     <string name="help">Help</string>

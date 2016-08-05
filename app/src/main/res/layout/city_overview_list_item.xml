@@ -1,20 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!--
+The idea for this layout was given by DavidH, see
+http://stackoverflow.com/questions/32032468/how-to-use-wrap-content-with-a-maximum-width
+as of 2016-08-05
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingBottom="15dp">
+    android:clipChildren="false"
+    android:paddingBottom="10dp"
+    android:paddingRight="10dp">
 
-    <TextView
-        android:id="@+id/city_overview_list_item_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30dp" />
 
-    <ImageView
-        android:id="@+id/city_overview_list_item_img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="matrix" />
+    <RelativeLayout
+        android:id="@+id/city_overview_list_item_blank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/city_overview_list_item_text_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="100dp">
+
+            <TextView
+                android:id="@+id/city_overview_list_item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/city_overview_list_item_img"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="-100dp"
+            android:layout_marginTop="-6dp"
+            android:layout_toRightOf="@id/city_overview_list_item_text_container"
+            android:contentDescription="@string/activity_main_icon_descriptor"
+            android:scaleType="matrix" />
+    </RelativeLayout>
+
+</RelativeLayout>
