@@ -8,10 +8,11 @@
     android:weightSum="100"
     tools:context=".CityWeatherActivity">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="30">
+        android:layout_weight="40">
 
         <ImageView
             android:id="@+id/activity_city_weather_image_view"
@@ -40,130 +41,144 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="70">
+        android:layout_weight="60"
+        android:fillViewport="true">
 
-        <GridLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_category"
-                android:layout_width="wrap_content"
+            <GridLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_marginBottom="5dp"
-                android:layout_row="0"
-                android:text="@string/activity_city_weather_tv_category"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:layout_margin="16dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_category_value"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_row="0"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_marginBottom="5dp"
+                    android:layout_row="0"
+                    android:text="@string/activity_city_weather_tv_category"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_humidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_marginBottom="5dp"
-                android:layout_row="1"
-                android:text="@string/activity_city_weather_tv_humidity"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_category_value"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="3"
+                    android:layout_row="0"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_humidity_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_row="1"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_marginBottom="5dp"
+                    android:layout_row="1"
+                    android:text="@string/activity_city_weather_tv_humidity"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_pressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_marginBottom="5dp"
-                android:layout_row="2"
-                android:text="@string/activity_city_weather_tv_pressure"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_humidity_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="3"
+                    android:layout_row="1"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_pressure_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_row="2"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_marginBottom="5dp"
+                    android:layout_row="2"
+                    android:text="@string/activity_city_weather_tv_pressure"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_wind_speed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_marginBottom="5dp"
-                android:layout_row="3"
-                android:text="@string/activity_city_weather_tv_wind_speed"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_pressure_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="3"
+                    android:layout_row="2"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_wind_speed_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_row="3"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_wind_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_marginBottom="5dp"
+                    android:layout_row="3"
+                    android:text="@string/activity_city_weather_tv_wind_speed"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_sunrise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_marginBottom="5dp"
-                android:layout_row="4"
-                android:text="@string/activity_city_weather_tv_sunrise"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_wind_speed_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="3"
+                    android:layout_row="3"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_sunrise_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_row="4"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_sunrise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_marginBottom="5dp"
+                    android:layout_row="4"
+                    android:text="@string/activity_city_weather_tv_sunrise"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_sunset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_marginBottom="5dp"
-                android:layout_row="5"
-                android:text="@string/activity_city_weather_tv_sunset"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_sunrise_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="3"
+                    android:layout_row="4"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_sunset_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_row="5"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_sunset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_marginBottom="5dp"
+                    android:layout_row="5"
+                    android:text="@string/activity_city_weather_tv_sunset"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        </GridLayout>
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_sunset_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="3"
+                    android:layout_row="5"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </GridLayout>
+
+        </LinearLayout>
+
     </ScrollView>
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/arrow_down_float" />
 
 </LinearLayout>
