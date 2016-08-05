@@ -255,15 +255,15 @@ public class DialogProvider {
         // Buttons are added but not their onClick implementation; this is done further below
         // as explained here (as of 2016-07-27):
         // http://stackoverflow.com/questions/6275677/alert-dialog-in-android-should-not-dismiss
-        dialogBuilder.setNegativeButton(R.string.dialog_add_add_button, null);
-        dialogBuilder.setPositiveButton(R.string.dialog_add_close_button, null);
+        dialogBuilder.setPositiveButton(R.string.dialog_add_add_button, null);
+        dialogBuilder.setNegativeButton(R.string.dialog_add_close_button, null);
 
         final AlertDialog dialog = dialogBuilder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                Button btnClose = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                Button btnAdd = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+                Button btnClose = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+                Button btnAdd = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 // Close click event
                 btnClose.setOnClickListener(new View.OnClickListener() {
                     @Override
