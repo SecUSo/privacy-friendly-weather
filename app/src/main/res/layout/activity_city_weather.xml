@@ -175,6 +175,7 @@
     </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_city_weather_fab_open_new_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

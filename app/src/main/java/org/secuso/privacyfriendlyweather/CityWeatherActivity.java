@@ -1,7 +1,11 @@
 package org.secuso.privacyfriendlyweather;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +20,23 @@ import java.util.GregorianCalendar;
  */
 public class CityWeatherActivity extends AppCompatActivity {
 
+    /**
+     * Constants
+     */
     private final String DEBUG_TAG = "debug_city_weather_act";
+
+    /**
+     * Member variables and visual components
+     */
+    private ImageView iv;
+    private TextView tvHeading;
+    private TextView tvCategory;
+    private TextView tvHumidity;
+    private TextView tvPressure;
+    private TextView tvWindSpeed;
+    private TextView tvSunrise;
+    private TextView tvSunset;
+    private FloatingActionButton fabOpenDetailsActivity;
 
     /**
      * @see AppCompatActivity#onCreate(Bundle)
@@ -26,19 +46,38 @@ public class CityWeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_weather);
 
-        // Retrieve the data that was passed on to this activity
-        CurrentWeatherData weatherData = getIntent().getExtras().getParcelable("weatherData");
+        initializeComponents();
+        setWeatherData((CurrentWeatherData) getIntent().getExtras().getParcelable("weatherData"));
 
-        // Get and set the corresponding fields
-        ImageView iv = (ImageView) findViewById(R.id.activity_city_weather_image_view);
-        TextView tvHeading = (TextView) findViewById(R.id.activity_city_weather_tv_heading);
-        TextView tvCategory = (TextView) findViewById(R.id.activity_city_weather_tv_category_value);
-        TextView tvHumidity = (TextView) findViewById(R.id.activity_city_weather_tv_humidity_value);
-        TextView tvPressure = (TextView) findViewById(R.id.activity_city_weather_tv_pressure_value);
-        TextView tvWindSpeed = (TextView) findViewById(R.id.activity_city_weather_tv_wind_speed_value);
-        TextView tvSunrise = (TextView) findViewById(R.id.activity_city_weather_tv_sunrise_value);
-        TextView tvSunset = (TextView) findViewById(R.id.activity_city_weather_tv_sunset_value);
+        fabOpenDetailsActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CityWeatherDetailsActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.animation_bottom_to_top, R.anim.animation_bottom_to_top);
+            }
+        });
+    }
 
+    /**
+     * Initializes the visual components
+     */
+    private void initializeComponents() {
+        iv = (ImageView) findViewById(R.id.activity_city_weather_image_view);
+        tvHeading = (TextView) findViewById(R.id.activity_city_weather_tv_heading);
+        tvCategory = (TextView) findViewById(R.id.activity_city_weather_tv_category_value);
+        tvHumidity = (TextView) findViewById(R.id.activity_city_weather_tv_humidity_value);
+        tvPressure = (TextView) findViewById(R.id.activity_city_weather_tv_pressure_value);
+        tvWindSpeed = (TextView) findViewById(R.id.activity_city_weather_tv_wind_speed_value);
+        tvSunrise = (TextView) findViewById(R.id.activity_city_weather_tv_sunrise_value);
+        tvSunset = (TextView) findViewById(R.id.activity_city_weather_tv_sunset_value);
+        fabOpenDetailsActivity = (FloatingActionButton) findViewById(R.id.activity_city_weather_fab_open_new_activity);
+    }
+
+    /**
+     * @param weatherData The weather data to display.
+     */
+    private void setWeatherData(CurrentWeatherData weatherData) {
         // Format the values to display
         String heading = String.format(
                 "%s, %s%s",

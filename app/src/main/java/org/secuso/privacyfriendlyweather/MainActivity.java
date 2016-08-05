@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -17,8 +16,8 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import org.secuso.privacyfriendlyweather.dialogs.DialogProvider;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.preferences.PreferencesManager;
-import org.secuso.privacyfriendlyweather.services.ServiceReceiver;
 import org.secuso.privacyfriendlyweather.services.CreateDatabaseService;
+import org.secuso.privacyfriendlyweather.services.ServiceReceiver;
 import org.secuso.privacyfriendlyweather.ui.DataUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.OwmHttpRequestForUpdatingCityList;
 
