@@ -17,11 +17,8 @@
 
     <PreferenceCategory android:title="@string/help_privacy_heading">
         <Preference
-            android:summary="@string/help_permissionXY_description"
-            android:title="@string/help_permissionXY_heading" />
-        <Preference
-            android:summary="@string/help_permissions_description"
-            android:title="@string/help_permissions_heading" />
+            android:summary="@string/help_permission_internet_description"
+            android:title="@string/help_permission_internet_heading" />
     </PreferenceCategory>
 
 </PreferenceScreen>

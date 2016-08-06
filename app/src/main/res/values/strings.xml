@@ -21,14 +21,20 @@
     <!--###HELP###-->
     <string name="help">Help</string>
     <string name="help_overview_heading">Overview</string>
-    <string name="help_example">Example Help Entry</string>
-    <string name="help_category_example">Example Help Category</string>
+    <string name="help_example">Deleting and moving locations</string>
+    <string name="pref_example_summary">
+        Location items can be removed from the overview list by using a swipe gesture from left to right or from right to left.
+        \nChange the position of items in the same view by touching them for a moment and then move the item up or down.
+    </string>
+    <string name="help_category_example">Help Category</string>
     <string name="help_privacy_heading">Privacy Info</string>
-    <string name="help_permissionXY_heading">Permission XY</string>
-    <string name="help_permissionXY_description">is needed because &#8230; If XY is not granted feature YZ is not usable.</string>
+    <string name="help_permission_internet_heading">INTERNET Permission</string>
+    <string name="help_permission_internet_description">
+        is needed because weather data are retrieved making requests to servers on the internet. Without this permission, no weather data can be received
+    </string>
     <string name="help_permissions_heading">Permissions</string>
-    <string name="help_permissions_description">Privacy Friendly Example does not use any permissions</string>
-    <string name="help_intro">Welcome to the help page. This app shows the basic design of Privacy Friendly Apps. The functionality of the app should be introduced with 1 to 2 sentences in this section.</string>
+    <string name="help_intro">Welcome to the help page. This app lets you add locations, view the current weather for these locations as well as weather forecasts.
+        \nMoreover, you can ask for locations with the best weather around a given location.</string>
 
     <!--###ABOUT###-->
     <string name="about">About</string>
@@ -45,7 +51,6 @@
     <string name="pref_header_general">General</string>
     <string name="pref_example_switch">Example Switch</string>
     <string name="pref_example_switch_summary">Example Switch Summary</string>
-    <string name="pref_example_summary">Example Summary</string>
 
     <!-- ###CITY_WEATHER_ACTIVIY### -->
     <string name="activity_city_weather_iv_description">An image that fits the weather category</string>
