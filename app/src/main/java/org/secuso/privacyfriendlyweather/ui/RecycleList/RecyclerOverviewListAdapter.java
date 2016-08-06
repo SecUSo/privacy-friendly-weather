@@ -62,13 +62,15 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      * @return Returns the Snackbar to show.
      */
     private Snackbar getUndoSnackbar(final CityToWatch cityToRestore, final CurrentWeatherData weatherDataToRestore) {
+        final String MSG = context.getResources().getString(R.string.activity_main_snackbar_undo_info);
+        final String BTN_TEXT = context.getResources().getString(R.string.activity_main_snackbar_undo_button);
         return Snackbar
                 .make(
                         ((Activity) (context)).findViewById(R.id.main_content),
-                        "Item was removed",
+                        MSG,
                         Snackbar.LENGTH_LONG
                 )
-                .setAction("UNDO", new View.OnClickListener() {
+                .setAction(BTN_TEXT, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         try {
