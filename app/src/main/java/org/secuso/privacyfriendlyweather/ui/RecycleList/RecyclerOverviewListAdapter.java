@@ -1,5 +1,8 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
+import android.app.Activity;
+import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,7 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.CityToWatch;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.ui.UiUpdater;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,13 +30,15 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     /**
      * Member variables
      */
+    private Context context;
     private DatabaseHelper dbHelper;
     private static List<CityOverviewListItem> listItems;
 
     /**
      * Constructor.
      */
-    public RecyclerOverviewListAdapter(DatabaseHelper dbHelper) {
+    public RecyclerOverviewListAdapter(Context context, DatabaseHelper dbHelper) {
+        this.context = context;
         this.dbHelper = dbHelper;
         // As the list is static, initialize it only once
         if (listItems == null) {
@@ -45,6 +51,39 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      */
     public static List<CityOverviewListItem> getListItems() {
         return listItems;
+    }
+
+    /**
+     * Shows a Snackbar to undo the deletion of a CityOverviewListItem.
+     *
+     * @param cityToRestore        The CityToWatch record that was deleted but shall be restored now.
+     * @param weatherDataToRestore The CurrentWeatherData record that was deleted but shall be
+     *                             restored now.
+     * @return Returns the Snackbar to show.
+     */
+    private Snackbar getUndoSnackbar(final CityToWatch cityToRestore, final CurrentWeatherData weatherDataToRestore) {
+        return Snackbar
+                .make(
+                        ((Activity) (context)).findViewById(R.id.main_content),
+                        "Item was removed",
+                        Snackbar.LENGTH_LONG
+                )
+                .setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            // Insert
+                            dbHelper.getCityToWatchDao().create(cityToRestore);
+                            dbHelper.getCurrentWeatherDataDao().create(weatherDataToRestore);
+                            // Show in list again
+                            UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
+                            uiUpdater.addItemToOverview(weatherDataToRestore);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            // TODO: Handle the error case
+                        }
+                    }
+                });
     }
 
     /**
@@ -82,15 +121,20 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     @Override
     public void onItemDismiss(int position) {
         try {
-            // Remove the corresponding database entry from the CityToWatch and CurrentWeatherData
+            // Retrieve the records; they are re-inserted in case of undo
             final int CWD_ID = listItems.get(position).getCurrentWeatherDataID();
-            CurrentWeatherData weatherData = dbHelper.getCurrentWeatherDataByID(CWD_ID);
+            final CurrentWeatherData weatherDataToDelete = dbHelper.getCurrentWeatherDataByID(CWD_ID);
+            final CityToWatch cityToWatchToDelete = dbHelper.getCityToWatchByCityId(weatherDataToDelete.getCity().getId());
+            // Remove the corresponding database entries
+            dbHelper.deleteCityToWatchRecordByCityID(weatherDataToDelete.getCity().getId());
             dbHelper.deleteCurrentWeatherRecordByID(CWD_ID);
-            dbHelper.deleteCityToWatchRecordByCityID(weatherData.getCity().getId());
 
             // Remove the item from the (visual) list
             listItems.remove(position);
             notifyItemRemoved(position);
+
+            // Show the implemented undo snackbar
+            getUndoSnackbar(cityToWatchToDelete, weatherDataToDelete).show();
         } catch (SQLException e) {
             e.printStackTrace();
         }

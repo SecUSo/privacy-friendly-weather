@@ -51,7 +51,7 @@ public class UiUpdater {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(CONTEXT));
 
-        adapter = new RecyclerOverviewListAdapter(dbHelper);
+        adapter = new RecyclerOverviewListAdapter(CONTEXT, dbHelper);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(CONTEXT, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {

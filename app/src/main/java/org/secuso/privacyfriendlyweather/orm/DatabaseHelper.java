@@ -172,19 +172,39 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
-     * Retrieves a city by its cityID.
+     * Retrieves a city by its cityId.
      *
-     * @param cityID The cityID (value in the column city_id).
+     * @param cityId The cityId (value in the column city_id).
      * @return Returns the city that matches the city ID or null in case non was found or an
      * SQLException occurred.
      */
-    public City getCityByCityID(int cityID) {
+    public City getCityByCityID(int cityId) {
         QueryBuilder<City, Integer> queryBuilder = cityDao.queryBuilder();
         try {
-            queryBuilder.where().eq(City.COLUMN_CITY_ID, cityID);
+            queryBuilder.where().eq(City.COLUMN_CITY_ID, cityId);
             PreparedQuery<City> prepare = queryBuilder.prepare();
             List<City> cities = cityDao.query(prepare);
             return cities.size() == 0 ? null : cities.get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Retrieves the CityToWatch record for a given cityId.
+     *
+     * @param cityId The ID of the city to retrieve the record for.
+     * @return Returns an instance of CityToWatch if a record with the given ID was present else
+     * null (null also in case of SQLException).
+     */
+    public CityToWatch getCityToWatchByCityId(int cityId) {
+        QueryBuilder<CityToWatch, Integer> queryBuilder = cityToWatchDao.queryBuilder();
+        try {
+            queryBuilder.where().eq(CityToWatch.CITY_ID, cityId);
+            PreparedQuery<CityToWatch> query = queryBuilder.prepare();
+            List<CityToWatch> result = cityToWatchDao.query(query);
+            return (result.size() == 0) ? null : result.get(0);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
