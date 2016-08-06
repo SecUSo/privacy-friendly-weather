@@ -16,7 +16,7 @@
         An icon that matches the current weather condition of the corresponding list item
     </string>
     <string name="activity_main_snackbar_undo_info">Item was removed</string>
-    <string name="activity_main_snackbar_undo_button">Item was removed</string>
+    <string name="activity_main_snackbar_undo_button">UNDO</string>
 
     <!--###HELP###-->
     <string name="help">Help</string>
