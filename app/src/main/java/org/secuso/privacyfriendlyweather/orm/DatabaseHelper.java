@@ -37,6 +37,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<City, Integer> cityDao;
     private Dao<CityToWatch, Integer> cityToWatchDao;
     private Dao<CurrentWeatherData, Integer> currentWeatherDataDao;
+    private Dao<Forecast, Integer> forecastDao;
 
     /**
      * @see OrmLiteSqliteOpenHelper
@@ -44,11 +45,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
-        if (cityDao == null || cityToWatchDao == null || currentWeatherDataDao == null) {
+        if (cityDao == null || cityToWatchDao == null || currentWeatherDataDao == null || forecastDao == null) {
             try {
                 cityDao = getDao(City.class);
                 cityToWatchDao = getDao(CityToWatch.class);
                 currentWeatherDataDao = getDao(CurrentWeatherData.class);
+                forecastDao = getDao(Forecast.class);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -94,6 +96,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, City.class);
             TableUtils.createTable(connectionSource, CityToWatch.class);
             TableUtils.createTable(connectionSource, CurrentWeatherData.class);
+            TableUtils.createTable(connectionSource, Forecast.class);
             fillCitiesTable();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -109,6 +112,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, City.class, false);
             TableUtils.dropTable(connectionSource, CityToWatch.class, false);
             TableUtils.dropTable(connectionSource, CurrentWeatherData.class, false);
+            TableUtils.dropTable(connectionSource, Forecast.class, false);
             onCreate(database, connectionSource);
             fillCitiesTable();
         } catch (SQLException e) {

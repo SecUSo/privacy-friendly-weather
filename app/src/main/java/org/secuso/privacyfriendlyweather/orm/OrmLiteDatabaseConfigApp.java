@@ -15,7 +15,8 @@ public class OrmLiteDatabaseConfigApp extends OrmLiteConfigUtil {
     private static final Class<?>[] classes = new Class[]{
             City.class,
             CityToWatch.class,
-            CurrentWeatherData.class
+            CurrentWeatherData.class,
+            Forecast.class
     };
 
     public static void main(String[] args) throws IOException, SQLException {
