@@ -28,6 +28,14 @@ public class Forecast {
     public static final String COLUMN_PAST_RAIN_VOLUME = "past_rain_volume";
 
     /**
+     * Other constants
+     */
+    /*
+    This value is used to indicate that there is no value for the column COLUMN_PAST_RAIN_VOLUME
+     */
+    public static final float NO_RAIN_VALUE = -1;
+
+    /**
      * Database fields / member variables
      */
     @DatabaseField(generatedId = true)
@@ -69,6 +77,20 @@ public class Forecast {
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * @return Returns the date and time for the forecast.
+     */
+    public Date getForecastTime() {
+        return forecastFor;
+    }
+
+    /**
+     * @param forecastFor The point of time for the forecast.
+     */
+    public void setForecastTime(Date forecastFor) {
+        this.forecastFor = forecastFor;
     }
 
     /**

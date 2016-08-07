@@ -56,6 +56,10 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
             JSONObject json = new JSONObject(response);
             JSONArray list = json.getJSONArray("list");
             int cityId = json.getJSONObject("city").getInt("id");
+
+            // Clear old records for this city if there are any
+            int count = dbHelper.deleteForecastRecordsByCityID(cityId);
+            // Continue with inserting new records
             for (int i = 0; i < list.length(); i++) {
                 String currentItem = list.get(i).toString();
                 Forecast forecast = extractor.extractForecast(currentItem);
@@ -79,7 +83,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
                     }
                 }
             }
-        } catch (JSONException e) {
+        } catch (JSONException | SQLException e) {
             e.printStackTrace();
         }
     }

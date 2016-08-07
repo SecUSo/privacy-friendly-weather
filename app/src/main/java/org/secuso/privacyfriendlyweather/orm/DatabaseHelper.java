@@ -268,6 +268,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return deletionQuery.delete();
     }
 
+
     /**
      * Deletes an entry from the CurrentWeatherData table.
      *
@@ -294,6 +295,24 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         DeleteBuilder<CityToWatch, Integer> deleteQuery = cityToWatchDao.deleteBuilder();
         deleteQuery.where().eq(CityToWatch.CITY_ID, CITY_TO_WATCH_ID);
         return deleteQuery.delete();
+    }
+
+    /**
+     * Deletes entries from the Forecast table.
+     *
+     * @param CITY_ID The ID of the city that identifies the records to delete.
+     * @return Returns the number of deleted rows.
+     * @throws SQLException This exception is thrown if the deletion query could not be executed.
+     */
+    public int deleteForecastRecordsByCityID(final int CITY_ID) throws SQLException {
+        City city = getCityByCityID(CITY_ID);
+        if (city != null) {
+            DeleteBuilder<Forecast, Integer> deleteQuery = forecastDao.deleteBuilder();
+            deleteQuery.where().eq(Forecast.CITY_ID, city.getId());
+            return deleteQuery.delete();
+        } else {
+            return 0;
+        }
     }
 
     /**

@@ -5,6 +5,7 @@ import android.content.Context;
 import org.secuso.privacyfriendlyweather.http.HttpRequestType;
 import org.secuso.privacyfriendlyweather.http.IHttpRequest;
 import org.secuso.privacyfriendlyweather.http.VolleyHttpRequest;
+import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.CityToWatch;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 
@@ -29,12 +30,12 @@ public class OwmHttpRequestForForecast extends OwmHttpRequest implements IHttpRe
     }
 
     /**
-     * @see IHttpRequestForForecast#perform(CityToWatch)
+     * @see IHttpRequestForForecast#perform(City)
      */
     @Override
-    public void perform(CityToWatch city) {
+    public void perform(City city) {
         IHttpRequest httpRequest = new VolleyHttpRequest(context);
-        final String URL = getUrlForQueryingForecast(city.getCity().getCityId());
-        httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmAddCityToListRequest(context, dbHelper));
+        final String URL = getUrlForQueryingForecast(city.getCityId());
+        httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmForecastRequest(context, dbHelper));
     }
 }

@@ -4,13 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
+import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
+import org.secuso.privacyfriendlyweather.weather_api.OwmHttpRequestForForecast;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -28,6 +30,8 @@ public class CityWeatherActivity extends AppCompatActivity {
     /**
      * Member variables and visual components
      */
+    DatabaseHelper dbHelper;
+
     private ImageView iv;
     private TextView tvHeading;
     private TextView tvCategory;
@@ -46,8 +50,11 @@ public class CityWeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_weather);
 
+        dbHelper = new DatabaseHelper(getApplicationContext());
+
         initializeComponents();
-        setWeatherData((CurrentWeatherData) getIntent().getExtras().getParcelable("weatherData"));
+        CurrentWeatherData weatherData = getIntent().getExtras().getParcelable("weatherData");
+        setWeatherData(weatherData);
 
         fabOpenDetailsActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +64,9 @@ public class CityWeatherActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.animation_bottom_to_top, R.anim.animation_bottom_to_top);
             }
         });
+
+        IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext(), dbHelper);
+        forecastRequest.perform(weatherData.getCity());
     }
 
     /**

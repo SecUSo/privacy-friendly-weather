@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendlyweather.weather_api;
 
+import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.CityToWatch;
 
 import java.util.List;
@@ -11,8 +12,8 @@ import java.util.List;
 public interface IHttpRequestForForecast {
 
     /**
-     * @param city A CityToWatch object to get the weather forecast for.
+     * @param city A City object to get the weather forecast for.
      */
-    void perform(CityToWatch city);
+    void perform(City city);
 
 }

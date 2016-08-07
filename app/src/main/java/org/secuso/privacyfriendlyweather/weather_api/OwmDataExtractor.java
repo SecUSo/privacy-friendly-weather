@@ -81,7 +81,8 @@ public class OwmDataExtractor implements IDataExtractor {
 
             forecast.setTimestamp(jsonData.getLong("dt"));
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date date = formatter.parse(jsonData.getString("dt_txt"));
+            Date forecastTime = formatter.parse(jsonData.getString("dt_txt"));
+            forecast.setForecastTime(forecastTime);
 
             IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
             JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
@@ -99,8 +100,17 @@ public class OwmDataExtractor implements IDataExtractor {
             forecast.setWindSpeed((float) jsonWind.getDouble("speed"));
             forecast.setWindDirection((float) jsonWind.getDouble("deg"));
 
-            JSONObject jsonRain = jsonData.getJSONObject("rain");
-            forecast.setPastRainVolume((float) jsonWind.getDouble("3h"));
+            // In case there was no rain in the past 3 hours, there is no "rain" field
+            if (jsonData.isNull("rain")) {
+                forecast.setPastRainVolume(Forecast.NO_RAIN_VALUE);
+            } else {
+                JSONObject jsonRain = jsonData.getJSONObject("rain");
+                if (jsonRain.isNull("3h")) {
+                    forecast.setPastRainVolume(Forecast.NO_RAIN_VALUE);
+                } else {
+                    forecast.setPastRainVolume((float) jsonRain.getDouble("3h"));
+                }
+            }
 
             return forecast;
         } catch (JSONException | ParseException e) {
