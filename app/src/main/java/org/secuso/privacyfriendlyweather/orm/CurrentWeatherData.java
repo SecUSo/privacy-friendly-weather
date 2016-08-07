@@ -74,24 +74,22 @@ public class CurrentWeatherData implements Parcelable {
     private long timeSunset;
 
     /**
-     * Constructors
-     */
-    /**
      * Constructor.
      */
     public CurrentWeatherData() {
     }
 
+    /**
+     * Constructor.
+     *
+     * @param in The parcel to create an instance with.
+     */
     public CurrentWeatherData(Parcel in) {
         readFromParcel(in);
     }
 
     /**
-     * Getters and setters
-     */
-
-    /**
-     * @return Returns the ID of the record (Fwhich uniquely identifies the record).
+     * @return Returns the ID of the record (which uniquely identifies the record).
      */
     public int getId() {
         return id;
