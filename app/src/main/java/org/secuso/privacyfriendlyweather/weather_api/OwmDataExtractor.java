@@ -4,6 +4,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.orm.Forecast;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * This is a concrete implementation for extracting weather data that was retrieved by
@@ -57,6 +65,45 @@ public class OwmDataExtractor implements IDataExtractor {
 
             return weatherData;
         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * @see IDataExtractor#extractForecast(String)
+     */
+    @Override
+    public Forecast extractForecast(String data) {
+        try {
+            Forecast forecast = new Forecast();
+            JSONObject jsonData = new JSONObject(data);
+
+            forecast.setTimestamp(jsonData.getLong("dt"));
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = formatter.parse(jsonData.getString("dt_txt"));
+
+            IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
+            JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
+            JSONObject jsonWeather = new JSONObject(jsonWeatherArray.get(0).toString());
+            forecast.setWeatherID(conversion.convertWeatherCategory(jsonWeather.getString("id")));
+            forecast.setWeatherCategory(jsonWeather.getString("main"));
+            forecast.setWeatherDescription(jsonWeather.getString("description"));
+
+            JSONObject jsonMain = jsonData.getJSONObject("main");
+            forecast.setTemperatureCurrent((float) jsonMain.getDouble("temp"));
+            forecast.setHumidity((float) jsonMain.getDouble("humidity"));
+            forecast.setPressure((float) jsonMain.getDouble("pressure"));
+
+            JSONObject jsonWind = jsonData.getJSONObject("wind");
+            forecast.setWindSpeed((float) jsonWind.getDouble("speed"));
+            forecast.setWindDirection((float) jsonWind.getDouble("deg"));
+
+            JSONObject jsonRain = jsonData.getJSONObject("rain");
+            forecast.setPastRainVolume((float) jsonWind.getDouble("3h"));
+
+            return forecast;
+        } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }
         return null;

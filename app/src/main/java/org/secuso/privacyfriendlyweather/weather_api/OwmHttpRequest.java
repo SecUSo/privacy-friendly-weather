@@ -44,14 +44,31 @@ public class OwmHttpRequest {
 
     /**
      * Builds the URL for the OpenWeatherMap API that can be used to query the weather for a single
-     * citi.
+     * city.
      *
      * @param cityId The ID of the city to get the data for.
-     * @return Returns the URL that can be used to query the weather for the given citiy.
+     * @return Returns the URL that can be used to query the weather for the given city.
      */
     protected String getUrlForQueryingSingleCity(int cityId) {
         return String.format(
                 "%sweather?id=%s&units=metric&appid=%s",
+                OwmApiData.BASE_URL,
+                cityId,
+                OwmApiData.API_KEY
+        );
+    }
+
+    /**
+     * Builds the URL for the OpenWeatherMap API that can be used to query the weather forecast
+     * for a single city.
+     *
+     * @param cityId The ID of the city to get the forecast data for.
+     * @return Returns the URL that can be used to query weather forecasts for the given city using
+     * OpenWeatherMap.
+     */
+    protected String getUrlForQueryingForecast(int cityId) {
+        return String.format(
+                "%sforecast?id=%s&units=metric&appid=%s",
                 OwmApiData.BASE_URL,
                 cityId,
                 OwmApiData.API_KEY

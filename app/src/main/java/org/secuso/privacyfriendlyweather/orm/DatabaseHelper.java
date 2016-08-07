@@ -317,4 +317,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return currentWeatherDataDao;
     }
 
+    /**
+     * @return Returns an instance of the DAO.
+     */
+    public Dao<Forecast, Integer> getForecastDao() {
+        return forecastDao;
+    }
+
 }
