@@ -9,10 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
-import org.secuso.privacyfriendlyweather.ui.UiUpdater;
 
 import java.sql.SQLException;
 
@@ -58,7 +56,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
             int cityId = json.getJSONObject("city").getInt("id");
 
             // Clear old records for this city if there are any
-            int count = dbHelper.deleteForecastRecordsByCityID(cityId);
+            dbHelper.deleteForecastRecordsByCityID(cityId);
             // Continue with inserting new records
             for (int i = 0; i < list.length(); i++) {
                 String currentItem = list.get(i).toString();

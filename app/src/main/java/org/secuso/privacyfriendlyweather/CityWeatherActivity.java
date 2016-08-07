@@ -10,9 +10,8 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.services.FetchForecastDataService;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
-import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
-import org.secuso.privacyfriendlyweather.weather_api.OwmHttpRequestForForecast;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -65,8 +64,10 @@ public class CityWeatherActivity extends AppCompatActivity {
             }
         });
 
-        IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext(), dbHelper);
-        forecastRequest.perform(weatherData.getCity());
+        // Start a background task to retrieve and store the weather forecast data
+        Intent forecastIntent = new Intent(this, FetchForecastDataService.class);
+        forecastIntent.putExtra("cityId", weatherData.getCity().getCityId());
+        startService(forecastIntent);
     }
 
     /**

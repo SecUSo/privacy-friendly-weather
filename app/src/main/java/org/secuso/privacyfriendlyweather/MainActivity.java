@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity {
         // Close the database connection
         dbHelper.close();
         // If this line is removed, the app crashes when the app is reopened as the onCreate method
-        // would try to re-open a new DB helper
+        // wloadould try to re-open a new DB helper
         // (see http://stackoverflow.com/questions/12770092/attempt-to-re-open-an-already-closed-object-sqlitedatabase)
         OpenHelperManager.releaseHelper();
 

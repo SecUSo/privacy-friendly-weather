@@ -72,6 +72,9 @@
         <service
             android:name=".services.CreateDatabaseService"
             android:exported="false" />
+        <service
+            android:name=".services.FetchForecastDataService"
+            android:exported="false" />
     </application>
 
 </manifest>

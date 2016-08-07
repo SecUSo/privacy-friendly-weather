@@ -30,12 +30,12 @@ public class OwmHttpRequestForForecast extends OwmHttpRequest implements IHttpRe
     }
 
     /**
-     * @see IHttpRequestForForecast#perform(City)
+     * @see IHttpRequestForForecast#perform(int)
      */
     @Override
-    public void perform(City city) {
+    public void perform(int cityId) {
         IHttpRequest httpRequest = new VolleyHttpRequest(context);
-        final String URL = getUrlForQueryingForecast(city.getCityId());
+        final String URL = getUrlForQueryingForecast(cityId);
         httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmForecastRequest(context, dbHelper));
     }
 }

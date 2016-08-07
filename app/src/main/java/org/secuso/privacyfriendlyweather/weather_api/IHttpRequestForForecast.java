@@ -12,8 +12,8 @@ import java.util.List;
 public interface IHttpRequestForForecast {
 
     /**
-     * @param city A City object to get the weather forecast for.
+     * @param cityId The (OWM) ID of the city to get the data for.
      */
-    void perform(City city);
+    void perform(int cityId);
 
 }
