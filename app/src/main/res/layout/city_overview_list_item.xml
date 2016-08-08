@@ -34,8 +34,8 @@ as of 2016-08-05
 
         <ImageView
             android:id="@+id/city_overview_list_item_img"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="-100dp"
             android:layout_marginTop="-6dp"
             android:layout_toRightOf="@id/city_overview_list_item_text_container"
