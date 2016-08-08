@@ -1,4 +1,6 @@
-package org.secuso.privacyfriendlyweather.weather_api;
+package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
+
+import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 
 /**
  * This class implements the IApiToDatabaseConversion interface for the OpenWeatherMap API.

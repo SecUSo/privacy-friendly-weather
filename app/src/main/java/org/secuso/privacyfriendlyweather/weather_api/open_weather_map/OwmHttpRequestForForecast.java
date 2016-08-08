@@ -1,15 +1,12 @@
-package org.secuso.privacyfriendlyweather.weather_api;
+package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
 
 import org.secuso.privacyfriendlyweather.http.HttpRequestType;
 import org.secuso.privacyfriendlyweather.http.IHttpRequest;
 import org.secuso.privacyfriendlyweather.http.VolleyHttpRequest;
-import org.secuso.privacyfriendlyweather.orm.City;
-import org.secuso.privacyfriendlyweather.orm.CityToWatch;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-
-import java.util.List;
+import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
 
 /**
  * This class provides the functionality for making and processing HTTP requests to the

@@ -7,7 +7,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
-import org.secuso.privacyfriendlyweather.weather_api.OwmHttpRequestForForecast;
+import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForForecast;
 
 /**
  * This class provides the functionality to fetch forecast data for a given city as a background

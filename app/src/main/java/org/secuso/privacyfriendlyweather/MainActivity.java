@@ -19,7 +19,7 @@ import org.secuso.privacyfriendlyweather.preferences.PreferencesManager;
 import org.secuso.privacyfriendlyweather.services.CreateDatabaseService;
 import org.secuso.privacyfriendlyweather.services.ServiceReceiver;
 import org.secuso.privacyfriendlyweather.ui.DataUpdater;
-import org.secuso.privacyfriendlyweather.weather_api.OwmHttpRequestForUpdatingCityList;
+import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForUpdatingCityList;
 
 import java.sql.SQLException;
 

@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyweather.weather_api;
+package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 /**
  * This static class contains connection data for the OpenWeatherMap API.

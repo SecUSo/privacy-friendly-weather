@@ -1,10 +1,12 @@
-package org.secuso.privacyfriendlyweather.weather_api;
+package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
+import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
+import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 
 import java.text.DateFormat;
 import java.text.ParseException;

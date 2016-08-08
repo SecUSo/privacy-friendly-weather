@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyweather.weather_api;
+package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.text.TextUtils;
 

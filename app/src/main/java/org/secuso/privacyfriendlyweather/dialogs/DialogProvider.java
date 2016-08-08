@@ -28,7 +28,7 @@ import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.CityToWatch;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
-import org.secuso.privacyfriendlyweather.weather_api.OwmHttpRequestForCityToList;
+import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForCityToList;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

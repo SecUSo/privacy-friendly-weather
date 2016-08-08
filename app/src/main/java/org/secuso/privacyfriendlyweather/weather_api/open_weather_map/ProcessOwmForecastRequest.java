@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyweather.weather_api;
+package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -11,6 +11,8 @@ import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
+import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
+import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
 
 import java.sql.SQLException;
 
