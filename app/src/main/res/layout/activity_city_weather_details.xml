@@ -9,4 +9,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.secuso.privacyfriendlyweather.CityWeatherDetailsActivity">
 
+    <ListView
+        android:id="@+id/list_view_weather_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
 </RelativeLayout>

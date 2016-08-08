@@ -62,6 +62,16 @@
     <string name="activity_city_weather_tv_sunrise">Time Sunrise:</string>
     <string name="activity_city_weather_tv_sunset">Time Sunset:</string>
 
+    <!-- ###CITY_WEATHER_DETAILS_ACTIVIY### -->
+    <string name="activity_city_weather_details_heading">Today\'s weather in detail</string>
+    <string name="activity_city_weather_details_tv_category">Weather:</string>
+    <string name="activity_city_weather_details_tv_temperature">Temperature:</string>
+    <string name="activity_city_weather_details_tv_humidity">Humidity:</string>
+    <string name="activity_city_weather_details_tv_pressure">Pressure:</string>
+    <string name="activity_city_weather_details_tv_wind_speed">Wind Speed:</string>
+    <string name="activity_city_weather_details_tv_rain_volume">Rain Volume:</string>
+    <string name="activity_city_weather_details_tv_rain_volume_na">n/a</string>
+
     <!-- ###DIALOGS### -->
     <string name="dialog_first_app_start_message">
         Using the button below, please add locations you would like to watch the weather for.\nThese can be removed at any time.

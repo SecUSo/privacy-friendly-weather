@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.services.FetchForecastDataService;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
@@ -29,8 +28,6 @@ public class CityWeatherActivity extends AppCompatActivity {
     /**
      * Member variables and visual components
      */
-    DatabaseHelper dbHelper;
-
     private ImageView iv;
     private TextView tvHeading;
     private TextView tvCategory;
@@ -49,16 +46,15 @@ public class CityWeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_weather);
 
-        dbHelper = new DatabaseHelper(getApplicationContext());
-
         initializeComponents();
-        CurrentWeatherData weatherData = getIntent().getExtras().getParcelable("weatherData");
+        final CurrentWeatherData weatherData = getIntent().getExtras().getParcelable("weatherData");
         setWeatherData(weatherData);
 
         fabOpenDetailsActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CityWeatherDetailsActivity.class);
+                intent.putExtra("cityId", weatherData.getCity().getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.animation_bottom_to_top, R.anim.animation_bottom_to_top);
             }

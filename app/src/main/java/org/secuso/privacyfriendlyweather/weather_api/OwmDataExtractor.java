@@ -90,7 +90,7 @@ public class OwmDataExtractor implements IDataExtractor {
             forecast.setWeatherDescription(jsonWeather.getString("description"));
 
             JSONObject jsonMain = jsonData.getJSONObject("main");
-            forecast.setTemperatureCurrent((float) jsonMain.getDouble("temp"));
+            forecast.setTemperature((float) jsonMain.getDouble("temp"));
             forecast.setHumidity((float) jsonMain.getDouble("humidity"));
             forecast.setPressure((float) jsonMain.getDouble("pressure"));
 

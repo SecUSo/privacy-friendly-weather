@@ -18,7 +18,10 @@ import org.secuso.privacyfriendlyweather.files.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
@@ -242,6 +245,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * @param cityId The ID of the city to get the data for.
+     * @param day    The day to get the data for.
+     * @return Returns a list of Forecast objects that match the given city and day.
+     * @throws SQLException In case an error occurs while fetching the records.
+     */
+    public List<Forecast> getForecastForCityByDay(int cityId, Date day) throws SQLException {
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        QueryBuilder<Forecast, Integer> queryBuilder = forecastDao.queryBuilder();
+        queryBuilder.where()
+                .eq(Forecast.CITY_ID, cityId)
+                .and().raw(String.format("`%s` LIKE '%s%%'", Forecast.COLUMN_FORECAST_FOR, dateFormatter.format(day)));
+        PreparedQuery<Forecast> preparedQuery = queryBuilder.prepare();
+        return forecastDao.query(preparedQuery);
     }
 
     /**

@@ -61,7 +61,7 @@
         </activity>
         <activity
             android:name=".CityWeatherDetailsActivity"
-            android:label="@string/activity_city_weather_iv_title"
+            android:label="@string/activity_city_weather_details_heading"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
             <meta-data

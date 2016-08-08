@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendlyweather.orm;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -47,7 +48,7 @@ public class Forecast {
     @DatabaseField(columnName = COLUMN_TIME_MEASUREMENT)
     private long timestamp;
 
-    @DatabaseField(columnName = COLUMN_FORECAST_FOR)
+    @DatabaseField(columnName = COLUMN_FORECAST_FOR, dataType = DataType.DATE_STRING, format = "yyyy-MM-dd HH:mm:ss")
     private Date forecastFor;
 
     @DatabaseField(columnName = COLUMN_WEATHER_ID)
@@ -58,7 +59,7 @@ public class Forecast {
     private String weatherDescription;
 
     @DatabaseField(columnName = COLUMN_TEMPERATURE_CURRENT)
-    private float temperatureCurrent;
+    private float temperature;
     @DatabaseField(columnName = COLUMN_HUMIDITY)
     private float humidity;
     @DatabaseField(columnName = COLUMN_PRESSURE)
@@ -166,15 +167,15 @@ public class Forecast {
     /**
      * @return Returns the current temperature in Celsius.
      */
-    public float getTemperatureCurrent() {
-        return temperatureCurrent;
+    public float getTemperature() {
+        return temperature;
     }
 
     /**
-     * @param temperatureCurrent The current temperature to set in Celsius.
+     * @param temperature The current temperature to set in Celsius.
      */
-    public void setTemperatureCurrent(float temperatureCurrent) {
-        this.temperatureCurrent = temperatureCurrent;
+    public void setTemperature(float temperature) {
+        this.temperature = temperature;
     }
 
     /**
