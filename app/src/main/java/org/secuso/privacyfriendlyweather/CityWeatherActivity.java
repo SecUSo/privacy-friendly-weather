@@ -28,6 +28,7 @@ public class CityWeatherActivity extends AppCompatActivity {
     /**
      * Member variables and visual components
      */
+    private static CurrentWeatherData weatherDataToDisplay = null;
     private ImageView iv;
     private TextView tvHeading;
     private TextView tvCategory;
@@ -47,14 +48,18 @@ public class CityWeatherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_city_weather);
 
         initializeComponents();
-        final CurrentWeatherData weatherData = getIntent().getExtras().getParcelable("weatherData");
-        setWeatherData(weatherData);
+
+        if (weatherDataToDisplay == null || getIntent().hasExtra("weatherData")) {
+            weatherDataToDisplay = getIntent().getExtras().getParcelable("weatherData");
+        }
+
+        setWeatherData(weatherDataToDisplay);
 
         fabOpenDetailsActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CityWeatherDetailsActivity.class);
-                intent.putExtra("cityId", weatherData.getCity().getId());
+                intent.putExtra("cityId", weatherDataToDisplay.getCity().getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.animation_bottom_to_top, R.anim.animation_bottom_to_top);
             }
@@ -62,8 +67,9 @@ public class CityWeatherActivity extends AppCompatActivity {
 
         // Start a background task to retrieve and store the weather forecast data
         Intent forecastIntent = new Intent(this, FetchForecastDataService.class);
-        forecastIntent.putExtra("cityId", weatherData.getCity().getCityId());
+        forecastIntent.putExtra("cityId", weatherDataToDisplay.getCity().getCityId());
         startService(forecastIntent);
+
     }
 
     /**

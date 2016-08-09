@@ -30,9 +30,9 @@ public class MainActivity extends BaseActivity {
     /**
      * Visual components.
      */
+    private boolean isInitialized = false;
+    private static DatabaseHelper dbHelper;
     private FloatingActionButton fabAddLocation;
-
-    private DatabaseHelper dbHelper;
     private DialogProvider dialogProvider;
     private ServiceReceiver createDatabaseReceiver;
     private ProgressDialog progressAddDialog;
@@ -41,6 +41,7 @@ public class MainActivity extends BaseActivity {
     // It is safer to initialize this to true; if it is not, in the worst case a progress dialog
     // will appear on add location
     private boolean canOpenAddDialog = true;
+    private PreferencesManager preferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,26 +49,13 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         overridePendingTransition(0, 0);
 
-        dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-        dialogProvider = new DialogProvider(dbHelper);
-        progressAddDialog = new ProgressDialog(MainActivity.this);
-        addLocationDialog = dialogProvider.getAddLocationDialog(this);
-        fabAddLocation = (FloatingActionButton) findViewById(R.id.fabAddLocation);
-        handleFloatingButtonAddLocationClick(this);
-
-        // Object for access to app preferences
-        SharedPreferences preferences = getSharedPreferences(PreferencesManager.PREFERENCES_NAME, Context.MODE_PRIVATE);
-        PreferencesManager preferencesManager = new PreferencesManager(preferences);
+        if (!isInitialized) {
+            initialize();
+        }
 
         // Handle if app is started for the first time
         if (preferencesManager.isFirstAppStart()) {
-            canOpenAddDialog = false;
-            // Start the background service to create the database and import the cities
-            setupServiceReceiver();
-            launchCreateDatabaseService();
-
-            AlertDialog firstAppStartDialog = dialogProvider.getFirstAppStartDialog(this);
-            firstAppStartDialog.show();
+            handleFirstAppStart();
         }
         // App was used before
         else {
@@ -101,10 +89,9 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(this, ERROR_MSG, Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
-        // Close the database connection
-        dbHelper.close();
-        // If this line is removed, the app crashes when the app is reopened as the onCreate method
-        // wloadould try to re-open a new DB helper
+
+        // If this line is removed, the app crashes when the app / activity is reopened as the
+        // onCreate method would try to re-open a new DB helper
         // (see http://stackoverflow.com/questions/12770092/attempt-to-re-open-an-already-closed-object-sqlitedatabase)
         OpenHelperManager.releaseHelper();
 
@@ -114,6 +101,26 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int getNavigationDrawerID() {
         return R.id.nav_example;
+    }
+
+    /**
+     * Initializes member variables and visual components of the activity.
+     */
+    private void initialize() {
+        if (dbHelper == null) {
+            dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
+        }
+        dialogProvider = new DialogProvider(dbHelper);
+        progressAddDialog = new ProgressDialog(MainActivity.this);
+        addLocationDialog = dialogProvider.getAddLocationDialog(this);
+        fabAddLocation = (FloatingActionButton) findViewById(R.id.fabAddLocation);
+        handleFloatingButtonAddLocationClick(this);
+
+        // Object for access to app preferences
+        SharedPreferences preferences = getSharedPreferences(PreferencesManager.PREFERENCES_NAME, Context.MODE_PRIVATE);
+        preferencesManager = new PreferencesManager(preferences);
+
+        isInitialized = true;
     }
 
     /**
@@ -140,6 +147,19 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    /**
+     * Executes the procedure for the first app start, i.e. setting up the database.
+     */
+    private void handleFirstAppStart() {
+        canOpenAddDialog = false;
+        // Start the background service to create the database and import the cities
+        setupServiceReceiver();
+        launchCreateDatabaseService();
+
+        AlertDialog firstAppStartDialog = dialogProvider.getFirstAppStartDialog(this);
+        firstAppStartDialog.show();
     }
 
     /**
