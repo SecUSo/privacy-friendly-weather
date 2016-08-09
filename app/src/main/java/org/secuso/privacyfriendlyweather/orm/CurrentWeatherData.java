@@ -17,8 +17,6 @@ public class CurrentWeatherData implements Parcelable {
      */
     public static final String COLUMN_TIME_MEASUREMENT = "time_of_measurement";
     public static final String COLUMN_WEATHER_ID = "weather_id";
-    public static final String COLUMN_WEATHER_CATEGORY = "weather_category";
-    public static final String COLUMN_WEATHER_DESCRIPTION = "weather_description";
     public static final String COLUMN_TEMPERATURE_CURRENT = "temperature_current";
     public static final String COLUMN_TEMPERATURE_MIN = "temperature_min";
     public static final String COLUMN_TEMPERATURE_MAX = "temperature_max";
@@ -44,10 +42,6 @@ public class CurrentWeatherData implements Parcelable {
 
     @DatabaseField(columnName = COLUMN_WEATHER_ID)
     private int weatherID;
-    @DatabaseField(columnName = COLUMN_WEATHER_CATEGORY)
-    private String weatherCategory;
-    @DatabaseField(columnName = COLUMN_WEATHER_DESCRIPTION)
-    private String weatherDescription;
 
     @DatabaseField(columnName = COLUMN_TEMPERATURE_CURRENT)
     private float temperatureCurrent;
@@ -135,34 +129,6 @@ public class CurrentWeatherData implements Parcelable {
      */
     public void setWeatherID(int weatherID) {
         this.weatherID = weatherID;
-    }
-
-    /**
-     * @return Returns a short weather condition description like "Clear", "Rainy" etc.
-     */
-    public String getWeatherCategory() {
-        return weatherCategory;
-    }
-
-    /**
-     * @param weatherCategory A short description of the weather condition like "Clear", "Rainy" etc.
-     */
-    public void setWeatherCategory(String weatherCategory) {
-        this.weatherCategory = weatherCategory;
-    }
-
-    /**
-     * @return Returns a description of the current weather.
-     */
-    public String getWeatherDescription() {
-        return weatherDescription;
-    }
-
-    /**
-     * @param weatherDescription A description of the current weather.
-     */
-    public void setWeatherDescription(String weatherDescription) {
-        this.weatherDescription = weatherDescription;
     }
 
     /**
@@ -323,8 +289,6 @@ public class CurrentWeatherData implements Parcelable {
         city = (City) in.readSerializable();
         timestamp = in.readLong();
         weatherID = in.readInt();
-        weatherCategory = in.readString();
-        weatherDescription = in.readString();
         temperatureCurrent = in.readFloat();
         temperatureMin = in.readFloat();
         temperatureMax = in.readFloat();
@@ -355,8 +319,6 @@ public class CurrentWeatherData implements Parcelable {
         dest.writeSerializable(city);
         dest.writeLong(timestamp);
         dest.writeInt(weatherID);
-        dest.writeString(weatherCategory);
-        dest.writeString(weatherDescription);
         dest.writeFloat(temperatureCurrent);
         dest.writeFloat(temperatureMin);
         dest.writeFloat(temperatureMax);

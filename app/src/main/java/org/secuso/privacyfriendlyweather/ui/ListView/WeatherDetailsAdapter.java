@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
+import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
+import org.secuso.privacyfriendlyweather.weather_api.ValueDeriver;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -68,8 +70,10 @@ public class WeatherDetailsAdapter extends ArrayAdapter<Forecast> {
                 String.format("%s mm", item.getPastRainVolume());
 
         DateFormat dateFormatter = new SimpleDateFormat("HH:mm");
+        IApiToDatabaseConversion.WeatherCategories category = IApiToDatabaseConversion.getLabelForValue(item.getWeatherID());
+        ValueDeriver valueDeriver = new ValueDeriver(context);
         holder.tvTime.setText(dateFormatter.format(item.getForecastTime()));
-        holder.tvCategory.setText(item.getWeatherCategory());
+        holder.tvCategory.setText(valueDeriver.getWeatherDescriptionByCategory(category));
         holder.tvTemperature.setText(temperature);
         holder.tvHumidity.setText(humidity);
         holder.tvPressure.setText(pressure);

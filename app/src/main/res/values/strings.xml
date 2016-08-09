@@ -100,6 +100,17 @@
     <string name="dialog_add_close_button">Close</string>
     <string name="dialog_add_add_button">Add</string>
 
+    <!-- ###WEATHER CATEGORIES### -->
+    <string name="weather_category_clear_sky">Clear Sky</string>
+    <string name="weather_category_clouds">Clouds</string>
+    <string name="weather_category_scattered_clouds">Scattered Clouds</string>
+    <string name="weather_category_broken_clouds">Broken Clouds</string>
+    <string name="weather_category_shower_rain">Shower Rain</string>
+    <string name="weather_category_rain">Rain</string>
+    <string name="weather_category_thunderstorm">Thunderstorm</string>
+    <string name="weather_category_snow">Snow</string>
+    <string name="weather_category_mist">Mist</string>
+
     <!-- ###EXIT### -->
     <string name="action_destroy_deletion_number_singular">
         %s temporary location was deleted

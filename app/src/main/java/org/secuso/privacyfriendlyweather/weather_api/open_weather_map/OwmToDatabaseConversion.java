@@ -5,7 +5,7 @@ import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 /**
  * This class implements the IApiToDatabaseConversion interface for the OpenWeatherMap API.
  */
-public class OwmToDatabaseConversion implements IApiToDatabaseConversion {
+public class OwmToDatabaseConversion extends IApiToDatabaseConversion {
 
     /**
      * @see IApiToDatabaseConversion#convertWeatherCategory(String)

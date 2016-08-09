@@ -62,8 +62,6 @@ public class ProcessOwmAddCityToListRequest implements IProcessHttpRequest {
         JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
         JSONObject jsonWeather = new JSONObject(jsonWeatherArray.get(0).toString());
         weatherData.setWeatherID(conversion.convertWeatherCategory(jsonWeather.getString("id")));
-        weatherData.setWeatherCategory(jsonWeather.getString("main"));
-        weatherData.setWeatherDescription(jsonWeather.getString("description"));
 
         JSONObject jsonMain = jsonData.getJSONObject("main");
         weatherData.setTemperatureCurrent((float) jsonMain.getDouble("temp"));

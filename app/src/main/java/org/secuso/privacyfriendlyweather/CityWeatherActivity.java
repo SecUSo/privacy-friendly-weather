@@ -11,6 +11,8 @@ import android.widget.TextView;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.services.FetchForecastDataService;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
+import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
+import org.secuso.privacyfriendlyweather.weather_api.ValueDeriver;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -111,10 +113,11 @@ public class CityWeatherActivity extends AppCompatActivity {
         String sunset = dateFormat.format(calendar.getTime());
 
         // Fill with content
+        IApiToDatabaseConversion.WeatherCategories category = IApiToDatabaseConversion.getLabelForValue(weatherData.getWeatherID());
+        ValueDeriver valueDeriver = new ValueDeriver(getApplicationContext());
         iv.setImageResource(UiResourceProvider.getImageResourceForWeatherCategory(weatherData.getWeatherID()));
         tvHeading.setText(heading);
-        // TODO: Need to translate this value
-        tvCategory.setText(weatherData.getWeatherCategory());
+        tvCategory.setText(valueDeriver.getWeatherDescriptionByCategory(category));
         tvHumidity.setText(humidity);
         tvPressure.setText(pressure);
         tvWindSpeed.setText(windSpeed);
