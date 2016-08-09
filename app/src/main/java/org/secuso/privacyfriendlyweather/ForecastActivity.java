@@ -10,48 +10,41 @@ import org.secuso.privacyfriendlyweather.ui.ListView.ForecastAdapter;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
-/**
- * This is the activity for displaying weather data of today for a city.
- */
-public class CityWeatherDetailsActivity extends AppCompatActivity {
+public class ForecastActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_city_weather_details);
+        setContentView(R.layout.activity_forecast);
+
+        // Get the parameters and the corresponding database entries
+        int cityId = getIntent().getIntExtra("cityId", -1);
+        Calendar day = (Calendar) getIntent().getSerializableExtra("day");
 
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         List<Forecast> forecasts = new ArrayList<>();
-
-        // Retrieve the passed city ID and then the database records
-        int cityId = getIntent().getIntExtra("cityId", -1);
-        if (cityId != -1) {
-            try {
-                forecasts = dbHelper.getForecastForCityByDay(cityId, new Date());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try {
+            forecasts = dbHelper.getForecastForCityByDay(cityId, day.getTime());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // TODO: Define the error case
         }
-
         initializeListView(forecasts);
     }
 
     /**
-     * Note, even though data of the current day are displayed the ForecastAdapter is used
-     * nonetheless as the database record belong to the Forecast table!
-     *
      * @param forecasts The records to initially render.
      */
     private void initializeListView(List<Forecast> forecasts) {
         ForecastAdapter forecastAdapter = new ForecastAdapter(
-                CityWeatherDetailsActivity.this,
+                ForecastActivity.this,
                 0,
                 forecasts
         );
-        ListView listViewForecasts = (ListView) findViewById(R.id.list_view_weather_details);
+        ListView listViewForecasts = (ListView) findViewById(R.id.list_view_weather_forecasts);
         listViewForecasts.setAdapter(forecastAdapter);
     }
 

@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * This class is the adapter for the ListView to render weather details of a day.
  */
-public class WeatherDetailsAdapter extends ArrayAdapter<Forecast> {
+public class ForecastAdapter extends ArrayAdapter<Forecast> {
 
     private Context context;
     private static LayoutInflater inflater = null;
@@ -27,7 +27,7 @@ public class WeatherDetailsAdapter extends ArrayAdapter<Forecast> {
     /**
      * @see ArrayAdapter#ArrayAdapter(Context, int, int, List)
      */
-    public WeatherDetailsAdapter(Context context, int resource, List<Forecast> items) {
+    public ForecastAdapter(Context context, int resource, List<Forecast> items) {
         super(context, resource, items);
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

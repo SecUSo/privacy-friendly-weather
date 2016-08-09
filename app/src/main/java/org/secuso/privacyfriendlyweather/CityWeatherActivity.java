@@ -14,7 +14,9 @@ import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.ValueDeriver;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -23,15 +25,17 @@ import java.util.GregorianCalendar;
 public class CityWeatherActivity extends AppCompatActivity {
 
     /**
-     * Constants
+     * Constant
      */
     private final String DEBUG_TAG = "debug_city_weather_act";
+    private final int NUMBER_OF_FORECASTS = 5;
 
     /**
      * Member variables and visual components
      */
     private static CurrentWeatherData weatherDataToDisplay = null;
     private ImageView iv;
+    private TextView[] tvForecast;
     private TextView tvHeading;
     private TextView tvCategory;
     private TextView tvHumidity;
@@ -78,6 +82,33 @@ public class CityWeatherActivity extends AppCompatActivity {
      * Initializes the visual components
      */
     private void initializeComponents() {
+        // Initialize the text views for the forecasts
+        final String ACTIVITY_CITY_WEATHER_DAY = "activity_city_weather_day";
+        DateFormat dateFormatter = new SimpleDateFormat("dd.MM");
+        Calendar day = Calendar.getInstance();
+        tvForecast = new TextView[NUMBER_OF_FORECASTS];
+        for (int i = 0; i < NUMBER_OF_FORECASTS; i++) {
+            // First day: tomorrow
+            day.add(Calendar.DAY_OF_MONTH, 1);
+            // Labels start with 1
+            String componentId = ACTIVITY_CITY_WEATHER_DAY + String.valueOf(i + 1);
+            int id = getResources().getIdentifier(componentId, "id", getApplicationContext().getPackageName());
+            tvForecast[i] = (TextView) findViewById(id);
+            tvForecast[i].setText(dateFormatter.format(day.getTime()));
+            tvForecast[i].setTag(i + 1);
+            tvForecast[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Get the day for the forecast
+                    Calendar day = Calendar.getInstance();
+                    TextView thisTextView = (TextView) v;
+                    day.add(Calendar.DAY_OF_MONTH, (Integer) thisTextView.getTag());
+                    openForecastActivity(weatherDataToDisplay.getCity().getId(), day);
+                }
+            });
+        }
+
+        // All other components
         iv = (ImageView) findViewById(R.id.activity_city_weather_image_view);
         tvHeading = (TextView) findViewById(R.id.activity_city_weather_tv_heading);
         tvCategory = (TextView) findViewById(R.id.activity_city_weather_tv_category_value);
@@ -123,6 +154,20 @@ public class CityWeatherActivity extends AppCompatActivity {
         tvWindSpeed.setText(windSpeed);
         tvSunrise.setText(sunrise);
         tvSunset.setText(sunset);
+    }
+
+    /**
+     * Takes a city and a day, opens the view for the forecast and displays the data for the given
+     * city and day.
+     *
+     * @param cityId The city to retrieve the forecast data for.
+     * @param day    The day to retrieve the forecast data for.
+     */
+    private void openForecastActivity(int cityId, Calendar day) {
+        Intent forecastActivity = new Intent(CityWeatherActivity.this, ForecastActivity.class);
+        forecastActivity.putExtra("cityId", cityId);
+        forecastActivity.putExtra("day", day);
+        startActivity(forecastActivity);
     }
 
 }
