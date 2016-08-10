@@ -64,7 +64,7 @@
     <string name="activity_city_weather_tv_sunset">Time Sunset:</string>
 
     <!-- ###CITY_WEATHER_DETAILS_ACTIVITY### -->
-    <string name="activity_city_weather_details_label">Today\'s Weather></string>
+    <string name="activity_city_weather_details_label">Today\'s Weather</string>
     <string name="activity_city_weather_details_tv_category">Weather:</string>
     <string name="activity_city_weather_details_tv_temperature">Temperature:</string>
     <string name="activity_city_weather_details_tv_humidity">Humidity:</string>

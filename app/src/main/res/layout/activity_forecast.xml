@@ -9,11 +9,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.secuso.privacyfriendlyweather.ForecastActivity">
 
+    <TextView
+        android:id="@+id/activity_forecast_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="25sp" />
+
     <ListView
-        android:id="@+id/list_view_weather_forecasts"
+        android:id="@+id/activity_forecast_list_view_forecasts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_below="@id/activity_forecast_heading"/>
 
 </RelativeLayout>

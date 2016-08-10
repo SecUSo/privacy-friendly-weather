@@ -179,6 +179,26 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
+     * Retrieves a city by its ID.
+     *
+     * @param id The ID (value in the column id).
+     * @return Returns the city that matches the ID or null in case non was found or an
+     * SQLException occurred.
+     */
+    public City getCityByID(int id) {
+        QueryBuilder<City, Integer> queryBuilder = cityDao.queryBuilder();
+        try {
+            queryBuilder.where().eq("id", id);
+            PreparedQuery<City> prepare = queryBuilder.prepare();
+            List<City> cities = cityDao.query(prepare);
+            return cities.size() == 0 ? null : cities.get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * Retrieves a city by its cityId.
      *
      * @param cityId The cityId (value in the column city_id).

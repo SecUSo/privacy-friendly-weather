@@ -3,12 +3,16 @@ package org.secuso.privacyfriendlyweather;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
 import org.secuso.privacyfriendlyweather.ui.ListView.ForecastAdapter;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -26,12 +30,34 @@ public class ForecastActivity extends AppCompatActivity {
 
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         List<Forecast> forecasts = new ArrayList<>();
-        try {
-            forecasts = dbHelper.getForecastForCityByDay(cityId, day.getTime());
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // TODO: Define the error case
+
+
+        String cityName = "";
+        if (cityId != -1) {
+            // Retrieve the passed city ID and then the database records; also display the name of the
+            // city
+            try {
+                City city = dbHelper.getCityByID(cityId);
+                if (city != null) {
+                    cityName = city.getCityName();
+                }
+
+                forecasts = dbHelper.getForecastForCityByDay(cityId, day.getTime());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // TODO: Define the error case
+            }
         }
+
+        DateFormat dateFormatter = new SimpleDateFormat("dd.MM");
+        String heading = String.format(
+                "%s, %s",
+                cityName,
+                dateFormatter.format(day.getTime())
+        );
+        TextView tvHeading = (TextView) findViewById(R.id.activity_forecast_heading);
+        tvHeading.setText(heading);
+
         initializeListView(forecasts);
     }
 
@@ -44,8 +70,9 @@ public class ForecastActivity extends AppCompatActivity {
                 0,
                 forecasts
         );
-        ListView listViewForecasts = (ListView) findViewById(R.id.list_view_weather_forecasts);
+        ListView listViewForecasts = (ListView) findViewById(R.id.activity_forecast_list_view_forecasts);
         listViewForecasts.setAdapter(forecastAdapter);
+        listViewForecasts.setSelection(forecasts.size() >> 1);
     }
 
 }

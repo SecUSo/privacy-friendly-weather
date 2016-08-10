@@ -3,7 +3,9 @@ package org.secuso.privacyfriendlyweather;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
 import org.secuso.privacyfriendlyweather.ui.ListView.ForecastAdapter;
@@ -24,18 +26,28 @@ public class CityWeatherDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_city_weather_details);
 
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+
         List<Forecast> forecasts = new ArrayList<>();
 
-        // Retrieve the passed city ID and then the database records
+        // Retrieve the passed city ID and then the database records; also display the name of the
+        // city
+        String heading = "";
         int cityId = getIntent().getIntExtra("cityId", -1);
         if (cityId != -1) {
             try {
+                City city = dbHelper.getCityByID(cityId);
+                if (city != null) {
+                    heading = city.getCityName();
+                }
+
                 forecasts = dbHelper.getForecastForCityByDay(cityId, new Date());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
+        TextView tvHeading = (TextView) findViewById(R.id.activity_weather_details_heading);
+        tvHeading.setText(heading);
         initializeListView(forecasts);
     }
 
