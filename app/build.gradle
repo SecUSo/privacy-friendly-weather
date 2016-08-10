@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "org.secuso.example"
+        applicationId "org.secuso.privacyfriendlyweather"
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
