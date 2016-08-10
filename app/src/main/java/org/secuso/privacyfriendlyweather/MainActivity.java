@@ -49,6 +49,9 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         overridePendingTransition(0, 0);
 
+        if (dbHelper == null) {
+            dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
+        }
         if (!isInitialized) {
             initialize();
         }
@@ -94,6 +97,7 @@ public class MainActivity extends BaseActivity {
         // onCreate method would try to re-open a new DB helper
         // (see http://stackoverflow.com/questions/12770092/attempt-to-re-open-an-already-closed-object-sqlitedatabase)
         OpenHelperManager.releaseHelper();
+        dbHelper = null;
 
         super.onDestroy();
     }
@@ -107,9 +111,6 @@ public class MainActivity extends BaseActivity {
      * Initializes member variables and visual components of the activity.
      */
     private void initialize() {
-        if (dbHelper == null) {
-            dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-        }
         dialogProvider = new DialogProvider(dbHelper);
         progressAddDialog = new ProgressDialog(MainActivity.this);
         addLocationDialog = dialogProvider.getAddLocationDialog(this);
