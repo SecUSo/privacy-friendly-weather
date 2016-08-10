@@ -53,9 +53,9 @@
     <string name="pref_example_switch_summary">Example Switch Summary</string>
 
     <!-- ###CITY_WEATHER_ACTIVIY### -->
+    <string name="activity_city_weather_label">Current Weather</string>
     <string name="activity_city_weather_iv_description">An image that fits the weather category</string>
     <string name="activity_city_weather_separator">&#160;|&#160;</string>
-    <string name="activity_city_weather_iv_title">Weather Details</string>
     <string name="activity_city_weather_tv_category">Weather:</string>
     <string name="activity_city_weather_tv_humidity">Humidity:</string>
     <string name="activity_city_weather_tv_pressure">Pressure:</string>
@@ -63,8 +63,8 @@
     <string name="activity_city_weather_tv_sunrise">Time Sunrise:</string>
     <string name="activity_city_weather_tv_sunset">Time Sunset:</string>
 
-    <!-- ###CITY_WEATHER_DETAILS_ACTIVIY### -->
-    <string name="activity_city_weather_details_label">Today\'s weather in detail</string>
+    <!-- ###CITY_WEATHER_DETAILS_ACTIVITY### -->
+    <string name="activity_city_weather_details_label">Today\'s Weather></string>
     <string name="activity_city_weather_details_tv_category">Weather:</string>
     <string name="activity_city_weather_details_tv_temperature">Temperature:</string>
     <string name="activity_city_weather_details_tv_humidity">Humidity:</string>
@@ -74,7 +74,7 @@
     <string name="activity_city_weather_details_tv_rain_volume_na">n/a</string>
 
     <!-- ###FORECAST_ACTIVITY### -->
-    <string name="activity_forecast_label">Weather forecast</string>
+    <string name="activity_forecast_label">Weather Forecast</string>
 
     <!-- ###DIALOGS### -->
     <string name="dialog_first_app_start_message">
