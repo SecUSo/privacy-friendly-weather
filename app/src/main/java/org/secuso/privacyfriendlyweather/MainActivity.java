@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getNavigationDrawerID() {
-        return R.id.nav_example;
+        return R.id.nav_weather;
     }
 
     /**
@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity {
         progressAddDialog = new ProgressDialog(MainActivity.this);
         addLocationDialog = dialogProvider.getAddLocationDialog(this);
         fabAddLocation = (FloatingActionButton) findViewById(R.id.fabAddLocation);
-        handleFloatingButtonAddLocationClick(this);
+        handleFloatingButtonAddLocationClick();
 
         // Object for access to app preferences
         SharedPreferences preferences = getSharedPreferences(PreferencesManager.PREFERENCES_NAME, Context.MODE_PRIVATE);
@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity {
     /**
      * When the floating button for adding a new location is clicked, open a dialog to do so.
      */
-    private void handleFloatingButtonAddLocationClick(final Context context) {
+    private void handleFloatingButtonAddLocationClick() {
         fabAddLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
