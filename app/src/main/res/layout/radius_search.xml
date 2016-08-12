@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radius_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:id="@+id/radius_search">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/radius_search_tv_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Find the best weather around a location"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:text="@string/radius_search_label"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Location (center of the search)" />
+                android:text="@string/radius_search_tv_heading" />
 
             <android.support.v7.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/radius_search_edt_location"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Edge length of the search square" />
+                android:text="@string/radius_search_tv_edge_length" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Number of locations to retrieve" />
+                android:text="@string/radius_search_tv_num_returns" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -97,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Search" />
+                android:text="@string/radius_search_btn_search" />
         </LinearLayout>
 
     </ScrollView>
