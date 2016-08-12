@@ -30,15 +30,15 @@ public class UiResourceProvider {
             case 40:
                 return R.drawable.weather_icon_cloudy_broken;
             case 50:
-                return R.drawable.weather_icon_shower_rain;
+                return R.drawable.weather_icon_foggy;
             case 60:
-                return R.drawable.weather_icon_rain;
+                return R.drawable.weather_icon_shower_rain;
             case 70:
-                return R.drawable.weather_icon_thunderstorm;
+                return R.drawable.weather_icon_rain;
             case 80:
                 return R.drawable.weather_icon_snow;
             case 90:
-                return R.drawable.weather_icon_foggy;
+                return R.drawable.weather_icon_thunderstorm;
             default:
                 return R.drawable.weather_icon_sunny_with_clouds;
         }

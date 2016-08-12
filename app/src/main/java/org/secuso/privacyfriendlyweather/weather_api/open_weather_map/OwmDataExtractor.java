@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
+import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 
@@ -57,11 +58,36 @@ public class OwmDataExtractor implements IDataExtractor {
             JSONObject jsonClouds = jsonData.getJSONObject("clouds");
             weatherData.setCloudiness((float) jsonClouds.getDouble("all"));
 
-            JSONObject jsonSunRiseSet = jsonData.getJSONObject("sys");
-            weatherData.setTimeSunrise(jsonSunRiseSet.getLong("sunrise"));
-            weatherData.setTimeSunset(jsonSunRiseSet.getLong("sunset"));
+            if (jsonData.has("sys")) {
+                JSONObject jsonSunRiseSet = jsonData.getJSONObject("sys");
+                weatherData.setTimeSunrise(jsonSunRiseSet.getLong("sunrise"));
+                weatherData.setTimeSunset(jsonSunRiseSet.getLong("sunset"));
+            }
 
             return weatherData;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * @see IDataExtractor#extractRadiusSearchItemData(String)
+     */
+    @Override
+    public RadiusSearchItem extractRadiusSearchItemData(String data) {
+        try {
+            JSONObject jsonData = new JSONObject(data);
+            JSONObject jsonMain = jsonData.getJSONObject("main");
+            JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
+            JSONObject jsonWeather = new JSONObject(jsonWeatherArray.get(0).toString());
+            IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
+
+            return new RadiusSearchItem(
+                    jsonData.getString("name"),
+                    (float) jsonMain.getDouble("temp"),
+                    conversion.convertWeatherCategory(jsonWeather.getString("id"))
+            );
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -135,5 +161,23 @@ public class OwmDataExtractor implements IDataExtractor {
         return Integer.MIN_VALUE;
     }
 
+    /**
+     * @see IDataExtractor#extractLatitudeLongitude(String)
+     */
+    @Override
+    public double[] extractLatitudeLongitude(String data) {
+
+        try {
+            JSONObject json = new JSONObject(data);
+            JSONObject coordinationObject = json.getJSONObject("coord");
+            return new double[]{
+                    coordinationObject.getDouble("lat"),
+                    coordinationObject.getDouble("lon")
+            };
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return new double[0];
+        }
+    }
 
 }

@@ -3,9 +3,6 @@ package org.secuso.privacyfriendlyweather.ui;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -21,9 +18,12 @@ import java.util.List;
  */
 public class AutoCompleteCityTextViewGenerator {
 
-    Context context;
-    DatabaseHelper dbHelper;
-    ArrayAdapter<City> cityAdapter;
+    /**
+     * Member variables
+     */
+    private Context context;
+    private DatabaseHelper dbHelper;
+    private ArrayAdapter<City> cityAdapter;
 
     /**
      * Constructor.
@@ -49,7 +49,6 @@ public class AutoCompleteCityTextViewGenerator {
         cityAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, new ArrayList<City>());
         editField.setAdapter(cityAdapter);
         editField.addTextChangedListener(new TextChangeListener(editField, listLimit, selectedCity));
-        editField.setOnItemClickListener(new ItemClickListener(editField, selectedCity));
     }
 
     /**
@@ -92,30 +91,6 @@ public class AutoCompleteCityTextViewGenerator {
 
         @Override
         public void afterTextChanged(Editable s) {
-        }
-
-    }
-
-    /**
-     * This class handles the click on items of the dropdown menu. It sets the selected city and
-     * hides the keyboard.
-     */
-    private class ItemClickListener implements AdapterView.OnItemClickListener {
-
-        private AutoCompleteTextView editField;
-        private City selectedCity;
-
-        private ItemClickListener(AutoCompleteTextView editField, City selectedCity) {
-            this.editField = editField;
-            this.selectedCity = selectedCity;
-        }
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectedCity = (City) parent.getItemAtPosition(position);
-
-            InputMethodManager imm = (InputMethodManager) context.getSystemService(context.INPUT_METHOD_SERVICE);
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
         }
 
     }

@@ -14,12 +14,15 @@ import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
  */
 public class OwmHttpRequestForForecast extends OwmHttpRequest implements IHttpRequestForForecast {
 
+    /**
+     * Member variables.
+     */
     private Context context;
     private DatabaseHelper dbHelper;
 
     /**
-     * @param context
-     * @param dbHelper
+     * @param context  The context to use.
+     * @param dbHelper The DatabaseHelper to use for database communication.
      */
     public OwmHttpRequestForForecast(Context context, DatabaseHelper dbHelper) {
         this.context = context;

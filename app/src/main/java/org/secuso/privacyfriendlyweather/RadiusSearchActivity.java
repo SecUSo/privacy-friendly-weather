@@ -2,15 +2,25 @@ package org.secuso.privacyfriendlyweather;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.ui.AutoCompleteCityTextViewGenerator;
+import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForRadiusSearch;
+import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForRadiusSearch;
 
+import java.util.List;
+
+/**
+ * This activity provides the functionality to search the best weather around a given location.
+ */
 public class RadiusSearchActivity extends BaseActivity {
 
     /**
@@ -56,6 +66,17 @@ public class RadiusSearchActivity extends BaseActivity {
         AutoCompleteCityTextViewGenerator generator = new AutoCompleteCityTextViewGenerator(this, dbHelper);
         edtLocation = (AutoCompleteTextView) findViewById(R.id.radius_search_edt_location);
         generator.getInstance(edtLocation, 8, dropdownSelectedCity);
+        edtLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                dropdownSelectedCity = (City) parent.getItemAtPosition(position);
+                // Also close the keyboard
+                InputMethodManager imm =
+                        (InputMethodManager) getApplicationContext().getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            }
+        });
+
         sbEdgeLength = (SeekBar) findViewById(R.id.radius_search_sb_edge_length);
         tvEdgeLengthValue = (TextView) findViewById(R.id.radius_search_tv_edge_length_value);
         sbNumReturns = (SeekBar) findViewById(R.id.radius_search_sb_num_returns);
@@ -91,6 +112,29 @@ public class RadiusSearchActivity extends BaseActivity {
         // Retrieve all necessary inputs
         int edgeLength = sbEdgeLength.getProgress();
         int numberOfReturnCities = sbNumReturns.getProgress();
+        // Procedure for retrieving the city (only necessary if no item from the drop down list
+        // was selected)
+        City city = dropdownSelectedCity;
+        if (dropdownSelectedCity == null) {
+            List<City> foundCities = dbHelper.getCitiesWhereNameLike(edtLocation.getText().toString(), 2);
+            // 1) No city found
+            if (foundCities.size() == 0) {
+                Toast.makeText(RadiusSearchActivity.this, R.string.dialog_add_no_city_found, Toast.LENGTH_LONG).show();
+            }
+            // 2) 1 city found,
+            else if (foundCities.size() == 1) {
+                city = foundCities.get(0);
+            }
+            // 3) > 1 cities found
+            else {
+                Toast.makeText(RadiusSearchActivity.this, R.string.dialog_add_too_many_cities_found, Toast.LENGTH_LONG).show();
+            }
+        }
+
+        if (city != null) {
+            IHttpRequestForRadiusSearch radiusSearchRequest = new OwmHttpRequestForRadiusSearch(getApplicationContext());
+            radiusSearchRequest.perform(city.getCityId(), edgeLength, numberOfReturnCities);
+        }
     }
 
     /**

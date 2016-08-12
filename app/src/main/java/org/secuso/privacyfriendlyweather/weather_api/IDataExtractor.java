@@ -2,8 +2,7 @@ package org.secuso.privacyfriendlyweather.weather_api;
 
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
-
-import java.util.List;
+import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 
 /**
  * This interface defines the frame of the functionality to extractCurrentWeatherData weather information from which
@@ -19,8 +18,17 @@ public interface IDataExtractor {
     CurrentWeatherData extractCurrentWeatherData(String data);
 
     /**
-     * @param data The data that contains the information to instantiate a Forecast object, i. e. a
-     *             list item of the JSON response.
+     * Note that data shall contain information for instantiating <b>one</b> RadiusSearchItem
+     * instance.
+     *
+     * @param data The data that provides the information that are necessary to create
+     *             RadiusSearchItem instances.
+     * @return Returns an RadiusSearchItem object that was created using the provided information.
+     */
+    RadiusSearchItem extractRadiusSearchItemData(String data);
+
+    /**
+     * @param data The data that contains the information to instantiate a Forecast object.
      * @return Returns the extracted weather forecast information. In case some error occurs, null
      * will be returned.
      */
@@ -32,5 +40,12 @@ public interface IDataExtractor {
      * and the information could not be extracted.
      */
     int extractCityID(String data);
+
+    /**
+     * @param data The data that contains the longitude and latitude to extract.
+     * @return Returns an array where the first element is the latitude and the second the
+     * longitude. In case an error occurs, an empty array will be returned.
+     */
+    double[] extractLatitudeLongitude(String data);
 
 }
