@@ -23,12 +23,21 @@
         </activity>
         <activity
             android:name=".RadiusSearchActivity"
-            android:label="Radius Search"
+            android:label="@string/radius_search_label"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".RadiusSearchResultActivity"
+            android:label="@string/radius_search_result_label"
+            android:parentActivityName=".RadiusSearchActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RadiusSearchActivity" />
         </activity>
         <activity
             android:name=".AboutActivity"

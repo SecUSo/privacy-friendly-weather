@@ -1,10 +1,13 @@
 package org.secuso.privacyfriendlyweather.radius_search;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Instances of this class represent locations that are to be used for evaluating the result of
  * radius searches.
  */
-public class RadiusSearchItem {
+public class RadiusSearchItem implements Parcelable {
 
     /**
      * Member variables
@@ -24,6 +27,12 @@ public class RadiusSearchItem {
         this.cityName = cityName;
         this.temperature = temperature;
         this.weatherCategory = weatherCategory;
+    }
+
+    protected RadiusSearchItem(Parcel in) {
+        cityName = in.readString();
+        weatherCategory = in.readInt();
+        temperature = in.readFloat();
     }
 
     /**
@@ -69,5 +78,44 @@ public class RadiusSearchItem {
     public void setWeatherCategory(int weatherCategory) {
         this.weatherCategory = weatherCategory;
     }
+
+    /**
+     * @see Parcelable#describeContents()
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * @see Parcelable#writeToParcel(Parcel, int)
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(cityName);
+        dest.writeInt(weatherCategory);
+        dest.writeFloat(temperature);
+    }
+
+    /**
+     * This field is needed for Android to be able to create new objects, individually or as arrays.
+     * This also means that you can use use the default constructor to create the object and use
+     * another method to hydrate it as necessary.
+     * (This has been taken
+     * from http://stackoverflow.com/questions/6743084/how-to-pass-an-object-to-another-activity
+     * as of 2016-08-04)
+     */
+    @SuppressWarnings("unchecked")
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        @Override
+        public RadiusSearchItem createFromParcel(Parcel in) {
+            return new RadiusSearchItem(in);
+        }
+
+        @Override
+        public Object[] newArray(int size) {
+            return new RadiusSearchItem[size];
+        }
+    };
 
 }

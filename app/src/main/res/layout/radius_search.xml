@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
-        android:text="@string/radius_search_label"
+        android:text="@string/radius_search_heading"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ScrollView

@@ -1,6 +1,8 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -9,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.RadiusSearchResultActivity;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItemComparator;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
@@ -51,8 +54,8 @@ public class ProcessRadiusSearchRequest implements IProcessHttpRequest {
         // The following value is the fifth parameter for the bounding box and represents the
         // map zoom, as explained here as of 2016-08-12:
         // https://github.com/renkun-ken/rlist-tutorial/blob/master/Examples/Weather-API.Rmd
-        // It is set to 100 because this seems to be a good granularity for this project
-        final int MAP_ZOOM = 100;
+        // It is set to 10 because this seems to be a good granularity for this project
+        final int MAP_ZOOM = 10;
 
         IDataExtractor extractor = new OwmDataExtractor();
         double[] latitudeLongitude = extractor.extractLatitudeLongitude(response);
@@ -149,7 +152,18 @@ public class ProcessRadiusSearchRequest implements IProcessHttpRequest {
             // Sort the weather and get the items to display
             Collections.sort(radiusItems, new RadiusSearchItemComparator());
             int endIndex = radiusItems.size() > resultCount ? resultCount : radiusItems.size();
-            List<RadiusSearchItem> resultList = radiusItems.subList(0, endIndex);
+            ArrayList<RadiusSearchItem> resultList = new ArrayList<>();
+            for (int i = 0; i < endIndex; i++) {
+                resultList.add(radiusItems.get(i));
+            }
+
+            // Finally, load the activity to show the result
+            Intent intent = new Intent(context, RadiusSearchResultActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("resultList", resultList);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
         }
 
         /**

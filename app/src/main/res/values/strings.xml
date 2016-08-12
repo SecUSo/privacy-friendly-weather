@@ -19,11 +19,15 @@
     <string name="activity_main_snackbar_undo_button">UNDO</string>
 
     <!-- ###RADIUS_SEARCH### -->
-    <string name="radius_search_label">Find the best weather around a location</string>
+    <string name="radius_search_label">Radius Search</string>
+    <string name="radius_search_heading">Find the best weather around a location</string>
     <string name="radius_search_tv_heading">Location (center of the search square)</string>
     <string name="radius_search_tv_edge_length">Edge length of the search square</string>
     <string name="radius_search_tv_num_returns">Number of locations to retrieve</string>
     <string name="radius_search_btn_search">Search</string>
+
+    <!-- ###RADIUS_SEARCH_RESULT### -->
+    <string name="radius_search_result_label">Search Result</string>
 
     <!--###HELP###-->
     <string name="help">Help</string>
