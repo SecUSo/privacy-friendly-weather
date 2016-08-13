@@ -60,8 +60,15 @@
     <!-- ###Settings### -->
     <string name="title_activity_settings">Settings</string>
     <string name="pref_header_general">General</string>
-    <string name="pref_example_switch">Example Switch</string>
-    <string name="pref_example_switch_summary">Example Switch Summary</string>
+    <string name="settings_title_units">Units</string>
+    <string name="settings_summary_temperature">Set the unit to use for displaying temperatures</string>
+    <string name="settings_title_temperature">Temperatures</string>
+    <string name="settings_celsius">Celsius</string>
+    <string name="settings_fahrenheit">Fahrenheit</string>
+    <string name="settings_summary_distance">Set the unit to use for displaying distances</string>
+    <string name="settings_title_distance">Distances</string>
+    <string name="settings_kilometers">Kilometers</string>
+    <string name="settings_miles">Miles</string>
 
     <!-- ###CITY_WEATHER_ACTIVIY### -->
     <string name="activity_city_weather_label">Current Weather</string>
