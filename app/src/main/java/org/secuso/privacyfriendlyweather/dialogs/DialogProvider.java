@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
@@ -124,7 +123,6 @@ public class DialogProvider {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     addDialogSelectedCity = (City) parent.getItemAtPosition(position);
-                    Log.d(DEBUG_TAG, "ID: " + addDialogSelectedCity);
                 }
             });
 
@@ -202,10 +200,12 @@ public class DialogProvider {
                 addDialogEdtLocation.setText("");
                 // Add city, get further data and close the dialog
                 dbHelper.getCityToWatchDao().create(newCityToWatch);
-                IHttpRequestForCityList requestForCityList = new OwmHttpRequestForCityToList(context, dbHelper);
                 List<CityToWatch> toAdd = new ArrayList<>();
                 toAdd.add(newCityToWatch);
+
+                IHttpRequestForCityList requestForCityList = new OwmHttpRequestForCityToList(context, dbHelper);
                 requestForCityList.perform(toAdd);
+
                 dismissDialog = true;
             }
         }

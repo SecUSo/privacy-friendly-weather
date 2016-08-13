@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.AutoCompleteCityTextViewGenerator;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForRadiusSearch;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForRadiusSearch;
@@ -26,6 +28,7 @@ public class RadiusSearchActivity extends BaseActivity {
     /**
      * Visual components
      */
+    private AppPreferencesManager prefManager;
     private AutoCompleteTextView edtLocation;
     private SeekBar sbEdgeLength;
     private TextView tvEdgeLengthValue;
@@ -59,10 +62,16 @@ public class RadiusSearchActivity extends BaseActivity {
      * Initializes the visual components / the view.
      */
     private void initialize() {
-        final int MAX_EDGE_LENGTH = 50;
+        // Constants
+        final int MAX_EDGE_LENGTH_IN_KM = 50;
         final int MAX_NUMBER_OF_RETURNS = 5;
-        final String FORMAT_EDGE_LENGTH_VALUE = "%s km";
+        final String FORMAT_EDGE_LENGTH_VALUE = "%s %s";
 
+        // Values which are necessary down below
+        prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
+        int maxEdgeLength = Math.round(prefManager.convertDistanceFromKilometers(MAX_EDGE_LENGTH_IN_KM));
+
+        // Visual components
         AutoCompleteCityTextViewGenerator generator = new AutoCompleteCityTextViewGenerator(this, dbHelper);
         edtLocation = (AutoCompleteTextView) findViewById(R.id.radius_search_edt_location);
         generator.getInstance(edtLocation, 8, dropdownSelectedCity);
@@ -84,9 +93,11 @@ public class RadiusSearchActivity extends BaseActivity {
         btnSearch = (Button) findViewById(R.id.radius_search_btn_search);
 
         // Set properties of seek bars and the text of the corresponding text views
-        sbEdgeLength.setMax(MAX_EDGE_LENGTH);
-        sbEdgeLength.setProgress(MAX_EDGE_LENGTH >> 1);
-        tvEdgeLengthValue.setText(String.format(FORMAT_EDGE_LENGTH_VALUE, sbEdgeLength.getProgress()));
+        sbEdgeLength.setMax(maxEdgeLength);
+        sbEdgeLength.setProgress(maxEdgeLength >> 1);
+        tvEdgeLengthValue.setText(
+                String.format(FORMAT_EDGE_LENGTH_VALUE, sbEdgeLength.getProgress(), prefManager.getDistanceUnit())
+        );
 
         sbNumReturns.setMax(MAX_NUMBER_OF_RETURNS);
         sbNumReturns.setProgress(MAX_NUMBER_OF_RETURNS);
@@ -109,9 +120,13 @@ public class RadiusSearchActivity extends BaseActivity {
      * This method handles the click event on the 'Search' button.
      */
     private void handleOnButtonSearchClick() {
-        // Retrieve all necessary inputs
+        // Retrieve all necessary inputs (convert the edgeLength if necessary)
         int edgeLength = sbEdgeLength.getProgress();
         int numberOfReturnCities = sbNumReturns.getProgress();
+        if (prefManager.isDistanceUnitMiles()) {
+            edgeLength = Math.round(prefManager.convertMilesInKm(edgeLength));
+        }
+
         // Procedure for retrieving the city (only necessary if no item from the drop down list
         // was selected)
         City city = dropdownSelectedCity;
@@ -144,7 +159,7 @@ public class RadiusSearchActivity extends BaseActivity {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            String text = String.format("%s km", progress);
+            String text = String.format("%s %s", progress, prefManager.getDistanceUnit());
             tvEdgeLengthValue.setText(text);
         }
 

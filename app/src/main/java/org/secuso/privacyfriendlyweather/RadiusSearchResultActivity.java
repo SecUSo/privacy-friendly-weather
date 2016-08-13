@@ -1,14 +1,17 @@
 package org.secuso.privacyfriendlyweather;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.ValueDeriver;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,14 +55,20 @@ public class RadiusSearchResultActivity extends AppCompatActivity {
         List<String> itemsToDisplay = new ArrayList<>();
         IApiToDatabaseConversion.WeatherCategories category;
         ValueDeriver deriver = new ValueDeriver(getApplicationContext());
+
+        DecimalFormat decimalFormatter = new DecimalFormat(".#");
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
+
         for (int i = 0; i < resultList.size(); i++) {
             category = IApiToDatabaseConversion.getLabelForValue(resultList.get(i).getWeatherCategory());
             itemsToDisplay.add(String.format(
-                    "%s. %s, %s %s °C",
+                    "%s. %s, %s %s %s",
                     i + 1,
                     resultList.get(i).getCityName(),
                     deriver.getWeatherDescriptionByCategory(category),
-                    Math.round(resultList.get(i).getTemperature())
+                    decimalFormatter.format(prefManager.convertTemperatureFromCelsius((float) resultList.get(i).getTemperature())),
+                    prefManager.getWeatherUnit()
             ));
         }
         return itemsToDisplay;

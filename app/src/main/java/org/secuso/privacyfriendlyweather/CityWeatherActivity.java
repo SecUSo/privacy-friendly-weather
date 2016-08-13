@@ -2,6 +2,7 @@ package org.secuso.privacyfriendlyweather;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,12 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.services.FetchForecastDataService;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.ValueDeriver;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -124,12 +127,15 @@ public class CityWeatherActivity extends AppCompatActivity {
      * @param weatherData The weather data to display.
      */
     private void setWeatherData(CurrentWeatherData weatherData) {
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+        DecimalFormat decimalFormat = new DecimalFormat("#.0");
         // Format the values to display
         String heading = String.format(
                 "%s, %s%s",
                 weatherData.getCity().getCityName(),
-                Math.round(weatherData.getTemperatureCurrent()),
-                "°C"
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(weatherData.getTemperatureCurrent())),
+                prefManager.getWeatherUnit()
         );
         String humidity = String.format("%s %%", weatherData.getHumidity());
         String pressure = String.format("%s hPa", Math.round(weatherData.getPressure()));

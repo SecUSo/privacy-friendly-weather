@@ -3,6 +3,7 @@ package org.secuso.privacyfriendlyweather.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -12,6 +13,7 @@ import org.secuso.privacyfriendlyweather.CityWeatherActivity;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityOverviewListItem;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerItemClickListener;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
@@ -39,6 +41,7 @@ public class UiUpdater {
     private ItemTouchHelper.Callback callback;
     private ItemTouchHelper touchHelper;
     private DatabaseHelper dbHelper;
+    private Context context;
 
     /**
      * @param CONTEXT  The context in which the UI updater is to be used.
@@ -46,6 +49,7 @@ public class UiUpdater {
      */
     public UiUpdater(final Context CONTEXT, final DatabaseHelper dbHelper) {
         this.dbHelper = dbHelper;
+        this.context = CONTEXT;
         // Initialize the overview list and corresponding the visual component
         recyclerView = (RecyclerView) ((Activity) CONTEXT).findViewById(R.id.list_view_cities);
         recyclerView.setHasFixedSize(true);
@@ -82,7 +86,14 @@ public class UiUpdater {
      * @param weatherData The current weather data that will be used to generate a new item.
      */
     public void addItemToOverview(CurrentWeatherData weatherData) {
-        String text = String.format("%s, %s°C", weatherData.getCity().getCityName(), Math.round(weatherData.getTemperatureCurrent()));
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
+        String text = String.format(
+                "%s, %s%s",
+                weatherData.getCity().getCityName(),
+                Math.round(prefManager.convertTemperatureFromCelsius(weatherData.getTemperatureCurrent())),
+                prefManager.getWeatherUnit()
+        );
         int img = UiResourceProvider.getIconResourceForWeatherCategory(weatherData.getWeatherID());
         RecyclerOverviewListAdapter.getListItems().add(new CityOverviewListItem(weatherData.getId(), text, img));
     }
@@ -95,9 +106,15 @@ public class UiUpdater {
         // See TODO in DataUpdater (when this TODO is implemented the entire list cannot just be cleared)
         RecyclerOverviewListAdapter.getListItems().clear();
         // Add the new items
+        AppPreferencesManager prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         List<CurrentWeatherData> currentWeatherData = dbHelper.getCurrentWeatherData();
         for (CurrentWeatherData data : currentWeatherData) {
-            String text = String.format("%s, %s°C", data.getCity().getCityName(), Math.round(data.getTemperatureCurrent()));
+            String text = String.format(
+                    "%s, %s%s",
+                    data.getCity().getCityName(),
+                    Math.round(prefManager.convertTemperatureFromCelsius(data.getTemperatureCurrent())),
+                    prefManager.getWeatherUnit()
+            );
             int img = UiResourceProvider.getIconResourceForWeatherCategory(data.getWeatherID());
             RecyclerOverviewListAdapter.getListItems().add(new CityOverviewListItem(data.getId(), text, img));
         }

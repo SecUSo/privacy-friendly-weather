@@ -15,7 +15,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import org.secuso.privacyfriendlyweather.dialogs.DialogProvider;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-import org.secuso.privacyfriendlyweather.preferences.PreferencesManager;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.services.CreateDatabaseService;
 import org.secuso.privacyfriendlyweather.services.ServiceReceiver;
 import org.secuso.privacyfriendlyweather.ui.DataUpdater;
@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity {
     // It is safer to initialize this to true; if it is not, in the worst case a progress dialog
     // will appear on add location
     private boolean canOpenAddDialog = true;
-    private PreferencesManager preferencesManager;
+    private AppPreferencesManager preferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +118,8 @@ public class MainActivity extends BaseActivity {
         handleFloatingButtonAddLocationClick();
 
         // Object for access to app preferences
-        SharedPreferences preferences = getSharedPreferences(PreferencesManager.PREFERENCES_NAME, Context.MODE_PRIVATE);
-        preferencesManager = new PreferencesManager(preferences);
+        SharedPreferences preferences = getSharedPreferences(AppPreferencesManager.PREFERENCES_NAME, Context.MODE_PRIVATE);
+        preferencesManager = new AppPreferencesManager(preferences);
 
         isInitialized = true;
     }

@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui.ListView;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,12 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.ValueDeriver;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -59,9 +62,16 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
         }
 
         // Set the content
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
+        DecimalFormat decimalFormat = new DecimalFormat("#.0");
         Forecast item = getItem(position);
 
-        String temperature = String.format("%s °C", Math.round(item.getTemperature()));
+        String temperature = String.format(
+                "%s%s",
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(item.getTemperature())),
+                prefManager.getWeatherUnit()
+        );
         String humidity = String.format("%s %%", item.getHumidity());
         String pressure = String.format("%s hPa", Math.round(item.getPressure()));
         String windSpeed = String.format("%s m/s", item.getWindSpeed());
