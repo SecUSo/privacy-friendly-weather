@@ -50,28 +50,36 @@ public class ProcessOwmAddCityToListRequest implements IProcessHttpRequest {
     @Override
     public void processSuccessScenario(String response) {
         IDataExtractor extractor = new OwmDataExtractor();
-        CurrentWeatherData weatherData = extractor.extractCurrentWeatherData(response);
-        int cityId = extractor.extractCityID(response);
-        // Error case :/
-        if (weatherData == null || cityId == Integer.MIN_VALUE) {
-            final String ERROR_MSG = context.getResources().getString(R.string.convert_to_json_error);
-            Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
-        } else {
-            // TODO: Handle the case when the city is null: Extract the data from the response and create a new City record
-            weatherData.setCity(dbHelper.getCityByCityID(cityId));
-            try {
-                dbHelper.getCurrentWeatherDataDao().create(weatherData);
-                // Update the UI
-                UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
-                uiUpdater.addItemToOverview(weatherData);
-                // Show success message
-                final String SUCCESS_MSG = context.getResources().getString(R.string.dialog_add_added_successfully_template);
-                Toast.makeText(context, SUCCESS_MSG, Toast.LENGTH_LONG).show();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                final String ERROR_MSG = context.getResources().getString(R.string.insert_into_db_error);
+        // City was found => can now be extracted
+        if (extractor.wasCityFound(response)) {
+            CurrentWeatherData weatherData = extractor.extractCurrentWeatherData(response);
+            int cityId = extractor.extractCityID(response);
+            // Error case :/
+            if (weatherData == null || cityId == Integer.MIN_VALUE) {
+                final String ERROR_MSG = context.getResources().getString(R.string.convert_to_json_error);
                 Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
+            } else {
+                // TODO: Handle the case when the city is null: Extract the data from the response and create a new City record
+                weatherData.setCity(dbHelper.getCityByCityID(cityId));
+                try {
+                    dbHelper.getCurrentWeatherDataDao().create(weatherData);
+                    // Update the UI
+                    UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
+                    uiUpdater.addItemToOverview(weatherData);
+                    // Show success message
+                    final String SUCCESS_MSG = context.getResources().getString(R.string.dialog_add_added_successfully_template);
+                    Toast.makeText(context, SUCCESS_MSG, Toast.LENGTH_LONG).show();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    final String ERROR_MSG = context.getResources().getString(R.string.insert_into_db_error);
+                    Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
+                }
             }
+        }
+        // City was not found; sometimes this happens for OWM requests even though the city ID is
+        // valid
+        else {
+            Toast.makeText(context, R.string.activity_main_location_not_found, Toast.LENGTH_LONG);
         }
     }
 

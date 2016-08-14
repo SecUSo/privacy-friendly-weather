@@ -21,6 +21,20 @@ import java.util.Date;
 public class OwmDataExtractor implements IDataExtractor {
 
     /**
+     * @see IDataExtractor#wasCityFound(String)
+     */
+    @Override
+    public boolean wasCityFound(String data) {
+        try {
+            JSONObject json = new JSONObject(data);
+            return json.has("cod") && (json.getInt("cod") == 200);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * @param data The data that contains the information to instantiate a CurrentWeatherData
      *             object.
      *             If data for a single city were requested, the response string can be
@@ -179,5 +193,6 @@ public class OwmDataExtractor implements IDataExtractor {
             return new double[0];
         }
     }
+
 
 }

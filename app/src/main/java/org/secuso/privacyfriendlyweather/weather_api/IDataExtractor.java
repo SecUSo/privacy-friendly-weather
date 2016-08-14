@@ -11,6 +11,14 @@ import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 public interface IDataExtractor {
 
     /**
+     * Takes the response from the (web) server and checks whether the requested city was found.
+     *
+     * @param data The textual response from the server.
+     * @return Returns true if the city was found or false otherwise (i. e. in case of 404).
+     */
+    boolean wasCityFound(String data);
+
+    /**
      * @param data The data that contains the information to instantiate a CurrentWeatherData
      *             object. In the easiest case this is the (HTTP) response of the API.
      * @return Returns the extracted information as a CurrentWeatherData instance.

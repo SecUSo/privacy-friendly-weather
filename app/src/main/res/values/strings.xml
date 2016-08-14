@@ -15,6 +15,10 @@
     <string name="activity_main_icon_descriptor">
         An icon that matches the current weather condition of the corresponding list item
     </string>
+    <string name="activity_main_location_not_found">
+        The server responded that the location was not found. If you are sure that the location
+        exists, try again
+    </string>
     <string name="activity_main_snackbar_undo_info">Item was removed</string>
     <string name="activity_main_snackbar_undo_button">UNDO</string>
 
