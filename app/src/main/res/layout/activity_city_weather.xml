@@ -55,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp" />
 
             <TextView
@@ -69,20 +70,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/activity_city_weather_separator2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_city_weather_separator"
-                android:textSize="20sp" />
+                android:text="@string/activity_city_weather_separator" />
 
             <TextView
                 android:id="@+id/activity_city_weather_day3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp" />
 
             <TextView
@@ -97,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp" />
 
             <TextView
@@ -111,6 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp" />
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
