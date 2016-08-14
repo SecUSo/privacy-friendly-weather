@@ -107,7 +107,7 @@ public class UiUpdater {
         RecyclerOverviewListAdapter.getListItems().clear();
         // Add the new items
         AppPreferencesManager prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
-        List<CurrentWeatherData> currentWeatherData = dbHelper.getCurrentWeatherData();
+        List<CurrentWeatherData> currentWeatherData = dbHelper.getCurrentWeatherData(true);
         for (CurrentWeatherData data : currentWeatherData) {
             String text = String.format(
                     "%s, %s%s",

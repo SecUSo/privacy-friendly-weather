@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -155,7 +156,28 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      * @throws SQLException Might be thrown if there is some error while retrieving records.
      */
     public List<CityToWatch> getAllCitiesToWatch() throws SQLException {
-        return cityToWatchDao.queryForAll();
+        QueryBuilder<CityToWatch, Integer> queryBuilder = cityToWatchDao.queryBuilder();
+        queryBuilder.orderBy(CityToWatch.COLUMN_RANK, true);
+        PreparedQuery<CityToWatch> preparedQuery = queryBuilder.prepare();
+        return cityToWatchDao.query(preparedQuery);
+    }
+
+    public void swapRanksOfCitiesToWatch(CityToWatch city1, CityToWatch city2) {
+        // Get the ranks
+        long rank1 = city1.getRank();
+        long rank2 = city2.getRank();
+
+        // Set the ranks
+        city1.setRank(rank2);
+        city2.setRank(rank1);
+
+        // Update records
+        try {
+            int updated1 = cityToWatchDao.update(city1);
+            int updated2 = cityToWatchDao.update(city2);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -256,11 +278,18 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
-     * @return Returns all current weather information.
+     * @param sortByRank If this value is set to true, the records will be sorted by the rank of the
+     *                   corresponding CityToWatch rank.
+     * @return Returns all current weather information. In case of an error, an empty list is
+     * returned.
      */
-    public List<CurrentWeatherData> getCurrentWeatherData() {
+    public List<CurrentWeatherData> getCurrentWeatherData(boolean sortByRank) {
         try {
-            return currentWeatherDataDao.queryForAll();
+            List<CurrentWeatherData> weatherDataList = currentWeatherDataDao.queryForAll();
+            if (sortByRank) {
+                Collections.sort(weatherDataList, new CurrentWeatherComparator(this));
+            }
+            return weatherDataList;
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -16,6 +16,7 @@ public class CityToWatch {
      */
     public static final String CITY_ID = "city_id";
     public static final String COLUMN_STORE_PERSISTENT = "persistent";
+    public static final String COLUMN_RANK = "rank";
 
     /**
      * Database fields.
@@ -29,10 +30,14 @@ public class CityToWatch {
     @DatabaseField(columnName = COLUMN_STORE_PERSISTENT)
     private boolean storePersistent;
 
+    @DatabaseField(columnName = COLUMN_RANK)
+    private long rank;
+
     /**
      * Constructor.
      */
     public CityToWatch() {
+        rank = System.currentTimeMillis();
     }
 
     /**
@@ -46,6 +51,7 @@ public class CityToWatch {
     public CityToWatch(City city, boolean storePersistent) {
         this.city = city;
         this.storePersistent = storePersistent;
+        rank = System.currentTimeMillis();
     }
 
     /**
@@ -85,4 +91,17 @@ public class CityToWatch {
         this.storePersistent = storePersistent;
     }
 
+    /**
+     * @return Returns the rank of this object, i.e. the position when ordering items.
+     */
+    public long getRank() {
+        return rank;
+    }
+
+    /**
+     * @param rank the rank to set. This value is used to sort objects e.g. for lists.
+     */
+    public void setRank(long rank) {
+        this.rank = rank;
+    }
 }
