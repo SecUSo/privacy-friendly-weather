@@ -4,7 +4,6 @@
     <string name="about">Über</string>
     <string name="about_affiliation">Im Zusammenschluss mit</string>
     <string name="about_author">Autoren:</string>
-    <string name="about_author_names" translatable="false"></string>
     <string name="action_about">Über</string>
     <string name="action_destroy_deletion_number_plural">%s temporäre Orte wurden gelöscht</string>
     <string name="action_destroy_deletion_number_singular">%s temporärer Ort wurde gelöscht</string>
