@@ -71,7 +71,6 @@ public class CityWeatherActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), CityWeatherDetailsActivity.class);
                 intent.putExtra("cityId", weatherDataToDisplay.getCity().getId());
                 startActivity(intent);
-                overridePendingTransition(R.anim.animation_bottom_to_top, R.anim.animation_bottom_to_top);
             }
         });
 
