@@ -1,11 +1,9 @@
 package org.secuso.privacyfriendlyweather.dialogs;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -225,10 +223,8 @@ public class DialogProvider {
         dialogBuilder.setNegativeButton(R.string.dialog_first_app_help_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                final Activity activity = (Activity) context;
-                Fragment fragment = new HelpActivity.HelpFragment();
-                FragmentManager fragmentManager = activity.getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_content, fragment).addToBackStack(null).commit();
+                Intent intent = new Intent(context, HelpActivity.class);
+                context.startActivity(intent);
             }
         });
         dialogBuilder.setPositiveButton(R.string.dialog_first_app_close_button, new DialogInterface.OnClickListener() {
