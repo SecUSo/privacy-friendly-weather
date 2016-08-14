@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wetter</string>
+    <string name="about">Über</string>
+    <string name="about_affiliation">Im Zusammenschluss mit</string>
+    <string name="about_author">Autoren:</string>
+    <string name="about_author_names" translatable="false"></string>
+    <string name="action_about">Über</string>
+    <string name="action_destroy_deletion_number_plural">%s temporäre Orte wurden gelöscht</string>
+    <string name="action_destroy_deletion_number_singular">%s temporärer Ort wurde gelöscht</string>
+    <string name="action_destroy_error_on_deletion">Es trat ein Fehler auf beim Löschen aller nicht-permanten Orte</string>
+    <string name="action_help">Hilfe</string>
+    <string name="action_main">Wetter</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="activity_city_weather_details_label">Heutiges Wetter</string>
+    <string name="activity_city_weather_details_tv_category">Wetter:</string>
+    <string name="activity_city_weather_details_tv_humidity">Luftfeuchtigkeit:</string>
+    <string name="activity_city_weather_details_tv_pressure">Luftdruck:</string>
+    <string name="activity_city_weather_details_tv_rain_volume">Regenvolumen:</string>
+    <string name="activity_city_weather_details_tv_rain_volume_na">n.v.</string>
+    <string name="activity_city_weather_details_tv_temperature">Temperatur:</string>
+    <string name="activity_city_weather_details_tv_wind_speed">Windgeschwindigkeit:</string>
+    <string name="activity_city_weather_iv_description">Ein Bild, das der Wetterkategorie entspricht</string>
+    <string name="activity_city_weather_label">Aktuelles Wetter</string>
+    <string name="activity_city_weather_tv_category">Wetter:</string>
+    <string name="activity_city_weather_tv_humidity">Luftfeuchtigkeit:</string>
+    <string name="activity_city_weather_tv_pressure">Luftdruck:</string>
+    <string name="activity_city_weather_tv_sunrise">Zeit Sonnenaufgang:</string>
+    <string name="activity_city_weather_tv_sunset">Zeit Sonnenuntergang:</string>
+    <string name="activity_city_weather_tv_wind_speed">Windgeschwindigkeit:</string>
+    <string name="activity_forecast_label">Wettervorschau</string>
+    <string name="activity_main_icon_descriptor">Ein kleines Bild, das dem Wetter des Eintrages entspricht</string>
+    <string name="activity_main_snackbar_undo_button">Rückgängig</string>
+    <string name="activity_main_snackbar_undo_info">Eintrag wurde gelöscht</string>
+    <string name="app_name_long">Privacy Friendly Wetter</string>
+    <string name="convert_to_json_error">Die erhaltenen Wetterdaten entsprachen nicht dem erwarteten Format</string>
+    <string name="dialog_add_add_button">Hinzufügen</string>
+    <string name="dialog_add_added_successfully_template">Der Ort wurde erfolgreich hinzugefügt</string>
+    <string name="dialog_add_already_added">Dieser Ort wurde bereits hinzugefügt</string>
+    <string name="dialog_add_checkbox_save">Diesen Ort dauerhaft speichern</string>
+    <string name="dialog_add_close_button">Schließen</string>
+    <string name="dialog_add_label">Ort, der hinzugefügt weden soll:</string>
+    <string name="dialog_add_no_city_found">Es wurde kein Ort gefunden, der der Eingabe entspricht. Es wird empfohlen, einen Eintrag aus dem Dropdown-Menu zu wählen.</string>
+    <string name="dialog_add_textedit_error">Ortsname ist ungültig</string>
+    <string name="dialog_add_too_many_cities_found">Die Eingabe ist nicht eindeutig. Es wird empfohlen, einen Eintrag aus dem Dropdown-Menu zu wählen.</string>
+    <string name="dialog_first_app_close_button">Schließen</string>
+    <string name="dialog_first_app_help_button">Hilfe</string>
+    <string name="dialog_first_app_start_message">Mit dem Button unten können Orte hinzugefügt werden, zu denen Wetterinformationen eingesehen werden können.</string>
+    <string name="help">Hilfe</string>
+    <string name="help_category_example">Hilfe-Kategorie</string>
+    <string name="help_example">Orte löschen und verschieben</string>
+    <string name="help_overview_heading">Übersicht</string>
+    <string name="help_permission_internet_heading">INTERNET-Berechtigung</string>
+    <string name="help_permissions_heading">Berechtigungen</string>
+    <string name="help_privacy_heading">Privatsphäre-Informationen</string>
+    <string name="insert_into_db_error">Ein Fehler trat auf, während die Daten in die Datenbank geschrieben wurden.</string>
+    <string name="more_info">Mehr Informationen können gefunden werden auf:</string>
+    <string name="help_permission_internet_description">wird benötigt, um Wetter-Anfragen an Servern zu stellen, die sich im Internet befinden. Ohne diese Berechtigung können keine Wetter-Daten bezogen werden.</string>
+    <string name="pref_header_general">Allgemein</string>
+    <string name="progress_dialog_add_location_title">Datenbank wird eingerichtet...</string>
+    <string name="progress_dialog_add_location_msg">Einen Augenblick</string>
+    <string name="radius_search_label">Umkreissuche</string>
+    <string name="radius_search_result_label">Suchergebnis</string>
+    <string name="radius_search_heading">Das beste Wetter um einen Ort herum finden</string>
+    <string name="radius_search_tv_edge_length">Kantenlänge des Suchquadrates</string><string name="help_intro">Willkommen auf der Hilfeseite. Mit dieser App können Orte hinzugefügt werden, zu denen sowohl das aktuelle Wetter wie auch Wettervorschaun eingesehen werden können.
+        \n Darüber hinaus kann eine Umkreissuche durchgeführt werden, mit der die Orte mit dem besten Wetter um einen angegebenen Ort ermittelt werden können.</string>
+    <string name="navigation_drawer_close">Navigationsleiste schließen</string>
+    <string name="navigation_drawer_open">Navigationsleiste öffnen</string><string name="pref_example_summary">Orte können entfernt werden, in dem eine Wischbewegung von links nach rechts oder umgekehrt durchgeführt wird.
+        \nDie Position von Einträgen kann geändert werden, in dem lange auf einen Ort geklickt und dieser anschließend verschoben wird.</string>
+    <string name="privacy_friendly">Diese Anwendung gehört zur Gruppen der Privacy Friendly Apps, die von der Technischen Universität Darmstadt entwickelt werden.</string>
+    <string name="radius_search_btn_search">Suche</string>
+    <string name="weather_category_snow">Schnee</string>
+    <string name="weather_category_thunderstorm">Gewitter</string>
+    <string name="weather_category_shower_rain">Regenschauer</string>
+    <string name="weather_category_clouds">Wolken</string>
+    <string name="weather_category_clear_sky">Klarer Himmel</string>
+    <string name="weather_category_rain">Regen</string>
+    <string name="weather_category_mist">Nebel</string>
+    <string name="weather_category_scattered_clouds">Aufgelockerte Bewölkung</string>
+    <string name="weather_category_broken_clouds">Aufgerissene Bewölkung</string>
+    <string name="title_activity_settings">Einstellungen</string>
+    <string name="settings_title_units">Maßeinheiten</string>
+    <string name="settings_title_temperature">Temperaturen</string>
+    <string name="settings_title_distance">Entfernungen</string>
+    <string name="radius_search_tv_heading">Ort (Zentrum des Suchquadrates)</string>
+    <string name="radius_search_tv_num_returns">Anzahl der Orte</string>
+    <string name="settings_celsius">Celsius</string>
+    <string name="settings_fahrenheit">Fahrenheit</string>
+    <string name="settings_kilometers">Kilometer</string>
+    <string name="settings_miles">Meilen</string>
+    <string name="settings_summary_distance">Die Einheit, die zur Anzeige von Entfernungen verwendet wird</string>
+    <string name="settings_summary_temperature">Die Einheit, die zur Anzeige von Temperaturen verwendet wird</string>
+</resources>

@@ -49,7 +49,7 @@
 
     <!--###ABOUT###-->
     <string name="about">About</string>
-    <string name="version_number">Version 1.0</string>
+    <string name="version_number" translatable="false">Version 1.0</string>
     <string name="about_author">Authors: </string>
     <string name="about_author_names" translatable="false">Patrick Mell</string>
     <string name="about_affiliation">In affiliation with</string>
@@ -73,7 +73,7 @@
     <!-- ###CITY_WEATHER_ACTIVIY### -->
     <string name="activity_city_weather_label">Current Weather</string>
     <string name="activity_city_weather_iv_description">An image that fits the weather category</string>
-    <string name="activity_city_weather_separator">&#160;|&#160;</string>
+    <string name="activity_city_weather_separator" translatable="false">&#160;|&#160;</string>
     <string name="activity_city_weather_tv_category">Weather:</string>
     <string name="activity_city_weather_tv_humidity">Humidity:</string>
     <string name="activity_city_weather_tv_pressure">Pressure:</string>
