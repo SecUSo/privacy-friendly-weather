@@ -51,7 +51,7 @@ public class ForecastActivity extends AppCompatActivity {
 
         DateFormat dateFormatter = new SimpleDateFormat("dd.MM");
         String heading = String.format(
-                "%s, %s",
+                "%s %s",
                 cityName,
                 dateFormatter.format(day.getTime())
         );

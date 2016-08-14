@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/activity_city_weather_details_tv_category"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
             android:layout_marginBottom="5dp"
@@ -33,9 +33,10 @@
 
         <TextView
             android:id="@+id/activity_city_weather_details_tv_category_value"
-            android:layout_width="190dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:layout_marginLeft="10dp"
             android:layout_row="0"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -52,9 +53,10 @@
 
         <TextView
             android:id="@+id/activity_city_weather_details_tv_temperature_value"
-            android:layout_width="190dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:layout_marginLeft="10dp"
             android:layout_row="1"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -74,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:layout_marginLeft="10dp"
             android:layout_row="2"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -93,6 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:layout_marginLeft="10dp"
             android:layout_row="3"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -112,6 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:layout_marginLeft="10dp"
             android:layout_row="4"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -131,6 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:layout_marginLeft="10dp"
             android:layout_row="5"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />

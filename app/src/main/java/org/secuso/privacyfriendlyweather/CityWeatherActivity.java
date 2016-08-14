@@ -133,7 +133,7 @@ public class CityWeatherActivity extends AppCompatActivity {
         DecimalFormat decimalFormat = new DecimalFormat("#.0");
         // Format the values to display
         String heading = String.format(
-                "%s, %s%s",
+                "%s %s%s",
                 weatherData.getCity().getCityName(),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(weatherData.getTemperatureCurrent())),
                 prefManager.getWeatherUnit()
