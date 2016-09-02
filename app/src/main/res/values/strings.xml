@@ -103,7 +103,7 @@
         Using the button below, please add locations you would like to watch the weather for.\nThese can be removed at any time.
     </string>
     <string name="dialog_first_app_help_button">View Help</string>
-    <string name="dialog_first_app_close_button">Close</string>
+    <string name="dialog_first_app_close_button">Okay</string>
 
     <string name="progress_dialog_add_location_title">Setting up database…</string>
     <string name="progress_dialog_add_location_msg">Please wait a few seconds</string>
