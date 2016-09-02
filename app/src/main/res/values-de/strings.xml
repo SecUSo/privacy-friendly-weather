@@ -43,7 +43,7 @@
     <string name="dialog_add_textedit_error">Ortsname ist ungültig</string>
     <string name="dialog_add_too_many_cities_found">Die Eingabe ist nicht eindeutig. Es wird empfohlen, einen Eintrag aus dem Dropdown-Menu zu wählen.</string>
     <string name="dialog_first_app_close_button">Schließen</string>
-    <string name="dialog_first_app_help_button">Hilfe</string>
+    <string name="dialog_first_app_help_button">Zur Hilfe</string>
     <string name="dialog_first_app_start_message">Mit dem Button unten können Orte hinzugefügt werden, zu denen Wetterinformationen eingesehen werden können.</string>
     <string name="help">Hilfe</string>
     <string name="help_category_example">Hilfe-Kategorie</string>
