@@ -65,6 +65,7 @@ public class RadiusSearchActivity extends BaseActivity {
         // Constants
         final int MAX_EDGE_LENGTH_IN_KM = 150;
         final int MAX_NUMBER_OF_RETURNS = 10;
+        final int DEFAULT_NUMBER_OF_RETURNS = 3;
         final String FORMAT_EDGE_LENGTH_VALUE = "%s %s";
 
         // Values which are necessary down below
@@ -100,7 +101,7 @@ public class RadiusSearchActivity extends BaseActivity {
         );
 
         sbNumReturns.setMax(MAX_NUMBER_OF_RETURNS);
-        sbNumReturns.setProgress(MAX_NUMBER_OF_RETURNS);
+        sbNumReturns.setProgress(DEFAULT_NUMBER_OF_RETURNS);
         tvNumReturnsValue.setText(String.valueOf(sbNumReturns.getProgress()));
 
         // On change of the seek bars set the text of the corresponding text views
