@@ -46,8 +46,7 @@
     <string name="dialog_first_app_help_button">Zur Hilfe</string>
     <string name="dialog_first_app_start_message">Mit dem Button unten können Orte hinzugefügt werden, zu denen Wetterinformationen eingesehen werden können.</string>
     <string name="help">Hilfe</string>
-    <string name="help_category_example">Hilfe-Kategorie</string>
-    <string name="help_example">Orte löschen und verschieben</string>
+    <string name="help_category">Hilfe-Kategorie</string>
     <string name="help_overview_heading">Übersicht</string>
     <string name="help_permission_internet_heading">INTERNET-Berechtigung</string>
     <string name="help_permissions_heading">Berechtigungen</string>
@@ -64,8 +63,6 @@
     <string name="radius_search_tv_edge_length">Kantenlänge des Suchquadrates</string><string name="help_intro">Willkommen auf der Hilfeseite. Mit dieser App können Orte hinzugefügt werden, zu denen sowohl das aktuelle Wetter wie auch Wettervorschaun eingesehen werden können.
         \n Darüber hinaus kann eine Umkreissuche durchgeführt werden, mit der die Orte mit dem besten Wetter um einen angegebenen Ort ermittelt werden können.</string>
     <string name="navigation_drawer_close">Navigationsleiste schließen</string>
-    <string name="navigation_drawer_open">Navigationsleiste öffnen</string><string name="pref_example_summary">Orte können entfernt werden, in dem eine Wischbewegung von links nach rechts oder umgekehrt durchgeführt wird.
-        \nDie Position von Einträgen kann geändert werden, in dem lange auf einen Ort geklickt und dieser anschließend verschoben wird.</string>
     <string name="privacy_friendly">Diese Anwendung gehört zur Gruppen der Privacy Friendly Apps, die von der Technischen Universität Darmstadt entwickelt werden.</string>
     <string name="radius_search_btn_search">Suche</string>
     <string name="weather_category_snow">Schnee</string>
@@ -92,4 +89,9 @@
     <string name="activity_main_location_not_found">Der Server kennt diesen Ort nicht. Sind Sie sich sicher, dass er doch exisitert, versuchen Sie es erneut.</string>
     <string name="dialog_first_app_title">Willkommen (de)</string>
     <string name="activity_city_weather_tv_details">Tagesverlauf ▼</string>
+    <string name="help_delete_items_text">Orte in der Übersichtsliste können entfernt werden, in dem eine Wischbewegung von links nach rechts oder umgekehrt durchgeführt wird.</string>
+    <string name="help_move_items_text">Die Position von Einträgen in der Übersichtsliste kann geändert werden, in dem lange auf einen Ort geklickt und dieser anschließend nach unten oder oben verschoben wird.</string>
+    <string name="help_delete_items_title">Orte löschen</string>
+    <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
+    <string name="help_move_items_title">Orte verschieben</string>
 </resources>
