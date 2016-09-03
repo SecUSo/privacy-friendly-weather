@@ -90,4 +90,5 @@
     <string name="settings_summary_distance">Die Einheit, die zur Anzeige von Entfernungen verwendet wird</string>
     <string name="settings_summary_temperature">Die Einheit, die zur Anzeige von Temperaturen verwendet wird</string>
     <string name="activity_main_location_not_found">Der Server kennt diesen Ort nicht. Sind Sie sich sicher, dass er doch exisitert, versuchen Sie es erneut.</string>
+    <string name="dialog_first_app_title">Willkommen (de)</string>
 </resources>

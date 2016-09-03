@@ -218,6 +218,7 @@ public class DialogProvider {
      */
     public AlertDialog getFirstAppStartDialog(final Context context) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        dialogBuilder.setTitle(R.string.dialog_first_app_title);
         dialogBuilder.setMessage(R.string.dialog_first_app_start_message);
         dialogBuilder.setCancelable(false);
         dialogBuilder.setNegativeButton(R.string.dialog_first_app_help_button, new DialogInterface.OnClickListener() {

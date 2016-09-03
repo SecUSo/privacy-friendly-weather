@@ -99,6 +99,7 @@
     <string name="activity_forecast_label">Weather Forecast</string>
 
     <!-- ###DIALOGS### -->
+    <string name="dialog_first_app_title">Welcome (en)</string>
     <string name="dialog_first_app_start_message">
         Using the button below, please add locations you would like to watch the weather for.\nThese can be removed at any time.
     </string>
