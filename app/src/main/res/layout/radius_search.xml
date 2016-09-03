@@ -97,6 +97,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"
                 android:text="@string/radius_search_btn_search" />
         </LinearLayout>
 
