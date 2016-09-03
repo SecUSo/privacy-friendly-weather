@@ -84,6 +84,7 @@
     <string name="activity_city_weather_tv_wind_speed">Wind Speed:</string>
     <string name="activity_city_weather_tv_sunrise">Time Sunrise:</string>
     <string name="activity_city_weather_tv_sunset">Time Sunset:</string>
+    <string name="activity_city_weather_tv_details">Course of the day ▼</string>
 
     <!-- ###CITY_WEATHER_DETAILS_ACTIVITY### -->
     <string name="activity_city_weather_details_label">Today\'s Weather</string>

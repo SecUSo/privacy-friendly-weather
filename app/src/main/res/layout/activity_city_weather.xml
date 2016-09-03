@@ -258,12 +258,14 @@
 
     </ScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/activity_city_weather_fab_open_new_activity"
+    <TextView
+        android:id="@+id/activity_city_weather_tv_open_daily_overview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:src="@android:drawable/arrow_down_float" />
+        android:text="@string/activity_city_weather_tv_details"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorPrimary" />
 
 </LinearLayout>

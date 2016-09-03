@@ -1,12 +1,11 @@
 package org.secuso.privacyfriendlyweather;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,7 +46,7 @@ public class CityWeatherActivity extends AppCompatActivity {
     private TextView tvWindSpeed;
     private TextView tvSunrise;
     private TextView tvSunset;
-    private FloatingActionButton fabOpenDetailsActivity;
+    private TextView tvOpenDetailsActivity;
 
     /**
      * @see AppCompatActivity#onCreate(Bundle)
@@ -65,7 +64,7 @@ public class CityWeatherActivity extends AppCompatActivity {
 
         setWeatherData(weatherDataToDisplay);
 
-        fabOpenDetailsActivity.setOnClickListener(new View.OnClickListener() {
+        tvOpenDetailsActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CityWeatherDetailsActivity.class);
@@ -120,7 +119,7 @@ public class CityWeatherActivity extends AppCompatActivity {
         tvWindSpeed = (TextView) findViewById(R.id.activity_city_weather_tv_wind_speed_value);
         tvSunrise = (TextView) findViewById(R.id.activity_city_weather_tv_sunrise_value);
         tvSunset = (TextView) findViewById(R.id.activity_city_weather_tv_sunset_value);
-        fabOpenDetailsActivity = (FloatingActionButton) findViewById(R.id.activity_city_weather_fab_open_new_activity);
+        tvOpenDetailsActivity = (TextView) findViewById(R.id.activity_city_weather_tv_open_daily_overview);
     }
 
     /**
