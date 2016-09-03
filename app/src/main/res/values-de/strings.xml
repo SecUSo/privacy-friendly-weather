@@ -94,4 +94,6 @@
     <string name="help_delete_items_title">Orte löschen</string>
     <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
     <string name="help_move_items_title">Orte verschieben</string>
+    <string name="help_radius_search_title">Umkreissuche</string>
+    <string name="help_radius_search_text">Die Umkreissuche ermöglicht es, sich die Orte im Umkreis eines angegebenen Ortes anzeigen zu lassen, in denen das Wetter am schönsten und wärmsten ist.</string>
 </resources>

@@ -37,13 +37,15 @@
     <string name="help">Help</string>
     <string name="help_overview_heading">Overview</string>
     <string name="help_delete_items_title">Deleting locations</string>
-    <string name="help_move_items_title">Moving locations</string>
     <string name="help_delete_items_text">
         Location items can be removed from the overview list by using a swipe gesture from left to right or from right to left.
     </string>
+    <string name="help_move_items_title">Moving locations</string>
     <string name="help_move_items_text">
         Change the position of items in the overview list by touching them for a moment and then move the item up or down.
     </string>
+    <string name="help_radius_search_title">Radius search</string>
+    <string name="help_radius_search_text">The radius search provides a mechanism to retrieve those locations around a given location where the weather is most beautiful and warmest.</string>
     <string name="help_category">Help Category</string>
     <string name="help_privacy_heading">Privacy Info</string>
     <string name="help_permission_internet_heading">INTERNET Permission</string>

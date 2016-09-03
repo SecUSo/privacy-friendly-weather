@@ -17,6 +17,10 @@
             android:selectable="false"
             android:summary="@string/help_move_items_text"
             android:title="@string/help_move_items_title" />
+        <Preference
+            android:selectable="false"
+            android:summary="@string/help_radius_search_text"
+            android:title="@string/help_radius_search_title" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/help_privacy_heading">
