@@ -63,8 +63,8 @@ public class RadiusSearchActivity extends BaseActivity {
      */
     private void initialize() {
         // Constants
-        final int MAX_EDGE_LENGTH_IN_KM = 50;
-        final int MAX_NUMBER_OF_RETURNS = 5;
+        final int MAX_EDGE_LENGTH_IN_KM = 150;
+        final int MAX_NUMBER_OF_RETURNS = 10;
         final String FORMAT_EDGE_LENGTH_VALUE = "%s %s";
 
         // Values which are necessary down below
