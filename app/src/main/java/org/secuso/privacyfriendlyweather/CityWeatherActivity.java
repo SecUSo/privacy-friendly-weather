@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +31,7 @@ public class CityWeatherActivity extends AppCompatActivity {
      * Constant
      */
     private final String DEBUG_TAG = "debug_city_weather_act";
-    private final int NUMBER_OF_FORECASTS = 5;
+    private final int NUMBER_OF_DAYS_IN_LIST = 6;
 
     /**
      * Member variables and visual components
@@ -87,18 +88,21 @@ public class CityWeatherActivity extends AppCompatActivity {
         final String ACTIVITY_CITY_WEATHER_DAY = "activity_city_weather_day";
         DateFormat dateFormatter = new SimpleDateFormat("dd.MM");
         Calendar day = Calendar.getInstance();
-        tvForecast = new TextView[NUMBER_OF_FORECASTS];
-        for (int i = 0; i < NUMBER_OF_FORECASTS; i++) {
-            // First day: tomorrow
-            day.add(Calendar.DAY_OF_MONTH, 1);
+        tvForecast = new TextView[NUMBER_OF_DAYS_IN_LIST];
+        for (int i = 0; i < NUMBER_OF_DAYS_IN_LIST; i++) {
             // Labels start with 1
             String componentId = ACTIVITY_CITY_WEATHER_DAY + String.valueOf(i + 1);
             int id = getResources().getIdentifier(componentId, "id", getApplicationContext().getPackageName());
+
+            // Instantiate the initialize the text views; also, highlight the current day
             tvForecast[i] = (TextView) findViewById(id);
             try {
                 tvForecast[i].setText(getDayAbbreviation(day.get(Calendar.DAY_OF_WEEK)));
             } catch (IllegalAccessException e) {
                 tvForecast[i].setText("??");
+            }
+            if (i == 0) {
+                tvForecast[i].setTypeface(null, Typeface.BOLD);
             }
             tvForecast[i].setTag(i + 1);
             tvForecast[i].setOnClickListener(new View.OnClickListener() {
@@ -111,6 +115,8 @@ public class CityWeatherActivity extends AppCompatActivity {
                     openForecastActivity(weatherDataToDisplay.getCity().getId(), day);
                 }
             });
+
+            day.add(Calendar.DAY_OF_MONTH, 1);
         }
 
         // All other components
