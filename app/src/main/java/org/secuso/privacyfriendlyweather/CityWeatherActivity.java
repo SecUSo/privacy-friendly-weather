@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -96,7 +95,11 @@ public class CityWeatherActivity extends AppCompatActivity {
             String componentId = ACTIVITY_CITY_WEATHER_DAY + String.valueOf(i + 1);
             int id = getResources().getIdentifier(componentId, "id", getApplicationContext().getPackageName());
             tvForecast[i] = (TextView) findViewById(id);
-            tvForecast[i].setText(dateFormatter.format(day.getTime()));
+            try {
+                tvForecast[i].setText(getDayAbbreviation(day.get(Calendar.DAY_OF_WEEK)));
+            } catch (IllegalAccessException e) {
+                tvForecast[i].setText("??");
+            }
             tvForecast[i].setTag(i + 1);
             tvForecast[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -173,6 +176,46 @@ public class CityWeatherActivity extends AppCompatActivity {
         forecastActivity.putExtra("cityId", cityId);
         forecastActivity.putExtra("day", day);
         startActivity(forecastActivity);
+    }
+
+    /**
+     * @param day The day o the week to get the abbreviation for. Sunday has value 1 and Saturday
+     *            value 7.
+     * @return Returns the abbreviation of the given day of the week in the language that the device
+     * uses (with fallback to English).
+     * @throws IllegalAccessException If an invalid day value will be passed (< 1 or > 7) this
+     *                                exception will be thrown.
+     */
+    private String getDayAbbreviation(int day) throws IllegalAccessException {
+        if (day < 1 || day > 7) {
+            throw new IllegalAccessException("Day ");
+        }
+
+        int resId = 0;
+        switch (day) {
+            case 1:
+                resId = R.string.abbreviation_sunday;
+                break;
+            case 2:
+                resId = R.string.abbreviation_monday;
+                break;
+            case 3:
+                resId = R.string.abbreviation_tuesday;
+                break;
+            case 4:
+                resId = R.string.abbreviation_wednesday;
+                break;
+            case 5:
+                resId = R.string.abbreviation_thursday;
+                break;
+            case 6:
+                resId = R.string.abbreviation_friday;
+                break;
+            case 7:
+                resId = R.string.abbreviation_saturday;
+                break;
+        }
+        return getResources().getString(resId);
     }
 
 }

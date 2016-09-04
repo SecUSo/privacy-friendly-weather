@@ -96,4 +96,11 @@
     <string name="help_move_items_title">Orte verschieben</string>
     <string name="help_radius_search_title">Umkreissuche</string>
     <string name="help_radius_search_text">Die Umkreissuche ermöglicht es, sich die Orte im Umkreis eines angegebenen Ortes anzeigen zu lassen, in denen das Wetter am schönsten und wärmsten ist.</string>
+    <string name="abbreviation_friday">Fr.</string>
+    <string name="abbreviation_monday">Mo.</string>
+    <string name="abbreviation_saturday">Sa.</string>
+    <string name="abbreviation_sunday">So.</string>
+    <string name="abbreviation_thursday">Do.</string>
+    <string name="abbreviation_tuesday">Di.</string>
+    <string name="abbreviation_wednesday">Mi.</string>
 </resources>

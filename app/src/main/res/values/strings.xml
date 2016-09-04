@@ -90,6 +90,13 @@
     <string name="activity_city_weather_tv_sunrise">Time Sunrise:</string>
     <string name="activity_city_weather_tv_sunset">Time Sunset:</string>
     <string name="activity_city_weather_tv_details">Course of the day ▼</string>
+    <string name="abbreviation_monday">Mo.</string>
+    <string name="abbreviation_tuesday">Tu.</string>
+    <string name="abbreviation_wednesday">We.</string>
+    <string name="abbreviation_thursday">Th.</string>
+    <string name="abbreviation_friday">Fr.</string>
+    <string name="abbreviation_saturday">Sa.</string>
+    <string name="abbreviation_sunday">Su.</string>
 
     <!-- ###CITY_WEATHER_DETAILS_ACTIVITY### -->
     <string name="activity_city_weather_details_label">Today\'s Weather</string>
