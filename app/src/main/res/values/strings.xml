@@ -80,7 +80,7 @@
     <string name="settings_miles">Miles</string>
 
     <!-- ###CITY_WEATHER_ACTIVIY### -->
-    <string name="activity_city_weather_label">Current Weather</string>
+    <string name="activity_city_weather_label">Weather Overview</string>
     <string name="activity_city_weather_iv_description">An image that fits the weather category</string>
     <string name="activity_city_weather_separator" translatable="false">&#160;|&#160;</string>
     <string name="activity_city_weather_tv_category">Weather:</string>

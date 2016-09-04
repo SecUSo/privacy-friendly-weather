@@ -10,17 +10,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.orm.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.services.FetchForecastDataService;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.ValueDeriver;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * This is the activity for the current weather data of a selected city.
@@ -36,7 +40,7 @@ public class CityWeatherActivity extends AppCompatActivity {
     /**
      * Member variables and visual components
      */
-    private static CurrentWeatherData weatherDataToDisplay = null;
+    private static CurrentWeatherData currentWeatherData = null;
     private ImageView iv;
     private TextView[] tvForecast;
     private TextView tvHeading;
@@ -47,6 +51,7 @@ public class CityWeatherActivity extends AppCompatActivity {
     private TextView tvSunrise;
     private TextView tvSunset;
     private TextView tvOpenDetailsActivity;
+    private int tagCurrentTextViewClicked;
 
     /**
      * @see AppCompatActivity#onCreate(Bundle)
@@ -56,28 +61,42 @@ public class CityWeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_weather);
 
-        initializeComponents();
-
-        if (weatherDataToDisplay == null || getIntent().hasExtra("weatherData")) {
-            weatherDataToDisplay = getIntent().getExtras().getParcelable("weatherData");
+        if (currentWeatherData == null || getIntent().hasExtra("weatherData")) {
+            currentWeatherData = getIntent().getExtras().getParcelable("weatherData");
         }
 
-        setWeatherData(weatherDataToDisplay);
+        initializeComponents();
+
+        setWeatherData(currentWeatherData);
 
         tvOpenDetailsActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CityWeatherDetailsActivity.class);
-                intent.putExtra("cityId", weatherDataToDisplay.getCity().getId());
-                startActivity(intent);
+                // Open details for today
+                if (tagCurrentTextViewClicked == 0) {
+                    Intent intent = new Intent(getApplicationContext(), CityWeatherDetailsActivity.class);
+                    intent.putExtra("cityId", currentWeatherData.getCity().getId());
+                    startActivity(intent);
+                }
+                // Open a forecast
+                else {
+                    // Determine the day to display
+                    Calendar day = Calendar.getInstance();
+                    day.add(Calendar.DAY_OF_MONTH, tagCurrentTextViewClicked);
+
+                    // Open the activity
+                    Intent forecastActivity = new Intent(CityWeatherActivity.this, ForecastActivity.class);
+                    forecastActivity.putExtra("cityId", currentWeatherData.getCity().getId());
+                    forecastActivity.putExtra("day", day);
+                    startActivity(forecastActivity);
+                }
             }
         });
 
         // Start a background task to retrieve and store the weather forecast data
         Intent forecastIntent = new Intent(this, FetchForecastDataService.class);
-        forecastIntent.putExtra("cityId", weatherDataToDisplay.getCity().getCityId());
+        forecastIntent.putExtra("cityId", currentWeatherData.getCity().getCityId());
         startService(forecastIntent);
-
     }
 
     /**
@@ -102,17 +121,34 @@ public class CityWeatherActivity extends AppCompatActivity {
                 tvForecast[i].setText("??");
             }
             if (i == 0) {
+                tagCurrentTextViewClicked = 0;
                 tvForecast[i].setTypeface(null, Typeface.BOLD);
             }
-            tvForecast[i].setTag(i + 1);
+            tvForecast[i].setTag(i);
+            // Update this view with new weather data for this city and the clicked day
             tvForecast[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Get the day for the forecast
-                    Calendar day = Calendar.getInstance();
-                    TextView thisTextView = (TextView) v;
-                    day.add(Calendar.DAY_OF_MONTH, (Integer) thisTextView.getTag());
-                    openForecastActivity(weatherDataToDisplay.getCity().getId(), day);
+                    int tag = (int) v.getTag();
+                    // The data for today are already available
+                    if (tag == 0) {
+                        setWeatherData(currentWeatherData);
+                    }
+                    // If a day in the future was clicked, gather the data and display them
+                    // afterwards
+                    else {
+                        Calendar day = Calendar.getInstance();
+                        day.add(Calendar.DAY_OF_MONTH, tag);
+                        try {
+                            setWeatherData(getWeatherDataToDisplay(day));
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    // Highlight the current day
+                    tvForecast[tagCurrentTextViewClicked].setTypeface(null);
+                    tvForecast[tag].setTypeface(null, Typeface.BOLD);
+                    tagCurrentTextViewClicked = tag;
                 }
             });
 
@@ -152,10 +188,16 @@ public class CityWeatherActivity extends AppCompatActivity {
         GregorianCalendar calendar = new GregorianCalendar();
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         dateFormat.setCalendar(calendar);
-        calendar.setTimeInMillis(weatherData.getTimeSunrise() * 1000);
-        String sunrise = dateFormat.format(calendar.getTime());
-        calendar.setTimeInMillis(weatherData.getTimeSunset() * 1000);
-        String sunset = dateFormat.format(calendar.getTime());
+        String sunrise = "-";
+        if (weatherData.getTimeSunrise() < Integer.MAX_VALUE) {
+            calendar.setTimeInMillis(weatherData.getTimeSunrise() * 1000);
+            sunrise = dateFormat.format(calendar.getTime());
+        }
+        String sunset = "-";
+        if (weatherData.getTimeSunset() < Integer.MAX_VALUE) {
+            calendar.setTimeInMillis(weatherData.getTimeSunset() * 1000);
+            sunset = dateFormat.format(calendar.getTime());
+        }
 
         // Fill with content
         IApiToDatabaseConversion.WeatherCategories category = IApiToDatabaseConversion.getLabelForValue(weatherData.getWeatherID());
@@ -171,17 +213,51 @@ public class CityWeatherActivity extends AppCompatActivity {
     }
 
     /**
-     * Takes a city and a day, opens the view for the forecast and displays the data for the given
-     * city and day.
+     * Gathers weather data for a day in the future. The data are determined as follows: All weather
+     * data are used from the 3pm forecast except the temperature. The temperature will be set to
+     * the highest value of the selected day.
+     * NOTE, cloudiness, time sunset and time sunrise are not available and are set to
+     * Integer.MAX_VALUE.
      *
-     * @param cityId The city to retrieve the forecast data for.
-     * @param day    The day to retrieve the forecast data for.
+     * @param day The day to retrieve the weather data for.
+     * @return Returns an instance of CurrentWeatherData with the values of the specified day.
      */
-    private void openForecastActivity(int cityId, Calendar day) {
-        Intent forecastActivity = new Intent(CityWeatherActivity.this, ForecastActivity.class);
-        forecastActivity.putExtra("cityId", cityId);
-        forecastActivity.putExtra("day", day);
-        startActivity(forecastActivity);
+    private CurrentWeatherData getWeatherDataToDisplay(Calendar day) throws SQLException {
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        List<Forecast> forecastData = dbHelper.getForecastForCityByDay(currentWeatherData.getCity().getId(), day.getTime());
+
+        // Try to use the 3pm data (fallback is the last record for the day)
+        final int INDEX_3_PM = 5;
+        final int INDEX = (forecastData.size() > INDEX_3_PM) ? INDEX_3_PM : (forecastData.size() - 1);
+        Forecast forecastToUse = forecastData.get(INDEX);
+
+        // Set the new data
+        CurrentWeatherData newWeatherData = new CurrentWeatherData();
+        newWeatherData.setCity(forecastToUse.getCity());
+        newWeatherData.setTimestamp(forecastToUse.getForecastTime().getTime());
+        newWeatherData.setWeatherID(forecastToUse.getWeatherID());
+        newWeatherData.setTemperatureCurrent(forecastToUse.getTemperature());
+        newWeatherData.setTemperatureMin(forecastToUse.getTemperature());
+        newWeatherData.setTemperatureMax(forecastToUse.getTemperature());
+        newWeatherData.setHumidity(forecastToUse.getHumidity());
+        newWeatherData.setPressure(forecastToUse.getPressure());
+        newWeatherData.setWindSpeed(forecastToUse.getWindSpeed());
+        newWeatherData.setWindDirection(forecastToUse.getWindDirection());
+        newWeatherData.setCloudiness(Integer.MAX_VALUE);
+        newWeatherData.setTimeSunrise(Integer.MAX_VALUE);
+        newWeatherData.setTimeSunset(Integer.MAX_VALUE);
+        // Get the maximum and minumum temperature of the day
+        for (Forecast forecast : forecastData) {
+            if (forecast.getTemperature() > newWeatherData.getTemperatureCurrent()) {
+                newWeatherData.setTemperatureCurrent(forecast.getTemperature());
+                newWeatherData.setTemperatureMax(forecast.getTemperature());
+            }
+            if (forecast.getTemperature() < newWeatherData.getTemperatureMin()) {
+                newWeatherData.setTemperatureMin(forecast.getTemperature());
+            }
+        }
+
+        return newWeatherData;
     }
 
     /**

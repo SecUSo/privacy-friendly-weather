@@ -20,7 +20,7 @@
     <string name="activity_city_weather_details_tv_temperature">Temperatur:</string>
     <string name="activity_city_weather_details_tv_wind_speed">Windgeschwindigkeit:</string>
     <string name="activity_city_weather_iv_description">Ein Bild, das der Wetterkategorie entspricht</string>
-    <string name="activity_city_weather_label">Aktuelles Wetter</string>
+    <string name="activity_city_weather_label">Wetter-Übersicht</string>
     <string name="activity_city_weather_tv_category">Wetter:</string>
     <string name="activity_city_weather_tv_humidity">Luftfeuchtigkeit:</string>
     <string name="activity_city_weather_tv_pressure">Luftdruck:</string>
