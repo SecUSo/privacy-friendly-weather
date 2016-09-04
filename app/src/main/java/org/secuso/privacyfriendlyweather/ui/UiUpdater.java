@@ -17,6 +17,7 @@ import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityOverviewListItem;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerItemClickListener;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
+import org.secuso.privacyfriendlyweather.ui.RecycleList.SimpleDividerItemDecoration;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.SimpleItemTouchHelperCallback;
 
 import java.sql.SQLException;
@@ -54,6 +55,7 @@ public class UiUpdater {
         recyclerView = (RecyclerView) ((Activity) CONTEXT).findViewById(R.id.list_view_cities);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(CONTEXT));
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(CONTEXT));
 
         adapter = new RecyclerOverviewListAdapter(CONTEXT, dbHelper);
         recyclerView.setAdapter(adapter);

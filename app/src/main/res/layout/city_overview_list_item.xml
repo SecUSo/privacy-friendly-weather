@@ -10,8 +10,9 @@ as of 2016-08-05
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
-    android:paddingBottom="10dp"
-    android:paddingRight="10dp">
+    android:paddingBottom="0dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp">
 
 
     <RelativeLayout
