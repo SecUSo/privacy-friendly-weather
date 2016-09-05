@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
+import org.secuso.privacyfriendlyweather.ui.UiUtils;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.ValueDeriver;
 
@@ -26,6 +28,7 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
 
     private Context context;
     private static LayoutInflater inflater = null;
+    private RelativeLayout itemContainer;
 
     /**
      * @see ArrayAdapter#ArrayAdapter(Context, int, int, List)
@@ -34,6 +37,8 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
         super(context, resource, items);
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View listItemTemplate = inflater.inflate(R.layout.city_overview_list_item, null);
+        itemContainer = (RelativeLayout) listItemTemplate.findViewById(R.id.city_overview_list_item_blank);
     }
 
     /**
@@ -89,6 +94,9 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
         holder.tvPressure.setText(pressure);
         holder.tvWindspeed.setText(windSpeed);
         holder.tvRainVolume.setText(rainVolume);
+
+        // Make sure the category is displayed entirely
+        UiUtils.makeTextViewEntirelyVisible(itemContainer, holder.tvCategory);
 
         return vi;
     }

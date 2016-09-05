@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import org.secuso.privacyfriendlyweather.orm.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.services.FetchForecastDataService;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
+import org.secuso.privacyfriendlyweather.ui.UiUtils;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.ValueDeriver;
 
@@ -210,6 +213,9 @@ public class CityWeatherActivity extends AppCompatActivity {
         tvWindSpeed.setText(windSpeed);
         tvSunrise.setText(sunrise);
         tvSunset.setText(sunset);
+
+        ViewGroup container = (GridLayout) findViewById(R.id.activity_city_weather_content_layout);
+        UiUtils.makeTextViewEntirelyVisible(container, tvCategory);
     }
 
     /**
