@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
@@ -119,7 +120,7 @@ public class CityWeatherActivity extends AppCompatActivity {
             // Instantiate the initialize the text views; also, highlight the current day
             tvForecast[i] = (TextView) findViewById(id);
             try {
-                tvForecast[i].setText(getDayAbbreviation(day.get(Calendar.DAY_OF_WEEK)));
+                tvForecast[i].setText(Html.fromHtml(getDayAbbreviation(day.get(Calendar.DAY_OF_WEEK))));
             } catch (IllegalAccessException e) {
                 tvForecast[i].setText("??");
             }
