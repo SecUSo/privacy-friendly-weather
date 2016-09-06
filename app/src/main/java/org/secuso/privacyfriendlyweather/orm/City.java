@@ -17,6 +17,8 @@ public class City implements Serializable {
     public static final String COLUMN_CITY_ID = "city_id";
     public static final String COLUMN_CITY_NAME = "city_name";
     public static final String COLUMN_COUNTRY_CODE = "country_code";
+    public static final String COLUMN_POSTAL_CODE = "postal_code";
+    public static final String UNKNOWN_POSTAL_CODE_VALUE = "-";
 
     /**
      * Member variables
@@ -33,6 +35,9 @@ public class City implements Serializable {
     @DatabaseField(columnName = COLUMN_COUNTRY_CODE)
     private String countryCode;
 
+    @DatabaseField(columnName = COLUMN_POSTAL_CODE)
+    private String postalCode;
+
     /**
      * Constructor.
      */
@@ -45,11 +50,14 @@ public class City implements Serializable {
      * @param cityId      The ID of the city.
      * @param cityName    The name of the city.
      * @param countryCode The code of the country that the city belongs to.
+     * @param postalCode  The postal code of the city. If it is unknown, pass
+     *                    UNKNOWN_POSTAL_CODE_VALUE.
      */
-    public City(int cityId, String cityName, String countryCode) {
+    public City(int cityId, String cityName, String countryCode, String postalCode) {
         this.cityId = cityId;
         this.cityName = cityName;
         this.countryCode = countryCode;
+        this.postalCode = postalCode;
     }
 
     /**
@@ -102,11 +110,32 @@ public class City implements Serializable {
     }
 
     /**
-     * @return Returns "[cityName], [countryCode]".
+     * @return Returns the postal code that is associated with the record. If there is none,
+     * UNKNOWN_POSTAL_CODE_VALUE will be returned.
+     */
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    /**
+     * @param postalCode The postal code of the city / location. If it is unknown, pass
+     *                   UNKNOWN_POSTAL_CODE_VALUE.
+     */
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    /**
+     * @return Returns "[cityName], ([countryCode])" if no postal code is set, otherwise
+     * "[cityName], [postalCode] ([countryCode])"
      */
     @Override
     public String toString() {
-        return String.format("%s (%s)", cityName, countryCode);
+        if (postalCode.equals(UNKNOWN_POSTAL_CODE_VALUE)) {
+            return String.format("%s (%s)", cityName, countryCode);
+        } else {
+            return String.format("%s, %s (%s)", cityName, postalCode, countryCode);
+        }
     }
 
 }

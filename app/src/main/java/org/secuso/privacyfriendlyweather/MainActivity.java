@@ -57,6 +57,18 @@ public class MainActivity extends BaseActivity {
 
         if (preferencesManager.isFirstAppStart()) {
             handleFirstAppStart();
+        } else {
+            // It might be that the app was not closed properly (e. g. using a task manager); in that
+            // case the cities_to_watch table was not cleaned, so we do it now as well. Also, when this
+            // activity is reopened, we also want to clean the database
+            try {
+                dbHelper.deleteNonPersistentCitiesToWatch();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            // Update the cities list
+            DataUpdater dataUpdater = new DataUpdater(dbHelper);
+            dataUpdater.updateCurrentWeatherData(new OwmHttpRequestForUpdatingCityList(this, dbHelper));
         }
     }
 
@@ -64,17 +76,11 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        // It might be that the app was not closed properly (e. g. using a task manager); in that
-        // case the cities_to_watch table was not cleaned, so we do it now as well. Also, when this
-        // activity is reopened, we also want to clean the database
         try {
             dbHelper.deleteNonPersistentCitiesToWatch();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // Update the cities list
-        DataUpdater dataUpdater = new DataUpdater(dbHelper);
-        dataUpdater.updateCurrentWeatherData(new OwmHttpRequestForUpdatingCityList(this, dbHelper));
     }
 
     @Override

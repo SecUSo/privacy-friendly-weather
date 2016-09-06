@@ -31,7 +31,8 @@ public class FileReader {
             int id = Integer.parseInt(fields[0]);
             String name = fields[1];
             String countryCode = fields[2];
-            cities.add(new City(id, name, countryCode));
+            String postalCode = fields[3];
+            cities.add(new City(id, name, countryCode, postalCode));
         }
         br.close();
         return cities;
