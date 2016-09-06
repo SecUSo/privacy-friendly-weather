@@ -25,7 +25,7 @@ import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.CityToWatch;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
-import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForCityToList;
+import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestAddCity;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -141,16 +141,16 @@ public class DialogProvider {
      *
      * @param context The context in which the dialog is executed.
      * @return If the dialog is to be dismissed, true is returned else false.
-     * @throws SQLException This execption will be thrown in case the entered location cannot be
+     * @throws SQLException This exception will be thrown in case the entered location cannot be
      *                      added to the database.
      */
     private boolean handleOnBtnAddCityClick(Context context) throws SQLException {
         boolean dismissDialog = false;
         CityToWatch newCityToWatch = null;
         String trimmedInput = addDialogEdtLocation.getText().toString().trim();
+        boolean storePermanent = addDialogCbSave.isChecked();
 
         if (trimmedInput.length() > 0) {
-            boolean storePermanent = addDialogCbSave.isChecked();
             // User selected a city from the dropdown, this is the nice case
             if (addDialogSelectedCity != null) {
                 newCityToWatch = new CityToWatch(addDialogSelectedCity, storePermanent);
@@ -201,7 +201,7 @@ public class DialogProvider {
                 List<CityToWatch> toAdd = new ArrayList<>();
                 toAdd.add(newCityToWatch);
 
-                IHttpRequestForCityList requestForCityList = new OwmHttpRequestForCityToList(context, dbHelper);
+                IHttpRequestForCityList requestForCityList = new OwmHttpRequestAddCity(context, dbHelper, storePermanent);
                 requestForCityList.perform(toAdd);
 
                 dismissDialog = true;

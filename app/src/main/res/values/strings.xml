@@ -151,23 +151,12 @@
     <string name="weather_category_snow">Snow</string>
     <string name="weather_category_mist">Mist</string>
 
-    <!-- ###EXIT### -->
-    <string name="action_destroy_deletion_number_singular">
-        %s temporary location was deleted
-    </string>
-    <string name="action_destroy_deletion_number_plural">
-        %s temporary locations were deleted
-    </string>
-
     <!-- ###ERRORS###-->
     <string name="convert_to_json_error">
         The retrieved weather data were not well-formed
     </string>
     <string name="insert_into_db_error">
         There was an error while writing the data into the database
-    </string>
-    <string name="action_destroy_error_on_deletion">
-        There was an unexpected error while deleting locations that were marked as not permanent
     </string>
 
 </resources>

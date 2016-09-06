@@ -1,10 +1,12 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
+import org.secuso.privacyfriendlyweather.CityWeatherActivity;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
@@ -18,7 +20,7 @@ import java.sql.SQLException;
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
  * current weather for all stored cities.
  */
-public class ProcessOwmAddCityToListRequest implements IProcessHttpRequest {
+public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
 
     /**
      * Constants
@@ -30,15 +32,18 @@ public class ProcessOwmAddCityToListRequest implements IProcessHttpRequest {
      */
     private Context context;
     private DatabaseHelper dbHelper;
+    private boolean storePersistently;
 
     /**
      * Constructor.
      *
-     * @param context The context of the HTTP request.
+     * @param context  The context of the HTTP request.
+     * @param dbHelper The database helper to use.
      */
-    public ProcessOwmAddCityToListRequest(Context context, DatabaseHelper dbHelper) {
+    public ProcessOwmAddCityRequest(Context context, DatabaseHelper dbHelper, boolean storePersistently) {
         this.context = context;
         this.dbHelper = dbHelper;
+        this.storePersistently = storePersistently;
     }
 
     /**
@@ -63,12 +68,18 @@ public class ProcessOwmAddCityToListRequest implements IProcessHttpRequest {
                 weatherData.setCity(dbHelper.getCityByCityID(cityId));
                 try {
                     dbHelper.getCurrentWeatherDataDao().create(weatherData);
-                    // Update the UI
-                    UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
-                    uiUpdater.addItemToOverview(weatherData);
-                    // Show success message
-                    final String SUCCESS_MSG = context.getResources().getString(R.string.dialog_add_added_successfully_template);
-                    Toast.makeText(context, SUCCESS_MSG, Toast.LENGTH_LONG).show();
+                    if (storePersistently) {
+                        // Update the UI
+                        UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
+                        uiUpdater.addItemToOverview(weatherData);
+                        // Show success message
+                        final String SUCCESS_MSG = context.getResources().getString(R.string.dialog_add_added_successfully_template);
+                        Toast.makeText(context, SUCCESS_MSG, Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(context, CityWeatherActivity.class);
+                        intent.putExtra("weatherData", weatherData);
+                        context.startActivity(intent);
+                    }
                 } catch (SQLException e) {
                     e.printStackTrace();
                     final String ERROR_MSG = context.getResources().getString(R.string.insert_into_db_error);
@@ -79,7 +90,7 @@ public class ProcessOwmAddCityToListRequest implements IProcessHttpRequest {
         // City was not found; sometimes this happens for OWM requests even though the city ID is
         // valid
         else {
-            Toast.makeText(context, R.string.activity_main_location_not_found, Toast.LENGTH_LONG);
+            Toast.makeText(context, R.string.activity_main_location_not_found, Toast.LENGTH_LONG).show();
         }
     }
 

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
@@ -56,40 +55,34 @@ public class MainActivity extends BaseActivity {
             initialize();
         }
 
-        // Handle if app is started for the first time
         if (preferencesManager.isFirstAppStart()) {
             handleFirstAppStart();
-        }
-        // App was used before
-        else {
-            // It might be that the app was not closed properly (e. g. using a task manager); in that
-            // case the cities_to_watch table was not cleaned, so we do it now as well
-            try {
-                dbHelper.deleteNonPersistentCitiesToWatch();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            // Update the cities list
-            DataUpdater dataUpdater = new DataUpdater(dbHelper);
-            dataUpdater.updateCurrentWeatherData(new OwmHttpRequestForUpdatingCityList(this, dbHelper));
         }
     }
 
     @Override
-    protected void onDestroy() {
-        // Clear the database and show a message of how many locations were deleted
+    protected void onResume() {
+        super.onResume();
+
+        // It might be that the app was not closed properly (e. g. using a task manager); in that
+        // case the cities_to_watch table was not cleaned, so we do it now as well. Also, when this
+        // activity is reopened, we also want to clean the database
         try {
-            int numberOfDeletions = dbHelper.deleteNonPersistentCitiesToWatch();
-            if (numberOfDeletions > 0) {
-                final String DELETION_MSG_TEMPLATE = (numberOfDeletions == 1) ?
-                        getResources().getString(R.string.action_destroy_deletion_number_singular) :
-                        getResources().getString(R.string.action_destroy_deletion_number_plural);
-                String deletionMsg = String.format(DELETION_MSG_TEMPLATE, numberOfDeletions);
-                Toast.makeText(this, deletionMsg, Toast.LENGTH_LONG).show();
-            }
+            dbHelper.deleteNonPersistentCitiesToWatch();
         } catch (SQLException e) {
-            final String ERROR_MSG = getResources().getString(R.string.action_destroy_error_on_deletion);
-            Toast.makeText(this, ERROR_MSG, Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+        // Update the cities list
+        DataUpdater dataUpdater = new DataUpdater(dbHelper);
+        dataUpdater.updateCurrentWeatherData(new OwmHttpRequestForUpdatingCityList(this, dbHelper));
+    }
+
+    @Override
+    protected void onDestroy() {
+        // Clear the database
+        try {
+            dbHelper.deleteNonPersistentCitiesToWatch();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

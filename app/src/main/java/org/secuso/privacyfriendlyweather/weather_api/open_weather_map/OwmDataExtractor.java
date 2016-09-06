@@ -67,7 +67,9 @@ public class OwmDataExtractor implements IDataExtractor {
 
             JSONObject jsonWind = jsonData.getJSONObject("wind");
             weatherData.setWindSpeed((float) jsonWind.getDouble("speed"));
-            weatherData.setWindDirection((float) jsonWind.getDouble("deg"));
+            if (jsonWind.has("deg")) {
+                weatherData.setWindDirection((float) jsonWind.getDouble("deg"));
+            }
 
             JSONObject jsonClouds = jsonData.getJSONObject("clouds");
             weatherData.setCloudiness((float) jsonClouds.getDouble("all"));

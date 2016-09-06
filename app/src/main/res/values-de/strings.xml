@@ -5,9 +5,6 @@
     <string name="about_affiliation">Im Zusammenschluss mit</string>
     <string name="about_author">Autoren:</string>
     <string name="action_about">Über</string>
-    <string name="action_destroy_deletion_number_plural">%s temporäre Orte wurden gelöscht</string>
-    <string name="action_destroy_deletion_number_singular">%s temporärer Ort wurde gelöscht</string>
-    <string name="action_destroy_error_on_deletion">Es trat ein Fehler auf beim Löschen aller nicht-permanten Orte</string>
     <string name="action_help">Hilfe</string>
     <string name="action_main">Wetter</string>
     <string name="action_settings">Einstellungen</string>

@@ -155,9 +155,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      * @return Returns all the records in the cities_to_watch table.
      * @throws SQLException Might be thrown if there is some error while retrieving records.
      */
-    public List<CityToWatch> getAllCitiesToWatch() throws SQLException {
+    public List<CityToWatch> getAllCitiesToWatch(boolean onlyNonPermanent) throws SQLException {
         QueryBuilder<CityToWatch, Integer> queryBuilder = cityToWatchDao.queryBuilder();
         queryBuilder.orderBy(CityToWatch.COLUMN_RANK, true);
+        if (onlyNonPermanent) {
+            queryBuilder.where().eq(CityToWatch.COLUMN_STORE_PERSISTENT, true);
+        }
         PreparedQuery<CityToWatch> preparedQuery = queryBuilder.prepare();
         return cityToWatchDao.query(preparedQuery);
     }
