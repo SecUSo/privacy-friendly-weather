@@ -19,7 +19,6 @@ public class UiResourceProvider {
      * @return Returns the icon (resource) that belongs to the given category number.
      */
     public static int getIconResourceForWeatherCategory(int categoryNumber) {
-        // TODO: Update when I was given the icons for the productive version
         switch (categoryNumber) {
             case 10:
                 return R.drawable.weather_icon_sunny;
@@ -40,7 +39,7 @@ public class UiResourceProvider {
             case 90:
                 return R.drawable.weather_icon_thunderstorm;
             default:
-                return R.drawable.weather_icon_sunny_with_clouds;
+                return R.drawable.weather_icon_cloudy_scattered;
         }
     }
 
@@ -50,28 +49,27 @@ public class UiResourceProvider {
      * @return Returns the image resource that belongs to the given category number.
      */
     public static int getImageResourceForWeatherCategory(int categoryNumber) {
-        // TODO: Update when I was given the images for the productive version
         switch (categoryNumber) {
             case 10:
                 return R.drawable.weather_image_sunny;
             case 20:
-                return R.drawable.weather_image_sunny;
+                return R.drawable.weather_image_sunny_with_clouds;
             case 30:
-                return R.drawable.weather_image_sunny;
+                return R.drawable.weather_image_scattered_clouds;
             case 40:
-                return R.drawable.weather_image_sunny;
+                return R.drawable.weather_image_broken_clouds;
             case 50:
-                return R.drawable.weather_image_sunny;
+                return R.drawable.weather_image_foggy;
             case 60:
-                return R.drawable.weather_image_sunny;
+                return R.drawable.weather_image_rain;
             case 70:
-                return R.drawable.weather_image_sunny;
+                return R.drawable.weather_image_rain;
             case 80:
-                return R.drawable.weather_image_sunny;
+                return R.drawable.weather_image_snow;
             case 90:
-                return R.drawable.weather_image_sunny;
+                return R.drawable.weather_image_thunderstorm;
             default:
-                return R.drawable.weather_image_sunny;
+                return R.drawable.weather_image_scattered_clouds;
         }
     }
 
