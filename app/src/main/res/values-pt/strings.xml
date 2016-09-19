@@ -8,7 +8,6 @@
     <string name="abbreviation_thursday">5<Data><![CDATA[<sup><small>a</small></sup> ]]></Data></string>
     <string name="abbreviation_saturday">Sáb.</string>
     <string name="abbreviation_sunday">Do.</string>
-    <string name="about_author">Autora:</string>
     <string name="action_help">Ajuda</string>
     <string name="action_main">Tempo</string>
     <string name="action_settings">Atitude</string>
@@ -56,7 +55,6 @@
     <string name="settings_title_temperature">Temperaturas</string>
     <string name="settings_title_units">Unidades de medida</string>
     <string name="title_activity_settings">Atitudes</string>
-    <string name="version_number" translatable="false"></string>
     <string name="weather_category_clear_sky">Céu claro</string>
     <string name="weather_category_clouds">Nublado</string>
     <string name="weather_category_mist">Enevoado</string>
@@ -65,7 +63,6 @@
     <string name="weather_category_snow">Neve</string>
     <string name="weather_category_thunderstorm">Trovoada</string>
     <string name="about">Sobre</string>
-    <string name="about_affiliation">Em cooperação com</string>
     <string name="action_about">Sobre</string>
     <string name="activity_city_weather_iv_description">Uma imagem que corresponde a categoria de tempo</string>
     <string name="activity_city_weather_tv_details">Diária ▼</string>
@@ -88,11 +85,9 @@
     <string name="help_radius_search_text">A procura numa área envolvente possibilita a mostra de lugares junto ao indicado desta área, na qual o tempo é melhor e mais quente.</string>
     <string name="help_radius_search_title">Procura numa área envolvente</string>
     <string name="radius_search_label">Procura numa área envolvente</string>
-    <string name="more_info">Para mais informaçoes:</string>
     <string name="navigation_drawer_close">Fechar navegação</string>
     <string name="navigation_drawer_open">Abrir navegação</string>
     <string name="insert_into_db_error">Um erro aperece, enquanto as indicações são escritas no banco de dados.</string>
-    <string name="privacy_friendly">Esta app pertence ao grupo Privacy Friendly App, que é desenvolida pela universidade téchnica de Darmstadt.</string>
     <string name="progress_dialog_add_location_title">O banco de dados vai ser instalado…</string>
     <string name="radius_search_heading">Encontrar o tempo melhor em volta de um lugar</string>
     <string name="radius_search_tv_edge_length">O comprimento da aresta do quadrado de busca</string>
