@@ -1,4 +1,4 @@
-## Privacy Friendly App Example
+## Privacy Friendly Weather App
 
 This application is a privacy friendly weather app. The functionality includes adding locations and watching the current and future weather for this location with weather details. Also, a radius search can be performed. This lets you find the locations with currently the best weather around a given location.
 
