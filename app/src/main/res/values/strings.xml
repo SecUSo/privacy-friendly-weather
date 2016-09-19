@@ -99,7 +99,7 @@
     <string name="abbreviation_friday">Fr.</string>
     <string name="abbreviation_saturday">Sa.</string>
     <string name="abbreviation_sunday">Su.</string>
-    <string name="info_no_data_for_day">There are no data available for the selected day.</string>
+    <string name="info_no_data_for_day">Currently, there are no data available for the selected day.</string>
 
     <!-- ###CITY_WEATHER_DETAILS_ACTIVITY### -->
     <string name="activity_city_weather_details_label">Today\'s Weather</string>
