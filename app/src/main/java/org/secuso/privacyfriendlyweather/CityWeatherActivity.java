@@ -148,17 +148,19 @@ public class CityWeatherActivity extends AppCompatActivity {
                             CurrentWeatherData weatherDataToDisplay = getWeatherDataToDisplay(day);
                             if (weatherDataToDisplay == null) {
                                 Toast.makeText(getApplicationContext(), R.string.info_no_data_for_day, Toast.LENGTH_LONG).show();
+                                return;
                             } else {
-                                // Highlight the current day
-                                tvForecast[tagCurrentTextViewClicked].setTypeface(null);
-                                tvForecast[tag].setTypeface(null, Typeface.BOLD);
-                                tagCurrentTextViewClicked = tag;
                                 setWeatherData(weatherDataToDisplay);
                             }
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
                     }
+
+                    // Highlight the current day
+                    tvForecast[tagCurrentTextViewClicked].setTypeface(null);
+                    tvForecast[tag].setTypeface(null, Typeface.BOLD);
+                    tagCurrentTextViewClicked = tag;
                 }
             });
 
