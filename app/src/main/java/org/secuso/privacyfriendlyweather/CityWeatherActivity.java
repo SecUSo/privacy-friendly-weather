@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
@@ -144,15 +145,20 @@ public class CityWeatherActivity extends AppCompatActivity {
                         Calendar day = Calendar.getInstance();
                         day.add(Calendar.DAY_OF_MONTH, tag);
                         try {
-                            setWeatherData(getWeatherDataToDisplay(day));
+                            CurrentWeatherData weatherDataToDisplay = getWeatherDataToDisplay(day);
+                            if (weatherDataToDisplay == null) {
+                                Toast.makeText(getApplicationContext(), R.string.info_no_data_for_day, Toast.LENGTH_LONG).show();
+                            } else {
+                                // Highlight the current day
+                                tvForecast[tagCurrentTextViewClicked].setTypeface(null);
+                                tvForecast[tag].setTypeface(null, Typeface.BOLD);
+                                tagCurrentTextViewClicked = tag;
+                                setWeatherData(weatherDataToDisplay);
+                            }
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
                     }
-                    // Highlight the current day
-                    tvForecast[tagCurrentTextViewClicked].setTypeface(null);
-                    tvForecast[tag].setTypeface(null, Typeface.BOLD);
-                    tagCurrentTextViewClicked = tag;
                 }
             });
 
@@ -227,7 +233,8 @@ public class CityWeatherActivity extends AppCompatActivity {
      * Integer.MAX_VALUE.
      *
      * @param day The day to retrieve the weather data for.
-     * @return Returns an instance of CurrentWeatherData with the values of the specified day.
+     * @return Returns an instance of CurrentWeatherData with the values of the specified day. If
+     * there are no data for the requested day, null will be returned.
      */
     private CurrentWeatherData getWeatherDataToDisplay(Calendar day) throws SQLException {
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
@@ -236,35 +243,39 @@ public class CityWeatherActivity extends AppCompatActivity {
         // Try to use the 3pm data (fallback is the last record for the day)
         final int INDEX_3_PM = 5;
         final int INDEX = (forecastData.size() > INDEX_3_PM) ? INDEX_3_PM : (forecastData.size() - 1);
-        Forecast forecastToUse = forecastData.get(INDEX);
+        if (INDEX == -1) {
+            return null;
+        } else {
+            Forecast forecastToUse = forecastData.get(INDEX);
 
-        // Set the new data
-        CurrentWeatherData newWeatherData = new CurrentWeatherData();
-        newWeatherData.setCity(forecastToUse.getCity());
-        newWeatherData.setTimestamp(forecastToUse.getForecastTime().getTime());
-        newWeatherData.setWeatherID(forecastToUse.getWeatherID());
-        newWeatherData.setTemperatureCurrent(forecastToUse.getTemperature());
-        newWeatherData.setTemperatureMin(forecastToUse.getTemperature());
-        newWeatherData.setTemperatureMax(forecastToUse.getTemperature());
-        newWeatherData.setHumidity(forecastToUse.getHumidity());
-        newWeatherData.setPressure(forecastToUse.getPressure());
-        newWeatherData.setWindSpeed(forecastToUse.getWindSpeed());
-        newWeatherData.setWindDirection(forecastToUse.getWindDirection());
-        newWeatherData.setCloudiness(Integer.MAX_VALUE);
-        newWeatherData.setTimeSunrise(Integer.MAX_VALUE);
-        newWeatherData.setTimeSunset(Integer.MAX_VALUE);
-        // Get the maximum and minumum temperature of the day
-        for (Forecast forecast : forecastData) {
-            if (forecast.getTemperature() > newWeatherData.getTemperatureCurrent()) {
-                newWeatherData.setTemperatureCurrent(forecast.getTemperature());
-                newWeatherData.setTemperatureMax(forecast.getTemperature());
+            // Set the new data
+            CurrentWeatherData newWeatherData = new CurrentWeatherData();
+            newWeatherData.setCity(forecastToUse.getCity());
+            newWeatherData.setTimestamp(forecastToUse.getForecastTime().getTime());
+            newWeatherData.setWeatherID(forecastToUse.getWeatherID());
+            newWeatherData.setTemperatureCurrent(forecastToUse.getTemperature());
+            newWeatherData.setTemperatureMin(forecastToUse.getTemperature());
+            newWeatherData.setTemperatureMax(forecastToUse.getTemperature());
+            newWeatherData.setHumidity(forecastToUse.getHumidity());
+            newWeatherData.setPressure(forecastToUse.getPressure());
+            newWeatherData.setWindSpeed(forecastToUse.getWindSpeed());
+            newWeatherData.setWindDirection(forecastToUse.getWindDirection());
+            newWeatherData.setCloudiness(Integer.MAX_VALUE);
+            newWeatherData.setTimeSunrise(Integer.MAX_VALUE);
+            newWeatherData.setTimeSunset(Integer.MAX_VALUE);
+            // Get the maximum and minumum temperature of the day
+            for (Forecast forecast : forecastData) {
+                if (forecast.getTemperature() > newWeatherData.getTemperatureCurrent()) {
+                    newWeatherData.setTemperatureCurrent(forecast.getTemperature());
+                    newWeatherData.setTemperatureMax(forecast.getTemperature());
+                }
+                if (forecast.getTemperature() < newWeatherData.getTemperatureMin()) {
+                    newWeatherData.setTemperatureMin(forecast.getTemperature());
+                }
             }
-            if (forecast.getTemperature() < newWeatherData.getTemperatureMin()) {
-                newWeatherData.setTemperatureMin(forecast.getTemperature());
-            }
+
+            return newWeatherData;
         }
-
-        return newWeatherData;
     }
 
     /**

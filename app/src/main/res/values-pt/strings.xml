@@ -9,7 +9,6 @@
     <string name="abbreviation_saturday">Sáb.</string>
     <string name="abbreviation_sunday">Do.</string>
     <string name="about_author">Autora:</string>
-    <string name="action_destroy_deletion_number_plural"></string>
     <string name="action_help">Ajuda</string>
     <string name="action_main">Tempo</string>
     <string name="action_settings">Atitude</string>
@@ -31,7 +30,6 @@
     <string name="dialog_first_app_close_button">Está bem!</string>
     <string name="help">Ajuda</string>
     <string name="pref_header_general">Geral</string>
-    <string name="action_destroy_error_on_deletion"></string>
     <string name="activity_city_weather_details_label">Tempo atual</string>
     <string name="activity_city_weather_tv_sunrise">Hora do nascer do sol:</string>
     <string name="activity_city_weather_tv_sunset">Hora do pôr do sol:</string>
@@ -103,4 +101,5 @@
     <string name="settings_summary_temperature">A medida utilizada para medir a temperatura.</string>
     <string name="weather_category_broken_clouds">Pouco nublado</string>
     <string name="weather_category_scattered_clouds">Desanuviar</string>
+    <string name="info_no_data_for_day">Não dados são disponível para este dia.</string>
 </resources>
