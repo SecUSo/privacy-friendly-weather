@@ -97,4 +97,9 @@
     <string name="weather_category_broken_clouds">Pouco nublado</string>
     <string name="weather_category_scattered_clouds">Desanuviar</string>
     <string name="info_no_data_for_day">Não dados são disponível para este dia.</string>
+    <string name="about_affiliation">In affiliation with</string>
+    <string name="about_author">Authors:</string>
+    <string name="about_author_contributors">and contributors.</string>
+    <string name="more_info">More information can be found on:</string>
+    <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
 </resources>

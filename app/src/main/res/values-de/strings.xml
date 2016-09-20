@@ -101,4 +101,5 @@
     <string name="abbreviation_tuesday">Di.</string>
     <string name="abbreviation_wednesday">Mi.</string>
     <string name="info_no_data_for_day">Für den ausgewählten Tag sind (noch) keine Daten vorhanden.</string>
+    <string name="about_author_contributors">und Mitwirkende</string>
 </resources>
