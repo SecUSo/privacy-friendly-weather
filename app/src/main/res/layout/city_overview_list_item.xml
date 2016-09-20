@@ -35,13 +35,13 @@ as of 2016-08-05
 
         <ImageView
             android:id="@+id/city_overview_list_item_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="-90dp"
             android:layout_marginTop="-6dp"
             android:layout_toRightOf="@id/city_overview_list_item_text_container"
             android:contentDescription="@string/activity_main_icon_descriptor"
-            android:scaleType="matrix" />
+            android:scaleType="fitCenter" />
     </RelativeLayout>
 
 </RelativeLayout>
