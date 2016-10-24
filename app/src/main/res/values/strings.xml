@@ -13,11 +13,11 @@
 
     <!-- ###MAIN### -->
     <string name="activity_main_icon_descriptor">
-        An icon that matches the current weather condition of the corresponding list item
+        An icon that matches the current weather condition of the corresponding list item.
     </string>
     <string name="activity_main_location_not_found">
         The server responded that the location was not found. If you are sure that the location
-        exists, try again
+        exists, try again.
     </string>
     <string name="activity_main_snackbar_undo_info">Item was removed</string>
     <string name="activity_main_snackbar_undo_button">UNDO</string>
@@ -50,7 +50,7 @@
     <string name="help_privacy_heading">Privacy Info</string>
     <string name="help_permission_internet_heading">INTERNET Permission</string>
     <string name="help_permission_internet_description">
-        is needed because weather data are retrieved making requests to servers on the internet. Without this permission, no weather data can be received
+        is needed because weather data are retrieved making requests to servers on the internet. Without this permission, no weather data can be received.
     </string>
     <string name="help_permissions_heading">Permissions</string>
     <string name="help_intro">Welcome to the help page. This app lets you add locations, view the current weather for these locations as well as weather forecasts.
@@ -128,7 +128,7 @@
     <string name="dialog_add_label">Enter the location to add:</string>
     <string name="dialog_add_checkbox_save">Save this location permanently</string>
     <string name="dialog_add_textedit_error">Please enter a valid location!</string>
-    <string name="dialog_add_added_successfully_template">The location was added successfully</string>
+    <string name="dialog_add_added_successfully_template">The location was added successfully.</string>
     <string name="dialog_add_no_city_found">
         No location was found that matches your input. It is recommended to select one of the
         items from the dropdown list.
@@ -156,10 +156,10 @@
 
     <!-- ###ERRORS###-->
     <string name="convert_to_json_error">
-        The retrieved weather data were not well-formed
+        The retrieved weather data was not well-formed.
     </string>
     <string name="insert_into_db_error">
-        There was an error while writing the data into the database
+        There was an error while writing the data into the database.
     </string>
 
 </resources>

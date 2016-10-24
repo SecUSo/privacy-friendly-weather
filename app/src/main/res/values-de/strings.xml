@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Wetter</string>
     <string name="about">Über</string>
-    <string name="about_affiliation">Im Zusammenschluss mit</string>
+    <string name="about_affiliation">In Zusammenarbeit mit</string>
     <string name="about_author">Autoren:</string>
     <string name="action_about">Über</string>
     <string name="action_help">Hilfe</string>
@@ -16,7 +16,7 @@
     <string name="activity_city_weather_details_tv_rain_volume_na">n.v.</string>
     <string name="activity_city_weather_details_tv_temperature">Temperatur:</string>
     <string name="activity_city_weather_details_tv_wind_speed">Windgeschwindigkeit:</string>
-    <string name="activity_city_weather_iv_description">Ein Bild, das der Wetterkategorie entspricht</string>
+    <string name="activity_city_weather_iv_description">Ein Bild, das der Wetterkategorie entspricht.</string>
     <string name="activity_city_weather_label">Wetter-Übersicht</string>
     <string name="activity_city_weather_tv_category">Wetter:</string>
     <string name="activity_city_weather_tv_humidity">Luftfeuchtigkeit:</string>
@@ -25,14 +25,14 @@
     <string name="activity_city_weather_tv_sunset">Zeit Sonnenuntergang:</string>
     <string name="activity_city_weather_tv_wind_speed">Windgeschwindigkeit:</string>
     <string name="activity_forecast_label">Wettervorschau</string>
-    <string name="activity_main_icon_descriptor">Ein kleines Bild, das dem Wetter des Eintrages entspricht</string>
+    <string name="activity_main_icon_descriptor">Ein kleines Bild, das dem Wetter des Eintrages entspricht.</string>
     <string name="activity_main_snackbar_undo_button">Rückgängig</string>
     <string name="activity_main_snackbar_undo_info">Eintrag wurde gelöscht</string>
     <string name="app_name_long">Privacy Friendly Wetter</string>
-    <string name="convert_to_json_error">Die erhaltenen Wetterdaten entsprachen nicht dem erwarteten Format</string>
+    <string name="convert_to_json_error">Die erhaltenen Wetterdaten entsprachen nicht dem erwarteten Format.</string>
     <string name="dialog_add_add_button">Hinzufügen</string>
-    <string name="dialog_add_added_successfully_template">Der Ort wurde erfolgreich hinzugefügt</string>
-    <string name="dialog_add_already_added">Dieser Ort wurde bereits hinzugefügt</string>
+    <string name="dialog_add_added_successfully_template">Der Ort wurde erfolgreich hinzugefügt.</string>
+    <string name="dialog_add_already_added">Dieser Ort wurde bereits hinzugefügt.</string>
     <string name="dialog_add_checkbox_save">Diesen Ort dauerhaft speichern</string>
     <string name="dialog_add_close_button">Schließen</string>
     <string name="dialog_add_label">Ort, der hinzugefügt weden soll:</string>
@@ -81,8 +81,8 @@
     <string name="settings_fahrenheit">Fahrenheit</string>
     <string name="settings_kilometers">Kilometer</string>
     <string name="settings_miles">Meilen</string>
-    <string name="settings_summary_distance">Die Einheit, die zur Anzeige von Entfernungen verwendet wird</string>
-    <string name="settings_summary_temperature">Die Einheit, die zur Anzeige von Temperaturen verwendet wird</string>
+    <string name="settings_summary_distance">Die Einheit, die zur Anzeige von Entfernungen verwendet wird.</string>
+    <string name="settings_summary_temperature">Die Einheit, die zur Anzeige von Temperaturen verwendet wird.</string>
     <string name="activity_main_location_not_found">Der Server kennt diesen Ort nicht. Sind Sie sich sicher, dass er doch exisitert, versuchen Sie es erneut.</string>
     <string name="dialog_first_app_title">Willkommen (de)</string>
     <string name="activity_city_weather_tv_details">Tagesverlauf ▼</string>
