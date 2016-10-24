@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity {
         // Clear the database
         try {
             dbHelper.deleteNonPersistentCitiesToWatch();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

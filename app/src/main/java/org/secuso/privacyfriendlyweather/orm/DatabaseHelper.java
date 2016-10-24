@@ -323,7 +323,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      * @throws SQLException This exception is thrown if something goes wrong while deleting
      *                      records.
      */
-    public int deleteNonPersistentCitiesToWatch() throws SQLException {
+    public int deleteNonPersistentCitiesToWatch() throws SQLException, NullPointerException {
         DeleteBuilder<CityToWatch, Integer> deletionQuery = cityToWatchDao.deleteBuilder();
         deletionQuery.where().eq(CityToWatch.COLUMN_STORE_PERSISTENT, false);
         return deletionQuery.delete();
