@@ -3,7 +3,9 @@ package org.secuso.privacyfriendlyweather;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by yonjuni on 15.06.16.
@@ -24,6 +26,9 @@ public class AboutActivity extends AppCompatActivity {
             mainContent.setAlpha(0);
             mainContent.animate().alpha(1).setDuration(BaseActivity.MAIN_CONTENT_FADEIN_DURATION);
         }
+
+        ((TextView)findViewById(R.id.secusoWebsite)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView)findViewById(R.id.githubURL)).setMovementMethod(LinkMovementMethod.getInstance());
 
         overridePendingTransition(0, 0);
     }
