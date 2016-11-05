@@ -36,7 +36,7 @@
     <string name="activity_main_snackbar_undo_button">Anular</string>
     <string name="dialog_add_textedit_error">Nome do local é inválido</string>
     <string name="dialog_first_app_help_button">Para ajudar</string>
-    <string name="dialog_first_app_title">Bem-vindo (prt)</string>
+    <string name="dialog_first_app_title">Bem-vindo</string>
     <string name="help_category">Categoria da ajuda</string>
     <string name="help_move_items_title">Mover lugares</string>
     <string name="help_overview_heading">Visão geral</string>

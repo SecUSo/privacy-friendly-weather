@@ -84,7 +84,7 @@
     <string name="settings_summary_distance">Die Einheit, die zur Anzeige von Entfernungen verwendet wird.</string>
     <string name="settings_summary_temperature">Die Einheit, die zur Anzeige von Temperaturen verwendet wird.</string>
     <string name="activity_main_location_not_found">Der Server kennt diesen Ort nicht. Sind Sie sich sicher, dass er doch exisitert, versuchen Sie es erneut.</string>
-    <string name="dialog_first_app_title">Willkommen (de)</string>
+    <string name="dialog_first_app_title">Willkommen</string>
     <string name="activity_city_weather_tv_details">Tagesverlauf ▼</string>
     <string name="help_delete_items_text">Orte in der Übersichtsliste können entfernt werden, in dem eine Wischbewegung von links nach rechts oder umgekehrt durchgeführt wird.</string>
     <string name="help_move_items_text">Die Position von Einträgen in der Übersichtsliste kann geändert werden, in dem lange auf einen Ort geklickt und dieser anschließend nach unten oder oben verschoben wird.</string>
