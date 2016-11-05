@@ -116,18 +116,18 @@
             android:text="@string/more_info" />
 
         <TextView
+            android:id="@+id/secusoWebsite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:autoLink="web"
             android:text="@string/url"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/githubURL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:autoLink="web"
             android:gravity="center_horizontal"
             android:text="@string/github"
             android:textStyle="bold" />
