@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
@@ -121,6 +122,9 @@ public class MainActivity extends BaseActivity {
         preferencesManager = new AppPreferencesManager(preferences);
 
         isInitialized = true;
+
+        addLocationDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
     }
 
     /**
