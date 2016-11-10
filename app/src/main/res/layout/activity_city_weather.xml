@@ -139,8 +139,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="60"
-        android:fillViewport="true">
+        android:layout_weight="60">
 
         <GridLayout
             android:id="@+id/activity_city_weather_content_layout"
