@@ -969,7 +969,7 @@ id	nm	countryCode	postalCode
 2779378	Frankenmarkt	AT	-
 2820752	Turkheim	DE	-
 2843636	Rottweil	DE	-
-2867714	Muenchen	DE	-
+2867714	München	DE	-
 2768348	Pressbaum	AT	-
 2871601	Messstetten	DE	-
 2917221	Grobenzell	DE	-
@@ -990,7 +990,7 @@ id	nm	countryCode	postalCode
 3206285	Urbach	DE	-
 2996148	Mantes-la-Jolie	FR	-
 3078610	Brno	CZ	-
-2909313	Hassloch	DE	-
+2909313	Haßloch	DE	-
 3063196	Velke Mezirici	CZ	-
 2972811	Thionville	FR	-
 2910935	Hangard	DE	-
@@ -1356,7 +1356,7 @@ id	nm	countryCode	postalCode
 2784199	Waimes	BE	-
 2935022	Dresden	DE	-
 2651048	Dover	GB	-
-2934246	Dusseldorf	DE	-
+2934246	Düsseldorf	DE	-
 2855745	Paderborn	DE	-
 2750630	Monster	NL	-
 2828105	Steinfurt	DE	-
@@ -1453,7 +1453,7 @@ id	nm	countryCode	postalCode
 2512127	Pucol	ES	-
 2164149	Guyra	AU	-
 4951699	Spencer	US	1562
-2915128	Gross-Rohrheim	DE	-
+2915128	Groß-Rohrheim	DE	-
 2996905	Machecoul	FR	-
 2640559	Paulton	GB	-
 2638878	Saffron Walden	GB	-
@@ -1464,7 +1464,7 @@ id	nm	countryCode	postalCode
 2643186	Maidenhead	GB	-
 2929872	Epfenbach	DE	-
 2913972	Gschwend	DE	-
-2818766	Unterschleissheim	DE	-
+2818766	Unterschleißheim	DE	-
 2160297	Leura	AU	-
 6944112	Forestville	CA	-
 2651930	Cromer	GB	-
@@ -1739,7 +1739,7 @@ id	nm	countryCode	postalCode
 2755485	Goedereede	NL	-
 2756644	Drachten	NL	-
 3031582	Bordeaux	FR	-
-2939819	Coswig	DE	6869
+2939819	Coswig	DE	06869
 2756865	Dieren	NL	-
 2652997	Cinderford	GB	-
 3119027	Lasarte	ES	-
@@ -8198,16 +8198,16 @@ id	nm	countryCode	postalCode
 2925533	Frankfurt am Main	DE	-
 2871983	Menden	DE	-
 2892794	Karlsruhe	DE	-
-2886242	Koeln	DE	-
+2886242	Köln	DE	-
 2950344	Bergkamen	DE	-
 2809138	Wiesloch	DE	-
 2925177	Freiburg	DE	-
-2842884	Russelsheim	DE	-
+2842884	Rüsselsheim	DE	-
 2936186	Donzdorf	DE	-
-2920512	Giessen	DE	-
+2920512	Gießen	DE	-
 2935220	Dreieich	DE	-
 2814670	Walldorf	DE	69190
-2918632	Gottingen	DE	-
+2918632	Göttingen	DE	-
 2911522	Halle (Saale)	DE	-
 2875376	Ludwigshafen am Rhein	DE	-
 2940938	Burstadt	DE	-
@@ -8215,7 +8215,7 @@ id	nm	countryCode	postalCode
 2875392	Ludwigsburg	DE	-
 2933799	Eching	DE	85386
 2829657	Stahnsdorf	DE	-
-2875601	Luebeck	DE	-
+2875601	Lübeck	DE	-
 2850174	Ratingen	DE	-
 2953339	Bad Soden am Taunus	DE	-
 2946366	Boppard	DE	-
@@ -8229,11 +8229,11 @@ id	nm	countryCode	postalCode
 2937040	Dietzenbach	DE	-
 2944388	Bremen	DE	-
 2838634	Schleswig	DE	-
-2867838	Muelheim (Ruhr)	DE	-
+2867838	Mülheim (Ruhr)	DE	-
 2853969	Pforzheim	DE	-
 2953504	Baden-Baden	DE	-
 2870094	Molbergen	DE	-
-2844756	Rossdorf	DE	-
+2844756	Roßdorf	DE	-
 2919625	Goch	DE	-
 2912621	Hagen	DE	-
 2817311	Viersen	DE	-
@@ -8242,7 +8242,7 @@ id	nm	countryCode	postalCode
 2907911	Heidelberg	DE	-
 2861650	Nuremberg	DE	-
 2804895	Zell	DE	77833
-2919177	Golssen	DE	-
+2919177	Golßen	DE	-
 2938465	Deidesheim	DE	-
 2879241	Leimen	DE	-
 2950294	Bergneustadt	DE	-
@@ -8250,7 +8250,7 @@ id	nm	countryCode	postalCode
 2810678	Wesel	DE	-
 2849483	Regensburg	DE	-
 2882563	Kumhausen	DE	-
-2867543	Muenster	DE	-
+2867543	Münster	DE	-
 2818067	Uetersen	DE	-
 2814775	Waldstetten	DE	-
 2857458	Oldenburg	DE	-
@@ -8273,7 +8273,7 @@ id	nm	countryCode	postalCode
 2955272	Aschaffenburg	DE	-
 2938784	Datteln	DE	-
 2884509	Krefeld	DE	-
-2906268	Heppenheim an der Bergstrasse	DE	-
+2906268	Heppenheim an der Bergstraße	DE	-
 2934691	Duisburg	DE	-
 2881279	Langen	DE	63225
 2921466	Gelsenkirchen	DE	-
@@ -8306,7 +8306,7 @@ id	nm	countryCode	postalCode
 2834498	Schweinfurt	DE	-
 2921314	Gensingen	DE	-
 2938323	Delmenhorst	DE	-
-2819568	Unterfohring	DE	-
+2819568	Unterföhring	DE	-
 2826909	Stockach	DE	-
 2808148	Windischeschenbach	DE	-
 2938913	Darmstadt	DE	-
@@ -8325,7 +8325,7 @@ id	nm	countryCode	postalCode
 2927268	Fellbach	DE	-
 2925259	Frechen	DE	-
 2891205	Kiedrich	DE	-
-2859147	Oberschleissheim	DE	-
+2859147	Oberschleißheim	DE	-
 2895636	Ispringen	DE	-
 2917833	Greding	DE	-
 3274966	Lauda-Konigshofen	DE	-
@@ -8350,7 +8350,7 @@ id	nm	countryCode	postalCode
 2812502	Weil im Schonbuch	DE	-
 2958802	Alterhofen	DE	-
 2874225	Mainz	DE	-
-2902951	Hochst im Odenwald	DE	-
+2902951	Höchst im Odenwald	DE	-
 2949803	Besigheim	DE	-
 2809346	Wiesbaden	DE	-
 2904795	Hilden	DE	-
@@ -8464,12 +8464,12 @@ id	nm	countryCode	postalCode
 2928381	Eutin	DE	-
 2944079	Brilon	DE	-
 2906676	Helmstedt	DE	-
-2852144	Preussisch Oldendorf	DE	-
-2869894	Monchengladbach	DE	-
+2852144	Preußisch Oldendorf	DE	-
+2869894	Mönchengladbach	DE	-
 2811292	Wendelstein	DE	-
 2813216	Wehrheim	DE	-
 2923305	Gaimersheim	DE	-
-2915372	Grosskrotzenburg	DE	-
+2915372	Großkrotzenburg	DE	-
 2930030	Ennigerloh	DE	-
 2931574	Eisenach	DE	-
 2891643	Kempen	DE	-
@@ -8548,14 +8548,14 @@ id	nm	countryCode	postalCode
 2817674	Velten	DE	-
 2872375	Mehring	DE	54346
 2956710	Alzey	DE	-
-2875815	Lossburg	DE	-
+2875815	Loßburg	DE	-
 2906595	Hemer	DE	-
 2896261	Immenstadt im Allgau	DE	-
 2933246	Egelsbach	DE	-
 2830080	Sprendlingen	DE	-
 2929865	Eppelborn	DE	-
 2871668	Meschede	DE	-
-2916611	Grossenkneten	DE	-
+2916611	Großenkneten	DE	-
 2832495	Siegen	DE	-
 2814853	Wald-Michelbach	DE	-
 2955159	Aschheim	DE	-
@@ -8624,7 +8624,7 @@ id	nm	countryCode	postalCode
 2881477	Landstuhl	DE	-
 2920896	Gerstetten	DE	-
 2817576	Verl	DE	-
-2898004	Hugelsheim	DE	-
+2898004	Hügelsheim	DE	-
 2958141	Alsdorf	DE	-
 2955394	Artern	DE	-
 2951206	Bellheim	DE	-
@@ -8667,7 +8667,7 @@ id	nm	countryCode	postalCode
 2905826	Herrenberg	DE	-
 2936267	Donaueschingen	DE	-
 2841333	Sassnitz	DE	-
-2954602	Auerbach	DE	8209
+2954602	Auerbach	DE	08209
 2890158	Kitzingen	DE	-
 2861934	Nordhorn	DE	-
 2829790	Stadtbergen	DE	-
@@ -8683,7 +8683,7 @@ id	nm	countryCode	postalCode
 2922511	Garrel	DE	-
 2851077	Radebeul	DE	-
 2924837	Frickenhausen	DE	-
-2811837	Weissenthurm	DE	-
+2811837	Weißenthurm	DE	-
 2809837	Weyhausen	DE	-
 2850995	Radevormwald	DE	-
 2930449	Emsdetten	DE	-
@@ -8707,7 +8707,7 @@ id	nm	countryCode	postalCode
 2824902	Sulingen	DE	-
 2821802	Torgelow	DE	-
 2880672	Langgons	DE	-
-2840070	Scheessel	DE	-
+2840070	Scheeßel	DE	-
 2860049	Oberkochen	DE	-
 2906199	Herborn	DE	-
 2836413	Schopfheim	DE	-
@@ -8715,7 +8715,7 @@ id	nm	countryCode	postalCode
 2817537	Versmold	DE	-
 2936705	Ditzingen	DE	-
 2899478	Homberg	DE	34576
-2866906	Naumburg	DE	6618
+2866906	Naumburg	DE	06618
 2895569	Itzehoe	DE	-
 2855416	Parkstein	DE	-
 2936985	Dillenburg	DE	-
@@ -8745,7 +8745,7 @@ id	nm	countryCode	postalCode
 2954932	Attendorn	DE	-
 2820693	Tuttlingen	DE	-
 2853574	Pirmasens	DE	-
-2914929	Gross-Umstadt	DE	-
+2914929	Groß-Umstadt	DE	-
 2853930	Pfullendorf	DE	-
 2911463	Hallstadt	DE	-
 2850056	Rauenberg	DE	-
@@ -8796,7 +8796,7 @@ id	nm	countryCode	postalCode
 2808893	Wildeshausen	DE	-
 2899676	Holzkirchen	DE	-
 2931361	Eitorf	DE	-
-2810587	Wessling	DE	-
+2810587	Weßling	DE	-
 3336891	Filderstadt	DE	-
 2940381	Bad Camberg	DE	-
 2874200	Maisach	DE	-
@@ -8922,7 +8922,7 @@ id	nm	countryCode	postalCode
 2831403	Sommerda	DE	-
 2807440	Wissen	DE	-
 2947092	Bodenwerder	DE	-
-2955009	Asslar	DE	-
+2955009	Aßlar	DE	-
 2859739	Ober-Morlen	DE	-
 3208130	Waldems	DE	-
 2825180	Suderburg	DE	-
@@ -8938,7 +8938,7 @@ id	nm	countryCode	postalCode
 2878784	Lennestadt	DE	-
 2831852	Sinzig	DE	-
 2930509	Emmerich	DE	-
-2890199	Kisslegg	DE	-
+2890199	Kißlegg	DE	-
 2865560	Neuenstadt am Kocher	DE	-
 2862174	Nonnweiler	DE	-
 2870936	Mistelgau	DE	-
@@ -8973,7 +8973,7 @@ id	nm	countryCode	postalCode
 2946821	Boizenburg	DE	-
 2838534	Schliengen	DE	-
 3208086	Liederbach	DE	-
-2861579	Nussloch	DE	-
+2861579	Nußloch	DE	-
 2829901	Stade	DE	-
 2866779	Neckarbischofsheim	DE	-
 2804109	Ostseebad Zinnowitz	DE	-
@@ -9113,7 +9113,7 @@ id	nm	countryCode	postalCode
 2905290	Hessisch Oldendorf	DE	-
 2814392	Waltershausen	DE	-
 2919438	Goldbach	DE	-
-2939820	Coswig	DE	1640
+2939820	Coswig	DE	01640
 2856530	Osterhofen	DE	-
 2959279	Ahaus	DE	-
 2944800	Breisach am Rhein	DE	-
@@ -9147,14 +9147,14 @@ id	nm	countryCode	postalCode
 2948746	Binzen	DE	-
 2921816	Geisa	DE	-
 2835482	Schwabisch Gmund	DE	-
-2931521	Eisenberg	DE	7607
+2931521	Eisenberg	DE	07607
 2934020	Eberbach	DE	-
 2904591	Hilzingen	DE	-
 2853292	Plauen	DE	-
 2890197	Kist	DE	-
 2804922	Zeitz	DE	-
 2871538	Mettlach	DE	-
-2916966	Gross-Bieberau	DE	-
+2916966	Groß-Bieberau	DE	-
 2843415	Rudersberg	DE	-
 2930948	Ellhofen	DE	-
 2855984	Ottersweier	DE	-
@@ -9169,7 +9169,7 @@ id	nm	countryCode	postalCode
 2885714	Konradsreuth	DE	92685
 2953545	Bad Berleburg	DE	-
 2953529	Bad Ditzenbach	DE	-
-2916996	Grossbeeren	DE	-
+2916996	Großbeeren	DE	-
 2953456	Bad Gandersheim	DE	-
 2860477	Oberharmersbach	DE	-
 2873056	Marzling	DE	-
@@ -9206,7 +9206,7 @@ id	nm	countryCode	postalCode
 2873776	Marbach am Neckar	DE	-
 2930461	Empfingen	DE	-
 2859439	Oberpframmern	DE	-
-2917520	Grevesmuhlen	DE	-
+2917520	Grevesmühlen	DE	-
 2899048	Horgau	DE	-
 2937317	Diepholz	DE	-
 2953568	Backnang	DE	-
@@ -9223,15 +9223,15 @@ id	nm	countryCode	postalCode
 2926858	Filsum	DE	-
 2955259	Aschau am Inn	DE	-
 2813390	Wegberg	DE	-
-2914101	Grunstadt	DE	-
+2914101	Grünstadt	DE	-
 2859532	Obernkirchen	DE	-
-2855029	Peissenberg	DE	-
+2855029	Peißenberg	DE	-
 2863795	Neu Wulmstorf	DE	-
 2842331	Salach	DE	-
 2865641	Neuenkirchen	DE	48485
 2957829	Altenberge	DE	-
 2876755	Lobau	DE	-
-2868782	Muhlau	DE	-
+2868782	Mühlau	DE	-
 2947465	Bobenheim-Roxheim	DE	-
 2877082	Lingenfeld	DE	-
 2959368	Affalterbach	DE	-
@@ -9239,18 +9239,18 @@ id	nm	countryCode	postalCode
 2958917	Aichstetten	DE	-
 2832939	Sersheim	DE	-
 2952564	Barleben	DE	-
-2836809	Schonebeck	DE	-
+2836809	Schönebeck	DE	-
 2814599	Wallersdorf	DE	-
 2838529	Schlierbach	DE	-
 2920652	Giebelstadt	DE	-
-2829422	Stassfurt	DE	-
+2829422	Staßfurt	DE	-
 2939763	Cremlingen	DE	-
 2861801	Norvenich	DE	-
 2809362	Wiesau	DE	-
 2945073	Braunfels	DE	-
 2931424	Eisingen	DE	75239
 2854706	Petersberg	DE	-
-2832921	Sesslach	DE	-
+2832921	Seßlach	DE	-
 3208606	Ilsede	DE	-
 2808315	Wimsheim	DE	-
 2926304	Flein	DE	-
@@ -9265,7 +9265,7 @@ id	nm	countryCode	postalCode
 2865603	Neuenmarkt	DE	-
 2953525	Bad Driburg	DE	-
 2947125	Bodenkirchen	DE	-
-2915294	Grossmaischeid	DE	-
+2915294	Großmaischeid	DE	-
 2835297	Schwandorf in Bayern	DE	-
 2925629	Frankenberg	DE	35066
 2839764	Schenefeld	DE	22869
@@ -9296,12 +9296,12 @@ id	nm	countryCode	postalCode
 2880111	Lauffen am Neckar	DE	-
 2845924	Roding	DE	-
 2953424	Bad Kissingen	DE	-
-2909335	Hassfurt	DE	-
+2909335	Haßfurt	DE	-
 2850213	Rathenow	DE	-
 2913693	Gundelsheim	DE	74831
 2922085	Gefrees	DE	-
 2841039	Schaafheim	DE	-
-2915529	Grossheirath	DE	-
+2915529	Großheirath	DE	-
 2880862	Langenzenn	DE	-
 2907488	Heilsbronn	DE	-
 2918204	Grainau	DE	-
@@ -9351,7 +9351,7 @@ id	nm	countryCode	postalCode
 2852129	Prichsenstadt	DE	-
 2885540	Korb	DE	-
 2881771	Lambrecht	DE	-
-2905372	Hessdorf	DE	-
+2905372	Heßdorf	DE	-
 2856184	Oststeinbek	DE	-
 2901348	Hohenwestedt	DE	-
 2928047	Falkenau	DE	-
@@ -9363,7 +9363,7 @@ id	nm	countryCode	postalCode
 2918844	Gosheim	DE	-
 2835635	Bad Schussenried	DE	-
 2946270	Borgholzhausen	DE	-
-2811698	Weisswasser	DE	-
+2811698	Weißwasser	DE	-
 2955068	Asperg	DE	-
 2955050	Assamstadt	DE	-
 2937280	Dierdorf	DE	-
@@ -9379,7 +9379,7 @@ id	nm	countryCode	postalCode
 2885912	Konigsbronn	DE	-
 2822868	Themar	DE	-
 2822073	Titz	DE	-
-2852512	Possneck	DE	-
+2852512	Pößneck	DE	-
 2953003	Balve	DE	-
 2941190	Burglengenfeld	DE	-
 2875625	Lubben	DE	-
@@ -9393,7 +9393,7 @@ id	nm	countryCode	postalCode
 2856944	Oschatz	DE	-
 2937073	Dietramszell	DE	-
 2953350	Bad Schmiedeberg	DE	-
-2844616	Rosstal	DE	-
+2844616	Roßtal	DE	-
 2871367	Michelau	DE	-
 2949240	Biebesheim	DE	-
 2889709	Kleinblittersdorf	DE	-
@@ -9449,9 +9449,9 @@ id	nm	countryCode	postalCode
 2875656	Lowenstein	DE	-
 2846158	Rodalben	DE	-
 2847198	Riederich	DE	-
-2869019	Mossingen	DE	-
+2869019	Mössingen	DE	-
 2936470	Dohna	DE	-
-2915613	Gross-Gerau	DE	-
+2915613	Groß-Gerau	DE	-
 2867229	Nackenheim	DE	-
 2918041	Grasberg	DE	-
 2876461	Loffingen	DE	-
@@ -9486,11 +9486,11 @@ id	nm	countryCode	postalCode
 2821085	Trittau	DE	-
 2841178	Sauerlach	DE	-
 2873340	Markneukirchen	DE	-
-2817130	Visselhovede	DE	-
+2817130	Visselhövede	DE	-
 3205653	Emmingen-Liptingen	DE	-
 2850536	Ramstein-Miesenbach	DE	-
 2880978	Langenlonsheim	DE	-
-2915067	Grossschonau	DE	-
+2915067	Großschönau	DE	-
 2905643	Herrnhut	DE	-
 2852198	Pressath	DE	-
 3207567	Rehlingen-Siersburg	DE	-
@@ -9500,7 +9500,7 @@ id	nm	countryCode	postalCode
 2810188	Westerstede	DE	-
 2951950	Baumholder	DE	-
 2884026	Kreuzwertheim	DE	-
-2869808	Monchweiler	DE	-
+2869808	Mönchweiler	DE	-
 2857172	Oppenau	DE	-
 2956434	Ammerndorf	DE	-
 2922747	Gammertingen	DE	-
@@ -9519,7 +9519,7 @@ id	nm	countryCode	postalCode
 2805419	Wutoschingen	DE	-
 2812625	Weil der Stadt	DE	-
 2822484	Thyrnau	DE	-
-3205570	Strasslach-Dingharting	DE	-
+3205570	Straßlach-Dingharting	DE	-
 2820423	Uffenheim	DE	-
 2821690	Traben-Trarbach	DE	-
 2818155	Ursensollen	DE	-
@@ -9553,14 +9553,14 @@ id	nm	countryCode	postalCode
 2836084	Schrobenhausen	DE	-
 2885760	Konigstein im Taunus	DE	-
 2832231	Sigmaringendorf	DE	-
-2916936	Grossbottwar	DE	-
+2916936	Großbottwar	DE	-
 2928239	Eystrup	DE	-
 2872649	Mayen	DE	-
 2869257	Moringen	DE	-
 2808544	Willingen	DE	-
 2944181	Bretzenheim	DE	-
-2952398	Barssel	DE	-
-2915367	Grosskugel	DE	-
+2952398	Barßel	DE	-
+2915367	Großkugel	DE	-
 2820249	Ulmen	DE	-
 2934014	Eberdingen	DE	-
 2900740	Holdorf	DE	-
@@ -9569,7 +9569,7 @@ id	nm	countryCode	postalCode
 2924854	Freystadt	DE	-
 2942930	Bubenreuth	DE	-
 2907889	Heiden	DE	-
-2805615	Wuerzburg	DE	-
+2805615	Würzburg	DE	-
 2862460	Niesky	DE	-
 2845229	Ronneburg	DE	-
 2910694	Harbke	DE	-
@@ -9582,11 +9582,11 @@ id	nm	countryCode	postalCode
 2930778	Elsdorf	DE	50189
 2896263	Immenstaad am Bodensee	DE	-
 2823533	Templin	DE	-
-2923503	Fussgonheim	DE	-
+2923503	Fußgönheim	DE	-
 2917206	Grobzig	DE	-
 2830652	Spelle	DE	-
 2880181	Lauenburg	DE	-
-2928011	Falkenberg	DE	4895
+2928011	Falkenberg	DE	04895
 2862525	Niepars	DE	-
 2952973	Bammental	DE	-
 2852440	Pottenstein	DE	-
@@ -9620,7 +9620,7 @@ id	nm	countryCode	postalCode
 2880684	Langewiesen	DE	-
 2840179	Schauenstein	DE	-
 2837470	Schneeberg	DE	-
-2915124	Grossrohrsdorf	DE	-
+2915124	Großrohrsdorf	DE	-
 2935647	Dornstadt	DE	-
 2834740	Schwarzheide	DE	-
 2824593	Surberg	DE	-
@@ -9643,7 +9643,7 @@ id	nm	countryCode	postalCode
 2832841	Sexau	DE	-
 2956847	Altshausen	DE	-
 2823728	Tecklenburg	DE	-
-2915076	Grossschirma	DE	-
+2915076	Großschirma	DE	-
 2813152	Weichering	DE	-
 2856222	Ostrach	DE	-
 2934965	Driedorf	DE	-
@@ -9693,7 +9693,7 @@ id	nm	countryCode	postalCode
 2843256	Ruhland	DE	-
 2807344	Wittenberge	DE	-
 2834945	Schwarzenfeld	DE	-
-2927913	Falkenstein	DE	8223
+2927913	Falkenstein	DE	08223
 2903327	Hochberg	DE	-
 2958188	Alpen	DE	-
 2849017	Reichertshofen	DE	-
@@ -9707,12 +9707,12 @@ id	nm	countryCode	postalCode
 2853572	Pirna	DE	-
 2847689	Rhede	DE	46414
 2953357	Bad Salzungen	DE	-
-2856839	Ossling	DE	-
+2856839	Oßling	DE	-
 2945270	Brandis	DE	-
 2856024	Otterndorf	DE	-
 2928170	Fahrdorf	DE	-
-2915556	Grosshansdorf	DE	-
-2917579	Greussen	DE	-
+2915556	Großhansdorf	DE	-
+2917579	Greußen	DE	-
 2848725	Reinsdorf	DE	-
 2837096	Schonach im Schwarzwald	DE	-
 2935441	Dotlingen	DE	-
@@ -9857,7 +9857,7 @@ id	nm	countryCode	postalCode
 2842728	Saal	DE	-
 2935303	Drebach	DE	-
 2813262	Wehr	DE	-
-2844604	Rosswein	DE	-
+2844604	Roßwein	DE	-
 3208618	Sassenburg	DE	-
 2845268	Romrod	DE	-
 2958707	Albershausen	DE	-
@@ -9868,7 +9868,7 @@ id	nm	countryCode	postalCode
 2813427	Wees	DE	-
 2812752	Weiherhammer	DE	-
 2865575	Neuensalz	DE	-
-2938403	Deisslingen	DE	-
+2938403	Deißlingen	DE	-
 2946321	Bordesholm	DE	-
 2820716	Tussenhausen	DE	-
 2947894	Bleckede	DE	-
@@ -9889,7 +9889,7 @@ id	nm	countryCode	postalCode
 2883777	Kronau	DE	-
 2841835	Sandhausen	DE	-
 2929614	Erkenbrechtsweiler	DE	-
-2914872	Grossweitzschen	DE	-
+2914872	Großweitzschen	DE	-
 2814181	Wanzleben	DE	-
 2896483	Ilsenburg	DE	-
 2885800	Konigslutter am Elm	DE	-
@@ -9912,7 +9912,7 @@ id	nm	countryCode	postalCode
 2933987	Ebermannsdorf	DE	-
 2828206	Steinenbronn	DE	-
 2863031	Niedernwohren	DE	-
-2870911	Mittegrossefehn	DE	-
+2870911	Mittegroßefehn	DE	-
 2933216	Egenhausen	DE	-
 2855025	Peiting	DE	-
 2821395	Treffurt	DE	-
@@ -9954,7 +9954,7 @@ id	nm	countryCode	postalCode
 2857752	Oftersheim	DE	-
 2863457	Niedereschach	DE	-
 2894247	Kahla	DE	-
-2914801	Gross-Zimmern	DE	-
+2914801	Groß-Zimmern	DE	-
 2955745	Appen	DE	-
 2884850	Krakow am See	DE	-
 2906143	Herdorf	DE	-
@@ -10000,9 +10000,9 @@ id	nm	countryCode	postalCode
 2864468	Neunburg vorm Wald	DE	-
 2917858	Grebenau	DE	-
 2953366	Bad Saarow	DE	-
-2808644	Wilkau-Hasslau	DE	-
+2808644	Wilkau-Haßlau	DE	-
 2856792	Osten	DE	-
-2917060	Grossaitingen	DE	-
+2917060	Großaitingen	DE	-
 2937110	Dietfurt	DE	-
 2925729	Forstinning	DE	-
 2937077	Dietmannsried	DE	-
@@ -10047,7 +10047,7 @@ id	nm	countryCode	postalCode
 2873701	Margetshochheim	DE	-
 2869627	Moorrege	DE	-
 2936292	Domitz	DE	-
-2827602	Steisslingen	DE	-
+2827602	Steißlingen	DE	-
 2831239	Sonnefeld	DE	-
 2842960	Ruppichteroth	DE	-
 2895751	Irschenberg	DE	-
@@ -10055,7 +10055,7 @@ id	nm	countryCode	postalCode
 2952335	Baruth	DE	-
 2831634	Sohren	DE	-
 2818541	Unterthingau	DE	-
-2955007	Assling	DE	-
+2955007	Aßling	DE	-
 2947372	Bockelwitz	DE	-
 2809092	Wietze	DE	-
 2856207	Ostringen	DE	-
@@ -10064,7 +10064,7 @@ id	nm	countryCode	postalCode
 2807279	Wittgensdorf	DE	-
 2830133	Spraitbach	DE	-
 2851611	Putlitz	DE	-
-2803848	Zschadrass	DE	-
+2803848	Zschadraß	DE	-
 2939426	Dahlenburg	DE	-
 2932069	Eichstatt	DE	-
 2808871	Wildflecken	DE	-
@@ -10151,7 +10151,7 @@ id	nm	countryCode	postalCode
 2815803	Waal	DE	-
 2934486	Duren	DE	-
 2841320	Satrup	DE	-
-2917053	Grossalmerode	DE	-
+2917053	Großalmerode	DE	-
 2921089	Geringswalde	DE	-
 2841672	Sankt Andreasberg	DE	-
 2817694	Vellberg	DE	-
@@ -10193,12 +10193,12 @@ id	nm	countryCode	postalCode
 2938068	Dernau	DE	-
 2933150	Eggebek	DE	-
 2940397	Callenberg	DE	-
-2914890	Grosswallstadt	DE	-
+2914890	Großwallstadt	DE	-
 2920837	Geschwenda	DE	-
 2907280	Heiningen	DE	-
 2836251	Schotten	DE	-
 2809403	Wiernsheim	DE	-
-2812036	Weissbach	DE	-
+2812036	Weißbach	DE	-
 2856159	Otisheim	DE	-
 2808514	Willmering	DE	-
 2848187	Rennerod	DE	-
@@ -10213,7 +10213,7 @@ id	nm	countryCode	postalCode
 2880129	Laufen	DE	-
 2821211	Tribsees	DE	-
 2849740	Rechberghausen	DE	-
-2880002	Laussig	DE	-
+2880002	Laußig	DE	-
 2814297	Wanfried	DE	-
 2957051	Altlandsberg	DE	-
 2819738	Untereisesheim	DE	-
@@ -10222,13 +10222,13 @@ id	nm	countryCode	postalCode
 2849875	Rauschenberg	DE	-
 2922305	Gau-Bickelheim	DE	-
 2885495	Kordel	DE	-
-2916224	Grosserlach	DE	-
+2916224	Großerlach	DE	-
 2857131	Oranienbaum	DE	-
 2867723	Muncheberg	DE	-
 2870795	Mittelbiberach	DE	-
 2873022	Maselheim	DE	-
 2853297	Plau	DE	-
-2953522	Bad Durkheim	DE	-
+2953522	Bad Dürkheim	DE	-
 2835352	Schwallungen	DE	-
 2866022	Neudenau	DE	-
 2953412	Bad Lauchstadt	DE	-
@@ -10262,7 +10262,7 @@ id	nm	countryCode	postalCode
 2922716	Gangkofen	DE	-
 2839748	Schenkendobern	DE	-
 2855923	Ottrau	DE	-
-2927750	Fassberg	DE	-
+2927750	Faßberg	DE	-
 2832915	Seth	DE	-
 2886832	Kofering	DE	-
 2957864	Altenbeken	DE	-
@@ -10283,8 +10283,8 @@ id	nm	countryCode	postalCode
 2920921	Gersheim	DE	-
 2953410	Bad Lauterberg im Harz	DE	-
 3272934	Alsbach-Hahnlein	DE	-
-2872149	Meissenheim	DE	-
-2815739	Wachenheim an der Weinstrasse	DE	-
+2872149	Meißenheim	DE	-
+2815739	Wachenheim an der Weinstraße	DE	-
 2939870	Contwig	DE	-
 2855992	Otterstadt	DE	-
 2951327	Beindersheim	DE	-
@@ -10320,15 +10320,15 @@ id	nm	countryCode	postalCode
 2909226	Hattorf	DE	-
 3208324	Asbach-Baumenheim	DE	-
 2949646	Betzigau	DE	-
-2820577	Uberlingen	DE	-
+2820577	Überlingen	DE	-
 2808101	Windsbach	DE	-
-2957021	Altlussheim	DE	-
+2957021	Altlußheim	DE	-
 2805644	Wurselen	DE	-
 2864387	Neuotting	DE	-
 2908597	Havixbeck	DE	-
-2923507	Fuessen	DE	-
+2923507	Füssen	DE	-
 2948056	Blankenheim	DE	-
-2914432	Grunberg	DE	-
+2914432	Grünberg	DE	-
 2894982	Jesberg	DE	-
 2926941	Fichtenwalde	DE	-
 2941403	Burgebrach	DE	-
@@ -10384,9 +10384,9 @@ id	nm	countryCode	postalCode
 2847586	Rheurdt	DE	-
 2924406	Friesack	DE	-
 2813110	Weida	DE	-
-2915173	Grossposna	DE	-
+2915173	Großpösna	DE	-
 2957040	Altleiningen	DE	-
-2880001	Laussnitz	DE	-
+2880001	Laußnitz	DE	-
 2867863	Mulda	DE	-
 2856213	Ostrhauderfehn	DE	-
 2814765	Waldthurn	DE	-
@@ -10432,7 +10432,7 @@ id	nm	countryCode	postalCode
 2895034	Jengen	DE	-
 2855820	Owschlag	DE	-
 2844434	Rotenburg an der Fulda	DE	-
-2941150	Burgstadt	DE	9217
+2941150	Burgstadt	DE	09217
 2867996	Muhlhausen	DE	99974
 2943321	Bruhl	DE	68782
 2940633	Buttelborn	DE	-
@@ -10480,7 +10480,7 @@ id	nm	countryCode	postalCode
 2874695	Lychen	DE	-
 2811013	Wenzenbach	DE	-
 2951725	Beckdorf	DE	-
-2919763	Gluckstadt	DE	-
+2919763	Glückstadt	DE	-
 2875542	Luchow	DE	-
 2902768	Hof	DE	-
 2815523	Wagenfeld	DE	-
@@ -10505,7 +10505,7 @@ id	nm	countryCode	postalCode
 2953322	Bad Uberkingen	DE	-
 2803882	Zornheim	DE	-
 2926135	Flonheim	DE	-
-2915511	Grossheubach	DE	-
+2915511	Großheubach	DE	-
 2953389	Bad Neustadt an der Saale	DE	-
 2952238	Bastheim	DE	-
 2869934	Momlingen	DE	-
@@ -10538,19 +10538,19 @@ id	nm	countryCode	postalCode
 2957938	Alteglofsheim	DE	-
 2880597	Langquaid	DE	-
 2890544	Kirchenlamitz	DE	-
-2918767	Gossweinstein	DE	-
+2918767	Gößweinstein	DE	-
 2929783	Erbendorf	DE	-
 2933212	Egenhofen	DE	-
 2852599	Pornbach	DE	-
 2861094	Oberdischingen	DE	-
-2824545	Sussen	DE	-
+2824545	Süßen	DE	-
 2820179	Ummendorf	DE	-
 2811691	Weisweil	DE	-
 2890854	Kindsbach	DE	-
 2874621	Mackenbach	DE	-
 2955542	Armsheim	DE	-
 2953702	Bacharach	DE	-
-2867548	Munster	DE	64839
+2867548	Münster	DE	64839
 2928793	Essenheim	DE	-
 2907416	Heimbuchenthal	DE	-
 2813176	Weibersbrunn	DE	-
@@ -10571,7 +10571,7 @@ id	nm	countryCode	postalCode
 2891297	Kettig	DE	-
 2840021	Scheibenberg	DE	-
 2956987	Altmittweida	DE	-
-2925630	Frankenberg	DE	9669
+2925630	Frankenberg	DE	09669
 2932756	Eibau	DE	-
 2873296	Marktleugast	DE	-
 2885888	Konigsfeld im Schwarzwald	DE	-
@@ -10628,7 +10628,7 @@ id	nm	countryCode	postalCode
 2841047	Sayda	DE	-
 2891687	Kemmern	DE	-
 2873295	Marktleuthen	DE	-
-2839613	Schesslitz	DE	-
+2839613	Scheßlitz	DE	-
 2803781	Zschornewitz	DE	-
 2923334	Gaiberg	DE	-
 2862831	Niederstetten	DE	-
@@ -10636,7 +10636,7 @@ id	nm	countryCode	postalCode
 2855390	Parsau	DE	-
 2806007	Wrestedt	DE	-
 2813860	Wasbuttel	DE	-
-2819117	Unterluss	DE	-
+2819117	Unterlüß	DE	-
 2895688	Isenbuttel	DE	-
 2829753	Stadtoldendorf	DE	-
 2866512	Nentershausen	DE	56412
@@ -10660,7 +10660,7 @@ id	nm	countryCode	postalCode
 2898033	Huffenhardt	DE	-
 2866074	Neuburg	DE	76776
 2896877	Huttlingen	DE	-
-2899539	Holzweissig	DE	-
+2899539	Holzweißig	DE	-
 2872775	Maulburg	DE	-
 2929692	Erdweg	DE	-
 2888323	Kleinrinderfeld	DE	-
@@ -10694,7 +10694,7 @@ id	nm	countryCode	postalCode
 2946599	Bollschweil	DE	-
 2890532	Kirchensittenbach	DE	-
 2864141	Neusitz	DE	-
-2838167	Schlusselfeld	DE	-
+2838167	Schlüsselfeld	DE	-
 2828993	Steimbke	DE	-
 2816578	Vollersode	DE	-
 2930750	Elsendorf	DE	-
@@ -10731,8 +10731,8 @@ id	nm	countryCode	postalCode
 2896677	Iggingen	DE	-
 2958906	Aidhausen	DE	-
 2958835	Aindling	DE	-
-2817506	Vettweiss	DE	-
-2867492	Munzenberg	DE	-
+2817506	Vettweiß	DE	-
+2867492	Münzenberg	DE	-
 2912618	Hagen am Teuteburger Wald	DE	-
 2922012	Gehrde	DE	-
 2953422	Bad Kleinen	DE	-
@@ -10751,7 +10751,7 @@ id	nm	countryCode	postalCode
 2820150	Undenheim	DE	-
 2932329	Eichenbuhl	DE	-
 2882347	Kurnach	DE	-
-2873011	Massbach	DE	-
+2873011	Maßbach	DE	-
 3272455	Dannstadt-Schauernheim	DE	-
 2868867	Mudau	DE	-
 2899058	Hordt	DE	-
@@ -10803,7 +10803,7 @@ id	nm	countryCode	postalCode
 2893868	Kalefeld	DE	-
 2936933	Dingelstadt	DE	-
 2823426	Tespe	DE	-
-2864054	Neustadt an der Weinstrasse	DE	-
+2864054	Neustadt an der Weinstraße	DE	-
 2920085	Glashutten	DE	-
 2806852	Wolfersheim	DE	-
 2819892	Unterbreizbach	DE	-
@@ -10833,12 +10833,12 @@ id	nm	countryCode	postalCode
 2909252	Hattenhofen	DE	-
 2815328	Waibstadt	DE	-
 2838240	Schlotheim	DE	-
-2918770	Gossnitz	DE	-
+2918770	Gößnitz	DE	-
 2898299	Hoym	DE	-
 2903026	Hochspeyer	DE	-
 2924313	Frohburg	DE	-
 2817581	Veringenstadt	DE	-
-3207540	Schonenberg-Kubelberg	DE	-
+3207540	Schönenberg-Kübelberg	DE	-
 2848710	Reinsfeld	DE	-
 2911285	Wandsbek	DE	-
 2950265	Bergstedt	DE	-
@@ -10917,7 +10917,7 @@ id	nm	countryCode	postalCode
 2877171	Lindhorst	DE	-
 2835223	Schwarme	DE	-
 2849263	Rehna	DE	-
-2875558	Lubz	DE	-
+2875558	Lübz	DE	-
 2864705	Neukloster	DE	-
 2846922	Rieseby	DE	-
 2813647	Wattenbek	DE	-
@@ -10953,7 +10953,7 @@ id	nm	countryCode	postalCode
 2874000	Mamming	DE	-
 2852372	Prackenbach	DE	-
 2951522	Beetzendorf	DE	-
-2949949	Bernstadt	DE	2748
+2949949	Bernstadt	DE	02748
 2890880	Kindelbruck	DE	-
 2852995	Pohl	DE	-
 2959514	Adelsdorf	DE	-
@@ -10967,7 +10967,7 @@ id	nm	countryCode	postalCode
 2823605	Teisnach	DE	-
 2951340	Beimerstetten	DE	-
 2813847	Waschenbeuren	DE	-
-2844651	Rossleben	DE	-
+2844651	Roßleben	DE	-
 2936631	Doberlug-Kirchhain	DE	-
 2829595	Stammbach	DE	-
 2874006	Mammendorf	DE	-
@@ -11036,7 +11036,7 @@ id	nm	countryCode	postalCode
 2927726	Faulbach	DE	-
 2833010	Sennfeld	DE	-
 2941271	Burgheim	DE	-
-2846032	Koeln Rodenkirchen	DE	-
+2846032	Köln Rodenkirchen	DE	-
 2946482	Bonebuttel	DE	-
 2892409	Katharinenberg	DE	-
 2879668	Leezdorf	DE	-
@@ -11128,8 +11128,8 @@ id	nm	countryCode	postalCode
 2892563	Kasendorf	DE	-
 2881154	Langenbernsdorf	DE	-
 2823355	Teuchern	DE	-
-2923637	Furstenberg	DE	-
-2826073	Straussfurt	DE	-
+2923637	Fürstenberg	DE	-
+2826073	Straußfurt	DE	-
 2867888	Muhltroff	DE	-
 2815139	Waldbockelheim	DE	-
 2913290	Gutzkow	DE	-
@@ -11160,7 +11160,7 @@ id	nm	countryCode	postalCode
 2897879	Hulben	DE	-
 2844924	Rosenthal	DE	-
 2959084	Ahrensbok	DE	-
-2916570	Grossenwiehe	DE	-
+2916570	Großenwiehe	DE	-
 3206259	Rietheim-Weilheim	DE	-
 2937896	Dettingen unter Teck	DE	-
 2876212	Lohmen	DE	-
@@ -11193,10 +11193,10 @@ id	nm	countryCode	postalCode
 2936040	Dorfprozelten	DE	-
 2810184	Westerstetten	DE	-
 2953100	Balge	DE	-
-2915574	Gross Gronau	DE	-
+2915574	Groß Gronau	DE	-
 2806080	Worth an der Donau	DE	-
 2953352	Bad Schandau	DE	-
-2915552	Grossharthau	DE	-
+2915552	Großharthau	DE	-
 2951040	Benneckenstein	DE	-
 2881094	Langenenslingen	DE	-
 2920024	Glauburg	DE	-
@@ -11225,7 +11225,7 @@ id	nm	countryCode	postalCode
 2898435	Hotensleben	DE	-
 2866009	Neudietendorf	DE	-
 2807025	Wohltorf	DE	-
-2894948	Jessnitz	DE	-
+2894948	Jeßnitz	DE	-
 2818014	Utting am Ammersee	DE	-
 2950492	Berghaupten	DE	-
 2831731	Sochtenau	DE	-
@@ -11292,7 +11292,7 @@ id	nm	countryCode	postalCode
 2953247	Bahrdorf	DE	-
 2895189	Janschwalde	DE	-
 2867274	Mylau	DE	-
-2950696	Berga	DE	6536
+2950696	Berga	DE	06536
 2842203	Salz	DE	-
 2944093	Brietlingen	DE	-
 2817703	Velgast	DE	-
@@ -11306,7 +11306,7 @@ id	nm	countryCode	postalCode
 2821480	Travemuende	DE	-
 2837885	Schmidgaden	DE	-
 2859970	Langfurth	DE	-
-2916636	Grossengottern	DE	-
+2916636	Großengottern	DE	-
 2807254	Wittislingen	DE	-
 2940246	Casekow	DE	-
 2898847	Horneburg	DE	-
@@ -11317,7 +11317,7 @@ id	nm	countryCode	postalCode
 2874747	Lutzen	DE	-
 2947139	Bodenfelde	DE	-
 2809415	Wieren	DE	-
-2915212	Gross Oesingen	DE	-
+2915212	Groß Oesingen	DE	-
 3208552	Jarplund-Weding	DE	-
 3208554	Lohe-Rickelshof	DE	-
 2901638	Hohenleipisch	DE	-
@@ -11327,10 +11327,10 @@ id	nm	countryCode	postalCode
 2806079	Worth an der Isar	DE	-
 2939907	Colmberg	DE	-
 2945647	Brachbach	DE	-
-2864750	Neukirchen	DE	9221
+2864750	Neukirchen	DE	09221
 2810662	Wesenberg	DE	-
 2948595	Birkenfeld	DE	55765
-2917107	Groeningen	DE	-
+2917107	Gröningen	DE	-
 2937228	Dieskau	DE	-
 2878140	Lichtenau	DE	77839
 2857011	Ortenburg	DE	-
@@ -11342,7 +11342,7 @@ id	nm	countryCode	postalCode
 2950934	Bentwisch	DE	-
 2925306	Frauenstein	DE	-
 2811860	Weissensee	DE	-
-2861603	Nussdorf	DE	-
+2861603	Nußdorf	DE	-
 2947316	Bockhorn	DE	85461
 2954603	Auerbach	DE	91275
 2943488	Brucken	DE	-
@@ -11350,24 +11350,24 @@ id	nm	countryCode	postalCode
 2890485	Kirchheim	DE	36275
 2891718	Kemberg	DE	-
 2853295	Plaue	DE	-
-2915388	Gross Koris	DE	-
-2928394	Eussenheim	DE	-
+2915388	Groß Koris	DE	-
+2928394	Eußenheim	DE	-
 2934073	Ebendorf	DE	-
 2866905	Naumburg	DE	34311
 2857012	Ortenberg	DE	63683
 2942154	Bucken	DE	-
-2914932	Gross Twulpstedt	DE	-
+2914932	Groß Twülpstedt	DE	-
 2854906	Penzlin	DE	-
-2950697	Berga	DE	7980
+2950697	Berga	DE	07980
 2957761	Alten Buseck	DE	-
 2876685	Lobstadt	DE	-
 2845475	Roitzsch	DE	-
 2879944	Lauterbach/Schwarzwald	DE	-
 2863213	Niederkirchen bei Deidesheim	DE	-
 2815075	Waldenburg	DE	74638
-2868004	Muhlhausen	DE	69242
+2868004	Mühlhausen	DE	69242
 2869053	Moser	DE	-
-2915209	Grossolbersdorf	DE	-
+2915209	Großolbersdorf	DE	-
 2806082	Worth am Main	DE	-
 2876044	Loitz	DE	-
 2952762	Barendorf	DE	-
@@ -11375,32 +11375,32 @@ id	nm	countryCode	postalCode
 2951013	Benningen am Neckar	DE	-
 2914457	Grunbach	DE	-
 2911293	Eimsbuettel	DE	-
-2915362	Gross Kummerfeld	DE	-
+2915362	Groß Kummerfeld	DE	-
 2848737	Reinsberg	DE	-
 2874832	Lutter am Barenberge	DE	-
 2924625	Friedrichsdorf	DE	-
 2836587	Schonhausen	DE	-
-2946007	Borssum	DE	-
-3206154	Bobingen an der Rems	DE	-
+2946007	Börßum	DE	-
+3206154	Böbingen an der Rems	DE	-
 2876682	Loburg	DE	-
-2949967	Bernsdorf	DE	9337
+2949967	Bernsdorf	DE	09337
 2953542	Bad Bibra	DE	-
 7274677	Eidelstedt	DE	-
-2914188	Grunhain	DE	-
+2914188	Grünhain	DE	-
 2818246	Bad Urach	DE	-
 2843743	Rottenbach	DE	91187
 2941496	Burg auf Fehmarn	DE	-
 2953362	Bad Salzdetfurth	DE	-
 2745906	Vaals	NL	-
 2924680	Friedland	DE	15848
-6559224	Muenstertal/Schwarzwald	DE	-
+6559224	Münstertal/Schwarzwald	DE	-
 7290401	Niederrad	DE	-
 2924716	Friedersdorf	DE	-
 2935375	Drage	DE	-
 2885326	Kossa	DE	-
 2841374	Sasel	DE	-
-2915172	Grosspostwitz	DE	-
-2915201	Grossorner	DE	-
+2915172	Großpostwitz	DE	-
+2915201	Großorner	DE	-
 2833795	Seehausen am Staffelsee	DE	-
 2941401	Burgel	DE	-
 3272957	Hochstadt	DE	-
@@ -11413,11 +11413,11 @@ id	nm	countryCode	postalCode
 2911296	Altona	DE	-
 2881018	Langenhorn	DE	22419
 2923850	Fuhlsbuettel	DE	-
-2915107	Grossrudestedt	DE	-
+2915107	Großrudestedt	DE	-
 2911825	Hain-Grundau	DE	-
-2934835	Droyssig	DE	-
+2934835	Droyßig	DE	-
 2828141	Steinfeld	DE	76889
-2811909	Weissenburg in Bayern	DE	-
+2811909	Weißenburg in Bayern	DE	-
 2864089	Neustadt in Sachsen	DE	-
 2888344	Klein Reken	DE	-
 2894007	Kaisersesch	DE	-
@@ -36875,10 +36875,10 @@ id	nm	countryCode	postalCode
 2811461	Wellingsbuettel	DE	-
 2811514	Wellendingen	DE	-
 2811570	Welden	DE	-
-2811852	Weissenstadt	DE	-
-2811865	Weissensberg	DE	-
-2811879	Weissenhorn	DE	-
-2811918	Weissenbrunn	DE	-
+2811852	Weißenstadt	DE	-
+2811865	Weißensberg	DE	-
+2811879	Weißenhorn	DE	-
+2811918	Weißenbrunn	DE	-
 2811937	Weissenborn	DE	-
 2811941	Weissenberg	DE	-
 2812053	Weissach	DE	-
@@ -36933,11 +36933,11 @@ id	nm	countryCode	postalCode
 2816760	Vohringen	DE	72189
 2816762	Vohrenbach	DE	-
 2816769	Vohl	DE	-
-2816770	Vohenstrauss	DE	-
+2816770	Vohenstrauß	DE	-
 2816796	Vogt	DE	-
 2817204	Vilsheim	DE	-
 2817209	Vilsbiburg	DE	-
-2817512	Vettelschoss	DE	-
+2817512	Vettelschoß	DE	-
 2817517	Vetschau	DE	-
 2817722	Velburg	DE	-
 2818025	Uttenweiler	DE	-
@@ -36945,7 +36945,7 @@ id	nm	countryCode	postalCode
 2818107	Usedom	DE	-
 2818229	Urbar	DE	-
 2818297	Upgant-Schott	DE	-
-2818354	Unterwossen	DE	-
+2818354	Unterwössen	DE	-
 2818418	Unterwellenborn	DE	-
 2818632	Untersteinach	DE	-
 2818889	Unterreichenbach	DE	-
@@ -37020,7 +37020,7 @@ id	nm	countryCode	postalCode
 2828089	Steingaden	DE	-
 2828136	Steinfeld	DE	49439
 2828140	Steinfeld	DE	97854
-2828685	Stein bei Nurnberg	DE	-
+2828685	Stein bei Nürnberg	DE	-
 2828723	Kurort Steinbach-Hallenberg	DE	-
 2828805	Steinbach	DE	-
 2828911	Steinach	DE	94377
@@ -37084,17 +37084,17 @@ id	nm	countryCode	postalCode
 2836031	Schuby	DE	-
 2836319	Schorndorf	DE	93489
 2836409	Schopfloch	DE	72296
-2836450	Schonwald	DE	-
-2836451	Schonwald im Schwarzwald	DE	-
-2836460	Schonthal	DE	-
-2836480	Schonsee	DE	-
-2836543	Schoningen	DE	-
-2836581	Schoenheide	DE	-
-2836658	Schonfeld	DE	-
+2836450	Schönwald	DE	-
+2836451	Schönwald im Schwarzwald	DE	-
+2836460	Schönthal	DE	-
+2836480	Schönsee	DE	-
+2836543	Schöningen	DE	-
+2836581	Schönheide	DE	-
+2836658	Schönfeld	DE	-
 2836772	Schoneck	DE	-
-2837064	Schonau	DE	69250
-2837072	Schonau	DE	84337
-2837085	Schoenau am Koenigssee	DE	-
+2837064	Schönau	DE	69250
+2837072	Schönau	DE	84337
+2837085	Schönau am Königssee	DE	-
 2837117	Schomberg	DE	72355
 2837134	Schollnach	DE	-
 2837136	Schollkrippen	DE	-
