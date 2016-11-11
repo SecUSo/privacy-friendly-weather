@@ -45,12 +45,12 @@
     <string name="help">Hilfe</string>
     <string name="help_category">Hilfe-Kategorie</string>
     <string name="help_overview_heading">Übersicht</string>
-    <string name="help_permission_internet_heading">INTERNET-Berechtigung</string>
+    <string name="help_permission_internet_heading">Berechtigung: Zugriff auf alle Netzwerke</string>
     <string name="help_permissions_heading">Berechtigungen</string>
     <string name="help_privacy_heading">Privatsphäre-Informationen</string>
     <string name="insert_into_db_error">Ein Fehler trat auf, während die Daten in die Datenbank geschrieben wurden.</string>
     <string name="more_info">Mehr Informationen können gefunden werden auf:</string>
-    <string name="help_permission_internet_description">wird benötigt, um Wetter-Anfragen an Servern zu stellen, die sich im Internet befinden. Ohne diese Berechtigung können keine Wetter-Daten bezogen werden.</string>
+    <string name="help_permission_internet_description">In dieser Kategorie wird die Berechtigung "Internet" benötigt, um Wetter-Anfragen an Server zu stellen, die sich im Internet befinden. Ohne diese Berechtigung können keine Wetter-Daten bezogen werden.</string>
     <string name="pref_header_general">Allgemein</string>
     <string name="progress_dialog_add_location_title">Datenbank wird eingerichtet...</string>
     <string name="progress_dialog_add_location_msg">Einen Augenblick</string>

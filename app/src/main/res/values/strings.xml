@@ -48,9 +48,9 @@
     <string name="help_radius_search_text">The radius search provides a mechanism to retrieve those locations around a given location where the weather is most beautiful and warmest.</string>
     <string name="help_category">Help Category</string>
     <string name="help_privacy_heading">Privacy Info</string>
-    <string name="help_permission_internet_heading">INTERNET Permission</string>
+    <string name="help_permission_internet_heading">Permission: Connecting to the Network</string>
     <string name="help_permission_internet_description">
-        is needed because weather data are retrieved making requests to servers on the internet. Without this permission, no weather data can be received.
+        In this category the "Internet" permission is needed because weather data is retrieved by making requests to servers on the Internet. Without this permission, no weather data can be received.
     </string>
     <string name="help_permissions_heading">Permissions</string>
     <string name="help_intro">Welcome to the help page. This app lets you add locations, view the current weather for these locations as well as weather forecasts.
@@ -58,7 +58,7 @@
 
     <!--###ABOUT###-->
     <string name="about">About</string>
-    <string name="version_number" translatable="false">Version 1.0</string>
+    <string name="version_number" translatable="false">Version 1.1</string>
     <string name="about_author">Authors: </string>
     <string name="about_author_names" translatable="false">Patrick Mell</string>
     <string name="about_author_contributors">and contributors.</string>
