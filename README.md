@@ -12,7 +12,7 @@ Further development requires Android Studio, we recommend to use at least versio
 
 ### API Reference
 
-Mininum SDK: 17
+Mininum SDK: 21
 Target SDK: 25
 
 ## License
