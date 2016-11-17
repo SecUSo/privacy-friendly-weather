@@ -8,6 +8,10 @@ This application has been developed to be used as a basis for a Privacy Friendly
 
 ## Download and more Information
 
+[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/repository/browse/?fdid=org.secuso.privacyfriendlyweather)<a href="https://play.google.com/store/apps/details?id=org.secuso.privacyfriendlyweather"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="60"></a>
+
+### Building 
+
 Further development requires Android Studio, we recommend to use at least version 2.2.2
 
 ### API Reference
