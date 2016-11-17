@@ -46,4 +46,5 @@ Markus Hau<br />
 
 Github-Users: <br />
 ptrckkk<br />
-yonjuni (Karola Marky)
+yonjuni (Karola Marky)<br />
+xdema (translation to Italian)
