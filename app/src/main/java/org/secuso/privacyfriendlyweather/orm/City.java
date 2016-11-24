@@ -14,9 +14,8 @@ public class City implements Serializable {
     /**
      * Constants
      */
-    private static final String COLUMN_CITY_ID = "city_id";
-    private static final String COLUMN_CITY_RANK = "city_rank";
-    private static final String COLUMN_CITY_NAME = "city_name";
+    static final String COLUMN_CITY_ID = "city_id";
+    static final String COLUMN_CITY_NAME = "city_name";
     private static final String COLUMN_COUNTRY_CODE = "country_code";
     private static final String COLUMN_POSTAL_CODE = "postal_code";
     private static final String UNKNOWN_POSTAL_CODE_VALUE = "-";
@@ -29,9 +28,6 @@ public class City implements Serializable {
 
     @DatabaseField(columnName = COLUMN_CITY_ID)
     private int cityId;
-
-    @DatabaseField(columnName = COLUMN_CITY_RANK)
-    private int cityRank;
 
     @DatabaseField(columnName = COLUMN_CITY_NAME)
     private String cityName;
@@ -53,14 +49,12 @@ public class City implements Serializable {
      *
      * @param cityId      The ID of the city.
      * @param cityName    The name of the city.
-     * @param cityRank    Position of the city in the list.
      * @param countryCode The code of the country that the city belongs to.
      * @param postalCode  The postal code of the city. If it is unknown, pass
      *                    UNKNOWN_POSTAL_CODE_VALUE.
      */
-    public City(int cityId, int cityRank, String cityName, String countryCode, String postalCode) {
+    public City(int cityId, String cityName, String countryCode, String postalCode) {
         this.cityId = cityId;
-        this.cityRank = cityRank;
         this.cityName = cityName;
         this.countryCode = countryCode;
         this.postalCode = postalCode;
@@ -81,24 +75,10 @@ public class City implements Serializable {
     }
 
     /**
-     * @return Returns the ID of the city.
-     */
-    public int getCityRank() {
-        return cityRank;
-    }
-
-    /**
      * @param cityId The ID of the city.
      */
     public void setCityId(int cityId) {
         this.cityId = cityId;
-    }
-
-    /**
-     * @param cityRank The rank of the city in the list.
-     */
-    public void setCityRank(int cityRank) {
-        this.cityRank = cityRank;
     }
 
     /**

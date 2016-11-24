@@ -14,9 +14,9 @@ public class CityToWatch {
     /**
      * Column names
      */
-    public static final String CITY_ID = "city_id";
-    public static final String COLUMN_STORE_PERSISTENT = "persistent";
-    public static final String COLUMN_RANK = "rank";
+    static final String CITY_ID = "city_id";
+    static final String COLUMN_STORE_PERSISTENT = "persistent";
+    static final String COLUMN_RANK = "rank";
 
     /**
      * Database fields.
