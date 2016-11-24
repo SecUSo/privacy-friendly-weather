@@ -77,7 +77,7 @@
     <string name="dialog_add_no_city_found">Città non trovata.</string>
     <string name="dialog_add_too_many_cities_found">Troppe città trovate.</string>
     <string name="dialog_first_app_start_message">Con il pulsante qui sotto è possibile aggiungere località su cui è possibile visualizzare le informazioni meteo.</string>
-    <string name="help_delete_items_text">Nell'elenco delle località un luogo può essere cancellato con un dito passando da sinistra a destra o viceversa.</string>
+    <string name="help_delete_items_text">Nell\'elenco delle località un luogo può essere cancellato con un dito passando da sinistra a destra o viceversa.</string>
     <string name="help_delete_items_title">Cancella località</string>
     <string name="help_intro">Benvenuto alla pagina di aiuto. Con questa applicazione è possibile aggiungere località, di cui è possibile vedere le informazioni meteo o previsioni meteorologiche.</string>
     <string name="help_move_items_text">La posizione di inserimento nella lista può essere modificata premendo a luogo e quindi spostando la località.</string>
