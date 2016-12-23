@@ -1,0 +1,159 @@
+﻿<resources>
+    <string name="app_name">Weather</string>
+    <string name="app_name_long">Privacy Friendly Weather</string>
+
+    <!-- ###DRAWER###-->
+    <string name="action_help">ヘルプ</string>
+    <string name="action_about">アプリについて</string>
+    <string name="action_settings">設定</string>
+    <string name="action_main">メイン</string>
+
+    <string name="navigation_drawer_open">ナビゲーションドロワーを開く</string>
+    <string name="navigation_drawer_close">ナビゲーションドロワーを閉じる</string>
+
+    <!-- ###MAIN### -->
+    <string name="activity_main_icon_descriptor">
+        対応するリスト項目の、現在の気象条件に一致するアイコン。
+    </string>
+    <string name="activity_main_location_not_found">
+        場所が見つからないと、サーバーが応答を返しました。 場所が存在することが確かな場合は、もう一度お試しください。
+    </string>
+    <string name="activity_main_snackbar_undo_info">項目を削除しました</string>
+    <string name="activity_main_snackbar_undo_button">元に戻す</string>
+
+    <!-- ###RADIUS_SEARCH### -->
+    <string name="radius_search_label">範囲の検索</string>
+    <string name="radius_search_heading">場所周辺の最適な天気を見つけます</string>
+    <string name="radius_search_tv_heading">場所 (検索範囲の中心)</string>
+    <string name="radius_search_tv_edge_length">検索範囲の辺の長さ</string>
+    <string name="radius_search_tv_num_returns">取得する場所の数</string>
+    <string name="radius_search_btn_search">検索</string>
+
+    <!-- ###RADIUS_SEARCH_RESULT### -->
+    <string name="radius_search_result_label">検索結果</string>
+
+    <!--###HELP###-->
+    <string name="help">ヘルプ</string>
+    <string name="help_overview_heading">概要</string>
+    <string name="help_delete_items_title">場所を削除しています</string>
+    <string name="help_delete_items_text">
+        左から右へ、または右から左へのスワイプジェスチャを使用して、概要リストから場所を削除できます。
+    </string>
+    <string name="help_move_items_title">位置の移動</string>
+    <string name="help_move_items_text">
+        概要リストの項目を長押しして、上下に移動することで、項目の位置を変更します。
+    </string>
+    <string name="help_radius_search_title">範囲の検索</string>
+    <string name="help_radius_search_text">範囲の検索は、天気が最も美しく暖かい周辺の場所を検索するための仕組みを提供します。</string>
+    <string name="help_category">ヘルプ カテゴリー</string>
+    <string name="help_privacy_heading">プライバシー情報</string>
+    <string name="help_permission_internet_heading">アクセス許可: ネットワークへの接続</string>
+    <string name="help_permission_internet_description">
+        インターネット上のサーバーにリクエストを送信することで気象データを取得するため、
+        このカテゴリーでは「インターネット」のアクセス許可が必要です。 このアクセス許可がないと、気象データを受信できません。
+    </string>
+    <string name="help_permissions_heading">アクセス許可</string>
+    <string name="help_intro">ヘルプページへようこそ。 このアプリは、場所を追加して、この場所の天気予報だけでなく現在の天気を表示することができます。
+        \nさらに、特定の場所の周辺で最も天気の良い場所を尋ねることができます。</string>
+
+    <!--###ABOUT###-->
+    <string name="about">アプリについて</string>
+    <string name="about_author">作者: </string>
+    <string name="about_author_contributors">と貢献者。</string>
+    <string name="about_affiliation">提携</string>
+    <string name="privacy_friendly">このアプリケーションは、ダルムシュタット工科大学 (Technische Universität Darmstadt, Germany) が開発したプライバシーフレンドリーアプリのグループに属しています。 ソースコードは GPLv3 の下でライセンスされます。画像の著作権は TU Darmstadt および Google Inc.</string>
+    <string name="more_info">さらに詳しい情報は以下でご覧ください:</string>
+
+    <!-- ###Settings### -->
+    <string name="title_activity_settings">設定</string>
+    <string name="pref_header_general">全般</string>
+    <string name="settings_title_units">単位</string>
+    <string name="settings_summary_temperature">気温の表示に使用する単位を設定します</string>
+    <string name="settings_title_temperature">気温</string>
+    <string name="settings_celsius">セ氏</string>
+    <string name="settings_fahrenheit">カ氏</string>
+    <string name="settings_summary_distance">距離の表示に使用する単位を設定します</string>
+    <string name="settings_title_distance">距離</string>
+    <string name="settings_kilometers">キロメートル</string>
+    <string name="settings_miles">マイル</string>
+
+    <!-- ###CITY_WEATHER_ACTIVIY### -->
+    <string name="activity_city_weather_label">天気の概要</string>
+    <string name="activity_city_weather_iv_description">気象のカテゴリーに合った画像</string>
+    <string name="activity_city_weather_tv_category">天気:</string>
+    <string name="activity_city_weather_tv_humidity">湿度:</string>
+    <string name="activity_city_weather_tv_pressure">気圧:</string>
+    <string name="activity_city_weather_tv_wind_speed">風速:</string>
+    <string name="activity_city_weather_tv_sunrise">日の出時刻:</string>
+    <string name="activity_city_weather_tv_sunset">日の入り時刻:</string>
+    <string name="activity_city_weather_tv_details">今日 ▼</string>
+    <string name="abbreviation_monday">月</string>
+    <string name="abbreviation_tuesday">火</string>
+    <string name="abbreviation_wednesday">水</string>
+    <string name="abbreviation_thursday">木</string>
+    <string name="abbreviation_friday">金</string>
+    <string name="abbreviation_saturday">土</string>
+    <string name="abbreviation_sunday">日</string>
+    <string name="info_no_data_for_day">現在、選択した日のデータは利用できません。</string>
+
+    <!-- ###CITY_WEATHER_DETAILS_ACTIVITY### -->
+    <string name="activity_city_weather_details_label">今日の天気</string>
+    <string name="activity_city_weather_details_tv_category">天気:</string>
+    <string name="activity_city_weather_details_tv_temperature">気温:</string>
+    <string name="activity_city_weather_details_tv_humidity">湿度:</string>
+    <string name="activity_city_weather_details_tv_pressure">気圧:</string>
+    <string name="activity_city_weather_details_tv_wind_speed">風速:</string>
+    <string name="activity_city_weather_details_tv_rain_volume">雨量:</string>
+    <string name="activity_city_weather_details_tv_rain_volume_na">n/a</string>
+
+    <!-- ###FORECAST_ACTIVITY### -->
+    <string name="activity_forecast_label">天気予報</string>
+
+    <!-- ###DIALOGS### -->
+    <string name="dialog_first_app_title">ようこそ</string>
+    <string name="dialog_first_app_start_message">
+        下のボタンを使用して、天気を見たい場所を追加してください。\nこれらはいつでも削除できます。
+    </string>
+    <string name="dialog_first_app_help_button">ヘルプを表示</string>
+    <string name="dialog_first_app_close_button">OK</string>
+
+    <string name="progress_dialog_add_location_title">データベースのセットアップ中…</string>
+    <string name="progress_dialog_add_location_msg">しばらくお待ちください</string>
+
+    <string name="dialog_add_label">追加する場所を入力してください:</string>
+    <string name="dialog_add_checkbox_save">この場所を永久に保存する</string>
+    <string name="dialog_add_textedit_error">正しい場所を入力してください!</string>
+    <string name="dialog_add_added_successfully_template">場所を正常に追加しました。</string>
+    <string name="dialog_add_no_city_found">
+        入力に一致する場所が見つかりませんでした。
+        ドロップダウンリストから項目を選択することをお勧めします。
+    </string>
+    <string name="dialog_add_too_many_cities_found">
+        入力が重複しています。 ドロップダウンリストから項目を選択することをお勧めします。
+    </string>
+    <string name="dialog_add_already_added">
+        この場所はすでにリストに存在します
+    </string>
+    <string name="dialog_add_close_button">閉じる</string>
+    <string name="dialog_add_add_button">追加</string>
+
+    <!-- ###WEATHER CATEGORIES### -->
+    <string name="weather_category_clear_sky">晴</string>
+    <string name="weather_category_clouds">曇り</string>
+    <string name="weather_category_scattered_clouds">かすみ雲</string>
+    <string name="weather_category_broken_clouds">ちぎれ雲</string>
+    <string name="weather_category_shower_rain">にわか雨</string>
+    <string name="weather_category_rain">雨</string>
+    <string name="weather_category_thunderstorm">雷雨</string>
+    <string name="weather_category_snow">雪</string>
+    <string name="weather_category_mist">もや</string>
+
+    <!-- ###ERRORS###-->
+    <string name="convert_to_json_error">
+        検索された気象データは正しい形式ではありませんでした。
+    </string>
+    <string name="insert_into_db_error">
+        データをデータベースに書き込む際にエラーが発生しました。
+    </string>
+
+</resources>
