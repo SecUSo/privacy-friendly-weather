@@ -14,11 +14,11 @@ public class City implements Serializable {
     /**
      * Constants
      */
-    public static final String COLUMN_CITY_ID = "city_id";
-    public static final String COLUMN_CITY_NAME = "city_name";
-    public static final String COLUMN_COUNTRY_CODE = "country_code";
-    public static final String COLUMN_POSTAL_CODE = "postal_code";
-    public static final String UNKNOWN_POSTAL_CODE_VALUE = "-";
+    static final String COLUMN_CITY_ID = "city_id";
+    static final String COLUMN_CITY_NAME = "city_name";
+    private static final String COLUMN_COUNTRY_CODE = "country_code";
+    private static final String COLUMN_POSTAL_CODE = "postal_code";
+    private static final String UNKNOWN_POSTAL_CODE_VALUE = "-";
 
     /**
      * Member variables
