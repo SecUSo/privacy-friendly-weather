@@ -26,6 +26,11 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
+            android:name=".ForecastCityActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
             android:name=".RadiusSearchActivity"
             android:label="@string/radius_search_label"
             android:parentActivityName=".MainActivity"

@@ -40,7 +40,7 @@ public class ForecastCityActivity extends BaseActivity {
 
     @Override
     protected int getNavigationDrawerID() {
-        return R.id.nav_weather;
+        return R.id.nav_manage;
     }
 
 }

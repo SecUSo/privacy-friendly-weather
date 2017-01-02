@@ -134,14 +134,15 @@ public class BaseActivity extends AppCompatActivity implements OnNavigationItemS
 
         switch(itemId) {
             case R.id.nav_weather:
-                intent = new Intent(this, MainActivity.class);
+                intent = new Intent(this, ForecastActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             case R.id.nav_manage:
                 //TODO add activity
-                //intent = new Intent(this, RadiusSearchActivity.class);
-                //createBackStack(intent);
+                intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 break;
             case R.id.nav_radius:
                 intent = new Intent(this, RadiusSearchActivity.class);
