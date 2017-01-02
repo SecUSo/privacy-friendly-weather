@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_menu_home"
             android:title="@string/action_main" />
         <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/action_manage" />
+        <item
             android:id="@+id/nav_radius"
             android:icon="@drawable/ic_menu_send"
             android:title="@string/radius_search_label" />

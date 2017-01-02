@@ -138,6 +138,11 @@ public class BaseActivity extends AppCompatActivity implements OnNavigationItemS
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
+            case R.id.nav_manage:
+                //TODO add activity
+                //intent = new Intent(this, RadiusSearchActivity.class);
+                //createBackStack(intent);
+                break;
             case R.id.nav_radius:
                 intent = new Intent(this, RadiusSearchActivity.class);
                 createBackStack(intent);
