@@ -19,7 +19,7 @@ public class ForecastCityActivity extends BaseActivity {
     private RecyclerView.LayoutManager mLayoutManager;
 
     //TODO Change to DB Values
-    private String[] mDataset = {"29 degrees", "Seahawks 24 - 27 Bengals",
+    private String[] mDataset = {"29°C", "Seahawks 24 - 27 Bengals",
             "Flash missing, vanishes in crisis", "Half Life 3 announced"};
     private int mDataSetTypes[] = {OVERVIEW, DETAILS, WEEK, DAY, SUN}; //view types
 
@@ -40,7 +40,7 @@ public class ForecastCityActivity extends BaseActivity {
 
     @Override
     protected int getNavigationDrawerID() {
-        return R.id.nav_manage;
+        return R.id.nav_weather;
     }
 
 }

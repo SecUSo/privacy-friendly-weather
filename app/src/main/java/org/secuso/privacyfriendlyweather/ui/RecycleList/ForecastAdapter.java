@@ -95,10 +95,18 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_details, viewGroup, false);
             return new DetailViewHolder(v);
-        } else {
+        } else if (viewType == WEEK) {
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_week, viewGroup, false);
             return new WeekViewHolder(v);
+        } else if (viewType == DAY) {
+            v = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.card_day, viewGroup, false);
+            return new DayViewHolder(v);
+        } else {
+            v = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.card_sun, viewGroup, false);
+            return new SunViewHolder(v);
         }
     }
 
