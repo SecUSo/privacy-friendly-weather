@@ -58,8 +58,9 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TIME_SUNRISE = "time_sunrise";
     private static final String COLUMN_TIME_SUNSET = "time_sunset";
 
-    //Create Table statements for all tables
-
+    /**
+     *   Create Table statements for all tables
+     */
     private static final String CREATE_CURRENT_WEATHER = "CREATE TABLE " + TABLE_CURRENT_WEATHER +
             "(" +
             CURRENT_WEATHER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
