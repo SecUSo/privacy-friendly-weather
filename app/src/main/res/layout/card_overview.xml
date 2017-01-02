@@ -17,14 +17,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/activity_city_weather_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:textSize="70dp"
+            android:textSize="50dp"
+            android:text="42.0"
             android:textColor="@color/colorPrimaryDark"
             android:layout_alignParentEnd="true" />
 
