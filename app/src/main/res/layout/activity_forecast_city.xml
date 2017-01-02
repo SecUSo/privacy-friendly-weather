@@ -20,7 +20,7 @@
             android:layout_marginTop="?attr/actionBarSize"
             android:id="@+id/recyclerViewActivity"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="@dimen/card_margin" />
 
     </android.support.design.widget.CoordinatorLayout>
