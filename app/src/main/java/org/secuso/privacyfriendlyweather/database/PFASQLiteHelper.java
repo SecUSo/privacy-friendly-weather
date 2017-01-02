@@ -170,7 +170,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<CityToWatch> getAllmetaData() {
+    public List<CityToWatch> getAllCityToWatch() {
         List<CityToWatch> cityToWatchList = new ArrayList<CityToWatch>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_CITIES;
