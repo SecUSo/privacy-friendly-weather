@@ -30,6 +30,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     /**
      * Database information
      */
+    //TODO Change name that it fits to PFA-DB structure
     private static final String DATABASE_NAME = "privacyfriendlyweather";
     private static final int DATABASE_VERSION = 1;
 
