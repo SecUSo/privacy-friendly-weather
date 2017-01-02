@@ -15,8 +15,6 @@ import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.W
 
 public class ForecastCityActivity extends BaseActivity {
 
-    private static CurrentWeatherData currentWeatherData = null;
-
     private RecyclerView mRecyclerView;
     private CityWeatherAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
