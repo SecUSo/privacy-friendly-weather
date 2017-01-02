@@ -18,4 +18,13 @@
             android:title="@string/settings_title_distance" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/settings_title_API">
+        <PreferenceScreen android:summary="@string/settings_description_API"/>
+        <EditTextPreference
+            android:key="API_key_value"
+            android:title="@string/settings_title_API_key"
+            android:defaultValue="@string/settings__API_key_default">
+        </EditTextPreference>
+        <PreferenceScreen android:title="@string/settings_title_API_key_reset"/>
+    </PreferenceCategory>
 </PreferenceScreen>
