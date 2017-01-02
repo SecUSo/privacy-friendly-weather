@@ -307,12 +307,11 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(forecast.getId()) });
     }
 
-    public void deleteForecast(CityToWatch cityToWatch) {
+    public void deleteForecast(Forecast forecast) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_FORECAST, FORECAST_ID + " = ?",
-                new String[] { Integer.toString(cityToWatch.getId()) });
+                new String[] { Integer.toString(forecast.getId()) });
         database.close();
     }
-
 
 }
