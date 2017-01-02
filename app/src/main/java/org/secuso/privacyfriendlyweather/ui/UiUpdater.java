@@ -59,25 +59,26 @@ public class UiUpdater {
 
         adapter = new RecyclerOverviewListAdapter(CONTEXT, dbHelper);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(CONTEXT, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        // Get the corresponding weather data and pass it on to the started activity
-                        try {
-                            int weatherDataId = RecyclerOverviewListAdapter.getListItems().get(position).getCurrentWeatherDataID();
-                            CurrentWeatherData currentWeatherData = dbHelper.getCurrentWeatherDataByID(weatherDataId);
-                            Intent intent = new Intent(CONTEXT, CityWeatherActivity.class);
-                            intent.putExtra("weatherData", currentWeatherData);
-                            CONTEXT.startActivity(intent);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            // TODO: Handle error case
-                        }
-
-                    }
-                })
-        );
+        //TODO add dialog to set city as default location
+//        recyclerView.addOnItemTouchListener(
+//                new RecyclerItemClickListener(CONTEXT, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//                        // Get the corresponding weather data and pass it on to the started activity
+//                        try {
+//                            int weatherDataId = RecyclerOverviewListAdapter.getListItems().get(position).getCurrentWeatherDataID();
+//                            CurrentWeatherData currentWeatherData = dbHelper.getCurrentWeatherDataByID(weatherDataId);
+//                            Intent intent = new Intent(CONTEXT, CityWeatherActivity.class);
+//                            intent.putExtra("weatherData", currentWeatherData);
+//                            CONTEXT.startActivity(intent);
+//                        } catch (SQLException e) {
+//                            e.printStackTrace();
+//                            // TODO: Handle error case
+//                        }
+//
+//                    }
+//                })
+//        );
 
         callback = new SimpleItemTouchHelperCallback(adapter);
         touchHelper = new ItemTouchHelper(callback);

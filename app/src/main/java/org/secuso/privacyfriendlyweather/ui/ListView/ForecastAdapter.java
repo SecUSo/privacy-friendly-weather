@@ -23,6 +23,7 @@ import java.util.List;
 
 /**
  * This class is the adapter for the ListView to render weather details of a day.
+ * TODO Remove from Repo after redesign
  */
 public class ForecastAdapter extends ArrayAdapter<Forecast> {
 

@@ -127,7 +127,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
             //TODO Set data
         } else {
             SunViewHolder holder = (SunViewHolder) viewHolder;
-            //TODO Set data}
+            //TODO Set data
         }
     }
 

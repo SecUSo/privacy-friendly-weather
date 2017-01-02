@@ -36,6 +36,7 @@ public class ForecastCityActivity extends BaseActivity {
         mLayoutManager = new LinearLayoutManager(ForecastCityActivity.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         //Adapter is created in the last step
+        //TODO Get dataset from DB
         mAdapter = new ForecastAdapter(mDataset, mDataSetTypes);
         mRecyclerView.setAdapter(mAdapter);
 
