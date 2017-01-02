@@ -8,20 +8,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.Forecast;
 
-/**
- * Created by yonjuni on 02.01.17.
- * Adapter for the horizontal listView for course of the day.
- */
+import java.util.List;
+
+//**
+// * Created by yonjuni on 02.01.17.
+// * Adapter for the horizontal listView for course of the day.
+// */import java.util.List;
 
 public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.CourseOfDayViewHolder> {
 
     //TODO Add datatype to list
-    //private List<Forecast> courseOfDayList;
+    private List<Forecast> courseOfDayList;
 
-//    public CourseOfDayAdapter(List<Forecast> courseOfDayList) {
-//        this.courseOfDayList = courseOfDayList;
-//    }
+    public CourseOfDayAdapter(List<Forecast> courseOfDayList) {
+        this.courseOfDayList = courseOfDayList;
+        Forecast forecast = new Forecast(1, 1, 12345678910L, null, 15, 43, 86, 1001);
+        for (int i=0; i<8; i++){
+            courseOfDayList.add(forecast);
+        }
+    }
 
     @Override
     public CourseOfDayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -35,18 +42,17 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         //TODO set the texts an choose ImageView
         //Time has to be the local time in the city!
 //        holder.time.setText();
-//        holder.temperature.setText();
-//        holder.humidity.setText();
+        holder.temperature.setText(Float.toString(courseOfDayList.get(position).getTemperature()));
+        holder.humidity.setText(Float.toString(courseOfDayList.get(position).getHumidity()));
 
     }
 
     @Override
     public int getItemCount() {
-        //return courseOfDayList.size();
-        return 0;
+        return courseOfDayList.size();
     }
 
-    public class CourseOfDayViewHolder extends RecyclerView.ViewHolder{
+    public class CourseOfDayViewHolder extends RecyclerView.ViewHolder {
         TextView time;
         ImageView weather;
         TextView temperature;
@@ -63,3 +69,4 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         }
     }
 }
+

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 
@@ -27,6 +26,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     public static final int DAY = 3;
     public static final int SUN = 4;
 
+    //TODO Update Array to list
     public ForecastAdapter(List<CurrentWeatherData> currentWeatherDataList, int[] dataSetTypes){
         this.currentWeatherDataList = currentWeatherDataList;
         mDataSetTypes = dataSetTypes;
