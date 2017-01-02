@@ -41,9 +41,6 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     private static final String FORECAST_COLUMN_TEMPERATURE_CURRENT = "temperature_current";
     private static final String FORECAST_COLUMN_HUMIDITY = "humidity";
     private static final String FORECAST_COLUMN_PRESSURE = "pressure";
-    private static final String FORECAST_COLUMN_WIND_SPEED = "wind_speed";
-    private static final String FORECAST_COLUMN_WIND_DIRECTION = "wind_direction";
-    private static final String FORECAST_COLUMN_PAST_RAIN_VOLUME = "past_rain_volume";
 
     //Names of columns in TABLE_CURRENT_WEATHER
     private static final String CURRENT_WEATHER_ID = "id";
@@ -91,9 +88,6 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             FORECAST_COLUMN_TEMPERATURE_CURRENT + " REAL," +
             FORECAST_COLUMN_HUMIDITY + " REAL," +
             FORECAST_COLUMN_PRESSURE + " REAL," +
-            FORECAST_COLUMN_WIND_SPEED + " REAL," +
-            FORECAST_COLUMN_WIND_DIRECTION + " REAL," +
-            FORECAST_COLUMN_PAST_RAIN_VOLUME + " REAL," +
             " FOREIGN KEY ("+FORECAST_CITY_ID+") REFERENCES "+TABLE_CITIES+"("+CITIES_ID+"));";
 
     private static final String CREATE_TABLE_FORECASTS = "CREATE TABLE " + TABLE_CITIES +
@@ -217,5 +211,108 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
                 new String[] { Integer.toString(cityToWatch.getId()) });
         database.close();
     }
+
+
+    /**
+     * Methods for TABLE_FORECAST
+     */
+    public void addForecast(Forecast forecast) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(FORECAST_ID, forecast.getId());
+        values.put(FORECAST_CITY_ID, forecast.getCity_id());
+        values.put(FORECAST_COLUMN_TIME_MEASUREMENT, forecast.getTimestamp());
+        values.put(FORECAST_COLUMN_FORECAST_FOR, String.valueOf(forecast.getForecastTime()));
+        values.put(FORECAST_COLUMN_WEATHER_ID, forecast.getWeatherID());
+        values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
+        values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
+        values.put(FORECAST_COLUMN_PRESSURE, forecast.getPressure());
+
+        database.insert(TABLE_FORECAST, null, values);
+        database.close();
+    }
+
+    public Forecast getForecast(int id) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        Cursor cursor = database.query(TABLE_FORECAST, new String[]{CITIES_ID,
+                        CITY_ID, CITY_NAME, COUNTRY_CODE, POSTAL_CODE, CITIES_COLUMN_RANK}, CITIES_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+
+        Forecast forecast = new Forecast();
+
+        if( cursor != null && cursor.moveToFirst() ){
+            forecast.setId(Integer.parseInt(cursor.getString(0)));
+            forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
+            forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
+            //TODO
+            //forecast.setForecastTime(cursor.getString(3));
+            forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
+            forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
+            forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
+            forecast.setPressure(Float.parseFloat(cursor.getString(7)));
+
+            cursor.close();
+        }
+
+        return forecast;
+
+    }
+
+    public List<Forecast> getAllForecasts() {
+        List<Forecast> forecastList = new ArrayList<Forecast>();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_FORECAST;
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        Forecast forecast = null;
+
+        if (cursor.moveToFirst()) {
+            do {
+                forecast = new Forecast();
+                forecast.setId(Integer.parseInt(cursor.getString(0)));
+                forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
+                forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
+                //TODO
+                //forecast.setForecastTime(cursor.getString(3));
+                forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
+                forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
+                forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
+                forecast.setPressure(Float.parseFloat(cursor.getString(7)));
+
+                forecastList.add(forecast);
+            } while (cursor.moveToNext());
+        }
+
+        return forecastList;
+    }
+
+    public int updateForecast(Forecast forecast) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(FORECAST_CITY_ID, forecast.getCity_id());
+        values.put(FORECAST_COLUMN_TIME_MEASUREMENT, forecast.getTimestamp());
+        values.put(FORECAST_COLUMN_FORECAST_FOR, String.valueOf(forecast.getForecastTime()));
+        values.put(FORECAST_COLUMN_WEATHER_ID, forecast.getWeatherID());
+        values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
+        values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
+        values.put(FORECAST_COLUMN_PRESSURE, forecast.getPressure());
+
+
+        return database.update(TABLE_FORECAST, values, FORECAST_ID + " = ?",
+                new String[] { String.valueOf(forecast.getId()) });
+    }
+
+    public void deleteForecast(CityToWatch cityToWatch) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.delete(TABLE_FORECAST, FORECAST_ID + " = ?",
+                new String[] { Integer.toString(cityToWatch.getId()) });
+        database.close();
+    }
+
 
 }

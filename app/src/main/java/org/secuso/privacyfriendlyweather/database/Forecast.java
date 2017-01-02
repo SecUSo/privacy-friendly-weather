@@ -16,6 +16,9 @@ public class Forecast {
     private float humidity;
     private float pressure;
 
+    public Forecast() {
+    }
+
     public Forecast(int id, int city_id, long timestamp, Date forecastFor, int weatherID, float temperature, float humidity,
                     float pressure) {
         this.id = id;
@@ -33,6 +36,14 @@ public class Forecast {
      */
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setForecastFor(Date forecastFor) {
+        this.forecastFor = forecastFor;
     }
 
     /**
