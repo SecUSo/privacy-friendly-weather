@@ -21,7 +21,7 @@ public class ForecastCityActivity extends BaseActivity {
 
     private CurrentWeatherData currentWeatherDataList;
 
-    private int mDataSetTypes[] = {OVERVIEW, DETAILS, WEEK, DAY, SUN}; //TODO Make dynamic from Settings
+    private int mDataSetTypes[] = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
 
 
     @Override
