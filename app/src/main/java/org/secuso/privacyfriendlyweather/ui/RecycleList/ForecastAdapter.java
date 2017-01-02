@@ -8,6 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.orm.Forecast;
+
+import java.util.List;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> {
     private static final String TAG = "Forecast_Adapter";
@@ -15,12 +19,25 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     private String[] mDataSet;
     private int[] mDataSetTypes;
 
+    //TODO Update Array to list
+    private List<CurrentWeatherData> currentWeatherDataList;
+
     public static final int OVERVIEW = 0;
     public static final int DETAILS = 1;
     public static final int WEEK = 2;
     public static final int DAY = 3;
     public static final int SUN = 4;
 
+    public ForecastAdapter(List<CurrentWeatherData> currentWeatherDataList, int[] dataSetTypes){
+        this.currentWeatherDataList = currentWeatherDataList;
+        mDataSetTypes = dataSetTypes;
+    }
+
+
+    public ForecastAdapter(String[] dataSet, int[] dataSetTypes) {
+        mDataSet = dataSet;
+        mDataSetTypes = dataSetTypes;
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View v) {
@@ -75,12 +92,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
             this.sunrise = (TextView) v.findViewById(R.id.activity_city_weather_tv_sunrise_value);
             this.sunset = (TextView) v.findViewById(R.id.activity_city_weather_tv_sunset_value);
         }
-    }
-
-
-    public ForecastAdapter(String[] dataSet, int[] dataSetTypes) {
-        mDataSet = dataSet;
-        mDataSetTypes = dataSetTypes;
     }
 
     @Override

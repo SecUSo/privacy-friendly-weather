@@ -24,7 +24,7 @@ public class ForecastCityActivity extends BaseActivity {
     //TODO Change to DB Values
     private String[] mDataset = {"29°C", "Seahawks 24 - 27 Bengals",
             "Flash missing, vanishes in crisis", "Half Life 3 announced"};
-    private int mDataSetTypes[] = {OVERVIEW, DETAILS, WEEK, DAY, SUN}; //view types
+    private int mDataSetTypes[] = {OVERVIEW, DETAILS, WEEK, DAY, SUN}; //TODO Make dynamic
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,9 @@ public class ForecastCityActivity extends BaseActivity {
         //TODO Get dataset from DB
         mAdapter = new ForecastAdapter(mDataset, mDataSetTypes);
         mRecyclerView.setAdapter(mAdapter);
+
+        //TODO Change to city name from DB
+        setTitle("Darmstadt");
 
     }
 
