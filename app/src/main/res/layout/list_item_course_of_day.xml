@@ -13,7 +13,8 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:text="14:42"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorPrimaryDark" />
 
     <ImageView
         android:id="@+id/course_of_day_weather"
@@ -29,7 +30,8 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:text="xy°C"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:id="@+id/course_of_day_humidity"
@@ -38,5 +40,6 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:text="xy %"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorPrimaryDark" />
 </LinearLayout>
