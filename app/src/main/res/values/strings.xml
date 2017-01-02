@@ -23,6 +23,12 @@
     <string name="activity_main_snackbar_undo_info">Item was removed</string>
     <string name="activity_main_snackbar_undo_button">UNDO</string>
 
+    <!-- ###CARD_HEADINGs### -->
+    <string name="card_details_heading">Details</string>
+    <string name="card_week_heading">Week</string>
+    <string name="card_day_heading">Course of the day</string>
+    <string name="card_sun_heading">Sun</string>
+
     <!-- ###RADIUS_SEARCH### -->
     <string name="radius_search_label">Radius Search</string>
     <string name="radius_search_heading">Find the best weather around a location</string>

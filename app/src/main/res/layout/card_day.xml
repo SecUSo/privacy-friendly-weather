@@ -8,19 +8,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/backgroundBlue">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="DAY" />
+            android:text="@string/card_day_heading" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/middleblue" />
+            android:background="@color/white" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_course_day"
