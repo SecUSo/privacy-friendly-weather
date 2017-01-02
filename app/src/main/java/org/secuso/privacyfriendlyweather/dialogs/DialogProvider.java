@@ -46,6 +46,7 @@ public class DialogProvider {
     private ArrayAdapter<City> cityAdapter;
     private CheckBox addDialogCbSave;
 
+    //TODO Change DB
     private DatabaseHelper dbHelper;
     private boolean isAddLocationDialogInitialized = false;
     private City addDialogSelectedCity;
