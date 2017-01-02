@@ -16,6 +16,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_margin="10dp"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:text="@string/card_sun_heading"/>
 
         <View
