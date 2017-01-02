@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter;
 
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.OVERVIEW;
@@ -13,6 +14,8 @@ import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.W
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.DAY;
 
 public class ForecastCityActivity extends BaseActivity {
+
+    private static CurrentWeatherData currentWeatherData = null;
 
     private RecyclerView mRecyclerView;
     private ForecastAdapter mAdapter;
