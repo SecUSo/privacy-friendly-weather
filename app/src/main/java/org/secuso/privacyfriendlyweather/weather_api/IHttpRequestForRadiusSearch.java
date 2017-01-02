@@ -1,7 +1,5 @@
 package org.secuso.privacyfriendlyweather.weather_api;
 
-import org.secuso.privacyfriendlyweather.orm.City;
-
 /**
  * This generic interface is for making an HTTP request to some weather API for the radius search,
  * process the data and finally trigger some mechanism to update the UI.

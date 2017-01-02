@@ -7,11 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter;
 
+import java.util.List;
+
+import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.DAY;
+import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.DETAILS;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.OVERVIEW;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.SUN;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.DETAILS;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.WEEK;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.DAY;
 
 public class ForecastCityActivity extends BaseActivity {
 
@@ -24,6 +26,8 @@ public class ForecastCityActivity extends BaseActivity {
     //TODO Change to DB Values
     private String[] mDataset = {"29°C", "Seahawks 24 - 27 Bengals",
             "Flash missing, vanishes in crisis", "Half Life 3 announced"};
+    private List<CurrentWeatherData> currentWeatherDataList;
+
     private int mDataSetTypes[] = {OVERVIEW, DETAILS, WEEK, DAY, SUN}; //TODO Make dynamic
 
     @Override

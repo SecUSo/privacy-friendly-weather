@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.orm.Forecast;
 
 import java.util.List;
 
@@ -142,13 +141,13 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         }
     }
 
-        @Override
-        public int getItemCount () {
-            return mDataSet.length;
-        }
-
-        @Override
-        public int getItemViewType ( int position){
-            return mDataSetTypes[position];
-        }
+    @Override
+    public int getItemCount () {
+        return mDataSet.length;
     }
+
+    @Override
+    public int getItemViewType ( int position){
+        return mDataSetTypes[position];
+    }
+}
