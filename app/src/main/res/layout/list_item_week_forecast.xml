@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_city_weather_details_holder"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
     android:weightSum="100">
@@ -45,4 +45,5 @@
         android:layout_weight="20"
         android:text="xy %"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </LinearLayout>

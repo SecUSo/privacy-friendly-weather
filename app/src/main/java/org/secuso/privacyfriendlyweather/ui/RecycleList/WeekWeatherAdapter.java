@@ -12,7 +12,7 @@ import org.secuso.privacyfriendlyweather.R;
  * Created by yonjuni on 02.01.17.
  */
 
-public class WeekForecastAdapter extends RecyclerView.Adapter<WeekForecastAdapter.WeekForecastViewHolder> {
+public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.WeekForecastViewHolder> {
 
     @Override
     public WeekForecastViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
