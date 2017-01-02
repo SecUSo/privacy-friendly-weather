@@ -1,27 +1,37 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.widget.Toast;
+
+import org.secuso.privacyfriendlyweather.BuildConfig;
+
+import java.util.prefs.PreferenceChangeListener;
+
 /**
- * This static class contains connection data for the OpenWeatherMap API.
+ * This singleton class contains connection data for the OpenWeatherMap API.
  */
 public class OwmApiData {
 
     public static final String BASE_URL = "http://api.openweathermap.org/data/2.5/";
-    public static String API_KEY = "3fb239a5397459ff57d21c5cc1ca1536";
-    public static String DEFAULT_API_KEY = "3fb239a5397459ff57d21c5cc1ca1536";
 
-    /**
-     * Make this class static.
-     */
-    private OwmApiData() {
+    private static String API_KEY = BuildConfig.DEFAULT_API_KEY;
+
+    public static void setAPI_KEY(String key) {
+        API_KEY = key;
+    }
+    public static void resetAPI_KEY() {
+        API_KEY = BuildConfig.DEFAULT_API_KEY;
     }
 
-    //TODO Handling of set/reseting API Keys in the Settings
-    public void setAPI_KEY(String API_KEY) {
-        this.API_KEY = API_KEY;
+    private OwmApiData() {}
+
+
+    public static String getAPI_KEY() {
+        return API_KEY;
     }
 
-    public void resetAPI_KEY() {
-        this.API_KEY = DEFAULT_API_KEY;
-    }
+
 
 }

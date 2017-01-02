@@ -175,5 +175,8 @@
     <string name="insert_into_db_error">
         There was an error while writing the data into the database.
     </string>
+    <string name="settings_confirm_title_API_key_reset">Reset API key</string>
+    <string name="settings_confirm_content_API_key_reset">Do you really want to reset to the default API key?</string>
+    <string name="reset">reset</string>
 
 </resources>

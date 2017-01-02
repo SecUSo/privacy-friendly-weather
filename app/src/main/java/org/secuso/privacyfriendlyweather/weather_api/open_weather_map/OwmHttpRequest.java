@@ -38,7 +38,7 @@ public class OwmHttpRequest {
                 "%sgroup?id=%s&units=metric&appid=%s",
                 OwmApiData.BASE_URL,
                 groupID,
-                OwmApiData.API_KEY
+                OwmApiData.getAPI_KEY()
         );
     }
 
@@ -56,7 +56,7 @@ public class OwmHttpRequest {
                 OwmApiData.BASE_URL,
                 cityId,
                 (useMetric) ? "&units=metric" : "",
-                OwmApiData.API_KEY
+                OwmApiData.getAPI_KEY()
         );
     }
 
@@ -73,7 +73,7 @@ public class OwmHttpRequest {
                 "%sforecast?id=%s&units=metric&appid=%s",
                 OwmApiData.BASE_URL,
                 cityId,
-                OwmApiData.API_KEY
+                OwmApiData.getAPI_KEY()
         );
     }
 
@@ -97,7 +97,7 @@ public class OwmHttpRequest {
                 boundingBox[2],
                 boundingBox[3],
                 mapZoom,
-                OwmApiData.API_KEY
+                OwmApiData.getAPI_KEY()
         );
     }
 

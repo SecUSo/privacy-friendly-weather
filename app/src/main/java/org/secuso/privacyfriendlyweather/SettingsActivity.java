@@ -2,17 +2,29 @@ package org.secuso.privacyfriendlyweather;
 
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmApiData;
+
+import java.util.Set;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -168,7 +180,53 @@ public class SettingsActivity extends BaseActivity {
 
             bindPreferenceSummaryToValue(findPreference("API_key_value"));
 
-            //TODO Handle entering and reseting of API keys
+            final String defaultKeyString = getActivity().getString(R.string.settings__API_key_default);
+
+            final Preference resetKeyPref = findPreference("API_key_reset");
+            resetKeyPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+            {
+                @Override
+                public boolean onPreferenceClick(final Preference preference)
+                {
+                    new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.settings_confirm_title_API_key_reset)
+                        .setMessage(R.string.settings_confirm_content_API_key_reset)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                EditTextPreference APIKeyValuePref = ((EditTextPreference)findPreference("API_key_value"));
+                                APIKeyValuePref.setText(defaultKeyString);
+                                APIKeyValuePref.setSummary(defaultKeyString);
+                                OwmApiData.resetAPI_KEY();
+                            }
+                        }).setNegativeButton(android.R.string.cancel, null).create().show();
+
+                    return false;
+                }
+            });
+
+            final EditTextPreference valueKeyPref = (EditTextPreference) findPreference("API_key_value");
+            valueKeyPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newVal) {
+
+                    String stringValue = newVal.toString();
+
+                    if(preference instanceof EditTextPreference) {
+                        if(preference.getKey().equals("API_key_value")) {
+                            if(stringValue.equals(defaultKeyString)) {
+                                OwmApiData.resetAPI_KEY();
+                            } else {
+                                OwmApiData.setAPI_KEY(stringValue);
+                            }
+                        }
+                    }
+
+                    preference.setSummary(stringValue);
+
+                    return true;
+                }
+            });
 
         }
 
