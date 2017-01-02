@@ -33,11 +33,11 @@
         <activity
             android:name=".RadiusSearchActivity"
             android:label="@string/radius_search_label"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ForecastCityActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ForecastCityActivity" />
         </activity>
         <activity
             android:name=".RadiusSearchResultActivity"
@@ -51,48 +51,30 @@
         <activity
             android:name=".AboutActivity"
             android:label="@string/about"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ForecastCityActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ForecastCityActivity" />
         </activity>
         <activity
             android:name=".HelpActivity"
             android:label="@string/help"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ForecastCityActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ForecastCityActivity" />
         </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ForecastCityActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
-            android:name=".CityWeatherActivity"
-            android:label="@string/activity_city_weather_label"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
-            android:name=".CityWeatherDetailsActivity"
-            android:label="@string/activity_city_weather_details_label"
-            android:parentActivityName=".CityWeatherActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CityWeatherActivity" />
-        </activity>
+                android:value=".ForecastCityActivity" />
+        </activity>>
         <activity
             android:name=".ForecastActivity"
             android:label="@string/activity_forecast_label"
