@@ -65,7 +65,7 @@
 
     <!--###ABOUT###-->
     <string name="about">About</string>
-    <string name="version_number" translatable="false">Version 1.1</string>
+    <string name="version_number" translatable="false">Version</string>
     <string name="about_author">Authors: </string>
     <string name="about_author_names" translatable="false">Patrick Mell</string>
     <string name="about_author_contributors">and contributors.</string>
