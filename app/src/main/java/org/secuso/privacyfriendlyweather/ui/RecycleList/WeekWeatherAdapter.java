@@ -23,10 +23,16 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
     public WeekWeatherAdapter(List<Forecast> forecastList) {
         this.forecastList = forecastList;
         //TODO Update to DB data
-        Forecast forecast = new Forecast(1, 1, 12345678910L, null, 15, 43, 86, 1001);
-        for (int i=0; i<5; i++){
-            forecastList.add(forecast);
-        }
+        Forecast forecast = new Forecast(1, 1, 12345678910L, null, 20, 10, 90, 1001);
+        Forecast forecast2 = new Forecast(1, 1, 12345678910L, null, 10, 26, 86, 1001);
+        Forecast forecast3 = new Forecast(1, 1, 12345678910L, null, 30, 3, 90, 1001);
+        Forecast forecast4 = new Forecast(1, 1, 12345678910L, null, 40, 33, 86, 1001);
+        Forecast forecast5 = new Forecast(1, 1, 12345678910L, null, 50, 43, 90, 1001);
+        forecastList.add(forecast);
+        forecastList.add(forecast2);
+        forecastList.add(forecast3);
+        forecastList.add(forecast4);
+        forecastList.add(forecast5);
     }
 
     @Override
@@ -38,6 +44,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
     @Override
     public void onBindViewHolder(WeekForecastViewHolder holder, int position) {
         // TODO holder.weather.setBackground(); setday...
+        setIcon(forecastList.get(position).getWeatherID(), holder.weather);
         holder.temperature.setText(Float.toString(forecastList.get(position).getTemperature()));
         holder.humidity.setText(Float.toString(forecastList.get(position).getHumidity()));
     }
@@ -69,4 +76,40 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
+
+    public void setIcon(int value, ImageView imageView) {
+        switch (value) {
+            case 10:
+                imageView.setImageResource(R.mipmap.weather_icon_sunny);
+                break;
+            case 20:
+                imageView.setImageResource(R.mipmap.weather_icon_sunny_with_clouds);
+                break;
+            case 30:
+                imageView.setImageResource(R.mipmap.weather_icon_cloudy_scattered);
+                break;
+            case 40:
+                imageView.setImageResource(R.mipmap.weather_icon_cloudy_broken);
+                break;
+            case 50:
+                imageView.setImageResource(R.mipmap.weather_icon_foggy);
+                break;
+            case 60:
+                imageView.setImageResource(R.mipmap.weather_icon_rain);
+                break;
+            case 70:
+                imageView.setImageResource(R.mipmap.weather_icon_rain);
+                break;
+            case 80:
+                imageView.setImageResource(R.mipmap.weather_icon_snow);
+                break;
+            case 90:
+                imageView.setImageResource(R.mipmap.weather_icon_thunderstorm);
+                break;
+            default:
+                imageView.setImageResource(R.mipmap.weather_icon_sunny_with_clouds);
+                break;
+        }
+    }
+
 }

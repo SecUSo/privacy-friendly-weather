@@ -25,10 +25,23 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
 
     public CourseOfDayAdapter(List<Forecast> courseOfDayList) {
         this.courseOfDayList = courseOfDayList;
-        Forecast forecast = new Forecast(1, 1, 12345678910L, null, 20, 43, 86, 1001);
-        for (int i = 0; i < 8; i++) {
-            courseOfDayList.add(forecast);
-        }
+        Forecast forecast = new Forecast(1, 1, 12345678910L, null, 20, 10, 90, 1001);
+        Forecast forecast2 = new Forecast(1, 1, 12345678910L, null, 10, 26, 86, 1001);
+        Forecast forecast3 = new Forecast(1, 1, 12345678910L, null, 30, 3, 90, 1001);
+        Forecast forecast4 = new Forecast(1, 1, 12345678910L, null, 40, 33, 86, 1001);
+        Forecast forecast5 = new Forecast(1, 1, 12345678910L, null, 50, 43, 90, 1001);
+        Forecast forecast6 = new Forecast(1, 1, 12345678910L, null, 60, 1, 86, 1001);
+        Forecast forecast7 = new Forecast(1, 1, 12345678910L, null, 70, -6, 90, 1001);
+        Forecast forecast8 = new Forecast(1, 1, 12345678910L, null, 80, -10, 86, 1001);
+        courseOfDayList.add(forecast);
+        courseOfDayList.add(forecast2);
+        courseOfDayList.add(forecast3);
+        courseOfDayList.add(forecast4);
+        courseOfDayList.add(forecast5);
+        courseOfDayList.add(forecast6);
+        courseOfDayList.add(forecast7);
+        courseOfDayList.add(forecast8);
+
     }
 
     @Override
@@ -40,7 +53,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
     @Override
     public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
 
-        //TODO set the texts an choose ImageView
+        //TODO set the texts
         //Time has to be the local time in the city!
 //        holder.time.setText();
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather);

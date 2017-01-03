@@ -25,8 +25,7 @@
         <ImageView
             android:id="@+id/week_forecast_weather"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/weather_icon_snow" />
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
     <TextView
