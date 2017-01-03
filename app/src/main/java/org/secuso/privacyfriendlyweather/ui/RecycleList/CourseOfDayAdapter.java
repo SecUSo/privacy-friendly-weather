@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +25,8 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
 
     public CourseOfDayAdapter(List<Forecast> courseOfDayList) {
         this.courseOfDayList = courseOfDayList;
-        Forecast forecast = new Forecast(1, 1, 12345678910L, null, 15, 43, 86, 1001);
-        for (int i=0; i<8; i++){
+        Forecast forecast = new Forecast(1, 1, 12345678910L, null, 20, 43, 86, 1001);
+        for (int i = 0; i < 8; i++) {
             courseOfDayList.add(forecast);
         }
     }
@@ -42,6 +43,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         //TODO set the texts an choose ImageView
         //Time has to be the local time in the city!
 //        holder.time.setText();
+        setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather);
         holder.temperature.setText(Float.toString(courseOfDayList.get(position).getTemperature()));
         holder.humidity.setText(Float.toString(courseOfDayList.get(position).getHumidity()));
 
@@ -66,6 +68,41 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             temperature = (TextView) itemView.findViewById(R.id.course_of_day_temperature);
             humidity = (TextView) itemView.findViewById(R.id.course_of_day_humidity);
 
+        }
+    }
+
+    public void setIcon(int value, ImageView imageView) {
+        switch (value) {
+            case 10:
+                imageView.setImageResource(R.mipmap.weather_icon_sunny);
+                break;
+            case 20:
+                imageView.setImageResource(R.mipmap.weather_icon_sunny_with_clouds);
+                break;
+            case 30:
+                imageView.setImageResource(R.mipmap.weather_icon_cloudy_scattered);
+                break;
+            case 40:
+                imageView.setImageResource(R.mipmap.weather_icon_cloudy_broken);
+                break;
+            case 50:
+                imageView.setImageResource(R.mipmap.weather_icon_foggy);
+                break;
+            case 60:
+                imageView.setImageResource(R.mipmap.weather_icon_rain);
+                break;
+            case 70:
+                imageView.setImageResource(R.mipmap.weather_icon_rain);
+                break;
+            case 80:
+                imageView.setImageResource(R.mipmap.weather_icon_snow);
+                break;
+            case 90:
+                imageView.setImageResource(R.mipmap.weather_icon_thunderstorm);
+                break;
+            default:
+                imageView.setImageResource(R.mipmap.weather_icon_sunny_with_clouds);
+                break;
         }
     }
 }
