@@ -2,6 +2,14 @@ package org.secuso.privacyfriendlyweather;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.widget.ExpandableListView;
+
+import org.secuso.privacyfriendlyweather.ui.Help.ExpandableListAdapter;
+import org.secuso.privacyfriendlyweather.ui.Help.HelpDataDump;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by yonjuni on 17.06.16.
@@ -13,7 +21,15 @@ public class HelpActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_help);
-        //getFragmentManager().beginTransaction().replace(android.R.id.content, new HelpFragment()).commit();
+        ExpandableListAdapter expandableListAdapter;
+        HelpDataDump helpDataDump = new HelpDataDump(this);
+
+        ExpandableListView generalExpandableListView = (ExpandableListView) findViewById(R.id.generalExpandableListView);
+
+        LinkedHashMap<String, List<String>> expandableListDetail = helpDataDump.getDataGeneral();
+        List<String> expandableListTitleGeneral = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListAdapter = new ExpandableListAdapter(this, expandableListTitleGeneral, expandableListDetail);
+        generalExpandableListView.setAdapter(expandableListAdapter);
 
         overridePendingTransition(0, 0);
     }
@@ -23,14 +39,5 @@ public class HelpActivity extends BaseActivity {
         return R.id.nav_help;
     }
 
-    public static class HelpFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            addPreferencesFromResource(R.xml.help);
-        }
-    }
 
 }

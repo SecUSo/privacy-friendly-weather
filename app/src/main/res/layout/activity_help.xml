@@ -17,22 +17,7 @@
 
         <include layout="@layout/toolbar"/>
 
-        <LinearLayout
-            android:id="@+id/main_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:fitsSystemWindows="true"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:orientation="vertical"
-            tools:context=".HelpActivity"
-            android:weightSum="1">
-            <fragment android:name="org.secuso.privacyfriendlyweather.HelpActivity$HelpFragment"
-                android:id="@+id/help_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
+        <include layout="@layout/activity_help_content" />
 
     </android.support.design.widget.CoordinatorLayout>
 
