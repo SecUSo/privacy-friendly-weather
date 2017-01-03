@@ -4,7 +4,7 @@ import android.content.Context;
 
 import org.secuso.privacyfriendlyweather.R;
 
-/**
+/**TODO Delele after redesign
  * This class is sort of the counterpart class to IApiToDatabaseConversion as it takes values from
  * the database and converts them (not necessarily API-dependent).
  */

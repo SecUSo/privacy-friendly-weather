@@ -7,11 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
 
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.DAY;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.DETAILS;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.OVERVIEW;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.SUN;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.ForecastAdapter.WEEK;
+import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DAY;
+import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DETAILS;
+import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.OVERVIEW;
+import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.SUN;
+import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.WEEK;
 
 public class ForecastCityActivity extends BaseActivity {
 
