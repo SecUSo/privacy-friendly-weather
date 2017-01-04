@@ -13,6 +13,8 @@ import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
@@ -28,13 +30,20 @@ public class MainActivity extends BaseActivity {
         //TODO Get from DB
         List<CityToWatch> cities = new ArrayList<CityToWatch>();
 
-        CityToWatch kl = new CityToWatch(1, "", "DE", 1, 2894003, "Kaiserslautern");
-        CityToWatch riga = new CityToWatch(2, "", "LV", 2, 456172, "Riga");
+        CityToWatch kl = new CityToWatch(2, "", "DE", 1, 2894003, "Kaiserslautern");
+        CityToWatch riga = new CityToWatch(1, "", "LV", 2, 456172, "Riga");
         CityToWatch tokyo = new CityToWatch(3, "", "JP", 3, 1850147, "Tokyo");
 
         cities.add(kl);
         cities.add(riga);
         cities.add(tokyo);
+
+        Collections.sort(cities, new Comparator<CityToWatch>() {
+            @Override
+            public int compare(CityToWatch o1, CityToWatch o2) {
+                return o1.getRank() - o2.getRank();
+            }
+        });
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_view_cities);
