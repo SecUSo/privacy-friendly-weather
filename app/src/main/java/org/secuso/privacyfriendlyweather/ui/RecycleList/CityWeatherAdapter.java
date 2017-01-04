@@ -131,7 +131,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
-            //TODO Set imageview
+            setImage(currentWeatherDataList.getWeatherID(), holder.weather);
             holder.temperature.setText(Float.toString(currentWeatherDataList.getTemperatureCurrent()));
         } else if (viewHolder.getItemViewType() == DETAILS) {
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
@@ -155,6 +155,41 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             SunViewHolder holder = (SunViewHolder) viewHolder;
             holder.sunrise.setText(Float.toString(currentWeatherDataList.getTimeSunrise()));
             holder.sunset.setText(Float.toString(currentWeatherDataList.getTimeSunset()));
+        }
+    }
+
+    public void setImage(int value, ImageView imageView) {
+        switch (value) {
+            case 10:
+                imageView.setImageResource(R.drawable.weather_image_sunny);
+                break;
+            case 20:
+                imageView.setImageResource(R.drawable.weather_image_sunny_with_clouds);
+                break;
+            case 30:
+                imageView.setImageResource(R.drawable.weather_image_scattered_clouds);
+                break;
+            case 40:
+                imageView.setImageResource(R.drawable.weather_image_broken_clouds);
+                break;
+            case 50:
+                imageView.setImageResource(R.drawable.weather_image_foggy);
+                break;
+            case 60:
+                imageView.setImageResource(R.drawable.weather_image_rain);
+                break;
+            case 70:
+                imageView.setImageResource(R.drawable.weather_image_rain);
+                break;
+            case 80:
+                imageView.setImageResource(R.drawable.weather_image_snow);
+                break;
+            case 90:
+                imageView.setImageResource(R.drawable.weather_image_thunderstorm);
+                break;
+            default:
+                imageView.setImageResource(R.drawable.weather_image_sunny_with_clouds);
+                break;
         }
     }
 
