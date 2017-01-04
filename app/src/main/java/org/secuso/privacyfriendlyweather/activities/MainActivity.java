@@ -14,6 +14,7 @@ import org.secuso.privacyfriendlyweather.PrefManager;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.services.FetchForecastDataService;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerItemClickListener;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
 
@@ -33,6 +34,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         overridePendingTransition(0, 0);
+
+        database = new PFASQLiteHelper(this);
 
         //TODO Get from DB
         //List<CityToWatch> cities = database.getAllCitiesToWatch();
@@ -68,6 +71,9 @@ public class MainActivity extends BaseActivity {
                         int cityId = RecyclerOverviewListAdapter.getListItems().get(position).getCityId();
                         Intent intent = new Intent(getBaseContext(), ForecastCityActivity.class);
                         intent.putExtra("cityId", cityId);
+
+                        startFetchingService(cityId);
+
                         startActivity(intent);
                     }
 
@@ -104,6 +110,13 @@ public class MainActivity extends BaseActivity {
         toast.show();
         //TODO Is there a better nicer solution?
         recreate();
+    }
+
+    public void startFetchingService(int cityId) {
+        // Start a background task to retrieve and store the weather forecast data
+        Intent forecastIntent = new Intent(this, FetchForecastDataService.class);
+        forecastIntent.putExtra("cityId", cityId);
+        startService(forecastIntent);
     }
 
     @Override

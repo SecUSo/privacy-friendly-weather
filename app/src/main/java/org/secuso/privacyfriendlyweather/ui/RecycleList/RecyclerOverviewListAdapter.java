@@ -174,4 +174,5 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
         return cities;
     }
 
+
 }

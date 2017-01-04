@@ -42,6 +42,7 @@ public class ForecastCityActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         prefManager = new PrefManager(this);
+        database = new PFASQLiteHelper(this);
 
         if (prefManager.isFirstTimeLaunch()) {
             handleFirstStart();
@@ -51,7 +52,7 @@ public class ForecastCityActivity extends BaseActivity {
         //Location opened from list, not default,
         if (getIntent().hasExtra("cityId")) {
             cityID = getIntent().getIntExtra("cityId", 5128581);
-            //currentWeatherDataList = database.getCurrentWeather(cityID);
+            currentWeatherDataList = database.getCurrentWeather(cityID);
         } else {
             //TODO Get default dataset from DB based on cityID
             //currentWeatherDataList = database.getCurrentWeather(prefManager.getDefaultLocation());
