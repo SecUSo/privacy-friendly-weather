@@ -135,7 +135,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             return new DayViewHolder(v);
 
         } else {
-            
+
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_sun, viewGroup, false);
             return new SunViewHolder(v);
@@ -144,6 +144,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
             setImage(currentWeatherDataList.getWeatherID(), holder.weather);
