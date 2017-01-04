@@ -115,19 +115,27 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     .inflate(R.layout.card_overview, viewGroup, false);
 
             return new OverViewHolder(v);
+
         } else if (viewType == DETAILS) {
+
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_details, viewGroup, false);
             return new DetailViewHolder(v);
+
         } else if (viewType == WEEK) {
+
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_week, viewGroup, false);
             return new WeekViewHolder(v);
+
         } else if (viewType == DAY) {
+
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_day, viewGroup, false);
             return new DayViewHolder(v);
+
         } else {
+            
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_sun, viewGroup, false);
             return new SunViewHolder(v);
@@ -153,18 +161,22 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.temperature.setText(heading);
 
         } else if (viewHolder.getItemViewType() == DETAILS) {
+
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
             holder.humidity.setText(String.format("%s %%", currentWeatherDataList.getHumidity()));
             holder.pressure.setText(String.format("%s hPa", Math.round(currentWeatherDataList.getPressure())));
             holder.windspeed.setText(String.format("%s m/s", currentWeatherDataList.getWindSpeed()));
 
         } else if (viewHolder.getItemViewType() == WEEK) {
+
             WeekViewHolder holder = (WeekViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
             WeekWeatherAdapter adapter = new WeekWeatherAdapter(forecastList, context);
             holder.recyclerView.setAdapter(adapter);
+
         } else if (viewHolder.getItemViewType() == DAY) {
+
             DayViewHolder holder = (DayViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
@@ -180,13 +192,10 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             dateFormat.setCalendar(calendar);
 
             calendar.setTimeInMillis(currentWeatherDataList.getTimeSunrise());
-            String sunrise = dateFormat.format(calendar.getTime());
+            holder.sunrise.setText(dateFormat.format(calendar.getTime()));
 
             calendar.setTimeInMillis(currentWeatherDataList.getTimeSunset());
-            String sunset = dateFormat.format(calendar.getTime());
-
-            holder.sunrise.setText(sunrise);
-            holder.sunset.setText(sunset);
+            holder.sunset.setText(dateFormat.format(calendar.getTime()));
         }
     }
 
