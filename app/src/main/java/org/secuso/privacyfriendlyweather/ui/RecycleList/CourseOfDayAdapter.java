@@ -1,6 +1,8 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
+import android.content.Context;
 import android.media.Image;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,9 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 //**
@@ -22,8 +26,10 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
 
     //TODO Add datatype to list
     private List<Forecast> courseOfDayList;
+    private Context context;
 
-    public CourseOfDayAdapter(List<Forecast> courseOfDayList) {
+    public CourseOfDayAdapter(List<Forecast> courseOfDayList, Context context) {
+        this.context = context;
         this.courseOfDayList = courseOfDayList;
         Forecast forecast = new Forecast(1, 1, 12345678910L, null, 20, 10, 90, 1001);
         Forecast forecast2 = new Forecast(1, 1, 12345678910L, null, 10, 26, 86, 1001);
@@ -57,8 +63,19 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         //Time has to be the local time in the city!
 //        holder.time.setText();
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather);
-        holder.temperature.setText(Float.toString(courseOfDayList.get(position).getTemperature()));
         holder.humidity.setText(String.format("%s %%", courseOfDayList.get(position).getHumidity()));
+
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
+        DecimalFormat decimalFormat = new DecimalFormat("#.0");
+        // Format the values to display
+        String heading = String.format(
+                "%s%s",
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(courseOfDayList.get(position).getTemperature())),
+                prefManager.getWeatherUnit()
+        );
+
+        holder.temperature.setText(heading);
 
     }
 

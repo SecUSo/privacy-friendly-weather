@@ -1,5 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
+import android.content.Context;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +11,9 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -18,9 +22,12 @@ import java.util.List;
 
 public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.WeekForecastViewHolder> {
 
+    Context context;
+
     List<Forecast> forecastList;
 
-    public WeekWeatherAdapter(List<Forecast> forecastList) {
+    public WeekWeatherAdapter(List<Forecast> forecastList, Context context) {
+        this.context = context;
         this.forecastList = forecastList;
         //TODO Update to DB data
         Forecast forecast = new Forecast(1, 1, 12345678910L, null, 20, 10, 90, 1001);
@@ -45,8 +52,19 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
     public void onBindViewHolder(WeekForecastViewHolder holder, int position) {
         // TODO holder.weather.setBackground(); setday...
         setIcon(forecastList.get(position).getWeatherID(), holder.weather);
-        holder.temperature.setText(Float.toString(forecastList.get(position).getTemperature()));
         holder.humidity.setText(String.format("%s %%", forecastList.get(position).getHumidity()));
+
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
+        DecimalFormat decimalFormat = new DecimalFormat("#.0");
+        // Format the values to display
+        String heading = String.format(
+                "%s%s",
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(forecastList.get(position).getTemperature())),
+                prefManager.getWeatherUnit()
+        );
+
+        holder.temperature.setText(heading);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -136,7 +139,19 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
             setImage(currentWeatherDataList.getWeatherID(), holder.weather);
-            holder.temperature.setText(Float.toString(currentWeatherDataList.getTemperatureCurrent()));
+
+            AppPreferencesManager prefManager =
+                    new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
+            DecimalFormat decimalFormat = new DecimalFormat("#.0");
+            // Format the values to display
+            String heading = String.format(
+                    "%s%s",
+                    decimalFormat.format(prefManager.convertTemperatureFromCelsius(currentWeatherDataList.getTemperatureCurrent())),
+                    prefManager.getWeatherUnit()
+            );
+
+            holder.temperature.setText(heading);
+
         } else if (viewHolder.getItemViewType() == DETAILS) {
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
             holder.humidity.setText(String.format("%s %%", currentWeatherDataList.getHumidity()));
@@ -147,13 +162,13 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             WeekViewHolder holder = (WeekViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
-            WeekWeatherAdapter adapter = new WeekWeatherAdapter(forecastList);
+            WeekWeatherAdapter adapter = new WeekWeatherAdapter(forecastList, context);
             holder.recyclerView.setAdapter(adapter);
         } else if (viewHolder.getItemViewType() == DAY) {
             DayViewHolder holder = (DayViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
-            CourseOfDayAdapter adapter = new CourseOfDayAdapter(courseDayList);
+            CourseOfDayAdapter adapter = new CourseOfDayAdapter(courseDayList, context);
             holder.recyclerView.setAdapter(adapter);
 
         } else {
