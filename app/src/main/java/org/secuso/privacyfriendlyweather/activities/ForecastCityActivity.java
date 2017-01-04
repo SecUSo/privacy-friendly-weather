@@ -1,9 +1,11 @@
 package org.secuso.privacyfriendlyweather.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import org.secuso.privacyfriendlyweather.PrefManager;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
@@ -24,6 +26,7 @@ public class ForecastCityActivity extends BaseActivity {
     private PFASQLiteHelper database;
     private int cityID;
     private CurrentWeatherData currentWeatherDataList;
+    PrefManager prefManager;
 
     private int mDataSetTypes[] = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
 
@@ -34,11 +37,15 @@ public class ForecastCityActivity extends BaseActivity {
         setContentView(R.layout.activity_forecast_city);
         overridePendingTransition(0, 0);
 
-
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewActivity);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        prefManager = new PrefManager(this);
+
+        if (prefManager.isFirstTimeLaunch()) {
+            handleFirstStart();
+        }
 
         //TODO Set a better default than New York City
         //Location opened from list, not default,
@@ -46,7 +53,8 @@ public class ForecastCityActivity extends BaseActivity {
             cityID = getIntent().getIntExtra("cityId", 5128581);
             //currentWeatherDataList = database.getCurrentWeather(cityID);
         } else {
-            //TODO Get dataset from DB based on cityID
+            //TODO Get default dataset from DB based on cityID
+            //currentWeatherDataList = database.getCurrentWeather(prefManager.getDefaultLocation());
             currentWeatherDataList = new CurrentWeatherData(1, 1, 12345678910L, 30, 42, 40, 44, 85, 1000, 85, 1, 1, System.currentTimeMillis(), System.currentTimeMillis());
         }
         mAdapter = new CityWeatherAdapter(currentWeatherDataList, mDataSetTypes, getBaseContext());
@@ -61,6 +69,12 @@ public class ForecastCityActivity extends BaseActivity {
     @Override
     protected int getNavigationDrawerID() {
         return R.id.nav_weather;
+    }
+
+    public void handleFirstStart(){
+        prefManager.setFirstTimeLaunch(false);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 }
