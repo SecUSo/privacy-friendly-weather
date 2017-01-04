@@ -11,7 +11,6 @@ public class City {
 
     private static final String UNKNOWN_POSTAL_CODE_VALUE = "-";
 
-    private int id;
     private int cityId;
     private String cityName;
     private String countryCode;
@@ -25,14 +24,6 @@ public class City {
         this.cityName = cityName;
         this.countryCode = countryCode;
         this.postalCode = postalCode;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getCityId() {

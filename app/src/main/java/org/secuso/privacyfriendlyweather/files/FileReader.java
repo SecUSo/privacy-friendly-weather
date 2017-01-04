@@ -1,6 +1,6 @@
 package org.secuso.privacyfriendlyweather.files;
 
-import org.secuso.privacyfriendlyweather.orm.City;
+import org.secuso.privacyfriendlyweather.database.City;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,5 +37,4 @@ public class FileReader {
         br.close();
         return cities;
     }
-
 }

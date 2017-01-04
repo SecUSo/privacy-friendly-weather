@@ -5,14 +5,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
+import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.files.FileReader;
 
-import org.secuso.privacyfriendlyweather.orm.City;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.secuso.privacyfriendlyweather.database.City;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,21 +26,26 @@ import java.util.List;
 public class PFASQLiteHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
+    private Context context;
 
     public static final String DATABASE_NAME = "PF_WEATHER_DB";
 
     //Names of tables in the database
+    private static final String TABLE_CITIES_TO_WATCH = "CITIES_TO_WATCH";
     private static final String TABLE_CITIES = "CITIES";
     private static final String TABLE_FORECAST = "FORECASTS";
     private static final String TABLE_CURRENT_WEATHER = "CURRENT_WEATHER";
 
-    //Names of columns in TABLE_CITIES
+    //Names of columns in TABLE_CITY
     private static final String CITIES_ID = "id";
-    private static final String CITY_ID = "city_id";
-    private static final String CITY_NAME = "city_name";
-    private static final String COUNTRY_CODE = "country_code";
-    private static final String POSTAL_CODE = "postal_code";
-    private static final String CITIES_COLUMN_RANK = "rank";
+    private static final String CITIES_NAME = "city_name";
+    private static final String CITIES_COUNTRY_CODE = "country_code";
+    private static final String CITIES_POSTAL_CODE = "postal_code";
+
+    //Names of columns in TABLE_CITIES_TO_WATCH
+    private static final String CITIES_TO_WATCH_ID = "id";
+    private static final String CITIES_TO_WATCH_CITY_ID = "city_id";
+    private static final String CITIES_TO_WATCH_COLUMN_RANK = "rank";
 
     //Names of columns in TABLE_FORECAST
     private static final String FORECAST_ID = "id";
@@ -84,9 +92,16 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             COLUMN_CLOUDINESS + " REAL," +
             COLUMN_TIME_SUNRISE + "  TEXT NOT NULL," +
             COLUMN_TIME_SUNSET + "  TEXT NOT NULL," +
-            " FOREIGN KEY ("+CURRENT_WEATHER_CITY_ID+") REFERENCES "+TABLE_CITIES+"("+CITIES_ID+"));";
+            " FOREIGN KEY ("+CURRENT_WEATHER_CITY_ID+") REFERENCES "+ TABLE_CITIES +"("+ CITIES_ID +"));";
 
-    private static final String CREATE_TABLE_CITIES = "CREATE TABLE " + TABLE_FORECAST +
+    private static final String CREATE_TABLE_CITIES = "CREATE TABLE " + TABLE_CITIES +
+            "(" +
+            CITIES_ID + " INTEGER PRIMARY KEY," +
+            CITIES_NAME + " TEXT NOT NULL," +
+            CITIES_COUNTRY_CODE + " TEXT NOT NULL," +
+            CITIES_POSTAL_CODE + " TEXT NOT NULL);";
+
+    private static final String CREATE_TABLE_FORECASTS = "CREATE TABLE " + TABLE_FORECAST +
             "(" +
             FORECAST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             FORECAST_CITY_ID + " INTEGER," +
@@ -96,19 +111,18 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             FORECAST_COLUMN_TEMPERATURE_CURRENT + " REAL," +
             FORECAST_COLUMN_HUMIDITY + " REAL," +
             FORECAST_COLUMN_PRESSURE + " REAL," +
-            " FOREIGN KEY ("+FORECAST_CITY_ID+") REFERENCES "+TABLE_CITIES+"("+CITIES_ID+"));";
+            " FOREIGN KEY ("+FORECAST_CITY_ID+") REFERENCES "+ TABLE_CITIES +"("+ CITIES_ID +"));";
 
-    private static final String CREATE_TABLE_FORECASTS = "CREATE TABLE " + TABLE_CITIES +
+    private static final String CREATE_TABLE_CITIES_TO_WATCH = "CREATE TABLE " + TABLE_CITIES_TO_WATCH +
             "(" +
-            CITIES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            CITY_ID + " INTEGER," +
-            CITY_NAME + " TEXT NOT NULL," +
-            COUNTRY_CODE + " TEXT NOT NULL," +
-            POSTAL_CODE + " TEXT NOT NULL," +
-            CITIES_COLUMN_RANK + " INTEGER);";
+            CITIES_TO_WATCH_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            CITIES_TO_WATCH_CITY_ID + " INTEGER," +
+            CITIES_TO_WATCH_COLUMN_RANK + " INTEGER," +
+            " FOREIGN KEY ("+CITIES_TO_WATCH_CITY_ID+") REFERENCES "+ TABLE_CITIES +"("+ CITIES_ID +"));";
 
     public PFASQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
 
@@ -118,6 +132,11 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CITIES);
         db.execSQL(CREATE_TABLE_FORECASTS);
         db.execSQL(CREATE_CURRENT_WEATHER);
+        db.execSQL(CREATE_TABLE_CITIES_TO_WATCH);
+
+        // save all the cities into the database
+        fillCityDatabase();
+
     }
 
     @Override
@@ -126,34 +145,99 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CITIES);
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_FORECASTS);
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_CURRENT_WEATHER);
+        db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CITIES_TO_WATCH);
 
         // create new tables
         onCreate(db);
     }
 
     /**
-     * Methods for TABLE_CITIES
+     * Fill TABLE_CITIES_TO_WATCH with all the Cities
+     */
+    private void fillCityDatabase() {
+        long startInsertTime = System.currentTimeMillis();
+
+        InputStream inputStream = context.getResources().openRawResource(R.raw.city_list);
+        try {
+            FileReader fileReader = new FileReader();
+            final List<City> cities = fileReader.readCitiesFromFile(inputStream);
+            addCities(cities);
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        long endInsertTime = System.currentTimeMillis();
+        Log.d("debug_info", "Time for insert:" + String.valueOf(endInsertTime - startInsertTime));
+    }
+
+    private void addCities(final List<City> cities) {
+        if(cities.size() > 0) {
+            SQLiteDatabase database = this.getWritableDatabase();
+
+            //############################################
+            // construct everything into one statement
+//            StringBuilder sb = new StringBuilder();
+//            sb.append("INSERT INTO ").append(TABLE_CITIES).append(" VALUES ");
+//
+//            for (int i = 0; i < cities.size(); i++) {
+//                sb.append("(")
+//                        .append(cities.get(i).getCityId()).append(", ")
+//                        .append(cities.get(i).getCityName()).append(", ")
+//                        .append(cities.get(i).getCountryCode()).append(", ")
+//                        .append(cities.get(i).getPostalCode()).append(")");
+//                if(i < cities.size() - 1) {
+//                    sb.append(", ");
+//                }
+//            }
+//            String sql = sb.toString();
+//            database.rawQuery(sql, new String[]{});
+            //############################################
+            for (City c : cities) {
+                ContentValues values = new ContentValues();
+                values.put(CITIES_ID, c.getCityId());
+                values.put(CITIES_NAME, c.getCityName());
+                values.put(CITIES_COUNTRY_CODE, c.getCountryCode());
+                values.put(CITIES_POSTAL_CODE, c.getPostalCode());
+                database.insert(TABLE_CITIES, null, values);
+            }
+            //############################################
+            database.close();
+        }
+    }
+
+
+
+
+    /**
+     * Methods for TABLE_CITIES_TO_WATCH
      */
     public void addCityToWatch(CityToWatch city) {
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(CITY_ID, city.getCityId());
-        values.put(CITY_NAME, city.getCityName());
-        values.put(COUNTRY_CODE, city.getCountryCode());
-        values.put(POSTAL_CODE, city.getPostalCode());
-        values.put(CITIES_COLUMN_RANK, city.getRank());
+        values.put(CITIES_TO_WATCH_CITY_ID, city.getCityId());
+        values.put(CITIES_TO_WATCH_COLUMN_RANK, city.getRank());
 
-        database.insert(TABLE_CITIES, null, values);
+        database.insert(TABLE_CITIES_TO_WATCH, null, values);
         database.close();
     }
 
     public CityToWatch getCityToWatch(int id) {
         SQLiteDatabase database = this.getWritableDatabase();
 
-        Cursor cursor = database.query(TABLE_CITIES, new String[]{CITIES_ID,
-                        CITY_ID, CITY_NAME, COUNTRY_CODE, POSTAL_CODE, CITIES_COLUMN_RANK}, CITIES_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
+        String[] arguments = { String.valueOf(id) };
+
+        Cursor cursor = database.rawQuery(
+                "SELECT " + CITIES_TO_WATCH_ID +
+                        ", " + CITIES_TO_WATCH_CITY_ID +
+                        ", " + CITIES_NAME +
+                        ", " + CITIES_COUNTRY_CODE +
+                        ", " + CITIES_POSTAL_CODE +
+                        ", " + CITIES_TO_WATCH_COLUMN_RANK +
+                " FROM " + TABLE_CITIES_TO_WATCH + " INNER JOIN " + TABLE_CITIES +
+                        " ON " + TABLE_CITIES_TO_WATCH + "." + CITIES_TO_WATCH_CITY_ID + " = " + TABLE_CITIES + "." + CITIES_ID +
+                " WHERE " + CITIES_TO_WATCH_ID + " = ?", arguments);
 
         CityToWatch cityToWatch = new CityToWatch();
 
@@ -175,10 +259,18 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     public List<CityToWatch> getAllCitiesToWatch() {
         List<CityToWatch> cityToWatchList = new ArrayList<CityToWatch>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_CITIES;
-
         SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        Cursor cursor = database.rawQuery(
+                "SELECT " + CITIES_TO_WATCH_ID +
+                        ", " + CITIES_TO_WATCH_CITY_ID +
+                        ", " + CITIES_NAME +
+                        ", " + CITIES_COUNTRY_CODE +
+                        ", " + CITIES_POSTAL_CODE +
+                        ", " + CITIES_TO_WATCH_COLUMN_RANK +
+                        " FROM " + TABLE_CITIES_TO_WATCH + " INNER JOIN " + TABLE_CITIES +
+                        " ON " + TABLE_CITIES_TO_WATCH + "." + CITIES_TO_WATCH_CITY_ID + " = " + TABLE_CITIES + "." + CITIES_ID
+                , new String[]{});
 
         CityToWatch cityToWatch = null;
 
@@ -203,19 +295,16 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(CITY_ID, cityToWatch.getCityId());
-        values.put(CITY_NAME, cityToWatch.getCityName());
-        values.put(COUNTRY_CODE, cityToWatch.getCountryCode());
-        values.put(POSTAL_CODE, cityToWatch.getPostalCode());
-        values.put(CITIES_COLUMN_RANK, cityToWatch.getRank());
+        values.put(CITIES_TO_WATCH_CITY_ID, cityToWatch.getCityId());
+        values.put(CITIES_TO_WATCH_COLUMN_RANK, cityToWatch.getRank());
 
-        return database.update(TABLE_CITIES, values, CITIES_ID + " = ?",
+        return database.update(TABLE_CITIES_TO_WATCH, values, CITIES_TO_WATCH_ID + " = ?",
                 new String[] { String.valueOf(cityToWatch.getId()) });
     }
 
     public void deleteCityToWatch(CityToWatch cityToWatch) {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.delete(TABLE_CITIES, CITIES_ID + " = ?",
+        database.delete(TABLE_CITIES_TO_WATCH, CITIES_TO_WATCH_ID + " = ?",
                 new String[] { Integer.toString(cityToWatch.getId()) });
         database.close();
     }
@@ -314,7 +403,6 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
         values.put(FORECAST_COLUMN_PRESSURE, forecast.getPressure());
-
 
         return database.update(TABLE_FORECAST, values, FORECAST_ID + " = ?",
                 new String[] { String.valueOf(forecast.getId()) });

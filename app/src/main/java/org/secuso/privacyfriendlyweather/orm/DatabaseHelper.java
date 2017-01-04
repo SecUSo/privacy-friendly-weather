@@ -66,30 +66,30 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      * This method fills the cities table.
      */
     private void fillCitiesTable() {
-        Log.d("debug_info", "Filling DB");
-        long startInsertTime = System.currentTimeMillis();
-        InputStream inputStream = context.getResources().openRawResource(R.raw.city_list);
-        FileReader fileReader = new FileReader();
-        try {
-            final List<City> cities = fileReader.readCitiesFromFile(inputStream);
-            inputStream.close();
-            // TODO: This method is rather slow for 75k inserts, maybe there is a faster one?
-            /*
-            - Using transactions as suggested here
-              http://stackoverflow.com/questions/18884587/thousands-of-ormlite-raw-inserts-taking-several-minutes-on-android
-              makes no performance difference
-            - Neither do batch tasks as here
-              http://stackoverflow.com/questions/18884587/thousands-of-ormlite-raw-inserts-taking-several-minutes-on-android
-            - Generating a query, loading it and then using updateRaw makes the app crash due to
-              some problem in updateRaw
-              http://stackoverflow.com/questions/5054974/android-ormlite-pre-populate-database
-             */
-            cityDao.create(cities);
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
-        }
-        long endInsertTime = System.currentTimeMillis();
-        Log.d("debug_info", "Time for insert:" + String.valueOf(endInsertTime - startInsertTime));
+//        Log.d("debug_info", "Filling DB");
+//        long startInsertTime = System.currentTimeMillis();
+//        InputStream inputStream = context.getResources().openRawResource(R.raw.city_list);
+//        FileReader fileReader = new FileReader();
+//        try {
+//            final List<City> cities = fileReader.readCitiesFromFile(inputStream);
+//            inputStream.close();
+//            // TODO: This method is rather slow for 75k inserts, maybe there is a faster one?
+//            /*
+//            - Using transactions as suggested here
+//              http://stackoverflow.com/questions/18884587/thousands-of-ormlite-raw-inserts-taking-several-minutes-on-android
+//              makes no performance difference
+//            - Neither do batch tasks as here
+//              http://stackoverflow.com/questions/18884587/thousands-of-ormlite-raw-inserts-taking-several-minutes-on-android
+//            - Generating a query, loading it and then using updateRaw makes the app crash due to
+//              some problem in updateRaw
+//              http://stackoverflow.com/questions/5054974/android-ormlite-pre-populate-database
+//             */
+//            cityDao.create(cities);
+//        } catch (IOException | SQLException e) {
+//            e.printStackTrace();
+//        }
+//        long endInsertTime = System.currentTimeMillis();
+//        Log.d("debug_info", "Time for insert:" + String.valueOf(endInsertTime - startInsertTime));
     }
 
     /**
@@ -119,7 +119,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, CurrentWeatherData.class, false);
             TableUtils.dropTable(connectionSource, Forecast.class, false);
             onCreate(database, connectionSource);
-            fillCitiesTable();
         } catch (SQLException e) {
             e.printStackTrace();
         }
