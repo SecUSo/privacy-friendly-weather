@@ -54,15 +54,25 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/weather_icon_sunny" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent"
+                android:layout_toEndOf="@+id/sun"
+                android:layout_toStartOf="@+id/moon"
+                android:layout_centerInParent="true"/>
 
             <ImageView
+                android:id="@+id/moon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:src="@mipmap/weather_icon_sunny" />
+
+            <ImageView
+                android:id="@+id/sun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/weather_icon_sunny" />
 
 

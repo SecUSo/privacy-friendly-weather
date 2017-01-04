@@ -35,7 +35,7 @@ public class ForecastCityActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //TODO Get dataset from DB
-        currentWeatherDataList = new CurrentWeatherData(1, 1, 12345678910L, 30, 42, 40, 44, 85, 1000, 85, 1, 1, 12345678910L, 12345678910L);
+        currentWeatherDataList = new CurrentWeatherData(1, 1, 12345678910L, 30, 42, 40, 44, 85, 1000, 85, 1, 1, System.currentTimeMillis(), System.currentTimeMillis());
         mAdapter = new CityWeatherAdapter(currentWeatherDataList, mDataSetTypes, getBaseContext());
         mRecyclerView.setAdapter(mAdapter);
 

@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,18 +13,22 @@ import android.widget.TextView;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.ViewHolder> {
     private static final String TAG = "Forecast_Adapter";
 
     private int[] dataSetTypes;
-    List<Forecast> forecastList;
-    List<Forecast> courseDayList;
+    private List<Forecast> forecastList;
+    private List<Forecast> courseDayList;
 
-    Context context;
+    private Context context;
 
     private CurrentWeatherData currentWeatherDataList;
 
@@ -33,7 +38,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     public static final int DAY = 3;
     public static final int SUN = 4;
 
-    public CityWeatherAdapter(CurrentWeatherData currentWeatherDataList, int[] dataSetTypes, Context context){
+    public CityWeatherAdapter(CurrentWeatherData currentWeatherDataList, int[] dataSetTypes, Context context) {
         this.currentWeatherDataList = currentWeatherDataList;
         this.dataSetTypes = dataSetTypes;
         this.context = context;
@@ -73,6 +78,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     public class WeekViewHolder extends ViewHolder {
         RecyclerView recyclerView;
+
         public WeekViewHolder(View v) {
             super(v);
             recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_week);
@@ -82,6 +88,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     public class DayViewHolder extends ViewHolder {
         RecyclerView recyclerView;
+
         public DayViewHolder(View v) {
             super(v);
             recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_course_day);
@@ -108,19 +115,27 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     .inflate(R.layout.card_overview, viewGroup, false);
 
             return new OverViewHolder(v);
+
         } else if (viewType == DETAILS) {
+
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_details, viewGroup, false);
             return new DetailViewHolder(v);
+
         } else if (viewType == WEEK) {
+
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_week, viewGroup, false);
             return new WeekViewHolder(v);
+
         } else if (viewType == DAY) {
+
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_day, viewGroup, false);
             return new DayViewHolder(v);
+
         } else {
+
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_sun, viewGroup, false);
             return new SunViewHolder(v);
@@ -129,32 +144,59 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
             setImage(currentWeatherDataList.getWeatherID(), holder.weather);
-            holder.temperature.setText(Float.toString(currentWeatherDataList.getTemperatureCurrent()));
+
+            AppPreferencesManager prefManager =
+                    new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
+            DecimalFormat decimalFormat = new DecimalFormat("#.0");
+            // Format the values to display
+            String heading = String.format(
+                    "%s%s",
+                    decimalFormat.format(prefManager.convertTemperatureFromCelsius(currentWeatherDataList.getTemperatureCurrent())),
+                    prefManager.getWeatherUnit()
+            );
+
+            holder.temperature.setText(heading);
+
         } else if (viewHolder.getItemViewType() == DETAILS) {
+
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
             holder.humidity.setText(String.format("%s %%", currentWeatherDataList.getHumidity()));
             holder.pressure.setText(String.format("%s hPa", Math.round(currentWeatherDataList.getPressure())));
-            holder.windspeed.setText(Float.toString(currentWeatherDataList.getWindSpeed()));
+            holder.windspeed.setText(String.format("%s m/s", currentWeatherDataList.getWindSpeed()));
+
         } else if (viewHolder.getItemViewType() == WEEK) {
+
             WeekViewHolder holder = (WeekViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
-            WeekWeatherAdapter adapter = new WeekWeatherAdapter(forecastList);
+            WeekWeatherAdapter adapter = new WeekWeatherAdapter(forecastList, context);
             holder.recyclerView.setAdapter(adapter);
+
         } else if (viewHolder.getItemViewType() == DAY) {
+
             DayViewHolder holder = (DayViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
-            CourseOfDayAdapter adapter = new CourseOfDayAdapter(courseDayList);
+            CourseOfDayAdapter adapter = new CourseOfDayAdapter(courseDayList, context);
             holder.recyclerView.setAdapter(adapter);
 
         } else {
             SunViewHolder holder = (SunViewHolder) viewHolder;
-            holder.sunrise.setText(Float.toString(currentWeatherDataList.getTimeSunrise()));
-            holder.sunset.setText(Float.toString(currentWeatherDataList.getTimeSunset()));
+
+            //TODO Is this local time? No it's UTC change to it local time...
+            GregorianCalendar calendar = new GregorianCalendar();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+            dateFormat.setCalendar(calendar);
+
+            calendar.setTimeInMillis(currentWeatherDataList.getTimeSunrise());
+            holder.sunrise.setText(dateFormat.format(calendar.getTime()));
+
+            calendar.setTimeInMillis(currentWeatherDataList.getTimeSunset());
+            holder.sunset.setText(dateFormat.format(calendar.getTime()));
         }
     }
 
@@ -194,12 +236,12 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     }
 
     @Override
-    public int getItemCount () {
+    public int getItemCount() {
         return 5;
     }
 
     @Override
-    public int getItemViewType ( int position){
-        return  dataSetTypes[position];
+    public int getItemViewType(int position) {
+        return dataSetTypes[position];
     }
 }
