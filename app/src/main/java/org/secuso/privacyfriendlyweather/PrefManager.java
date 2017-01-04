@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 /**
  * Class structure taken from tutorial at http://www.androidhive.info/2016/05/android-build-intro-slider-app/
  */
+
 public class PrefManager {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
