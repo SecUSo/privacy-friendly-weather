@@ -27,7 +27,7 @@ public class UiResourceProvider {
             case 30:
                 return R.mipmap.weather_icon_cloudy_scattered;
             case 40:
-                return R.mipmap.weather_icon_cloudy_broken;
+                return R.mipmap.weather_icon_clouds_broken;
             case 50:
                 return R.mipmap.weather_icon_foggy;
             case 60:

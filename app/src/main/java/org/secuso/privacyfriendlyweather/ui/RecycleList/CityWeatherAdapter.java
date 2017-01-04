@@ -13,17 +13,19 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.ViewHolder> {
     private static final String TAG = "Forecast_Adapter";
 
     private int[] dataSetTypes;
-    List<Forecast> forecastList;
-    List<Forecast> courseDayList;
+    private List<Forecast> forecastList;
+    private List<Forecast> courseDayList;
 
-    Context context;
+    private Context context;
 
     private CurrentWeatherData currentWeatherDataList;
 
@@ -33,7 +35,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     public static final int DAY = 3;
     public static final int SUN = 4;
 
-    public CityWeatherAdapter(CurrentWeatherData currentWeatherDataList, int[] dataSetTypes, Context context){
+    public CityWeatherAdapter(CurrentWeatherData currentWeatherDataList, int[] dataSetTypes, Context context) {
         this.currentWeatherDataList = currentWeatherDataList;
         this.dataSetTypes = dataSetTypes;
         this.context = context;
@@ -73,6 +75,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     public class WeekViewHolder extends ViewHolder {
         RecyclerView recyclerView;
+
         public WeekViewHolder(View v) {
             super(v);
             recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_week);
@@ -82,6 +85,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     public class DayViewHolder extends ViewHolder {
         RecyclerView recyclerView;
+
         public DayViewHolder(View v) {
             super(v);
             recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_course_day);
@@ -137,7 +141,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
             holder.humidity.setText(String.format("%s %%", currentWeatherDataList.getHumidity()));
             holder.pressure.setText(String.format("%s hPa", Math.round(currentWeatherDataList.getPressure())));
-            holder.windspeed.setText(Float.toString(currentWeatherDataList.getWindSpeed()));
+            holder.windspeed.setText(String.format("%s m/s", currentWeatherDataList.getWindSpeed()));
+
         } else if (viewHolder.getItemViewType() == WEEK) {
             WeekViewHolder holder = (WeekViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -153,8 +158,25 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         } else {
             SunViewHolder holder = (SunViewHolder) viewHolder;
-            holder.sunrise.setText(Float.toString(currentWeatherDataList.getTimeSunrise()));
-            holder.sunset.setText(Float.toString(currentWeatherDataList.getTimeSunset()));
+
+            //TODO Is this local time? No it's UTC change to it local time...
+            GregorianCalendar calendar = new GregorianCalendar();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+            dateFormat.setCalendar(calendar);
+
+            String sunrise = "-";
+            if (currentWeatherDataList.getTimeSunrise() < Integer.MAX_VALUE) {
+                calendar.setTimeInMillis(currentWeatherDataList.getTimeSunrise() * 1000);
+                sunrise = dateFormat.format(calendar.getTime());
+            }
+            String sunset = "-";
+            if (currentWeatherDataList.getTimeSunset() < Integer.MAX_VALUE) {
+                calendar.setTimeInMillis(currentWeatherDataList.getTimeSunset() * 1000);
+                sunset = dateFormat.format(calendar.getTime());
+            }
+
+            holder.sunrise.setText(sunrise);
+            holder.sunset.setText(sunset);
         }
     }
 
@@ -194,12 +216,12 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     }
 
     @Override
-    public int getItemCount () {
+    public int getItemCount() {
         return 5;
     }
 
     @Override
-    public int getItemViewType ( int position){
-        return  dataSetTypes[position];
+    public int getItemViewType(int position) {
+        return dataSetTypes[position];
     }
 }

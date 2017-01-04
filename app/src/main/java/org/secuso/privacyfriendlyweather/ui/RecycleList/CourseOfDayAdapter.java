@@ -96,7 +96,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
                 imageView.setImageResource(R.mipmap.weather_icon_cloudy_scattered);
                 break;
             case 40:
-                imageView.setImageResource(R.mipmap.weather_icon_cloudy_broken);
+                imageView.setImageResource(R.mipmap.weather_icon_clouds_broken);
                 break;
             case 50:
                 imageView.setImageResource(R.mipmap.weather_icon_foggy);
