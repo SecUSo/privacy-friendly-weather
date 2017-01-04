@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
 
@@ -30,7 +29,6 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
      * Member variables
      */
     private Context context;
-    //private DatabaseHelper dbHelper;
     private PFASQLiteHelper dbHelper;
 
     /**
@@ -38,9 +36,8 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
      *
      * @param context The context of the HTTP request.
      */
-    public ProcessOwmForecastRequest(Context context, DatabaseHelper dbHelper) {
+    public ProcessOwmForecastRequest(Context context) {
         this.context = context;
-        //this.dbHelper = dbHelper;
         this.dbHelper = new PFASQLiteHelper(context);
     }
 

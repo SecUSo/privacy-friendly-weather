@@ -35,8 +35,7 @@ public class FetchForecastDataService extends IntentService {
      */
     @Override
     protected void onHandleIntent(Intent intent) {
-        DatabaseHelper dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-        IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext(), dbHelper);
+        IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext());
         forecastRequest.perform(intent.getIntExtra("cityId", -1));
     }
 
