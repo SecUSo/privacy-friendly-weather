@@ -2,10 +2,7 @@ package org.secuso.privacyfriendlyweather;
 
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,13 +15,9 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmApiData;
-
-import java.util.Set;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

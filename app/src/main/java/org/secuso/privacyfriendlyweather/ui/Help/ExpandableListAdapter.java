@@ -1,8 +1,5 @@
 package org.secuso.privacyfriendlyweather.ui.Help;
 
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -12,6 +9,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Class structure taken from tutorial at http://www.journaldev.com/9942/android-expandablelistview-example-tutorial

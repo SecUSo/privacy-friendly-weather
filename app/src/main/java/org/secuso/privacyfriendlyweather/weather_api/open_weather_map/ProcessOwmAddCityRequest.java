@@ -1,21 +1,16 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
-import android.content.Intent;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
-import org.secuso.privacyfriendlyweather.CityWeatherActivity;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-import org.secuso.privacyfriendlyweather.ui.UiUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
-
-import java.sql.SQLException;
 
 /**
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
@@ -85,8 +80,6 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
                 dbHelper.addCurrentWeather(weatherData);
                 //if (storePersistently) {
                     // TODO: Update the UI
-                    //UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
-                    //uiUpdater.addItemToOverview(weatherData);
                     // Show success message
                     //final String SUCCESS_MSG = context.getResources().getString(R.string.dialog_add_added_successfully_template);
                     //Toast.makeText(context, SUCCESS_MSG, Toast.LENGTH_LONG).show();

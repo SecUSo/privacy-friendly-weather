@@ -1,13 +1,6 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.widget.Toast;
-
 import org.secuso.privacyfriendlyweather.BuildConfig;
-
-import java.util.prefs.PreferenceChangeListener;
 
 /**
  * This singleton class contains connection data for the OpenWeatherMap API.

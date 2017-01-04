@@ -12,11 +12,8 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-import org.secuso.privacyfriendlyweather.ui.UiUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
-
-import java.sql.SQLException;
 
 /**
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
@@ -90,7 +87,6 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
             e.printStackTrace();
         }
         // TODO: Update the UI
-        //UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
         //uiUpdater.updateCityList();
     }
 

@@ -2,9 +2,6 @@ package org.secuso.privacyfriendlyweather.ui.Help;
 
 import android.content.Context;
 
-import org.secuso.privacyfriendlyweather.R;
-
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 

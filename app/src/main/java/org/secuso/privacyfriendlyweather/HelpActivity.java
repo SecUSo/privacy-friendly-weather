@@ -1,7 +1,6 @@
 package org.secuso.privacyfriendlyweather;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.widget.ExpandableListView;
 
 import org.secuso.privacyfriendlyweather.ui.Help.ExpandableListAdapter;

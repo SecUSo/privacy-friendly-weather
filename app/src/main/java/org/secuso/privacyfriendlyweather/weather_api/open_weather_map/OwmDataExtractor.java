@@ -13,7 +13,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * This is a concrete implementation for extracting weather data that was retrieved by

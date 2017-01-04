@@ -9,14 +9,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
-
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the

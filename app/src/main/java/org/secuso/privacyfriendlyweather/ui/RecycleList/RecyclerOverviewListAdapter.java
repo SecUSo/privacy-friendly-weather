@@ -11,12 +11,7 @@ import android.view.ViewGroup;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.CityToWatch;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-import org.secuso.privacyfriendlyweather.ui.UiUpdater;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,26 +26,14 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      * Member variables
      */
     private Context context;
-    private DatabaseHelper dbHelper;
-    private static List<CityOverviewListItem> listItems;
+    private List<CityOverviewListItem> listItems;
 
     /**
      * Constructor.
      */
-    public RecyclerOverviewListAdapter(Context context, DatabaseHelper dbHelper) {
+    public RecyclerOverviewListAdapter(Context context, List<CityOverviewListItem> listItems) {
         this.context = context;
-        this.dbHelper = dbHelper;
-        // As the list is static, initialize it only once
-        if (listItems == null) {
-            listItems = new ArrayList<>();
-        }
-    }
-
-    /**
-     * @return Returns the items of the list.
-     */
-    public static List<CityOverviewListItem> getListItems() {
-        return listItems;
+        this.listItems = listItems;
     }
 
     /**
@@ -73,17 +56,13 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
                 .setAction(BTN_TEXT, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        try {
-                            // Insert
-                            dbHelper.getCityToWatchDao().create(cityToRestore);
-                            dbHelper.getCurrentWeatherDataDao().create(weatherDataToRestore);
-                            // Show in list again
-                            UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
-                            uiUpdater.addItemToOverview(weatherDataToRestore);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            // TODO: Handle the error case
-                        }
+//                        try {
+//                            // TODO Re-Insert
+//
+//                        } catch (SQLException e) {
+//                            e.printStackTrace();
+//                            // TODO: Handle the error case
+//                        }
                     }
                 });
     }
@@ -122,24 +101,24 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      */
     @Override
     public void onItemDismiss(int position) {
-        try {
-            // Retrieve the records; they are re-inserted in case of undo
-            final int CWD_ID = listItems.get(position).getCurrentWeatherDataID();
-            final CurrentWeatherData weatherDataToDelete = dbHelper.getCurrentWeatherDataByID(CWD_ID);
-            final CityToWatch cityToWatchToDelete = dbHelper.getCityToWatchByCityId(weatherDataToDelete.getCity().getId());
-            // Remove the corresponding database entries
-            dbHelper.deleteCityToWatchRecordByCityID(weatherDataToDelete.getCity().getId());
-            dbHelper.deleteCurrentWeatherRecordByID(CWD_ID);
-
-            // Remove the item from the (visual) list
-            listItems.remove(position);
-            notifyItemRemoved(position);
-
-            // Show the implemented undo snackbar
-            getUndoSnackbar(cityToWatchToDelete, weatherDataToDelete).show();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            // Retrieve the records; they are re-inserted in case of undo
+////            final int CWD_ID = listItems.get(position).getCurrentWeatherDataID();
+////            final CurrentWeatherData weatherDataToDelete = dbHelper.getCurrentWeatherDataByID(CWD_ID);
+////            final CityToWatch cityToWatchToDelete = dbHelper.getCityToWatchByCityId(weatherDataToDelete.getCity().getId());
+////            // Remove the corresponding database entries
+////            dbHelper.deleteCityToWatchRecordByCityID(weatherDataToDelete.getCity().getId());
+////            dbHelper.deleteCurrentWeatherRecordByID(CWD_ID);
+//
+//            // Remove the item from the (visual) list
+//            listItems.remove(position);
+//            notifyItemRemoved(position);
+//
+//            // Show the implemented undo snackbar
+////            getUndoSnackbar(cityToWatchToDelete, weatherDataToDelete).show();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
@@ -148,35 +127,35 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
         // For updating the database records
-        int fromCurrentWeatherDataID = listItems.get(fromPosition).getCurrentWeatherDataID();
-        int toCurrentWeatherDataID = listItems.get(toPosition).getCurrentWeatherDataID();
-        CityToWatch fromCityToWatch = null;
-        CityToWatch toCityToWatch = null;
-        try {
-            CurrentWeatherData fromCurrentWeatherData = dbHelper.getCurrentWeatherDataByID(fromCurrentWeatherDataID);
-            CurrentWeatherData toCurrentWeatherData = dbHelper.getCurrentWeatherDataByID(toCurrentWeatherDataID);
-            fromCityToWatch = dbHelper.getCityToWatchByCityId(fromCurrentWeatherData.getCity().getId());
-            toCityToWatch = dbHelper.getCityToWatchByCityId(toCurrentWeatherData.getCity().getId());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        if (fromPosition < toPosition) {
-            for (int i = fromPosition; i < toPosition; i++) {
-                if (fromCityToWatch != null && toCityToWatch != null) {
-                    dbHelper.swapRanksOfCitiesToWatch(fromCityToWatch, toCityToWatch);
-                }
-                Collections.swap(listItems, i, i + 1);
-            }
-        } else {
-            for (int i = fromPosition; i > toPosition; i--) {
-                if (fromCityToWatch != null && toCityToWatch != null) {
-                    dbHelper.swapRanksOfCitiesToWatch(toCityToWatch, fromCityToWatch);
-                }
-                Collections.swap(listItems, i, i - 1);
-            }
-        }
-        notifyItemMoved(fromPosition, toPosition);
+//        int fromCurrentWeatherDataID = listItems.get(fromPosition).getCurrentWeatherDataID();
+//        int toCurrentWeatherDataID = listItems.get(toPosition).getCurrentWeatherDataID();
+//        CityToWatch fromCityToWatch = null;
+//        CityToWatch toCityToWatch = null;
+//        try {
+//            CurrentWeatherData fromCurrentWeatherData = dbHelper.getCurrentWeatherDataByID(fromCurrentWeatherDataID);
+//            CurrentWeatherData toCurrentWeatherData = dbHelper.getCurrentWeatherDataByID(toCurrentWeatherDataID);
+//            fromCityToWatch = dbHelper.getCityToWatchByCityId(fromCurrentWeatherData.getCity().getId());
+//            toCityToWatch = dbHelper.getCityToWatchByCityId(toCurrentWeatherData.getCity().getId());
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        if (fromPosition < toPosition) {
+//            for (int i = fromPosition; i < toPosition; i++) {
+//                if (fromCityToWatch != null && toCityToWatch != null) {
+//                    dbHelper.swapRanksOfCitiesToWatch(fromCityToWatch, toCityToWatch);
+//                }
+//                Collections.swap(listItems, i, i + 1);
+//            }
+//        } else {
+//            for (int i = fromPosition; i > toPosition; i--) {
+//                if (fromCityToWatch != null && toCityToWatch != null) {
+//                    dbHelper.swapRanksOfCitiesToWatch(toCityToWatch, fromCityToWatch);
+//                }
+//                Collections.swap(listItems, i, i - 1);
+//            }
+//        }
+//        notifyItemMoved(fromPosition, toPosition);
     }
 
 }
