@@ -2,9 +2,11 @@ package org.secuso.privacyfriendlyweather.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import org.secuso.privacyfriendlyweather.AddLocationDialog;
 import org.secuso.privacyfriendlyweather.R;
 
 public class MainActivity extends BaseActivity {
@@ -25,7 +27,9 @@ public class MainActivity extends BaseActivity {
             addFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                 //TODO open dialog for adding
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    AddLocationDialog addMetaDataDialog = new AddLocationDialog();
+                    addMetaDataDialog.show(fragmentManager, "AddLocationDialog");
                 }
             });
 
