@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.secuso.privacyfriendlyweather.PrefManager;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
@@ -26,7 +27,8 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      * Member variables
      */
     private Context context;
-    private List<CityToWatch> cities;
+    private static  List<CityToWatch> cities;
+    PrefManager prefManager;
 
     /**
      * Constructor.
@@ -34,6 +36,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     public RecyclerOverviewListAdapter(Context context, List<CityToWatch> cities) {
         this.context = context;
         this.cities = cities;
+        prefManager = new PrefManager(context);
     }
 
     /**
@@ -73,7 +76,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      */
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.city_overview_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_city_list, parent, false);
         return new ItemViewHolder(view);
     }
 
@@ -84,6 +87,11 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         holder.getTvInformation().setText(cities.get(position).getCityName());
+        if (cities.get(position).getCityId() == prefManager.getDefaultLocation()) {
+            holder.getIsDefault().setVisibility(View.VISIBLE);
+        } else {
+            holder.getIsDefault().setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -100,6 +108,8 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      */
     @Override
     public void onItemDismiss(int position) {
+
+        //TODO Delete from DB
 //        try {
 //            // Retrieve the records; they are re-inserted in case of undo
 ////            final int CWD_ID = listItems.get(position).getCurrentWeatherDataID();
@@ -155,6 +165,13 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
 //            }
 //        }
 //        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    /**
+     * @return Returns the items of the list.
+     */
+    public static List<CityToWatch> getListItems() {
+        return cities;
     }
 
 }
