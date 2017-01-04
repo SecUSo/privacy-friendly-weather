@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,67 +20,67 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".ForecastCityActivity"
+            android:name=".activities.ForecastCityActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".RadiusSearchActivity"
+            android:name=".activities.RadiusSearchActivity"
             android:label="@string/radius_search_label"
-            android:parentActivityName=".ForecastCityActivity"
+            android:parentActivityName=".activities.ForecastCityActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ForecastCityActivity" />
+                android:value=".activities.ForecastCityActivity" />
         </activity>
         <activity
-            android:name=".RadiusSearchResultActivity"
+            android:name=".activities.RadiusSearchResultActivity"
             android:label="@string/radius_search_result_label"
-            android:parentActivityName=".RadiusSearchActivity"
+            android:parentActivityName=".activities.RadiusSearchActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".RadiusSearchActivity" />
+                android:value=".activities.RadiusSearchActivity" />
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name=".activities.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName=".ForecastCityActivity"
+            android:parentActivityName=".activities.ForecastCityActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ForecastCityActivity" />
+                android:value=".activities.ForecastCityActivity" />
         </activity>
         <activity
-            android:name=".HelpActivity"
+            android:name=".activities.HelpActivity"
             android:label="@string/help"
-            android:parentActivityName=".ForecastCityActivity"
+            android:parentActivityName=".activities.ForecastCityActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ForecastCityActivity" />
+                android:value=".activities.ForecastCityActivity" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".ForecastCityActivity"
+            android:parentActivityName=".activities.ForecastCityActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ForecastCityActivity" />
+                android:value=".activities.ForecastCityActivity" />
         </activity>>
         <activity
-            android:name=".ForecastActivity"
+            android:name=".activities.ForecastActivity"
             android:label="@string/activity_forecast_label"
-            android:parentActivityName=".CityWeatherActivity"
+            android:parentActivityName=".activities.CityWeatherActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CityWeatherActivity" />
+                android:value=".activities.CityWeatherActivity" />
         </activity>
 
         <service

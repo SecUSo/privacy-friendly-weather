@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyweather;
+package org.secuso.privacyfriendlyweather.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+
+import org.secuso.privacyfriendlyweather.R;
 
 /**
  * Created by Chris on 04.07.2016.

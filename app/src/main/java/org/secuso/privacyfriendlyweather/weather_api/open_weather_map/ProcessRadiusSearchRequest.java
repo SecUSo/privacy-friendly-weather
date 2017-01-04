@@ -11,7 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.RadiusSearchResultActivity;
+import org.secuso.privacyfriendlyweather.activities.RadiusSearchResultActivity;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItemComparator;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;

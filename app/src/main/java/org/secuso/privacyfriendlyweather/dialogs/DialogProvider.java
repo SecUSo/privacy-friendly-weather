@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.secuso.privacyfriendlyweather.HelpActivity;
+import org.secuso.privacyfriendlyweather.activities.HelpActivity;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.CityToWatch;

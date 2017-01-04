@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyweather;
+package org.secuso.privacyfriendlyweather.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

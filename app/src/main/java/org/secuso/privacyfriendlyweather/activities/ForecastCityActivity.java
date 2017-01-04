@@ -1,9 +1,10 @@
-package org.secuso.privacyfriendlyweather;
+package org.secuso.privacyfriendlyweather.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
 

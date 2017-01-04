@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="org.secuso.privacyfriendlyweather.HelpActivity">
+        tools:context="org.secuso.privacyfriendlyweather.activities.HelpActivity">
 
         <include layout="@layout/toolbar"/>
 

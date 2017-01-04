@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="org.secuso.privacyfriendlyweather.SettingsActivity">
+        tools:context="org.secuso.privacyfriendlyweather.activities.SettingsActivity">
 
         <include layout="@layout/toolbar"/>
 
@@ -24,11 +24,11 @@
             android:background="#FFFFFF"
             android:fitsSystemWindows="true"
             android:orientation="vertical"
-            tools:context=".SettingsActivity"
+            tools:context=".activities.SettingsActivity"
             android:layout_marginTop="?attr/actionBarSize"
             android:weightSum="1">
 
-            <fragment android:name="org.secuso.privacyfriendlyweather.SettingsActivity$GeneralPreferenceFragment"
+            <fragment android:name="org.secuso.privacyfriendlyweather.activities.SettingsActivity$GeneralPreferenceFragment"
                 android:id="@+id/settings_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyweather;
+package org.secuso.privacyfriendlyweather.activities;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.orm.Forecast;

@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.SplashActivity;
+import org.secuso.privacyfriendlyweather.activities.SplashActivity;
 
 import java.util.Random;
 

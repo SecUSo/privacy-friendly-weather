@@ -1,7 +1,11 @@
-package org.secuso.privacyfriendlyweather;
+package org.secuso.privacyfriendlyweather.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import org.secuso.privacyfriendlyweather.R;
 
 public class MainActivity extends BaseActivity {
 
@@ -14,6 +18,18 @@ public class MainActivity extends BaseActivity {
         overridePendingTransition(0, 0);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_view_cities);
+
+        FloatingActionButton addFab = (FloatingActionButton) findViewById(R.id.fabAddLocation);
+        if (addFab != null) {
+
+            addFab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                 //TODO open dialog for adding
+                }
+            });
+
+        }
 
     }
 

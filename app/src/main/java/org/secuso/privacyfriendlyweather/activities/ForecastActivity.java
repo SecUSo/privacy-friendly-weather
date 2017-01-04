@@ -1,10 +1,11 @@
-package org.secuso.privacyfriendlyweather;
+package org.secuso.privacyfriendlyweather.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.orm.Forecast;

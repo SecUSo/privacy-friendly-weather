@@ -1,8 +1,9 @@
-package org.secuso.privacyfriendlyweather;
+package org.secuso.privacyfriendlyweather.activities;
 
 import android.os.Bundle;
 import android.widget.ExpandableListView;
 
+import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.ui.Help.ExpandableListAdapter;
 import org.secuso.privacyfriendlyweather.ui.Help.HelpDataDump;
 

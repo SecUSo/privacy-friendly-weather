@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyweather;
+package org.secuso.privacyfriendlyweather.activities;
 
 
 import android.annotation.TargetApi;
@@ -17,6 +17,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
+import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmApiData;
 
 /**

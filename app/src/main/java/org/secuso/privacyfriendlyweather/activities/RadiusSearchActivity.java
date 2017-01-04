@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyweather;
+package org.secuso.privacyfriendlyweather.activities;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.orm.City;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
