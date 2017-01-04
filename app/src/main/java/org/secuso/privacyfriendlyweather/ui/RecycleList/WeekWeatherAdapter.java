@@ -46,7 +46,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         // TODO holder.weather.setBackground(); setday...
         setIcon(forecastList.get(position).getWeatherID(), holder.weather);
         holder.temperature.setText(Float.toString(forecastList.get(position).getTemperature()));
-        holder.humidity.setText(Float.toString(forecastList.get(position).getHumidity()));
+        holder.humidity.setText(String.format("%s %%", forecastList.get(position).getHumidity()));
     }
 
     @Override

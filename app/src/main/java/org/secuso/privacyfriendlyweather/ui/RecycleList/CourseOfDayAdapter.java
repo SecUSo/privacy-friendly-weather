@@ -53,12 +53,12 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
     @Override
     public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
 
-        //TODO set the texts
+        //TODO set the time
         //Time has to be the local time in the city!
 //        holder.time.setText();
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather);
         holder.temperature.setText(Float.toString(courseOfDayList.get(position).getTemperature()));
-        holder.humidity.setText(Float.toString(courseOfDayList.get(position).getHumidity()));
+        holder.humidity.setText(String.format("%s %%", courseOfDayList.get(position).getHumidity()));
 
     }
 
