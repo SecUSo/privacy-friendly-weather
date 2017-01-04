@@ -179,16 +179,11 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
             dateFormat.setCalendar(calendar);
 
-            String sunrise = "-";
-            if (currentWeatherDataList.getTimeSunrise() < Integer.MAX_VALUE) {
-                calendar.setTimeInMillis(currentWeatherDataList.getTimeSunrise() * 1000);
-                sunrise = dateFormat.format(calendar.getTime());
-            }
-            String sunset = "-";
-            if (currentWeatherDataList.getTimeSunset() < Integer.MAX_VALUE) {
-                calendar.setTimeInMillis(currentWeatherDataList.getTimeSunset() * 1000);
-                sunset = dateFormat.format(calendar.getTime());
-            }
+            calendar.setTimeInMillis(currentWeatherDataList.getTimeSunrise());
+            String sunrise = dateFormat.format(calendar.getTime());
+
+            calendar.setTimeInMillis(currentWeatherDataList.getTimeSunset());
+            String sunset = dateFormat.format(calendar.getTime());
 
             holder.sunrise.setText(sunrise);
             holder.sunset.setText(sunset);

@@ -30,11 +30,11 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         this.context = context;
         this.forecastList = forecastList;
         //TODO Update to DB data
-        Forecast forecast = new Forecast(1, 1, 12345678910L, null, 20, 10, 90, 1001);
-        Forecast forecast2 = new Forecast(1, 1, 12345678910L, null, 10, 26, 86, 1001);
-        Forecast forecast3 = new Forecast(1, 1, 12345678910L, null, 30, 3, 90, 1001);
-        Forecast forecast4 = new Forecast(1, 1, 12345678910L, null, 40, 33, 86, 1001);
-        Forecast forecast5 = new Forecast(1, 1, 12345678910L, null, 50, 43, 90, 1001);
+        Forecast forecast = new Forecast(1, 1, System.currentTimeMillis(), null, 20, 10, 90, 1001);
+        Forecast forecast2 = new Forecast(1, 1, System.currentTimeMillis(), null, 10, 26, 86, 1001);
+        Forecast forecast3 = new Forecast(1, 1, System.currentTimeMillis(), null, 30, 3, 90, 1001);
+        Forecast forecast4 = new Forecast(1, 1, System.currentTimeMillis(), null, 40, 33, 86, 1001);
+        Forecast forecast5 = new Forecast(1, 1, System.currentTimeMillis(), null, 50, 43, 90, 1001);
         forecastList.add(forecast);
         forecastList.add(forecast2);
         forecastList.add(forecast3);

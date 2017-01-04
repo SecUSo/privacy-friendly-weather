@@ -15,6 +15,8 @@ import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 //**
@@ -31,14 +33,14 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
     public CourseOfDayAdapter(List<Forecast> courseOfDayList, Context context) {
         this.context = context;
         this.courseOfDayList = courseOfDayList;
-        Forecast forecast = new Forecast(1, 1, 12345678910L, null, 20, 10, 90, 1001);
-        Forecast forecast2 = new Forecast(1, 1, 12345678910L, null, 10, 26, 86, 1001);
-        Forecast forecast3 = new Forecast(1, 1, 12345678910L, null, 30, 3, 90, 1001);
-        Forecast forecast4 = new Forecast(1, 1, 12345678910L, null, 40, 33, 86, 1001);
-        Forecast forecast5 = new Forecast(1, 1, 12345678910L, null, 50, 43, 90, 1001);
-        Forecast forecast6 = new Forecast(1, 1, 12345678910L, null, 60, 1, 86, 1001);
-        Forecast forecast7 = new Forecast(1, 1, 12345678910L, null, 70, -6, 90, 1001);
-        Forecast forecast8 = new Forecast(1, 1, 12345678910L, null, 80, -10, 86, 1001);
+        Forecast forecast = new Forecast(1, 1, System.currentTimeMillis(), null, 20, 10, 90, 1001);
+        Forecast forecast2 = new Forecast(1, 1, System.currentTimeMillis(), null, 10, 26, 86, 1001);
+        Forecast forecast3 = new Forecast(1, 1, System.currentTimeMillis(), null, 30, 3, 90, 1001);
+        Forecast forecast4 = new Forecast(1, 1, System.currentTimeMillis(), null, 40, 33, 86, 1001);
+        Forecast forecast5 = new Forecast(1, 1, System.currentTimeMillis(), null, 50, 43, 90, 1001);
+        Forecast forecast6 = new Forecast(1, 1, System.currentTimeMillis(), null, 60, 1, 86, 1001);
+        Forecast forecast7 = new Forecast(1, 1, System.currentTimeMillis(), null, 70, -6, 90, 1001);
+        Forecast forecast8 = new Forecast(1, 1, System.currentTimeMillis(), null, 80, -10, 86, 1001);
         courseOfDayList.add(forecast);
         courseOfDayList.add(forecast2);
         courseOfDayList.add(forecast3);
@@ -59,9 +61,15 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
     @Override
     public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
 
+        GregorianCalendar calendar = new GregorianCalendar();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        dateFormat.setCalendar(calendar);
+
+        calendar.setTimeInMillis(courseOfDayList.get(position).getTimestamp());
+
         //TODO set the time
         //Time has to be the local time in the city!
-//        holder.time.setText();
+        holder.time.setText(dateFormat.format(calendar.getTime()));
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather);
         holder.humidity.setText(String.format("%s %%", courseOfDayList.get(position).getHumidity()));
 
