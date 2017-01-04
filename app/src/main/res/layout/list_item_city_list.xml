@@ -11,7 +11,6 @@
         android:id="@+id/city_overview_list_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tokyo"
         android:textSize="25sp" />
 
     <ImageView
@@ -23,5 +22,5 @@
         android:paddingStart="@dimen/card_margin"
         android:visibility="gone"
         android:src="@drawable/ic_default_blue" />
-    
+
 </RelativeLayout>

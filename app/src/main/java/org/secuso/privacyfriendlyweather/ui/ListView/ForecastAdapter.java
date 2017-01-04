@@ -38,8 +38,8 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
         super(context, resource, items);
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View listItemTemplate = inflater.inflate(R.layout.city_overview_list_item, null);
-        itemContainer = (RelativeLayout) listItemTemplate.findViewById(R.id.city_overview_list_item_blank);
+        View listItemTemplate = inflater.inflate(R.layout.list_item_city_list, null);
+        //itemContainer = (RelativeLayout) listItemTemplate.findViewById(R.id.city_overview_list_item_blank);
     }
 
     /**
