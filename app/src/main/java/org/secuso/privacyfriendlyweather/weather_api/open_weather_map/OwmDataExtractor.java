@@ -3,8 +3,8 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.orm.Forecast;
+import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This is a concrete implementation for extracting weather data that was retrieved by
@@ -51,7 +52,73 @@ public class OwmDataExtractor implements IDataExtractor {
             JSONObject jsonData = new JSONObject(data);
             CurrentWeatherData weatherData = new CurrentWeatherData();
 
+            /*
+            private int id;
+            -private int city_id;
+            -private long timestamp;
+            -private int weatherID;
+            -private float temperatureCurrent;
+            -private float temperatureMin;
+            -private float temperatureMax;
+            -private float humidity;
+            -private float pressure;
+            -private float windSpeed;
+            -private float windDirection;
+            -private float cloudiness;
+            -private long timeSunrise;
+            -private long timeSunset;
+             */
+
+            /*
+            coord
+                coord.lon City geo location, longitude
+                coord.lat City geo location, latitude
+            weather (more info Weather condition codes)
+                weather.id Weather condition id
+                weather.main Group of weather parameters (Rain, Snow, Extreme etc.)
+                weather.description Weather condition within the group
+                weather.icon Weather icon id
+            base Internal parameter
+            main
+                main.temp Temperature. Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.
+                main.pressure Atmospheric pressure (on the sea level, if there is no sea_level or grnd_level data), hPa
+                main.humidity Humidity, %
+                main.temp_min Minimum temperature at the moment. This is deviation from current temp that is possible for large cities and megalopolises geographically expanded (use these parameter optionally). Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.
+                main.temp_max Maximum temperature at the moment. This is deviation from current temp that is possible for large cities and megalopolises geographically expanded (use these parameter optionally). Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.
+                main.sea_level Atmospheric pressure on the sea level, hPa
+                main.grnd_level Atmospheric pressure on the ground level, hPa
+            wind
+                wind.speed Wind speed. Unit Default: meter/sec, Metric: meter/sec, Imperial: miles/hour.
+                wind.deg Wind direction, degrees (meteorological)
+            clouds
+                clouds.all Cloudiness, %
+            rain
+                rain.3h Rain volume for the last 3 hours
+            snow
+                snow.3h Snow volume for the last 3 hours
+            dt Time of data calculation, unix, UTC
+            sys
+                sys.type Internal parameter
+                sys.id Internal parameter
+                sys.message Internal parameter
+                sys.country Country code (GB, JP etc.)
+                sys.sunrise Sunrise time, unix, UTC
+                sys.sunset Sunset time, unix, UTC
+            id City ID
+            name City name
+            cod Internal parameter
+             */
+
             weatherData.setTimestamp(jsonData.getLong("dt"));
+
+            weatherData.setCity_id(jsonData.getInt("id"));
+
+            //TODO: Maybe save coordinates as well?
+            //JSONObject jsonCoords = jsonData.getJSONObject("coord");
+            //weatherData.setLongitude((float) jsonMain.getDouble("lon"));
+            //weatherData.setLatitude((float) jsonMain.getDouble("lat"));
+            //TODO: Maybe the city name?
+            //weatherData.setCityName(jsonMain.getString("name"));
 
             IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
             JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
@@ -116,10 +183,50 @@ public class OwmDataExtractor implements IDataExtractor {
     @Override
     public Forecast extractForecast(String data) {
         try {
+            /*
+            code Internal parameter
+            message Internal parameter
+            city
+                city.id City ID
+                city.name City name
+                city.coord
+                    city.coord.lat City geo location, latitude
+                    city.coord.lon City geo location, longitude
+                city.country Country code (GB, JP etc.)
+            cnt Number of lines returned by this API call
+            list
+                list.dt Time of data forecasted, unix, UTC
+                list.main
+                    list.main.temp Temperature. Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.
+                    list.main.temp_min Minimum temperature at the moment of calculation. This is deviation from 'temp' that is possible for large cities and megalopolises geographically expanded (use these parameter optionally). Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.
+                    list.main.temp_max Maximum temperature at the moment of calculation. This is deviation from 'temp' that is possible for large cities and megalopolises geographically expanded (use these parameter optionally). Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.
+                    list.main.pressure Atmospheric pressure on the sea level by default, hPa
+                    list.main.sea_level Atmospheric pressure on the sea level, hPa
+                    list.main.grnd_level Atmospheric pressure on the ground level, hPa
+                    list.main.humidity Humidity, %
+                    list.main.temp_kf Internal parameter
+                list.weather (more info Weather condition codes)
+                    list.weather.id Weather condition id
+                    list.weather.main Group of weather parameters (Rain, Snow, Extreme etc.)
+                    list.weather.description Weather condition within the group
+                    list.weather.icon Weather icon id
+                list.clouds
+                    list.clouds.all Cloudiness, %
+                list.wind
+                    list.wind.speed Wind speed. Unit Default: meter/sec, Metric: meter/sec, Imperial: miles/hour.
+                    list.wind.deg Wind direction, degrees (meteorological)
+                list.rain
+                    list.rain.3h Rain volume for last 3 hours, mm
+                list.snow
+                    list.snow.3h Snow volume for last 3 hours
+                list.dt_txt Data/time of caluclation, UTC
+             */
             Forecast forecast = new Forecast();
             JSONObject jsonData = new JSONObject(data);
 
-            forecast.setTimestamp(System.currentTimeMillis() / 1000);
+            //forecast.setTimestamp(System.currentTimeMillis() / 1000);
+            forecast.setTimestamp(jsonData.getLong("dt"));
+
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date forecastTime = formatter.parse(jsonData.getString("dt_txt"));
             forecast.setForecastTime(forecastTime);
@@ -134,12 +241,14 @@ public class OwmDataExtractor implements IDataExtractor {
             forecast.setHumidity((float) jsonMain.getDouble("humidity"));
             forecast.setPressure((float) jsonMain.getDouble("pressure"));
 
-            JSONObject jsonWind = jsonData.getJSONObject("wind");
-            forecast.setWindSpeed((float) jsonWind.getDouble("speed"));
-            forecast.setWindDirection((float) jsonWind.getDouble("deg"));
+            //TODO: Save wind for the 3h forecast?
+            //JSONObject jsonWind = jsonData.getJSONObject("wind");
+            //forecast.setWindSpeed((float) jsonWind.getDouble("speed"));
+            //forecast.setWindDirection((float) jsonWind.getDouble("deg"));
 
+            //TODO: leave this out?
             // In case there was no rain in the past 3 hours, there is no "rain" field
-            if (jsonData.isNull("rain")) {
+            /*if (jsonData.isNull("rain")) {
                 forecast.setPastRainVolume(Forecast.NO_RAIN_VALUE);
             } else {
                 JSONObject jsonRain = jsonData.getJSONObject("rain");
@@ -148,7 +257,7 @@ public class OwmDataExtractor implements IDataExtractor {
                 } else {
                     forecast.setPastRainVolume((float) jsonRain.getDouble("3h"));
                 }
-            }
+            }*/
 
             return forecast;
         } catch (JSONException | ParseException e) {

@@ -8,7 +8,8 @@ import com.android.volley.VolleyError;
 
 import org.secuso.privacyfriendlyweather.CityWeatherActivity;
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.ui.UiUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
@@ -31,8 +32,19 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
      * Member variables
      */
     private Context context;
-    private DatabaseHelper dbHelper;
-    private boolean storePersistently;
+    private PFASQLiteHelper dbHelper;
+    //private boolean storePersistently;
+
+
+    /**
+     * Constructor.
+     *
+     * @param context  The context of the HTTP request.
+     */
+    public ProcessOwmAddCityRequest(Context context) {
+        this.context = context;
+        this.dbHelper = new PFASQLiteHelper(context);
+    }
 
     /**
      * Constructor.
@@ -41,9 +53,11 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
      * @param dbHelper The database helper to use.
      */
     public ProcessOwmAddCityRequest(Context context, DatabaseHelper dbHelper, boolean storePersistently) {
+        // TODO: remove this constructor
         this.context = context;
-        this.dbHelper = dbHelper;
-        this.storePersistently = storePersistently;
+        //this.dbHelper = dbHelper;
+        this.dbHelper = new PFASQLiteHelper(context);
+        //this.storePersistently = storePersistently;
     }
 
     /**
@@ -64,27 +78,23 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
                 final String ERROR_MSG = context.getResources().getString(R.string.convert_to_json_error);
                 Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
             } else {
-                // TODO: Handle the case when the city is null: Extract the data from the response and create a new City record
-                weatherData.setCity(dbHelper.getCityByCityID(cityId));
-                try {
-                    dbHelper.getCurrentWeatherDataDao().create(weatherData);
-                    if (storePersistently) {
-                        // Update the UI
-                        UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
-                        uiUpdater.addItemToOverview(weatherData);
-                        // Show success message
-                        final String SUCCESS_MSG = context.getResources().getString(R.string.dialog_add_added_successfully_template);
-                        Toast.makeText(context, SUCCESS_MSG, Toast.LENGTH_LONG).show();
-                    } else {
-                        Intent intent = new Intent(context, CityWeatherActivity.class);
-                        intent.putExtra("weatherData", weatherData);
-                        context.startActivity(intent);
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    final String ERROR_MSG = context.getResources().getString(R.string.insert_into_db_error);
-                    Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
-                }
+                weatherData.setCity_id(cityId);
+
+                // TODO: we have to delete the existing weatherData first ...
+                //dbHelper.getCurrentWeatherByCity(cityId);
+                dbHelper.addCurrentWeather(weatherData);
+                //if (storePersistently) {
+                    // TODO: Update the UI
+                    //UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
+                    //uiUpdater.addItemToOverview(weatherData);
+                    // Show success message
+                    //final String SUCCESS_MSG = context.getResources().getString(R.string.dialog_add_added_successfully_template);
+                    //Toast.makeText(context, SUCCESS_MSG, Toast.LENGTH_LONG).show();
+                //} else {
+                    //Intent intent = new Intent(context, CityWeatherActivity.class);
+                    //intent.putExtra("weatherData", weatherData);
+                    //context.startActivity(intent);
+                //}
             }
         }
         // City was not found; sometimes this happens for OWM requests even though the city ID is
