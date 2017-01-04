@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.orm.CityToWatch;
-import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 
 import java.util.List;
 
@@ -26,14 +26,14 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      * Member variables
      */
     private Context context;
-    private List<CityOverviewListItem> listItems;
+    private List<CityToWatch> cities;
 
     /**
      * Constructor.
      */
-    public RecyclerOverviewListAdapter(Context context, List<CityOverviewListItem> listItems) {
+    public RecyclerOverviewListAdapter(Context context, List<CityToWatch> cities) {
         this.context = context;
-        this.listItems = listItems;
+        this.cities = cities;
     }
 
     /**
@@ -83,8 +83,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      */
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        holder.getTvInformation().setText(listItems.get(position).getText());
-        holder.getIvIcon().setImageResource(listItems.get(position).getImageId());
+        holder.getTvInformation().setText(cities.get(position).getCityName());
     }
 
     /**
@@ -92,7 +91,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      */
     @Override
     public int getItemCount() {
-        return listItems.size();
+        return cities.size();
     }
 
     /**
