@@ -135,8 +135,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.temperature.setText(Float.toString(currentWeatherDataList.getTemperatureCurrent()));
         } else if (viewHolder.getItemViewType() == DETAILS) {
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
-            holder.humidity.setText(Float.toString(currentWeatherDataList.getHumidity()));
-            holder.pressure.setText(Float.toString(currentWeatherDataList.getPressure()));
+            holder.humidity.setText(String.format("%s %%", currentWeatherDataList.getHumidity()));
+            holder.pressure.setText(String.format("%s hPa", Math.round(currentWeatherDataList.getPressure())));
             holder.windspeed.setText(Float.toString(currentWeatherDataList.getWindSpeed()));
         } else if (viewHolder.getItemViewType() == WEEK) {
             WeekViewHolder holder = (WeekViewHolder) viewHolder;
