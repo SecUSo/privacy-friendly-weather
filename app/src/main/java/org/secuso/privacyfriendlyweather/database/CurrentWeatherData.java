@@ -21,6 +21,8 @@ public class CurrentWeatherData  {
     private long timeSunrise;
     private long timeSunset;
 
+    public CurrentWeatherData() {}
+
     public CurrentWeatherData(int id, int city_id, long timestamp, int weatherID, float temperatureCurrent, float temperatureMin, float temperatureMax, float humidity, float pressure, float windSpeed, float windDirection, float cloudiness, long timeSunrise, long timeSunset) {
         this.id = id;
         this.city_id = city_id;
