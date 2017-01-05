@@ -51,7 +51,13 @@ public class City {
     }
 
     public String getPostalCode() {
-        return postalCode;
+
+        if (postalCode == null) {
+            return UNKNOWN_POSTAL_CODE_VALUE;
+        } else {
+             return postalCode;
+        }
+
     }
 
     public void setPostalCode(String postalCode) {
