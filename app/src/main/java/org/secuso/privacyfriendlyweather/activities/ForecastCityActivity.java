@@ -42,7 +42,7 @@ public class ForecastCityActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         prefManager = new PrefManager(this);
-        database = new PFASQLiteHelper(this);
+        database = PFASQLiteHelper.getInstance(this);
 
         if (prefManager.isFirstTimeLaunch()) {
             handleFirstStart();

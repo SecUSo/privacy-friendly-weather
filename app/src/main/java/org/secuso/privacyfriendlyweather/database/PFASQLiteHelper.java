@@ -28,6 +28,8 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private Context context;
 
+    private static PFASQLiteHelper instance = null;
+
     public static final String DATABASE_NAME = "PF_WEATHER_DB";
 
     //Names of tables in the database
@@ -120,7 +122,14 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             CITIES_TO_WATCH_COLUMN_RANK + " INTEGER," +
             " FOREIGN KEY (" + CITIES_TO_WATCH_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
 
-    public PFASQLiteHelper(Context context) {
+    public static PFASQLiteHelper getInstance(Context context) {
+        if(instance == null && context != null) {
+            instance = new PFASQLiteHelper(context.getApplicationContext());
+        }
+        return instance;
+    }
+
+    private PFASQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }

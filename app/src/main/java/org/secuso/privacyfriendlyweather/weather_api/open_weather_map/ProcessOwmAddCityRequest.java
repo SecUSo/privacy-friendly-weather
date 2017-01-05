@@ -38,7 +38,7 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
      */
     public ProcessOwmAddCityRequest(Context context) {
         this.context = context;
-        this.dbHelper = new PFASQLiteHelper(context);
+        this.dbHelper = PFASQLiteHelper.getInstance(context);
     }
 
     /**
@@ -51,7 +51,7 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
         // TODO: remove this constructor
         this.context = context;
         //this.dbHelper = dbHelper;
-        this.dbHelper = new PFASQLiteHelper(context);
+        this.dbHelper = PFASQLiteHelper.getInstance(context);
         //this.storePersistently = storePersistently;
     }
 
