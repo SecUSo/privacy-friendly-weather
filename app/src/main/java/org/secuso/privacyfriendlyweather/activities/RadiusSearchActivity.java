@@ -50,7 +50,7 @@ public class RadiusSearchActivity extends BaseActivity {
         setContentView(R.layout.activity_radius_search);
         overridePendingTransition(0, 0);
 
-        dbHelper = new PFASQLiteHelper(getApplicationContext());
+        //dbHelper = new PFASQLiteHelper(getApplicationContext());
         initialize();
     }
 
