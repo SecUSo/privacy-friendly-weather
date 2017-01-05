@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
@@ -58,14 +59,29 @@ public class AddLocationDialog extends DialogFragment {
 
         this.database = PFASQLiteHelper.getInstance(getActivity());
 
-        if(allCities.size() == 0) {
-            allCities.addAll(database.getAllCities());
-        }
+
+        new AsyncTask<Void, Void, List<City>>() {
+            @Override
+            protected List<City> doInBackground(Void... params) {
+
+                List<City> cities = new ArrayList<City>();
+                cities.addAll(database.getAllCities());
+
+                return cities;
+            }
+
+            @Override
+            protected void onPostExecute(List<City> cities) {
+                super.onPostExecute(cities);
+
+                setCities(cities);
+            }
+        }.execute();
 
         autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTvAddDialog);
 
-        adapter = new ArrayAdapter<City>
-                (getActivity(), android.R.layout.simple_list_item_1);
+        adapter = new ArrayAdapter<City>(getContext(), android.R.layout.simple_list_item_1, new ArrayList<City>());
+
         autoCompleteTextView.setAdapter(adapter);
         autoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,9 +95,8 @@ public class AddLocationDialog extends DialogFragment {
                         List<City> cities = database.getCitiesWhereNameLike(current, allCities, LIST_LIMIT);
 
                         adapter.clear();
-                        cities.addAll(cities);
+                        adapter.addAll(cities);
                         autoCompleteTextView.showDropDown();
-
                     } else {
                         autoCompleteTextView.dismissDropDown();
                     }
@@ -122,6 +137,12 @@ public class AddLocationDialog extends DialogFragment {
         builder.setNegativeButton(getActivity().getString(R.string.dialog_add_close_button), null);
 
         return builder.create();
+    }
+
+    private void setCities(List<City> cities) {
+        if(this.allCities.size() == 0) {
+            this.allCities.addAll(cities);
+        }
     }
 
     //TODO setRank
