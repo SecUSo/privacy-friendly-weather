@@ -38,7 +38,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
      */
     public ProcessOwmForecastRequest(Context context) {
         this.context = context;
-        this.dbHelper = new PFASQLiteHelper(context);
+        this.dbHelper = PFASQLiteHelper.getInstance(context);
     }
 
     /**

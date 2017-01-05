@@ -42,7 +42,7 @@ public class AddLocationDialog extends DialogFragment {
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(getActivity().getString(R.string.dialog_add_label));
 
-        this.database = new PFASQLiteHelper(getActivity());
+        this.database = PFASQLiteHelper.getInstance(getActivity());
 
         //TODO AutoCompleteTextView
         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTvAddDialog);

@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         overridePendingTransition(0, 0);
 
-        database = new PFASQLiteHelper(this);
+        database = PFASQLiteHelper.getInstance(this);
 
         //TODO Get from DB
         //List<CityToWatch> cities = database.getAllCitiesToWatch();

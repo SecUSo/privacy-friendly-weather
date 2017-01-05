@@ -40,7 +40,7 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
      */
     public ProcessOwmUpdateCityListRequest(Context context) {
         this.context = context;
-        this.dbHelper = new PFASQLiteHelper(context);
+        this.dbHelper = PFASQLiteHelper.getInstance(context);
     }
 
     /**
@@ -51,7 +51,7 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
     public ProcessOwmUpdateCityListRequest(Context context, DatabaseHelper dbHelper) {
         this.context = context;
         //this.dbHelper = dbHelper;
-        this.dbHelper = new PFASQLiteHelper(context);
+        this.dbHelper = PFASQLiteHelper.getInstance(context);
     }
 
     /**
