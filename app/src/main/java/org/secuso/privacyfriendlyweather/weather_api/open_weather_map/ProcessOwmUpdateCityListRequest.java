@@ -44,17 +44,6 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
     }
 
     /**
-     * Constructor.
-     *
-     * @param context The context of the HTTP request.
-     */
-    public ProcessOwmUpdateCityListRequest(Context context, DatabaseHelper dbHelper) {
-        this.context = context;
-        //this.dbHelper = dbHelper;
-        this.dbHelper = PFASQLiteHelper.getInstance(context);
-    }
-
-    /**
      * Converts the response to JSON and updates the database so that the latest weather data are
      * displayed.
      *

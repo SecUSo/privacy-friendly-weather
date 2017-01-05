@@ -144,8 +144,13 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CITIES_TO_WATCH);
 
         // save all the cities into the database
-        fillCityDatabase();
+        fillCityDatabase(db);
 
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
     }
 
     @Override
@@ -163,14 +168,14 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     /**
      * Fill TABLE_CITIES_TO_WATCH with all the Cities
      */
-    private void fillCityDatabase() {
+    private void fillCityDatabase(SQLiteDatabase db) {
         long startInsertTime = System.currentTimeMillis();
 
         InputStream inputStream = context.getResources().openRawResource(R.raw.city_list);
         try {
             FileReader fileReader = new FileReader();
             final List<City> cities = fileReader.readCitiesFromFile(inputStream);
-            addCities(cities);
+            addCities(db, cities);
             inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -180,9 +185,8 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         Log.d("debug_info", "Time for insert:" + String.valueOf(endInsertTime - startInsertTime));
     }
 
-    private void addCities(final List<City> cities) {
+    private void addCities(SQLiteDatabase database, final List<City> cities) {
         if (cities.size() > 0) {
-            SQLiteDatabase database = this.getWritableDatabase();
 
             //############################################
             // construct everything into one statement
@@ -210,8 +214,6 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
                 values.put(CITIES_POSTAL_CODE, c.getPostalCode());
                 database.insert(TABLE_CITIES, null, values);
             }
-            //############################################
-            database.close();
         }
     }
 
@@ -249,7 +251,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         List<City> allCities = getAllCities();
 
         for (int i = 0; i < dropdownListLimit; i++) {
-            if (allCities.get(i).getCityName().startsWith(cityNameLetters)) {
+            if (allCities.size() > i && allCities.get(i).getCityName().startsWith(cityNameLetters)) {
                 cities.add(allCities.get(i));
             }
         }
