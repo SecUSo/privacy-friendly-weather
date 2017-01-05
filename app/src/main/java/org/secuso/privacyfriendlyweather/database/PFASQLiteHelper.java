@@ -149,11 +149,6 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onOpen(SQLiteDatabase db) {
-        super.onOpen(db);
-    }
-
-    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CITIES);
@@ -250,9 +245,14 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
         List<City> allCities = getAllCities();
 
-        for (int i = 0; i < dropdownListLimit; i++) {
-            if (allCities.size() > i && allCities.get(i).getCityName().startsWith(cityNameLetters)) {
-                cities.add(allCities.get(i));
+        int i = 0;
+        for (City city: allCities) {
+            if (city.getCityName().startsWith(cityNameLetters)) {
+                cities.add(city);
+                i++;
+                if (i == dropdownListLimit) {
+                    break;
+                }
             }
         }
 
