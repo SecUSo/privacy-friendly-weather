@@ -42,18 +42,18 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     private static final String TABLE_CURRENT_WEATHER = "CURRENT_WEATHER";
 
     //Names of columns in TABLE_CITY
-    private static final String CITIES_ID = "id";
+    private static final String CITIES_ID = "cities_id";
     private static final String CITIES_NAME = "city_name";
     private static final String CITIES_COUNTRY_CODE = "country_code";
     private static final String CITIES_POSTAL_CODE = "postal_code";
 
     //Names of columns in TABLE_CITIES_TO_WATCH
-    private static final String CITIES_TO_WATCH_ID = "id";
+    private static final String CITIES_TO_WATCH_ID = "cities_to_watch_id";
     private static final String CITIES_TO_WATCH_CITY_ID = "city_id";
     private static final String CITIES_TO_WATCH_COLUMN_RANK = "rank";
 
     //Names of columns in TABLE_FORECAST
-    private static final String FORECAST_ID = "id";
+    private static final String FORECAST_ID = "forecast_id";
     private static final String FORECAST_CITY_ID = "city_id";
     private static final String FORECAST_COLUMN_TIME_MEASUREMENT = "time_of_measurement";
     private static final String FORECAST_COLUMN_FORECAST_FOR = "forecast_for";
@@ -63,7 +63,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     private static final String FORECAST_COLUMN_PRESSURE = "pressure";
 
     //Names of columns in TABLE_CURRENT_WEATHER
-    private static final String CURRENT_WEATHER_ID = "id";
+    private static final String CURRENT_WEATHER_ID = "current_weather_id";
     private static final String CURRENT_WEATHER_CITY_ID = "city_id";
     private static final String COLUMN_TIME_MEASUREMENT = "time_of_measurement";
     private static final String COLUMN_WEATHER_ID = "weather_id";
