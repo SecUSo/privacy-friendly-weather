@@ -242,24 +242,24 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     }
 
 
-    public List<City> getCitiesWhereNameLike(String cityNameLetters, List<City> allCities, int dropdownListLimit) {
+    public List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit, SQLiteDatabase database) {
         List<City> cities = new ArrayList<>();
 
-        int i = 0;
-        for (City city: allCities) {
-            if (city.getCityName().startsWith(cityNameLetters)) {
-                cities.add(city);
-                i++;
-                if (i == dropdownListLimit) {
-                    break;
-                }
-            }
-        }
+        Cursor cursor = database.rawQuery(
+                "SELECT " + CITIES_NAME +
+                        " FROM " + TABLE_CITIES +
+                        " WHERE " + CITIES_NAME +
+                        " LIKE " + cityNameLetters + "%" +
+                        " = ?", null);
+
+        //TODO Some magic to have a list with at most dropdownListLimit entries
+
+        cursor.close();
+
 
         return cities;
 
     }
-
     /**
      * Methods for TABLE_CITIES_TO_WATCH
      */
