@@ -6,8 +6,8 @@ import android.text.TextWatcher;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
-import org.secuso.privacyfriendlyweather.orm.City;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,8 @@ public class AutoCompleteCityTextViewGenerator {
      * Member variables
      */
     private Context context;
-    private DatabaseHelper dbHelper;
+    //private DatabaseHelper dbHelper;
+    private PFASQLiteHelper dbHelper;
     private ArrayAdapter<City> cityAdapter;
 
     /**
@@ -32,7 +33,7 @@ public class AutoCompleteCityTextViewGenerator {
      * @param dbHelper An instance of a DatabaseHelper. This object is used to make the database
      *                 queries.
      */
-    public AutoCompleteCityTextViewGenerator(Context context, DatabaseHelper dbHelper) {
+    public AutoCompleteCityTextViewGenerator(Context context, PFASQLiteHelper dbHelper) {
         this.context = context;
         this.dbHelper = dbHelper;
     }
