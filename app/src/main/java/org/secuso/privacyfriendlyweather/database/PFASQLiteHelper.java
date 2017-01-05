@@ -28,6 +28,8 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private Context context;
 
+    private List<City> allCities = new ArrayList<>();
+
     private static PFASQLiteHelper instance = null;
 
     public static final String DATABASE_NAME = "PF_WEATHER_DB";
@@ -213,37 +215,35 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     }
 
     public List<City> getAllCities() {
-        List<City> cities = new ArrayList<City>();
+        if(allCities.size() == 0) {
 
-        SQLiteDatabase database = this.getWritableDatabase();
+            SQLiteDatabase database = this.getWritableDatabase();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_CITIES;
+            String selectQuery = "SELECT  * FROM " + TABLE_CITIES;
 
-        Cursor cursor = database.rawQuery(selectQuery, null);
+            Cursor cursor = database.rawQuery(selectQuery, null);
 
-        City city = null;
+            City city = null;
 
-        if (cursor.moveToFirst()) {
-            do {
-                city = new City();
-                city.setCityId(Integer.parseInt(cursor.getString(0)));
-                city.setCityName(cursor.getString(1));
-                city.setCountryCode(cursor.getString(2));
-                city.setPostalCode(cursor.getString(3));
+            if (cursor.moveToFirst()) {
+                do {
+                    city = new City();
+                    city.setCityId(Integer.parseInt(cursor.getString(0)));
+                    city.setCityName(cursor.getString(1));
+                    city.setCountryCode(cursor.getString(2));
+                    city.setPostalCode(cursor.getString(3));
 
-                cities.add(city);
-            } while (cursor.moveToNext());
+                    allCities.add(city);
+                } while (cursor.moveToNext());
+            }
         }
-
-        return cities;
+        return allCities;
 
     }
 
 
-    public List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit) {
+    public List<City> getCitiesWhereNameLike(String cityNameLetters, List<City> allCities, int dropdownListLimit) {
         List<City> cities = new ArrayList<>();
-
-        List<City> allCities = getAllCities();
 
         int i = 0;
         for (City city: allCities) {

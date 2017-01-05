@@ -129,11 +129,13 @@ public class RadiusSearchActivity extends BaseActivity {
             edgeLength = Math.round(prefManager.convertMilesInKm(edgeLength));
         }
 
+        List<City> allCities = dbHelper.getAllCities();
+
         // Procedure for retrieving the city (only necessary if no item from the drop down list
         // was selected)
         City city = dropdownSelectedCity;
         if (dropdownSelectedCity == null) {
-            List<City> foundCities = dbHelper.getCitiesWhereNameLike(edtLocation.getText().toString(), 2);
+            List<City> foundCities = dbHelper.getCitiesWhereNameLike(edtLocation.getText().toString(), allCities, 2);
             // 1) No city found
             if (foundCities.size() == 0) {
                 Toast.makeText(RadiusSearchActivity.this, R.string.dialog_add_no_city_found, Toast.LENGTH_LONG).show();

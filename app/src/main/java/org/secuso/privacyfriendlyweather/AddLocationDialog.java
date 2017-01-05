@@ -34,6 +34,7 @@ public class AddLocationDialog extends DialogFragment {
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayAdapter<City> adapter;
     City selectedCity;
+    private final List<City> allCities = new ArrayList<>();
 
     @Override
     public void onAttach(Activity activity) {
@@ -57,6 +58,10 @@ public class AddLocationDialog extends DialogFragment {
 
         this.database = PFASQLiteHelper.getInstance(getActivity());
 
+        if(allCities.size() == 0) {
+            allCities.addAll(database.getAllCities());
+        }
+
         autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTvAddDialog);
 
         adapter = new ArrayAdapter<City>
@@ -71,7 +76,7 @@ public class AddLocationDialog extends DialogFragment {
                     String current = autoCompleteTextView.getText().toString();
                     if (current.length() > 3) {
 
-                        List<City> cities = database.getCitiesWhereNameLike(current, LIST_LIMIT);
+                        List<City> cities = database.getCitiesWhereNameLike(current, allCities, LIST_LIMIT);
 
                         adapter.clear();
                         cities.addAll(cities);
