@@ -12,6 +12,7 @@ import android.widget.TextView;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
+import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -96,38 +97,9 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
     }
 
     public void setIcon(int value, ImageView imageView) {
-        switch (value) {
-            case 10:
-                imageView.setImageResource(R.mipmap.weather_icon_sunny);
-                break;
-            case 20:
-                imageView.setImageResource(R.mipmap.weather_icon_sunny_with_clouds);
-                break;
-            case 30:
-                imageView.setImageResource(R.mipmap.weather_icon_cloudy_scattered);
-                break;
-            case 40:
-                imageView.setImageResource(R.mipmap.weather_icon_clouds_broken);
-                break;
-            case 50:
-                imageView.setImageResource(R.mipmap.weather_icon_foggy);
-                break;
-            case 60:
-                imageView.setImageResource(R.mipmap.weather_icon_rain);
-                break;
-            case 70:
-                imageView.setImageResource(R.mipmap.weather_icon_rain);
-                break;
-            case 80:
-                imageView.setImageResource(R.mipmap.weather_icon_snow);
-                break;
-            case 90:
-                imageView.setImageResource(R.mipmap.weather_icon_thunderstorm);
-                break;
-            default:
-                imageView.setImageResource(R.mipmap.weather_icon_sunny_with_clouds);
-                break;
-        }
+        imageView.setImageResource(UiResourceProvider.getIconResourceForWeatherCategory(value));
+
+
     }
 
 }
