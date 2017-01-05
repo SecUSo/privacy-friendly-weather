@@ -74,7 +74,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TIME_SUNSET = "time_sunset";
 
     /**
-     *   Create Table statements for all tables
+     * Create Table statements for all tables
      */
     private static final String CREATE_CURRENT_WEATHER = "CREATE TABLE " + TABLE_CURRENT_WEATHER +
             "(" +
@@ -92,7 +92,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             COLUMN_CLOUDINESS + " REAL," +
             COLUMN_TIME_SUNRISE + "  TEXT NOT NULL," +
             COLUMN_TIME_SUNSET + "  TEXT NOT NULL," +
-            " FOREIGN KEY ("+CURRENT_WEATHER_CITY_ID+") REFERENCES "+ TABLE_CITIES +"("+ CITIES_ID +"));";
+            " FOREIGN KEY (" + CURRENT_WEATHER_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
 
     private static final String CREATE_TABLE_CITIES = "CREATE TABLE " + TABLE_CITIES +
             "(" +
@@ -111,14 +111,14 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             FORECAST_COLUMN_TEMPERATURE_CURRENT + " REAL," +
             FORECAST_COLUMN_HUMIDITY + " REAL," +
             FORECAST_COLUMN_PRESSURE + " REAL," +
-            " FOREIGN KEY ("+FORECAST_CITY_ID+") REFERENCES "+ TABLE_CITIES +"("+ CITIES_ID +"));";
+            " FOREIGN KEY (" + FORECAST_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
 
     private static final String CREATE_TABLE_CITIES_TO_WATCH = "CREATE TABLE " + TABLE_CITIES_TO_WATCH +
             "(" +
             CITIES_TO_WATCH_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             CITIES_TO_WATCH_CITY_ID + " INTEGER," +
             CITIES_TO_WATCH_COLUMN_RANK + " INTEGER," +
-            " FOREIGN KEY ("+CITIES_TO_WATCH_CITY_ID+") REFERENCES "+ TABLE_CITIES +"("+ CITIES_ID +"));";
+            " FOREIGN KEY (" + CITIES_TO_WATCH_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
 
     public PFASQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -172,7 +172,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     }
 
     private void addCities(final List<City> cities) {
-        if(cities.size() > 0) {
+        if (cities.size() > 0) {
             SQLiteDatabase database = this.getWritableDatabase();
 
             //############################################
@@ -206,6 +206,49 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         }
     }
 
+    public List<City> getAllCities() {
+        List<City> cities = new ArrayList<City>();
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_CITIES;
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        City city = null;
+
+        if (cursor.moveToFirst()) {
+            do {
+                city = new City();
+                city.setCityId(Integer.parseInt(cursor.getString(0)));
+                city.setCityName(cursor.getString(1));
+                city.setCountryCode(cursor.getString(2));
+                city.setPostalCode(cursor.getString(3));
+
+                cities.add(city);
+            } while (cursor.moveToNext());
+        }
+
+        return cities;
+
+    }
+
+
+    public List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit) {
+        List<City> cities = new ArrayList<>();
+
+        List<City> allCities = getAllCities();
+
+        for (int i = 0; i < dropdownListLimit; i++) {
+            if (allCities.get(i).getCityName().startsWith(cityNameLetters)) {
+                cities.add(allCities.get(i));
+            }
+        }
+
+        return cities;
+
+    }
+
     /**
      * Methods for TABLE_CITIES_TO_WATCH
      */
@@ -223,7 +266,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     public CityToWatch getCityToWatch(int id) {
         SQLiteDatabase database = this.getWritableDatabase();
 
-        String[] arguments = { String.valueOf(id) };
+        String[] arguments = {String.valueOf(id)};
 
         Cursor cursor = database.rawQuery(
                 "SELECT " + CITIES_TO_WATCH_ID +
@@ -232,13 +275,13 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
                         ", " + CITIES_COUNTRY_CODE +
                         ", " + CITIES_POSTAL_CODE +
                         ", " + CITIES_TO_WATCH_COLUMN_RANK +
-                " FROM " + TABLE_CITIES_TO_WATCH + " INNER JOIN " + TABLE_CITIES +
+                        " FROM " + TABLE_CITIES_TO_WATCH + " INNER JOIN " + TABLE_CITIES +
                         " ON " + TABLE_CITIES_TO_WATCH + "." + CITIES_TO_WATCH_CITY_ID + " = " + TABLE_CITIES + "." + CITIES_ID +
-                " WHERE " + CITIES_TO_WATCH_ID + " = ?", arguments);
+                        " WHERE " + CITIES_TO_WATCH_ID + " = ?", arguments);
 
         CityToWatch cityToWatch = new CityToWatch();
 
-        if( cursor != null && cursor.moveToFirst() ){
+        if (cursor != null && cursor.moveToFirst()) {
             cityToWatch.setId(Integer.parseInt(cursor.getString(0)));
             cityToWatch.setCityId(Integer.parseInt(cursor.getString(1)));
             cityToWatch.setCityName(cursor.getString(2));
@@ -296,13 +339,13 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         values.put(CITIES_TO_WATCH_COLUMN_RANK, cityToWatch.getRank());
 
         return database.update(TABLE_CITIES_TO_WATCH, values, CITIES_TO_WATCH_ID + " = ?",
-                new String[] { String.valueOf(cityToWatch.getId()) });
+                new String[]{String.valueOf(cityToWatch.getId())});
     }
 
     public void deleteCityToWatch(CityToWatch cityToWatch) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_CITIES_TO_WATCH, CITIES_TO_WATCH_ID + " = ?",
-                new String[] { Integer.toString(cityToWatch.getId()) });
+                new String[]{Integer.toString(cityToWatch.getId())});
         database.close();
     }
 
@@ -329,7 +372,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     public void deleteForecastsByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_FORECAST, FORECAST_CITY_ID + " = ?",
-                new String[] { Integer.toString(cityId) });
+                new String[]{Integer.toString(cityId)});
         database.close();
     }
 
@@ -351,7 +394,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         List<Forecast> list = new ArrayList<>();
         Forecast forecast = null;
 
-        if( cursor != null && cursor.moveToFirst() ) {
+        if (cursor != null && cursor.moveToFirst()) {
             do {
                 forecast.setId(Integer.parseInt(cursor.getString(0)));
                 forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
@@ -362,7 +405,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
                 forecast.setPressure(Float.parseFloat(cursor.getString(7)));
                 list.add(forecast);
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
 
             cursor.close();
         }
@@ -387,7 +430,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
         Forecast forecast = new Forecast();
 
-        if( cursor != null && cursor.moveToFirst() ){
+        if (cursor != null && cursor.moveToFirst()) {
             forecast.setId(Integer.parseInt(cursor.getString(0)));
             forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
             forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
@@ -446,13 +489,13 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         values.put(FORECAST_COLUMN_PRESSURE, forecast.getPressure());
 
         return database.update(TABLE_FORECAST, values, FORECAST_ID + " = ?",
-                new String[] { String.valueOf(forecast.getId()) });
+                new String[]{String.valueOf(forecast.getId())});
     }
 
     public void deleteForecast(Forecast forecast) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_FORECAST, FORECAST_ID + " = ?",
-                new String[] { Integer.toString(forecast.getId()) });
+                new String[]{Integer.toString(forecast.getId())});
         database.close();
     }
 
@@ -504,7 +547,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
         CurrentWeatherData currentWeather = new CurrentWeatherData();
 
-        if( cursor != null && cursor.moveToFirst() ){
+        if (cursor != null && cursor.moveToFirst()) {
             currentWeather.setId(Integer.parseInt(cursor.getString(0)));
             currentWeather.setCity_id(Integer.parseInt(cursor.getString(1)));
             currentWeather.setTimestamp(Long.parseLong(cursor.getString(2)));
@@ -549,7 +592,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
         CurrentWeatherData currentWeather = new CurrentWeatherData();
 
-        if( cursor != null && cursor.moveToFirst() ){
+        if (cursor != null && cursor.moveToFirst()) {
             currentWeather.setId(Integer.parseInt(cursor.getString(0)));
             currentWeather.setCity_id(Integer.parseInt(cursor.getString(1)));
             currentWeather.setTimestamp(Long.parseLong(cursor.getString(2)));
@@ -625,20 +668,20 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TIME_SUNSET, currentWeather.getTimeSunset());
 
         return database.update(TABLE_CURRENT_WEATHER, values, CURRENT_WEATHER_CITY_ID + " = ?",
-                new String[] { String.valueOf(currentWeather.getCity_id()) });
+                new String[]{String.valueOf(currentWeather.getCity_id())});
     }
 
     public void deleteCurrentWeather(CurrentWeatherData currentWeather) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_CURRENT_WEATHER, CURRENT_WEATHER_ID + " = ?",
-                new String[] { Integer.toString(currentWeather.getId()) });
+                new String[]{Integer.toString(currentWeather.getId())});
         database.close();
     }
 
     public void deleteCurrentWeatherByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_CURRENT_WEATHER, CURRENT_WEATHER_CITY_ID + " = ?",
-                new String[] { Integer.toString(cityId) });
+                new String[]{Integer.toString(cityId)});
         database.close();
     }
 
