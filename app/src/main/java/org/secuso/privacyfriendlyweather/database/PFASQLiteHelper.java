@@ -126,7 +126,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             " FOREIGN KEY (" + CITIES_TO_WATCH_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
 
     public static PFASQLiteHelper getInstance(Context context) {
-        if(instance == null && context != null) {
+        if (instance == null && context != null) {
             instance = new PFASQLiteHelper(context.getApplicationContext());
         }
         return instance;
@@ -215,8 +215,37 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         }
     }
 
+    public City getCityByName(String cityName) {
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        String[] arguments = {String.valueOf(cityName)};
+
+        Cursor cursor = database.rawQuery(
+                "SELECT " + CITIES_ID +
+                        ", " + CITIES_NAME +
+                        ", " + CITIES_COUNTRY_CODE +
+                        ", " + CITIES_POSTAL_CODE +
+                        " FROM " + TABLE_CITIES +
+                        " WHERE " + CITIES_NAME + " = ?", arguments);
+
+        City city = new City();
+
+        if (cursor != null && cursor.moveToFirst()) {
+
+            city.setCityId(Integer.parseInt(cursor.getString(0)));
+            city.setCityName(cursor.getString(1));
+            city.setCountryCode(cursor.getString(2));
+            city.setPostalCode(cursor.getString(3));
+
+            cursor.close();
+        }
+
+        return city;
+    }
+
     public List<City> getAllCities() {
-        if(allCities.size() == 0) {
+        if (allCities.size() == 0) {
 
             SQLiteDatabase database = this.getWritableDatabase();
 
@@ -243,42 +272,50 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     }
 
 
-    public List<City> getCitiesWhereNameLike(String cityNameLetters, List<City> allCities, int dropdownListLimit) {
+//    public List<City> getCitiesWhereNameLike(String cityNameLetters, List<City> allCities, int dropdownListLimit) {
+//        List<City> cities = new ArrayList<>();
+//
+//        int i = 0;
+//        for (City city: allCities) {
+//            if (city.getCityName().startsWith(String.format("%s%%", cityNameLetters))) {
+//                cities.add(city);
+//                i++;
+//                if (i == dropdownListLimit) {
+//                    break;
+//                }
+//            }
+//        }
+//
+//        return cities;
+    // }
+
+    public List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit) {
         List<City> cities = new ArrayList<>();
 
-        int i = 0;
-        for (City city: allCities) {
-            if (city.getCityName().startsWith(cityNameLetters)) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        String query = "SELECT " + CITIES_NAME +
+                " FROM " + TABLE_CITIES +
+                " WHERE " + CITIES_NAME +
+                " LIKE ?" +
+                " LIMIT " + dropdownListLimit;
+
+        String[] args = {String.format("%s%%", cityNameLetters)};
+        Cursor cursor = database.rawQuery(query, args);
+
+        if (cursor.moveToFirst()) {
+            do {
+                City city = getCityByName(cursor.getString(0));
                 cities.add(city);
-                i++;
-                if (i == dropdownListLimit) {
-                    break;
-                }
-            }
+            } while (cursor.moveToNext());
         }
+
+        cursor.close();
 
         return cities;
 
-//        public List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit, SQLiteDatabase database) {
-//            List<City> cities = new ArrayList<>();
-//
-//            Cursor cursor = database.rawQuery(
-//                    "SELECT " + CITIES_NAME +
-//                            " FROM " + TABLE_CITIES +
-//                            " WHERE " + CITIES_NAME +
-//                            " LIKE " + cityNameLetters + "%" +
-//                            " = ?", null);
-//
-//            //TODO Some magic to have a list with at most dropdownListLimit entries
-//
-//            cursor.close();
-//
-//
-//            return cities;
-//
-//        }
-
     }
+
 
     /**
      * Methods for TABLE_CITIES_TO_WATCH

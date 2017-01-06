@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -35,6 +36,7 @@ public class AddLocationDialog extends DialogFragment {
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayAdapter<City> adapter;
     City selectedCity;
+    // TODO Cleanup
     private final List<City> allCities = new ArrayList<>();
 
     @Override
@@ -60,23 +62,23 @@ public class AddLocationDialog extends DialogFragment {
         this.database = PFASQLiteHelper.getInstance(getActivity());
 
 
-        new AsyncTask<Void, Void, List<City>>() {
-            @Override
-            protected List<City> doInBackground(Void... params) {
-
-                List<City> cities = new ArrayList<City>();
-                cities.addAll(database.getAllCities());
-
-                return cities;
-            }
-
-            @Override
-            protected void onPostExecute(List<City> cities) {
-                super.onPostExecute(cities);
-
-                setCities(cities);
-            }
-        }.execute();
+//        new AsyncTask<Void, Void, List<City>>() {
+//            @Override
+//            protected List<City> doInBackground(Void... params) {
+//
+//                List<City> cities = new ArrayList<City>();
+//                cities.addAll(database.getAllCities());
+//
+//                return cities;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(List<City> cities) {
+//                super.onPostExecute(cities);
+//
+//                setCities(cities);
+//            }
+//        }.execute();
 
         autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTvAddDialog);
 
@@ -90,10 +92,11 @@ public class AddLocationDialog extends DialogFragment {
                 selectedCity = null;
                 if (database != null) {
                     String current = autoCompleteTextView.getText().toString();
-                    if (current.length() > 3) {
+                    if (current.length() > 2) {
 
-                        List<City> cities = database.getCitiesWhereNameLike(current, allCities, LIST_LIMIT);
-
+                        //List<City> cities = database.getCitiesWhereNameLike(current, allCities, current.length());
+                        List<City> cities = database.getCitiesWhereNameLike(current, LIST_LIMIT);
+                        //TODO Add Postal Code
                         adapter.clear();
                         adapter.addAll(cities);
                         autoCompleteTextView.showDropDown();
@@ -139,11 +142,12 @@ public class AddLocationDialog extends DialogFragment {
         return builder.create();
     }
 
-    private void setCities(List<City> cities) {
-        if(this.allCities.size() == 0) {
-            this.allCities.addAll(cities);
-        }
-    }
+// TODO Cleanup
+//    private void setCities(List<City> cities) {
+//        if(this.allCities.size() == 0) {
+//            this.allCities.addAll(cities);
+//        }
+//    }
 
     //TODO setRank
     public void addCity() {

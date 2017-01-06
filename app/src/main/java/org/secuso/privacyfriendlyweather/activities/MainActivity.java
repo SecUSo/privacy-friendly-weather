@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.AddLocationDialog;
@@ -38,26 +39,36 @@ public class MainActivity extends BaseActivity {
         database = PFASQLiteHelper.getInstance(this);
 
         //TODO Get from DB
-        //List<CityToWatch> cities = database.getAllCitiesToWatch();
         List<CityToWatch> cities = new ArrayList<CityToWatch>();
 
+        try {
+            cities = database.getAllCitiesToWatch();
+            Collections.sort(cities, new Comparator<CityToWatch>() {
+                @Override
+                public int compare(CityToWatch o1, CityToWatch o2) {
+                    return o1.getRank() - o2.getRank();
+                }
+
+            });
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Toast toast = Toast.makeText(getBaseContext(), "No cities in DB", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+
         //TODO Remove on cleanup
-        CityToWatch kl = new CityToWatch(2, "", "DE", 1, 2894003, "Kaiserslautern");
-        CityToWatch riga = new CityToWatch(1, "", "LV", 2, 456172, "Riga");
-        CityToWatch tokyo = new CityToWatch(3, "", "JP", 3, 1850147, "Tokyo");
+//        CityToWatch kl = new CityToWatch(2, "", "DE", 1, 2894003, "Kaiserslautern");
+//        CityToWatch riga = new CityToWatch(1, "", "LV", 2, 456172, "Riga");
+//        CityToWatch tokyo = new CityToWatch(3, "", "JP", 3, 1850147, "Tokyo");
+//
+//        cities.add(kl);
+//        cities.add(riga);
+//        cities.add(tokyo);
 
-        cities.add(kl);
-        cities.add(riga);
-        cities.add(tokyo);
-
-        Collections.sort(cities, new Comparator<CityToWatch>() {
-            @Override
-            public int compare(CityToWatch o1, CityToWatch o2) {
-                return o1.getRank() - o2.getRank();
-            }
-        });
 
         prefManager = new PrefManager(this);
+
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_view_cities);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -71,9 +82,7 @@ public class MainActivity extends BaseActivity {
                         int cityId = RecyclerOverviewListAdapter.getListItems().get(position).getCityId();
                         Intent intent = new Intent(getBaseContext(), ForecastCityActivity.class);
                         intent.putExtra("cityId", cityId);
-
                         startFetchingService(cityId);
-
                         startActivity(intent);
                     }
 
@@ -95,8 +104,11 @@ public class MainActivity extends BaseActivity {
                 @Override
                 public void onClick(View view) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
-                    AddLocationDialog addMetaDataDialog = new AddLocationDialog();
-                    addMetaDataDialog.show(fragmentManager, "AddLocationDialog");
+                    AddLocationDialog addLocationDialog = new AddLocationDialog();
+                    addLocationDialog.show(fragmentManager, "AddLocationDialog");
+                    getSupportFragmentManager().executePendingTransactions();
+                    addLocationDialog.getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
                 }
             });
 
@@ -104,7 +116,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    public void setDefaultLocation(int cityId){
+    public void setDefaultLocation(int cityId) {
         prefManager.setDefaultLocation(cityId);
         Toast toast = Toast.makeText(getBaseContext(), "XY set as default location", Toast.LENGTH_SHORT);
         toast.show();

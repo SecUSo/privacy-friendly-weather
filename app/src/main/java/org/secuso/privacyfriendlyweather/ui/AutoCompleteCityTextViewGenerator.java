@@ -77,12 +77,13 @@ public class AutoCompleteCityTextViewGenerator {
             selectedCity = null;
             if (dbHelper != null) {
 
-                List<City> allCities = dbHelper.getAllCities();
+                //List<City> allCities = dbHelper.getAllCities();
 
                 String content = editField.getText().toString();
-                if (content.length() > 3) {
+                if (content.length() > 2) {
                     // Get the matched cities
-                    List<City> cities = dbHelper.getCitiesWhereNameLike(content, allCities, dropdownListLimit);
+                    //List<City> cities = dbHelper.getCitiesWhereNameLike(content, allCities, dropdownListLimit);
+                    List<City> cities = dbHelper.getCitiesWhereNameLike(content, dropdownListLimit);
                     // Set the drop down entries
                     cityAdapter.clear();
                     cityAdapter.addAll(cities);

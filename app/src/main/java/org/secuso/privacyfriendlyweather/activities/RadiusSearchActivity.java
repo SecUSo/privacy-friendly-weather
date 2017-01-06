@@ -135,7 +135,8 @@ public class RadiusSearchActivity extends BaseActivity {
         // was selected)
         City city = dropdownSelectedCity;
         if (dropdownSelectedCity == null) {
-            List<City> foundCities = dbHelper.getCitiesWhereNameLike(edtLocation.getText().toString(), allCities, 2);
+            //List<City> foundCities = dbHelper.getCitiesWhereNameLike(edtLocation.getText().toString(), allCities, 2);
+            List<City> foundCities = dbHelper.getCitiesWhereNameLike(edtLocation.getText().toString(), 2);
             // 1) No city found
             if (foundCities.size() == 0) {
                 Toast.makeText(RadiusSearchActivity.this, R.string.dialog_add_no_city_found, Toast.LENGTH_LONG).show();
