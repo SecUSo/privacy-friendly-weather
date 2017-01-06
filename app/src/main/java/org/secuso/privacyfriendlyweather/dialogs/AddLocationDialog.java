@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.City;
@@ -133,6 +134,7 @@ public class AddLocationDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
 
                 addCity();
+                //TODO Is there a better solution?
                 activity.recreate();
                 dismiss();
 
@@ -152,24 +154,28 @@ public class AddLocationDialog extends DialogFragment {
 //    }
 
     //TODO setRank
-    //TODO Update the list
     public void addCity() {
         String postCode = "-";
 
-        try {
-            postCode = selectedCity.getPostalCode();
-        } catch (NullPointerException e) {
+        if (selectedCity == null) {
+            Toast.makeText(activity.getBaseContext(), "NO City selected", Toast.LENGTH_SHORT).show();
+        } else {
+            try {
+                postCode = selectedCity.getPostalCode();
+            } catch (NullPointerException e) {
 
+            }
+
+            database.addCityToWatch(new CityToWatch(
+                    15,
+                    postCode,
+                    selectedCity.getCountryCode(),
+                    -1,
+                    selectedCity.getCityId(),
+                    selectedCity.getCityName()
+            ));
         }
 
-        database.addCityToWatch(new CityToWatch(
-                15,
-                postCode,
-                selectedCity.getCountryCode(),
-                -1,
-                selectedCity.getCityId(),
-                selectedCity.getCityName()
-        ));
     }
 
 }

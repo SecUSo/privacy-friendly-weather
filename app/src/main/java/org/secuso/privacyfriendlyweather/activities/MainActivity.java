@@ -6,18 +6,21 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import org.secuso.privacyfriendlyweather.AddLocationDialog;
-import org.secuso.privacyfriendlyweather.PrefManager;
+import org.secuso.privacyfriendlyweather.dialogs.AddLocationDialog;
+import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.services.FetchForecastDataService;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerItemClickListener;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
+import org.secuso.privacyfriendlyweather.ui.RecycleList.SimpleDividerItemDecoration;
+import org.secuso.privacyfriendlyweather.ui.RecycleList.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +32,8 @@ public class MainActivity extends BaseActivity {
     private final String DEBUG_TAG = "main_activity_debug";
     private PFASQLiteHelper database;
     PrefManager prefManager;
+    private ItemTouchHelper.Callback callback;
+    private ItemTouchHelper touchHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,7 @@ public class MainActivity extends BaseActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_view_cities);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getBaseContext()));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getBaseContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -97,6 +103,12 @@ public class MainActivity extends BaseActivity {
         RecyclerOverviewListAdapter adapter = new RecyclerOverviewListAdapter(getBaseContext(), cities);
         recyclerView.setAdapter(adapter);
 
+        //TODO Drag and drop
+        //TODO Action when swiping
+        callback = new SimpleItemTouchHelperCallback(adapter);
+        touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
+
         FloatingActionButton addFab = (FloatingActionButton) findViewById(R.id.fabAddLocation);
         if (addFab != null) {
 
@@ -118,8 +130,7 @@ public class MainActivity extends BaseActivity {
 
     public void setDefaultLocation(int cityId) {
         prefManager.setDefaultLocation(cityId);
-        Toast toast = Toast.makeText(getBaseContext(), "XY set as default location", Toast.LENGTH_SHORT);
-        toast.show();
+        Toast.makeText(getBaseContext(), "XY set as default location", Toast.LENGTH_SHORT).show();
         //TODO Is there a better nicer solution?
         recreate();
     }

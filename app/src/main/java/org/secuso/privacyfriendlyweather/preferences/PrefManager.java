@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyweather;
+package org.secuso.privacyfriendlyweather.preferences;
 
 /**
  * Created by yonjuni on 04.01.17.
@@ -46,7 +46,7 @@ public class PrefManager {
     }
 
     public int getDefaultLocation() {
-        return pref.getInt(DEFAULT_LOCATION, 5128581);
+        return pref.getInt(DEFAULT_LOCATION, -1);
     }
 
 }
