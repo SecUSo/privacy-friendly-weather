@@ -133,6 +133,8 @@ public class AddLocationDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
 
                 addCity();
+                activity.recreate();
+                dismiss();
 
             }
         });
@@ -150,10 +152,19 @@ public class AddLocationDialog extends DialogFragment {
 //    }
 
     //TODO setRank
+    //TODO Update the list
     public void addCity() {
+        String postCode = "-";
+
+        try {
+            postCode = selectedCity.getPostalCode();
+        } catch (NullPointerException e) {
+
+        }
+
         database.addCityToWatch(new CityToWatch(
                 15,
-                selectedCity.getPostalCode(),
+                postCode,
                 selectedCity.getCountryCode(),
                 -1,
                 selectedCity.getCityId(),
