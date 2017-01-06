@@ -88,6 +88,11 @@ public class AddLocationDialog extends DialogFragment {
         autoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 final int LIST_LIMIT = 8;
                 selectedCity = null;
                 if (database != null) {
@@ -105,12 +110,6 @@ public class AddLocationDialog extends DialogFragment {
                     }
 
                 }
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
