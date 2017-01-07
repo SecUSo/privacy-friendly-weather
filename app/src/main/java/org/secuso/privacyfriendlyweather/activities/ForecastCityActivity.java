@@ -50,10 +50,9 @@ public class ForecastCityActivity extends BaseActivity {
             handleFirstStart();
         }
 
-        //TODO Set a better default than New York City
         //Location opened from list, not default,
         if (getIntent().hasExtra("cityId")) {
-            cityID = getIntent().getIntExtra("cityId", 5128581);
+            cityID = getIntent().getIntExtra("cityId", -1);
             currentWeatherDataList = database.getCurrentWeather(cityID);
         } else {
             //TODO Get default dataset from DB based on cityID
@@ -76,8 +75,6 @@ public class ForecastCityActivity extends BaseActivity {
 
     public void handleFirstStart(){
         prefManager.setFirstTimeLaunch(false);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
     @Override

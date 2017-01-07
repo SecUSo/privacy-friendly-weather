@@ -11,11 +11,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import org.secuso.privacyfriendlyweather.dialogs.AddLocationDialog;
-import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.dialogs.AddLocationDialog;
+import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.services.FetchForecastDataService;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerItemClickListener;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
