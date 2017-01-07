@@ -37,17 +37,17 @@ public class CreateDatabaseService extends IntentService {
      */
     @Override
     protected void onHandleIntent(Intent intent) {
-        DatabaseHelper dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-        try {
+        //DatabaseHelper dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
+        //try {
             // To be honest, I did not know how to start the 'Create database' mechanism other than
             // doing some query
-            dbHelper.getCityToWatchDao().queryForAll();
+            //dbHelper.getCityToWatchDao().queryForAll();
             // When the database is setup, send a message to tell the receiver
-            ResultReceiver rec = intent.getParcelableExtra("receiver");
-            rec.send(Activity.RESULT_OK, new Bundle());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            //ResultReceiver rec = intent.getParcelableExtra("receiver");
+            //rec.send(Activity.RESULT_OK, new Bundle());
+        //} catch (SQLException e) {
+        //    e.printStackTrace();
+        //}
     }
 
 }

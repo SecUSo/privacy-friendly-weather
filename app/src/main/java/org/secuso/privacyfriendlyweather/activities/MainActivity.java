@@ -16,7 +16,7 @@ import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.dialogs.AddLocationDialog;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
-import org.secuso.privacyfriendlyweather.services.FetchForecastDataService;
+import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerItemClickListener;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.SimpleDividerItemDecoration;
@@ -136,10 +136,11 @@ public class MainActivity extends BaseActivity {
     }
 
     public void startFetchingService(int cityId) {
-        // Start a background task to retrieve and store the weather forecast data
-        Intent forecastIntent = new Intent(this, FetchForecastDataService.class);
-        forecastIntent.putExtra("cityId", cityId);
-        startService(forecastIntent);
+        // Start a background task to retrieve and store the weather data
+        Intent intent = new Intent(this, UpdateDataService.class);
+        intent.setAction(UpdateDataService.UPDATE_FORECAST_ACTION);
+        intent.putExtra("cityId", cityId);
+        startService(intent);
     }
 
     @Override

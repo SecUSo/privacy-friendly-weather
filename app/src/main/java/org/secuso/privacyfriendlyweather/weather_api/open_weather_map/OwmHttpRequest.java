@@ -2,7 +2,7 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.text.TextUtils;
 
-import org.secuso.privacyfriendlyweather.orm.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.CityToWatch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class OwmHttpRequest {
     protected String joinCityIDs(List<CityToWatch> cities) {
         List<Integer> cityIDs = new ArrayList<>();
         for (int i = 0; i < cities.size(); i++) {
-            cityIDs.add(cities.get(i).getCity().getCityId());
+            cityIDs.add(cities.get(i).getCityId());
         }
         return TextUtils.join(",", cityIDs);
     }

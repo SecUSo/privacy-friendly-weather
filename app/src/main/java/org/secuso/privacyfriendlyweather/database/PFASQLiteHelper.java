@@ -16,9 +16,13 @@ import java.io.InputStream;
 
 import org.secuso.privacyfriendlyweather.database.City;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by yonjuni on 02.01.17.
@@ -427,7 +431,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(FORECAST_CITY_ID, forecast.getCity_id());
         values.put(FORECAST_COLUMN_TIME_MEASUREMENT, forecast.getTimestamp());
-        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime().toString());
+        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime().getTime());
         values.put(FORECAST_COLUMN_WEATHER_ID, forecast.getWeatherID());
         values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
@@ -464,10 +468,11 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
+                forecast = new Forecast();
                 forecast.setId(Integer.parseInt(cursor.getString(0)));
                 forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
                 forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-                forecast.setForecastTime(Date.valueOf(cursor.getString(3)));
+                forecast.setForecastTime(new Date(Long.parseLong(cursor.getString(3))));
                 forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
                 forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
@@ -502,7 +507,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             forecast.setId(Integer.parseInt(cursor.getString(0)));
             forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
             forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-            forecast.setForecastTime(Date.valueOf(cursor.getString(3)));
+            forecast.setForecastTime(new Date(Long.parseLong(cursor.getString(3))));
             forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
             forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
             forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
@@ -531,7 +536,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
                 forecast.setId(Integer.parseInt(cursor.getString(0)));
                 forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
                 forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-                forecast.setForecastTime(Date.valueOf(cursor.getString(3)));
+                forecast.setForecastTime(new Date(Long.parseLong(cursor.getString(3))));
                 forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
                 forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
@@ -550,7 +555,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(FORECAST_CITY_ID, forecast.getCity_id());
         values.put(FORECAST_COLUMN_TIME_MEASUREMENT, forecast.getTimestamp());
-        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime().toString());
+        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime().getTime());
         values.put(FORECAST_COLUMN_WEATHER_ID, forecast.getWeatherID());
         values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());

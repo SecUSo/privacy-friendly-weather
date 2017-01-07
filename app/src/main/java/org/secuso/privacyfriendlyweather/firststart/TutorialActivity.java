@@ -16,6 +16,7 @@ import android.widget.Toast;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
 import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 
@@ -45,8 +46,8 @@ public class TutorialActivity extends AppCompatActivity {
 
         // Checking for first time launch - before calling setContentView()
         prefManager = new PrefManager(this);
+        database = PFASQLiteHelper.getInstance(this);
         if (!prefManager.isFirstTimeLaunch()) {
-            database = PFASQLiteHelper.getInstance(this);
             launchHomeScreen();
             finish();
         }
@@ -122,7 +123,21 @@ public class TutorialActivity extends AppCompatActivity {
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
         prefManager.setDefaultLocation(selectedCity.getCityId());
+        addCity();
         startActivity(new Intent(TutorialActivity.this, ForecastCityActivity.class));
         finish();
+    }
+
+    public void addCity() {
+        if (selectedCity != null) {
+            database.addCityToWatch(new CityToWatch(
+                    15,
+                    selectedCity.getPostalCode(),
+                    selectedCity.getCountryCode(),
+                    -1,
+                    selectedCity.getCityId(),
+                    selectedCity.getCityName()
+            ));
+        }
     }
 }

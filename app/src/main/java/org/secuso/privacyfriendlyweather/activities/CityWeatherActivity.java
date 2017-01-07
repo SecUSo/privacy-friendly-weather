@@ -18,7 +18,7 @@ import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
-import org.secuso.privacyfriendlyweather.services.FetchForecastDataService;
+import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 import org.secuso.privacyfriendlyweather.ui.UiUtils;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
@@ -100,8 +100,9 @@ public class CityWeatherActivity extends AppCompatActivity {
         });
 
         // Start a background task to retrieve and store the weather forecast data
-        Intent forecastIntent = new Intent(this, FetchForecastDataService.class);
-        forecastIntent.putExtra("cityId", currentWeatherData.getCity().getCityId());
+        Intent forecastIntent = new Intent(this, UpdateDataService.class);
+        forecastIntent.setAction(UpdateDataService.UPDATE_FORECAST_ACTION);
+        forecastIntent.putExtra(UpdateDataService.CITY_ID, currentWeatherData.getCity().getCityId());
         startService(forecastIntent);
     }
 

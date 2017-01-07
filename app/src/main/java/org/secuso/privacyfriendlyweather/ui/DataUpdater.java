@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui;
 
-import org.secuso.privacyfriendlyweather.orm.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
 
@@ -21,14 +22,14 @@ public class DataUpdater {
     /**
      * Member variables
      */
-    private DatabaseHelper dbHelper;
+    private PFASQLiteHelper dbHelper;
 
     /**
      * Constructor.
      *
      * @param dbHelper A DatabaseHelper instance in order to perform database queries.
      */
-    public DataUpdater(DatabaseHelper dbHelper) {
+    public DataUpdater(PFASQLiteHelper dbHelper) {
         this.dbHelper = dbHelper;
     }
 
@@ -37,15 +38,9 @@ public class DataUpdater {
      *                 to the weather API.
      */
     public void updateCurrentWeatherData(IHttpRequestForCityList apiToUse) {
-        try {
-            // Clear the CurrentWeatherData table
-            int count = dbHelper.clearCurrentWeatherDataTable();
-            // Get all the added cities and build the groupID for the HTTP request
-            List<CityToWatch> cityToWatches = dbHelper.getAllCitiesToWatch(true);
-            apiToUse.perform(cityToWatches);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // Get all the added cities and build the groupID for the HTTP request
+        List<CityToWatch> cityToWatches = dbHelper.getAllCitiesToWatch();
+        apiToUse.perform(cityToWatches);
     }
 
 }

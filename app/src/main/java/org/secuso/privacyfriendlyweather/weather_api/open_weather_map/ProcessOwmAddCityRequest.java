@@ -42,20 +42,6 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
     }
 
     /**
-     * Constructor.
-     *
-     * @param context  The context of the HTTP request.
-     * @param dbHelper The database helper to use.
-     */
-    public ProcessOwmAddCityRequest(Context context, DatabaseHelper dbHelper, boolean storePersistently) {
-        // TODO: remove this constructor
-        this.context = context;
-        //this.dbHelper = dbHelper;
-        this.dbHelper = PFASQLiteHelper.getInstance(context);
-        //this.storePersistently = storePersistently;
-    }
-
-    /**
      * Converts the response to JSON and updates the database so that the latest weather data are
      * displayed.
      *

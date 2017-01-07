@@ -89,7 +89,7 @@
             android:name=".services.CreateDatabaseService"
             android:exported="false" />
         <service
-            android:name=".services.FetchForecastDataService"
+            android:name=".services.UpdateDataService"
             android:exported="false" />
 
         <receiver android:name=".widget.WeatherWidget">
