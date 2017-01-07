@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome"
+            android:text="@string/dialog_first_app_title"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
@@ -44,8 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:textCursorDrawable="@null"
-            android:textColor="@color/white" />
+            android:maxLines="1"
+            android:imeOptions="actionDone"
+            android:textColor="@color/white"
+            android:textCursorDrawable="@null" />
 
     </LinearLayout>
 
