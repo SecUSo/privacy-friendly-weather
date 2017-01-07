@@ -13,6 +13,7 @@ import android.widget.TextView;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
@@ -45,6 +46,15 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         this.context = context;
         forecastList = new ArrayList<Forecast>();
         courseDayList = new ArrayList<Forecast>();
+
+        PFASQLiteHelper database = PFASQLiteHelper.getInstance(context.getApplicationContext());
+
+        List<Forecast> forecasts = database.getForecastsByCityId(currentWeatherDataList.getCity_id());
+
+        // TODO: filter them accordingly and calculate what should be displayed .. (like average all the 3h forecasts for the week list)
+
+        courseDayList.addAll(forecasts);
+        forecastList.addAll(forecasts);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -193,10 +203,10 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
             dateFormat.setCalendar(calendar);
 
-            calendar.setTimeInMillis(currentWeatherDataList.getTimeSunrise());
+            calendar.setTimeInMillis(currentWeatherDataList.getTimeSunrise()*1000);
             holder.sunrise.setText(dateFormat.format(calendar.getTime()));
 
-            calendar.setTimeInMillis(currentWeatherDataList.getTimeSunset());
+            calendar.setTimeInMillis(currentWeatherDataList.getTimeSunset()*1000);
             holder.sunset.setText(dateFormat.format(calendar.getTime()));
         }
     }

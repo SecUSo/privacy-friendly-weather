@@ -7,10 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
 
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DAY;
@@ -34,6 +36,13 @@ public class ForecastCityActivity extends BaseActivity {
 
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        checkForNewData();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast_city);
@@ -53,18 +62,25 @@ public class ForecastCityActivity extends BaseActivity {
         //Location opened from list, not default,
         if (getIntent().hasExtra("cityId")) {
             cityID = getIntent().getIntExtra("cityId", -1);
-            currentWeatherDataList = database.getCurrentWeather(cityID);
         } else {
-            //TODO Get default dataset from DB based on cityID
-            //currentWeatherDataList = database.getCurrentWeather(prefManager.getDefaultLocation());
-            currentWeatherDataList = new CurrentWeatherData(1, 1, 12345678910L, 30, 42, 40, 44, 85, 1000, 85, 1, 1, System.currentTimeMillis(), System.currentTimeMillis());
+            cityID = prefManager.getDefaultLocation();
+            //currentWeatherDataList = new CurrentWeatherData(1, 1, 12345678910L, 30, 42, 40, 44, 85, 1000, 85, 1, 1, System.currentTimeMillis(), System.currentTimeMillis());
         }
+        currentWeatherDataList = database.getCurrentWeatherByCityId(cityID);
+
+        if (currentWeatherDataList.getCity_id() == 0) {
+            currentWeatherDataList.setCity_id(cityID);
+        }
+
         mAdapter = new CityWeatherAdapter(currentWeatherDataList, mDataSetTypes, getBaseContext());
         mRecyclerView.setAdapter(mAdapter);
 
         //TODO Change to city name from DB, need a method to get the city name from the ID
         //currentWeatherDataList.getCity_id();
-        setTitle("Darmstadt");
+        CityToWatch cityToWatch = database.getCityToWatch(cityID);
+        setTitle(cityToWatch.getCityName());
+
+        //setTitle("Darmstadt");
 
     }
 
@@ -95,6 +111,12 @@ public class ForecastCityActivity extends BaseActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkForNewData() {
+        Intent intent = new Intent(this, UpdateDataService.class);
+        intent.setAction(UpdateDataService.UPDATE_ALL_ACTION);
+        startService(intent);
     }
 
 }

@@ -349,7 +349,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
                         ", " + CITIES_TO_WATCH_COLUMN_RANK +
                         " FROM " + TABLE_CITIES_TO_WATCH + " INNER JOIN " + TABLE_CITIES +
                         " ON " + TABLE_CITIES_TO_WATCH + "." + CITIES_TO_WATCH_CITY_ID + " = " + TABLE_CITIES + "." + CITIES_ID +
-                        " WHERE " + CITIES_TO_WATCH_ID + " = ?", arguments);
+                        " WHERE " + CITIES_TO_WATCH_CITY_ID + " = ?", arguments);
 
         CityToWatch cityToWatch = new CityToWatch();
 

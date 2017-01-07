@@ -19,6 +19,7 @@ import org.secuso.privacyfriendlyweather.database.City;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
+import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,5 +140,8 @@ public class TutorialActivity extends AppCompatActivity {
                     selectedCity.getCityName()
             ));
         }
+        Intent intent = new Intent(this, UpdateDataService.class);
+        intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
+        startService(intent);
     }
 }
