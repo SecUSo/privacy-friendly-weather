@@ -18,11 +18,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         PFASQLiteHelper pfasqLiteHelper = PFASQLiteHelper.getInstance(this);
+        pfasqLiteHelper.getAllCities();
 
         Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
         SplashActivity.this.startActivity(mainIntent);
         SplashActivity.this.finish();
-
     }
 
 }
