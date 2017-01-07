@@ -48,7 +48,7 @@ public class TutorialActivity extends AppCompatActivity {
         prefManager = new PrefManager(this);
         database = PFASQLiteHelper.getInstance(this);
         if (!prefManager.isFirstTimeLaunch()) {
-            launchHomeScreen();
+            startActivity(new Intent(TutorialActivity.this, ForecastCityActivity.class));
             finish();
         }
 
