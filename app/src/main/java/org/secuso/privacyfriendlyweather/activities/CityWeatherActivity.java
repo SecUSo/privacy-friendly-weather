@@ -99,11 +99,11 @@ public class CityWeatherActivity extends AppCompatActivity {
             }
         });
 
-        // Start a background task to retrieve and store the weather forecast data
-        Intent forecastIntent = new Intent(this, UpdateDataService.class);
-        forecastIntent.setAction(UpdateDataService.UPDATE_FORECAST_ACTION);
-        forecastIntent.putExtra(UpdateDataService.CITY_ID, currentWeatherData.getCity().getCityId());
-        startService(forecastIntent);
+        // Start a background task to retrieve and store the weather data
+        Intent updateService = new Intent(this, UpdateDataService.class);
+        updateService.setAction(UpdateDataService.UPDATE_ALL_ACTION);
+        updateService.putExtra(UpdateDataService.CITY_ID, currentWeatherData.getCity().getCityId());
+        startService(updateService);
     }
 
     /**

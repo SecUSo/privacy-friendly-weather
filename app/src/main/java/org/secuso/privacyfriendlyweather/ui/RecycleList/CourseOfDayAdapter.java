@@ -35,7 +35,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         this.context = context;
         this.courseOfDayList = courseOfDayList;
 
-        if(courseOfDayList.size() == 0) {
+        /*if(courseOfDayList.size() == 0) {
             Forecast forecast = new Forecast(1, 1, System.currentTimeMillis(), null, 20, 10, 90, 1001);
             Forecast forecast2 = new Forecast(1, 1, System.currentTimeMillis(), null, 10, 26, 86, 1001);
             Forecast forecast3 = new Forecast(1, 1, System.currentTimeMillis(), null, 30, 3, 90, 1001);
@@ -52,7 +52,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             courseOfDayList.add(forecast6);
             courseOfDayList.add(forecast7);
             courseOfDayList.add(forecast8);
-        }
+        }*/
 
     }
 

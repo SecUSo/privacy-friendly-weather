@@ -31,7 +31,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         this.context = context;
         this.forecastList = forecastList;
         //TODO Update to DB data
-        if(forecastList.size() == 0) {
+        /*if(forecastList.size() == 0) {
             Forecast forecast = new Forecast(1, 1, System.currentTimeMillis(), null, 20, 10, 90, 1001);
             Forecast forecast2 = new Forecast(1, 1, System.currentTimeMillis(), null, 10, 26, 86, 1001);
             Forecast forecast3 = new Forecast(1, 1, System.currentTimeMillis(), null, 30, 3, 90, 1001);
@@ -42,7 +42,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
             forecastList.add(forecast3);
             forecastList.add(forecast4);
             forecastList.add(forecast5);
-        }
+        }*/
     }
 
     @Override
