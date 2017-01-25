@@ -139,7 +139,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
     @Override
     public void updateCurrentWeather(CurrentWeatherData data) {
-        if(data == null || data.getCity_id() == Integer.MIN_VALUE) {
+        if(data == null || data.getCity_id() != cityID) {
             return;
         }
 
@@ -153,6 +153,10 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
     @Override
     public void updateForecasts(List<Forecast> forecasts) {
+        if(forecasts == null || forecasts.size() == 0 || forecasts.get(0).getCity_id() != cityID) {
+            return;
+        }
+
         mAdapter.updateForecastData(forecasts);
     }
 }
