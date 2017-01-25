@@ -8,12 +8,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
+import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
+import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
+
+import java.util.List;
 
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DAY;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DETAILS;
@@ -21,7 +26,7 @@ import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapte
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.SUN;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.WEEK;
 
-public class ForecastCityActivity extends BaseActivity {
+public class ForecastCityActivity extends BaseActivity implements IUpdateableCityUI {
 
     private RecyclerView mRecyclerView;
     private CityWeatherAdapter mAdapter;
@@ -36,8 +41,17 @@ public class ForecastCityActivity extends BaseActivity {
 
 
     @Override
+    protected void onPause() {
+        super.onPause();
+
+        ViewUpdater.removeSubsriber(this);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+
+        ViewUpdater.addSubsriber(this);
 
         checkForNewData();
     }
@@ -66,6 +80,11 @@ public class ForecastCityActivity extends BaseActivity {
             cityID = prefManager.getDefaultLocation();
             //currentWeatherDataList = new CurrentWeatherData(1, 1, 12345678910L, 30, 42, 40, 44, 85, 1000, 85, 1, 1, System.currentTimeMillis(), System.currentTimeMillis());
         }
+
+        loadContentFromDatabase();
+    }
+
+    private void loadContentFromDatabase() {
         currentWeatherDataList = database.getCurrentWeatherByCityId(cityID);
 
         if (currentWeatherDataList.getCity_id() == 0) {
@@ -73,15 +92,13 @@ public class ForecastCityActivity extends BaseActivity {
         }
 
         mAdapter = new CityWeatherAdapter(currentWeatherDataList, mDataSetTypes, getBaseContext());
+
         mRecyclerView.setAdapter(mAdapter);
 
         //TODO Change to city name from DB, need a method to get the city name from the ID
         //currentWeatherDataList.getCity_id();
         CityToWatch cityToWatch = database.getCityToWatch(cityID);
         setTitle(cityToWatch.getCityName());
-
-        //setTitle("Darmstadt");
-
     }
 
     @Override
@@ -108,8 +125,9 @@ public class ForecastCityActivity extends BaseActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu_refresh) {
-
+            checkForNewData();
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -119,5 +137,23 @@ public class ForecastCityActivity extends BaseActivity {
         startService(intent);
     }
 
+    @Override
+    public void updateCurrentWeather(CurrentWeatherData data) {
+        if(data == null || data.getCity_id() == Integer.MIN_VALUE) {
+            return;
+        }
+
+        cityID = data.getCity_id();
+        mAdapter = new CityWeatherAdapter(data, mDataSetTypes, getBaseContext());
+        mRecyclerView.setAdapter(mAdapter);
+
+        CityToWatch cityToWatch = database.getCityToWatch(cityID);
+        setTitle(cityToWatch.getCityName());
+    }
+
+    @Override
+    public void updateForecasts(List<Forecast> forecasts) {
+        mAdapter.updateForecastData(forecasts);
+    }
 }
 

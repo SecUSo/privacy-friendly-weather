@@ -19,6 +19,7 @@ import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.orm.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
+import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 import org.secuso.privacyfriendlyweather.ui.UiUtils;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
@@ -321,5 +322,4 @@ public class CityWeatherActivity extends AppCompatActivity {
         }
         return getResources().getString(resId);
     }
-
 }

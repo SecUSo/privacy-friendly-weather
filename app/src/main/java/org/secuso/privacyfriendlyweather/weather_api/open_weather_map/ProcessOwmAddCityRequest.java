@@ -8,7 +8,7 @@ import com.android.volley.VolleyError;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
 
@@ -61,19 +61,11 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
             } else {
                 weatherData.setCity_id(cityId);
 
-                // TODO: we have to delete the existing weatherData first ...
-                //dbHelper.getCurrentWeatherByCity(cityId);
+                dbHelper.deleteCurrentWeatherByCityId(cityId);
+
                 dbHelper.addCurrentWeather(weatherData);
-                //if (storePersistently) {
-                    // TODO: Update the UI
-                    // Show success message
-                    //final String SUCCESS_MSG = context.getResources().getString(R.string.dialog_add_added_successfully_template);
-                    //Toast.makeText(context, SUCCESS_MSG, Toast.LENGTH_LONG).show();
-                //} else {
-                    //Intent intent = new Intent(context, CityWeatherActivity.class);
-                    //intent.putExtra("weatherData", weatherData);
-                    //context.startActivity(intent);
-                //}
+
+                ViewUpdater.updateCurrentWeatherData(weatherData);
             }
         }
         // City was not found; sometimes this happens for OWM requests even though the city ID is

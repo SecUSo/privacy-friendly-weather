@@ -112,11 +112,11 @@ public class OwmDataExtractor implements IDataExtractor {
 
             weatherData.setCity_id(jsonData.getInt("id"));
 
-            //TODO: Maybe save coordinates as well?
+            // Maybe save coordinates as well?
             //JSONObject jsonCoords = jsonData.getJSONObject("coord");
             //weatherData.setLongitude((float) jsonMain.getDouble("lon"));
             //weatherData.setLatitude((float) jsonMain.getDouble("lat"));
-            //TODO: Maybe the city name?
+            // Maybe the city name?
             //weatherData.setCityName(jsonMain.getString("name"));
 
             IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();

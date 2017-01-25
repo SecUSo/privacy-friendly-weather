@@ -11,8 +11,12 @@ import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
@@ -57,6 +61,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
 
             dbHelper.deleteForecastsByCityId(cityId);
 
+            List<Forecast> forecasts = new ArrayList<>();
             // Continue with inserting new records
             for (int i = 0; i < list.length(); i++) {
                 String currentItem = list.get(i).toString();
@@ -72,8 +77,13 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
                     forecast.setCity_id(cityId);
                     // add it to the database
                     dbHelper.addForecast(forecast);
+                    forecasts.add(forecast);
                 }
             }
+
+
+            ViewUpdater.updateForecasts(forecasts);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

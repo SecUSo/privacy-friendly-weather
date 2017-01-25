@@ -15,6 +15,8 @@ import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -30,19 +32,6 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
     public WeekWeatherAdapter(List<Forecast> forecastList, Context context) {
         this.context = context;
         this.forecastList = forecastList;
-        //TODO Update to DB data
-        /*if(forecastList.size() == 0) {
-            Forecast forecast = new Forecast(1, 1, System.currentTimeMillis(), null, 20, 10, 90, 1001);
-            Forecast forecast2 = new Forecast(1, 1, System.currentTimeMillis(), null, 10, 26, 86, 1001);
-            Forecast forecast3 = new Forecast(1, 1, System.currentTimeMillis(), null, 30, 3, 90, 1001);
-            Forecast forecast4 = new Forecast(1, 1, System.currentTimeMillis(), null, 40, 33, 86, 1001);
-            Forecast forecast5 = new Forecast(1, 1, System.currentTimeMillis(), null, 50, 43, 90, 1001);
-            forecastList.add(forecast);
-            forecastList.add(forecast2);
-            forecastList.add(forecast3);
-            forecastList.add(forecast4);
-            forecastList.add(forecast5);
-        }*/
     }
 
     @Override
@@ -53,9 +42,41 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
 
     @Override
     public void onBindViewHolder(WeekForecastViewHolder holder, int position) {
-        // TODO holder.weather.setBackground(); setday...
-        setIcon(forecastList.get(position).getWeatherID(), holder.weather);
-        holder.humidity.setText(String.format("%s %%", forecastList.get(position).getHumidity()));
+        Forecast f = forecastList.get(position);
+
+        setIcon(f.getWeatherID(), holder.weather);
+        holder.humidity.setText(String.format("%s %%", f.getHumidity()));
+
+        Calendar c = new GregorianCalendar();
+        c.setTime(f.getForecastTime());
+        int day = c.get(Calendar.DAY_OF_WEEK);
+
+        switch(day) {
+            case Calendar.MONDAY:
+                day = R.string.abbreviation_monday;
+                break;
+            case Calendar.TUESDAY:
+                day = R.string.abbreviation_tuesday;
+                break;
+            case Calendar.WEDNESDAY:
+                day = R.string.abbreviation_wednesday;
+                break;
+            case Calendar.THURSDAY:
+                day = R.string.abbreviation_thursday;
+                break;
+            case Calendar.FRIDAY:
+                day = R.string.abbreviation_friday;
+                break;
+            case Calendar.SATURDAY:
+                day = R.string.abbreviation_saturday;
+                break;
+            case Calendar.SUNDAY:
+                day = R.string.abbreviation_sunday;
+                break;
+            default:
+                day = R.string.abbreviation_monday;
+        }
+        holder.day.setText(day);
 
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
@@ -63,7 +84,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         // Format the values to display
         String heading = String.format(
                 "%s%s",
-                decimalFormat.format(prefManager.convertTemperatureFromCelsius(forecastList.get(position).getTemperature())),
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(f.getTemperature())),
                 prefManager.getWeatherUnit()
         );
 
