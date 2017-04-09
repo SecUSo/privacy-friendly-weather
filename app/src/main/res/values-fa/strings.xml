@@ -1,0 +1,162 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="app_name_long">Privacy Friendly Weather</string>
+
+    <!-- ###DRAWER###-->
+    <string name="action_help">راهنما</string>
+    <string name="action_about">درباره</string>
+    <string name="action_settings">تنظیمات</string>
+    <string name="action_main">اصلی</string>
+
+    <string name="navigation_drawer_open">بازکردن نوار پیمایش</string>
+    <string name="navigation_drawer_close">بستن نوار پیمایش</string>
+
+    <!-- ###MAIN### -->
+    <string name="activity_main_icon_descriptor">
+        نمادی که وضعیت فعلی هوا بر اساس گزینه انتخاب شده را مشخص می‌کند.
+    </string>
+    <string name="activity_main_location_not_found">
+سرور پاسخ داد که مکان خواسته شده یافت نشد. اگر اطمینان دارید که مکان وجود دارد، دوباره امتحان کنید.
+    </string>
+    <string name="activity_main_snackbar_undo_info">گزینه حذف شد</string>
+    <string name="activity_main_snackbar_undo_button">بازنشانی</string>
+
+    <!-- ###RADIUS_SEARCH### -->
+    <string name="radius_search_label">جستجو رادیوس</string>
+    <string name="radius_search_heading">یافتن بهترین آب و هوا حول یک مکان</string>
+    <string name="radius_search_tv_heading">مکان (مرکز ناحیه مورد جستجو)</string>
+    <string name="radius_search_tv_edge_length">طول لبه ناحیه مورد جستجو</string>
+    <string name="radius_search_tv_num_returns">تعداد مکان‌ها برای بازیابی</string>
+    <string name="radius_search_btn_search">جستجو</string>
+
+    <!-- ###RADIUS_SEARCH_RESULT### -->
+    <string name="radius_search_result_label">نتایج جستجو</string>
+
+    <!--###HELP###-->
+    <string name="help">راهنما</string>
+    <string name="help_overview_heading">بازبینی</string>
+    <string name="help_delete_items_title">حذف مکان‌ها</string>
+    <string name="help_delete_items_text">
+        گزینه‌های مکان‌یابی می‌توانند از صفحه بازبینی حذف شوند با حرکت دست از چپ به راست یا راست به چپ.
+    </string>
+    <string name="help_move_items_title">انتقال مکان‌ها</string>
+    <string name="help_move_items_text">
+موقعیت گزینه‌ها در فهرست بازبینی را با نگه داشتن انگشت خود روی آن‌ها و کشیدن به سمت بالا یا پایین تغییر دهید.
+    </string>
+    <string name="help_radius_search_title">جستجو رادیوس</string>
+    <string name="help_radius_search_text">جستجوی رادیوس امکانی را فراهم می‌کند که به دنبال مکان‌هایی بگردد که آب و هوا در آن‌ها خوب و گرم باشد.</string>
+    <string name="help_category">دسته‌بندی راهنما</string>
+    <string name="help_privacy_heading">اطلاعات حریم‌شخصی</string>
+    <string name="help_permission_internet_heading">مجوز: اتصال به اینترنت</string>
+    <string name="help_permission_internet_description">
+        در این دسته‌بندی مجوز "اینترنت" مورد نیاز است چرا که داده‌های آب و هوا از طریق سرورهای موجود در اینترنت بدست می‌آیند. بدون این مجوز، هیچ داده آب و هوایی نمی‌تواند بدست بیاید.
+    </string>
+    <string name="help_permissions_heading">مجوزها</string>
+    <string name="help_intro">به صفحه راهنما خوش آمدید. این برنامه به شما اجازه می‌دهد مکان‌های مورد نظر خود را اضافه کرده، آب و هوای مربوط به آن‌ها را مشاهده کنید و به بررسی پیشبینی‌های موجود بپردازید. 
+        \nهمچنین می توانید به جستجوی مکان‌های خوش‌ آب و هوا حول یک محل مشخص بپردازید.</string>
+
+    <!--###ABOUT###-->
+    <string name="about">درباره</string>
+    <string name="version_number" translatable="false">Version 1.1</string>
+    <string name="about_author">نویسندگان: </string>
+    <string name="about_author_names" translatable="false">Patrick Mell</string>
+    <string name="about_author_contributors">و مشارکت‌کنندگان.</string>
+    <string name="about_affiliation">در همکاری با</string>
+    <string name="privacy_friendly">این برنامه متعلق به گروه Privacy Friendly Apps توسعه‌یافته در دانشگاه Technische Universität Darmstadt است. سورس‌کد تحت مجوز GPLv3 منتشر شده است. مجوز استفاده از تصاویر مربوط به TU Darmstadt و Google Inc است.</string>
+    <string name="more_info">برای مشاهده اطلاعات بیشتر:</string>
+    <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
+    <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-weather-app">Github-Repo</a></string>
+
+    <!-- ###Settings### -->
+    <string name="title_activity_settings">تنظیمات</string>
+    <string name="pref_header_general">عمومی</string>
+    <string name="settings_title_units">واحدها</string>
+    <string name="settings_summary_temperature">واحد مورد نظر خود برای نمایش درجه را مشخص کنید</string>
+    <string name="settings_title_temperature">درجه‌ها</string>
+    <string name="settings_celsius">سلسیوس</string>
+    <string name="settings_fahrenheit">فارنهایت</string>
+    <string name="settings_summary_distance">واحد مورد نظر خود برای نمایش فاصله را مشخص کنید</string>
+    <string name="settings_title_distance">فاصله‌ها</string>
+    <string name="settings_kilometers">کیلومتر</string>
+    <string name="settings_miles">مایل</string>
+
+    <!-- ###CITY_WEATHER_ACTIVIY### -->
+    <string name="activity_city_weather_label">بازبینی آب و هوا</string>
+    <string name="activity_city_weather_iv_description">تصویری که متناسب با دسته‌بندی آب و هوا باشد</string>
+    <string name="activity_city_weather_separator" translatable="false">&#160;|&#160;</string>
+    <string name="activity_city_weather_tv_category">آب و هوا:</string>
+    <string name="activity_city_weather_tv_humidity">رطوبت:</string>
+    <string name="activity_city_weather_tv_pressure">فشار:</string>
+    <string name="activity_city_weather_tv_wind_speed">سرعت باد:</string>
+    <string name="activity_city_weather_tv_sunrise">طلوع خورشید:</string>
+    <string name="activity_city_weather_tv_sunset">غروب خورشید:</string>
+    <string name="activity_city_weather_tv_details">جزییات آب و هوا ▼</string>
+    <string name="abbreviation_monday">دوشنبه.</string>
+    <string name="abbreviation_tuesday">سه‌شنبه.</string>
+    <string name="abbreviation_wednesday">چهارشنبه.</string>
+    <string name="abbreviation_thursday">پنجشنبه.</string>
+    <string name="abbreviation_friday">جمعه.</string>
+    <string name="abbreviation_saturday">شنبه.</string>
+    <string name="abbreviation_sunday">یکشنبه.</string>
+    <string name="info_no_data_for_day">در حال حاضر، برای روز انتخاب شده آب و هوایی در دسترس نیست.</string>
+
+    <!-- ###CITY_WEATHER_DETAILS_ACTIVITY### -->
+    <string name="activity_city_weather_details_label">آب و هوای امروز</string>
+    <string name="activity_city_weather_details_tv_category">آب و هوا:</string>
+    <string name="activity_city_weather_details_tv_temperature">درجه:</string>
+    <string name="activity_city_weather_details_tv_humidity">رطوبت:</string>
+    <string name="activity_city_weather_details_tv_pressure">فشار:</string>
+    <string name="activity_city_weather_details_tv_wind_speed">سرعت باد:</string>
+    <string name="activity_city_weather_details_tv_rain_volume">حجم بارش:</string>
+    <string name="activity_city_weather_details_tv_rain_volume_na">n/a</string>
+
+    <!-- ###FORECAST_ACTIVITY### -->
+    <string name="activity_forecast_label">پیشبینی آب و هوا</string>
+
+    <!-- ###DIALOGS### -->
+    <string name="dialog_first_app_title">خوش آمدید</string>
+    <string name="dialog_first_app_start_message">
+        با استفاده از دکمه زیر،  مکان‌هایی که قصد مشاهده آب و هوایشان را دارید اضافه کنید. \nاین‌ها در هر زمان قابل حذف هستند.
+    </string>
+    <string name="dialog_first_app_help_button">مشاهده راهنما</string>
+    <string name="dialog_first_app_close_button">بسیارخوب</string>
+
+    <string name="progress_dialog_add_location_title">راه‌اندازی پایگاه‌داده...</string>
+    <string name="progress_dialog_add_location_msg">لطفا چند لحظه صبر کنید.</string>
+
+    <string name="dialog_add_label">مکان مورد نظر خود را وارد کنید:</string>
+    <string name="dialog_add_checkbox_save">این مکان را برای همیشه ذخیره کن</string>
+    <string name="dialog_add_textedit_error">لطفا یک مکان معتبر وارد کنید!</string>
+    <string name="dialog_add_added_successfully_template">مکان با موفقیت وارد شد.</string>
+    <string name="dialog_add_no_city_found">
+        مکانی که متناسب با ورودی شما باشد یافت نشد. توصیه می‌شود که یکی از گزینه‌های موجود در فهرست کشویی را انتخاب کنید.
+    </string>
+    <string name="dialog_add_too_many_cities_found">
+        ورودی شما منحصربه‌فرد نیست. توصیه می‌شود که یکی از گزینه‌های موجود در فهرست کشویی را انتخاب کنید.
+    </string>
+    <string name="dialog_add_already_added">
+        این مکان هم‌اکنون در فهرست موجود است
+    </string>
+    <string name="dialog_add_close_button">بستن</string>
+    <string name="dialog_add_add_button">افزودن</string>
+
+    <!-- ###WEATHER CATEGORIES### -->
+    <string name="weather_category_clear_sky">آسمان صاف</string>
+    <string name="weather_category_clouds">ابری</string>
+    <string name="weather_category_scattered_clouds">ابری پراکنده</string>
+    <string name="weather_category_broken_clouds">ابری متراکم</string>
+    <string name="weather_category_shower_rain">با احتماس ریزش باران</string>
+    <string name="weather_category_rain">بارانی</string>
+    <string name="weather_category_thunderstorm">طوفانی</string>
+    <string name="weather_category_snow">برفی</string>
+    <string name="weather_category_mist">غبار محلی</string>
+
+    <!-- ###ERRORS###-->
+    <string name="convert_to_json_error">
+        داده آب و هوایی بازیابی شده، معتبر نیست.
+    </string>
+    <string name="insert_into_db_error">
+        هنگام بروزرسانی پایگاه‌داده، خطایی رخ داد.
+    </string>
+
+</resources>
