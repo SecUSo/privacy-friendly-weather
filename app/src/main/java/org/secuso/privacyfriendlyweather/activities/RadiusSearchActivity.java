@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -42,6 +43,12 @@ public class RadiusSearchActivity extends BaseActivity {
     private Button btnSearch;
     private ArrayAdapter<City> adapter;
 
+    int edgeRange;
+    int minEdgeLength;
+
+    int numberOfReturnsRange;
+    int minNumberOfReturns;
+
     /**
      * Other components
      */
@@ -71,13 +78,18 @@ public class RadiusSearchActivity extends BaseActivity {
     private void initialize() {
         // Constants
         final int MAX_EDGE_LENGTH_IN_KM = 150;
+        final int MIN_EDGE_LENGTH_IN_KM = 20;
         final int MAX_NUMBER_OF_RETURNS = 10;
+        final int MIN_NUMBER_OF_RETURNS = 2;
         final int DEFAULT_NUMBER_OF_RETURNS = 3;
         final String FORMAT_EDGE_LENGTH_VALUE = "%s %s";
 
         // Values which are necessary down below
         prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
-        int maxEdgeLength = Math.round(prefManager.convertDistanceFromKilometers(MAX_EDGE_LENGTH_IN_KM));
+        edgeRange = Math.round(prefManager.convertDistanceFromKilometers(MAX_EDGE_LENGTH_IN_KM - MIN_EDGE_LENGTH_IN_KM));
+        minEdgeLength = Math.round(prefManager.convertDistanceFromKilometers(MIN_EDGE_LENGTH_IN_KM));
+        numberOfReturnsRange = MAX_NUMBER_OF_RETURNS - MIN_NUMBER_OF_RETURNS;
+        minNumberOfReturns = MIN_NUMBER_OF_RETURNS;
 
         // Visual components
         //AutoCompleteCityTextViewGenerator generator = new AutoCompleteCityTextViewGenerator(this, dbHelper);
@@ -121,6 +133,13 @@ public class RadiusSearchActivity extends BaseActivity {
         });
 
 
+        edtLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                dropdownSelectedCity = (City)parent.getAdapter().getItem(position);
+            }
+        });
+
         //generator.getInstance(edtLocation, 8, dropdownSelectedCity);
 //        edtLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -154,15 +173,15 @@ public class RadiusSearchActivity extends BaseActivity {
                 findViewById(R.id.radius_search_btn_search);
 
         // Set properties of seek bars and the text of the corresponding text views
-        sbEdgeLength.setMax(maxEdgeLength);
-        sbEdgeLength.setProgress(maxEdgeLength >> 1);
+        sbEdgeLength.setMax(edgeRange);
+        sbEdgeLength.setProgress(((edgeRange + minEdgeLength) >> 1) - minEdgeLength);
         tvEdgeLengthValue.setText(
-                String.format(FORMAT_EDGE_LENGTH_VALUE, sbEdgeLength.getProgress(), prefManager.getDistanceUnit())
+                String.format(FORMAT_EDGE_LENGTH_VALUE, sbEdgeLength.getProgress() + minEdgeLength, prefManager.getDistanceUnit())
         );
 
-        sbNumReturns.setMax(MAX_NUMBER_OF_RETURNS);
-        sbNumReturns.setProgress(DEFAULT_NUMBER_OF_RETURNS);
-        tvNumReturnsValue.setText(String.valueOf(sbNumReturns.getProgress()));
+        sbNumReturns.setMax(numberOfReturnsRange);
+        sbNumReturns.setProgress(DEFAULT_NUMBER_OF_RETURNS - minNumberOfReturns);
+        tvNumReturnsValue.setText(String.valueOf(sbNumReturns.getProgress() + minNumberOfReturns));
 
         // On change of the seek bars set the text of the corresponding text views
         sbEdgeLength.setOnSeekBarChangeListener(new
@@ -195,8 +214,8 @@ public class RadiusSearchActivity extends BaseActivity {
 
     private void handleOnButtonSearchClick() {
         // Retrieve all necessary inputs (convert the edgeLength if necessary)
-        int edgeLength = sbEdgeLength.getProgress();
-        int numberOfReturnCities = sbNumReturns.getProgress();
+        int edgeLength = sbEdgeLength.getProgress() + minEdgeLength;
+        int numberOfReturnCities = sbNumReturns.getProgress() + minNumberOfReturns;
         if (prefManager.isDistanceUnitMiles()) {
             edgeLength = Math.round(prefManager.convertMilesInKm(edgeLength));
         }
@@ -236,7 +255,7 @@ public class RadiusSearchActivity extends BaseActivity {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            String text = String.format("%s %s", progress, prefManager.getDistanceUnit());
+            String text = String.format("%s %s", progress + minEdgeLength, prefManager.getDistanceUnit());
             tvEdgeLengthValue.setText(text);
         }
 
@@ -257,7 +276,7 @@ public class RadiusSearchActivity extends BaseActivity {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            tvNumReturnsValue.setText(String.valueOf(progress));
+            tvNumReturnsValue.setText(String.valueOf(progress + minNumberOfReturns));
         }
 
         @Override
