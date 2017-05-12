@@ -333,7 +333,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
                 " ORDER BY " + CITIES_NAME +
                 " LIMIT " + dropdownListLimit;
 
-        String[] args = {String.format("%%%s%%", cityNameLetters)};
+        String[] args = {String.format("%s%%", cityNameLetters)};
         Cursor cursor = database.rawQuery(query, args);
 
         if (cursor.moveToFirst()) {

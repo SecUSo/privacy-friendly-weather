@@ -4,7 +4,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.KeyListener;
+import android.text.method.TextKeyListener;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -99,10 +104,20 @@ public class RadiusSearchActivity extends BaseActivity {
 
         edtLocation.setAdapter(adapter);
 
+        edtLocation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    handleOnButtonSearchClick();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         edtLocation.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -213,6 +228,8 @@ public class RadiusSearchActivity extends BaseActivity {
      */
 
     private void handleOnButtonSearchClick() {
+        Log.i("TGL", "handleOnButtonSearchClicked");
+
         // Retrieve all necessary inputs (convert the edgeLength if necessary)
         int edgeLength = sbEdgeLength.getProgress() + minEdgeLength;
         int numberOfReturnCities = sbNumReturns.getProgress() + minNumberOfReturns;
@@ -225,12 +242,13 @@ public class RadiusSearchActivity extends BaseActivity {
         // Procedure for retrieving the city (only necessary if no item from the drop down list
         // was selected)
         City city = dropdownSelectedCity;
-        if (dropdownSelectedCity == null) {
+        if (city == null) {
             List<City> foundCities = dbHelper.getCitiesWhereNameLike(edtLocation.getText().toString(), 2);
             //List<City> foundCities = dbHelper.getCitiesWhereNameLike(edtLocation.getText().toString(), 2);
             // 1) No city found
             if (foundCities.size() == 0) {
                 Toast.makeText(RadiusSearchActivity.this, R.string.dialog_add_no_city_found, Toast.LENGTH_LONG).show();
+                return;
             }
             // 2) 1 city found,
             else if (foundCities.size() == 1) {
@@ -239,13 +257,11 @@ public class RadiusSearchActivity extends BaseActivity {
             // 3) > 1 cities found
             else {
                 Toast.makeText(RadiusSearchActivity.this, R.string.dialog_add_too_many_cities_found, Toast.LENGTH_LONG).show();
+                return;
             }
         }
-
-        if (city != null) {
-            IHttpRequestForRadiusSearch radiusSearchRequest = new OwmHttpRequestForRadiusSearch(getApplicationContext());
-            radiusSearchRequest.perform(city.getCityId(), edgeLength, numberOfReturnCities);
-        }
+        IHttpRequestForRadiusSearch radiusSearchRequest = new OwmHttpRequestForRadiusSearch(getApplicationContext());
+        radiusSearchRequest.perform(city.getCityId(), edgeLength, numberOfReturnCities);
     }
 
     /**

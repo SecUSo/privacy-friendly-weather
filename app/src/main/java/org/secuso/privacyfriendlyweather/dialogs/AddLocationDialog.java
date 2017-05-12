@@ -9,12 +9,16 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
@@ -41,6 +45,8 @@ public class AddLocationDialog extends DialogFragment {
     // TODO Cleanup
     private final List<City> allCities = new ArrayList<>();
 
+    final int LIST_LIMIT = 8;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -58,7 +64,7 @@ public class AddLocationDialog extends DialogFragment {
         rootView = view;
 
         builder.setView(view);
-        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setIcon(R.drawable.app_icon);
         builder.setTitle(getActivity().getString(R.string.dialog_add_label));
 
         this.database = PFASQLiteHelper.getInstance(getActivity());
@@ -86,6 +92,17 @@ public class AddLocationDialog extends DialogFragment {
 
         adapter = new ArrayAdapter<City>(getContext(), android.R.layout.simple_list_item_1, new ArrayList<City>());
 
+        autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    performDone();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         autoCompleteTextView.setAdapter(adapter);
         autoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -95,7 +112,7 @@ public class AddLocationDialog extends DialogFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                final int LIST_LIMIT = 8;
+
                 selectedCity = null;
                 if (database != null) {
                     String current = autoCompleteTextView.getText().toString();
@@ -132,18 +149,48 @@ public class AddLocationDialog extends DialogFragment {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-                addCity();
-                //TODO Is there a better solution?
-                activity.recreate();
-                dismiss();
-
+                performDone();
             }
         });
 
         builder.setNegativeButton(getActivity().getString(R.string.dialog_add_close_button), null);
 
         return builder.create();
+    }
+
+    private void performDone() {
+        if (checkCity()) {
+            addCity();
+            //TODO Is there a better solution?
+            activity.recreate();
+            dismiss();
+        }
+    }
+
+    private boolean checkCity() {
+        Log.i("TGL", "checkCity");
+        if (selectedCity == null) {
+            Log.i("TGL", "selectedCity is null");
+            String current = autoCompleteTextView.getText().toString();
+            if (current.length() > 2) {
+                Log.i("TGL", "current: " + current);
+                List<City> cities = database.getCitiesWhereNameLike(current, LIST_LIMIT);
+                if (cities.size() == 1) {
+                    selectedCity = cities.get(0);
+                    Log.i("TGL", "city = " + selectedCity);
+                    return true;
+                } else {
+                    Log.i("TGL", "found: " + cities.size() + " cities");
+                    for (City city: cities) {
+                        Log.i("TGL", "city: " + city.getCityName() + " (" + city.getCityId() + ")");
+                    }
+                }
+            }
+
+            Toast.makeText(activity.getBaseContext(), "NO City selected", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
 // TODO Cleanup
@@ -156,26 +203,20 @@ public class AddLocationDialog extends DialogFragment {
     //TODO setRank
     public void addCity() {
         String postCode = "-";
+        try {
+            postCode = selectedCity.getPostalCode();
+        } catch (NullPointerException e) {
 
-        if (selectedCity == null) {
-            Toast.makeText(activity.getBaseContext(), "NO City selected", Toast.LENGTH_SHORT).show();
-        } else {
-            try {
-                postCode = selectedCity.getPostalCode();
-            } catch (NullPointerException e) {
-
-            }
-
-            database.addCityToWatch(new CityToWatch(
-                    15,
-                    postCode,
-                    selectedCity.getCountryCode(),
-                    -1,
-                    selectedCity.getCityId(),
-                    selectedCity.getCityName()
-            ));
         }
 
+        database.addCityToWatch(new CityToWatch(
+                15,
+                postCode,
+                selectedCity.getCountryCode(),
+                -1,
+                selectedCity.getCityId(),
+                selectedCity.getCityName()
+        ));
     }
 
 }

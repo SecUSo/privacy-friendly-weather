@@ -34,7 +34,10 @@
             <android.support.v7.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/radius_search_edt_location"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:imeOptions="actionSearch"/>
 
             <TextView
                 android:id="@+id/radius_search_tv_edge_length"

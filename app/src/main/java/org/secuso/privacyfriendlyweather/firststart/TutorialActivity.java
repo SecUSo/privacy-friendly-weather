@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
@@ -40,6 +43,7 @@ public class TutorialActivity extends AppCompatActivity {
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayAdapter<City> adapter;
     City selectedCity;
+    final int LIST_LIMIT = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,17 @@ public class TutorialActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter<City>(getBaseContext(), android.R.layout.simple_list_item_1, new ArrayList<City>());
 
+        autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    performDone();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         autoCompleteTextView.setAdapter(adapter);
         autoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -73,7 +88,7 @@ public class TutorialActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                final int LIST_LIMIT = 8;
+
                 selectedCity = null;
                 if (database != null) {
                     String current = autoCompleteTextView.getText().toString();
@@ -110,15 +125,29 @@ public class TutorialActivity extends AppCompatActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedCity == null) {
-                    //TODO Add to strings
-                    Toast.makeText(getBaseContext(), "Please choose a location", Toast.LENGTH_SHORT).show();
-                } else {
-                    launchHomeScreen();
-                }
+                performDone();
             }
         });
 
+    }
+
+    private void performDone() {
+        if (selectedCity == null) {
+            String current = autoCompleteTextView.getText().toString();
+            if (current.length() > 2) {
+                List<City> cities = database.getCitiesWhereNameLike(current, LIST_LIMIT);
+                if (cities.size() == 1) {
+                    selectedCity = cities.get(0);
+                    launchHomeScreen();
+                    return;
+                }
+            }
+
+            //TODO Add to strings
+            Toast.makeText(getBaseContext(), "Please choose a location", Toast.LENGTH_SHORT).show();
+        } else {
+            launchHomeScreen();
+        }
     }
 
     private void launchHomeScreen() {

@@ -37,7 +37,7 @@
             android:text="Let's start by setting a location:"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/slide_desc" />
+            android:textSize="@dimen/slide_desc"/>
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTvAddFirstStart"
@@ -47,7 +47,8 @@
             android:maxLines="1"
             android:imeOptions="actionDone"
             android:textColor="@color/white"
-            android:textCursorDrawable="@null" />
+            android:textCursorDrawable="@null"
+            android:inputType="text"/>
 
     </LinearLayout>
 
