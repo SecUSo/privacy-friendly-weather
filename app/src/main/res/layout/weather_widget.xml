@@ -6,6 +6,7 @@
     android:orientation="horizontal"
     android:weightSum="3"
     android:background="@drawable/rounded_corner"
+    android:previewImage="@drawable/weather_widget_preview">
     >
 
     <ImageView
