@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/widget_margin"
     android:orientation="horizontal"
-    android:weightSum="2">
+    android:weightSum="3"
+    android:background="@drawable/rounded_corner"
+    >
 
     <ImageView
         android:id="@+id/widget_city_weather_image_view"
@@ -13,35 +15,82 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@mipmap/weather_icon_sunny_with_clouds"
-        android:layout_weight="1"/>
+        android:layout_weight="2"
+        />
 
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:gravity="right"
-        android:weightSum="2"
-        android:layout_weight="1">
+        android:columnCount="2"
+        android:layout_weight="1"
+        android:paddingStart="20dp"
+        >
+
+        <TextView
+            android:id="@+id/widget_city_name"
+            android:layout_width="wrap_content"
+            android:text="CityName"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="16dp"
+            android:textSize="25dp"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_columnSpan="2"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Temp:"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="16dp"
+            android:textSize="18dp"
+            android:layout_column="0"
+            android:layout_row="1"
+            />
 
         <TextView
             android:id="@+id/widget_city_weather_temperature"
             android:layout_width="wrap_content"
-            android:text="temperature"
+            android:text="-273,15°C"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="16dp"
-            android:textSize="30sp" />
+            android:textSize="20dp"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:layout_gravity="end"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Luftf.:"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="16dp"
+            android:textSize="18dp"
+            android:layout_column="0"
+            android:layout_row="2"
+            />
 
         <TextView
             android:id="@+id/widget_city_weather_humidity"
             android:layout_width="wrap_content"
-            android:text="humidity"
+            android:text="0%"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="16dp"
-            android:textSize="30sp"/>
+            android:textSize="20dp"
+            android:layout_column="1"
+            android:layout_row="2"
+            android:layout_gravity="end"
+            />
 
-    </LinearLayout>
+    </GridLayout>
 
 </LinearLayout>

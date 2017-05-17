@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:textSize="50dp"
             android:textColor="@color/colorPrimaryDark"
-            android:background="@drawable/roundex_corner"
+            android:background="@drawable/rounded_corner"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="16dp"

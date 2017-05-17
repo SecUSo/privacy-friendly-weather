@@ -178,7 +178,7 @@
     <string name="settings_confirm_title_API_key_reset">Reset API key</string>
     <string name="settings_confirm_content_API_key_reset">Do you really want to reset to the default API key?</string>
     <string name="reset">reset</string>
-    <string name="appwidget_text">EXAMPLE</string>
+    <string name="appwidget_text">PFA - Weather</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
 

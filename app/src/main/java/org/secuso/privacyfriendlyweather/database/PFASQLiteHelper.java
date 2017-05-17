@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -220,7 +221,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     }
 
     public City getCityById(Integer id) {
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase database = this.getReadableDatabase();
 
         String[] args = {id.toString()};
 
@@ -324,7 +325,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     public List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit) {
         List<City> cities = new ArrayList<>();
 
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase database = this.getReadableDatabase();
 
         String query = "SELECT " + CITIES_ID +
                 " FROM " + TABLE_CITIES +
@@ -395,6 +396,25 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
         return cityToWatch;
 
+    }
+
+    public boolean isCityWatched(int cityId) {
+        SQLiteDatabase database = this.getReadableDatabase();
+
+        String query = "SELECT " + CITIES_TO_WATCH_CITY_ID +
+                " FROM " + TABLE_CITIES_TO_WATCH +
+                " WHERE " + CITIES_TO_WATCH_CITY_ID + " = ?";
+
+        String[] params = {String.valueOf(cityId)};
+        Cursor cursor = database.rawQuery(query, params);
+
+        boolean result = false;
+
+        if (cursor.moveToFirst()) {
+            result = !cursor.isNull(0);
+        }
+
+        return result;
     }
 
     public List<CityToWatch> getAllCitiesToWatch() {
@@ -672,7 +692,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     }
 
     public CurrentWeatherData getCurrentWeatherByCityId(int cityId) {
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase database = this.getReadableDatabase();
 
         Cursor cursor = database.query(TABLE_CURRENT_WEATHER,
                 new String[]{CURRENT_WEATHER_ID,

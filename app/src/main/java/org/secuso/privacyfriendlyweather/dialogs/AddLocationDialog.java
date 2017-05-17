@@ -25,6 +25,8 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.City;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerator;
+import org.secuso.privacyfriendlyweather.ui.util.MyConsumer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class AddLocationDialog extends DialogFragment {
     PFASQLiteHelper database;
 
     private AutoCompleteTextView autoCompleteTextView;
-    private ArrayAdapter<City> adapter;
+    private AutoCompleteCityTextViewGenerator cityTextViewGenerator;
     City selectedCity;
     // TODO Cleanup
     private final List<City> allCities = new ArrayList<>();
@@ -69,79 +71,17 @@ public class AddLocationDialog extends DialogFragment {
 
         this.database = PFASQLiteHelper.getInstance(getActivity());
 
-
-//        new AsyncTask<Void, Void, List<City>>() {
-//            @Override
-//            protected List<City> doInBackground(Void... params) {
-//
-//                List<City> cities = new ArrayList<City>();
-//                cities.addAll(database.getAllCities());
-//
-//                return cities;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(List<City> cities) {
-//                super.onPostExecute(cities);
-//
-//                setCities(cities);
-//            }
-//        }.execute();
-
+        cityTextViewGenerator = new AutoCompleteCityTextViewGenerator(getContext(), database);
         autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTvAddDialog);
-
-        adapter = new ArrayAdapter<City>(getContext(), android.R.layout.simple_list_item_1, new ArrayList<City>());
-
-        autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        cityTextViewGenerator.generate(autoCompleteTextView, LIST_LIMIT, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    performDone();
-                    return true;
-                }
-                return false;
+            public void accept(City city) {
+                selectedCity = city;
             }
-        });
-
-        autoCompleteTextView.setAdapter(adapter);
-        autoCompleteTextView.addTextChangedListener(new TextWatcher() {
+        }, new Runnable() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                selectedCity = null;
-                if (database != null) {
-                    String current = autoCompleteTextView.getText().toString();
-                    if (current.length() > 2) {
-
-                        //List<City> cities = database.getCitiesWhereNameLike(current, allCities, current.length());
-                        List<City> cities = database.getCitiesWhereNameLike(current, LIST_LIMIT);
-                        //TODO Add Postal Code
-                        adapter.clear();
-                        adapter.addAll(cities);
-                        autoCompleteTextView.showDropDown();
-                    } else {
-                        autoCompleteTextView.dismissDropDown();
-                    }
-
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedCity = (City) parent.getItemAtPosition(position);
+            public void run() {
+                performDone();
             }
         });
 
@@ -159,38 +99,13 @@ public class AddLocationDialog extends DialogFragment {
     }
 
     private void performDone() {
-        if (checkCity()) {
-            addCity();
-            //TODO Is there a better solution?
-            activity.recreate();
-            dismiss();
-        }
-    }
-
-    private boolean checkCity() {
-        Log.i("TGL", "checkCity");
         if (selectedCity == null) {
-            Log.i("TGL", "selectedCity is null");
-            String current = autoCompleteTextView.getText().toString();
-            if (current.length() > 2) {
-                Log.i("TGL", "current: " + current);
-                List<City> cities = database.getCitiesWhereNameLike(current, LIST_LIMIT);
-                if (cities.size() == 1) {
-                    selectedCity = cities.get(0);
-                    Log.i("TGL", "city = " + selectedCity);
-                    return true;
-                } else {
-                    Log.i("TGL", "found: " + cities.size() + " cities");
-                    for (City city: cities) {
-                        Log.i("TGL", "city: " + city.getCityName() + " (" + city.getCityId() + ")");
-                    }
-                }
-            }
 
-            Toast.makeText(activity.getBaseContext(), "NO City selected", Toast.LENGTH_SHORT).show();
-            return false;
         }
-        return true;
+        addCity();
+        //TODO Is there a better solution?
+        activity.recreate();
+        dismiss();
     }
 
 // TODO Cleanup

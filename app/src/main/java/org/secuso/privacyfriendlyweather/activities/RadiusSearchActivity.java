@@ -4,15 +4,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.KeyListener;
-import android.text.method.TextKeyListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -24,7 +20,8 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.City;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
-import org.secuso.privacyfriendlyweather.ui.AutoCompleteCityTextViewGenerator;
+import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerator;
+import org.secuso.privacyfriendlyweather.ui.util.MyConsumer;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForRadiusSearch;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForRadiusSearch;
 
@@ -46,7 +43,9 @@ public class RadiusSearchActivity extends BaseActivity {
     private SeekBar sbNumReturns;
     private TextView tvNumReturnsValue;
     private Button btnSearch;
-    private ArrayAdapter<City> adapter;
+
+    private AutoCompleteCityTextViewGenerator cityTextViewGenerator;
+    private int LIMIT_LENGTH = 8;
 
     int edgeRange;
     int minEdgeLength;
@@ -59,7 +58,6 @@ public class RadiusSearchActivity extends BaseActivity {
      */
     private PFASQLiteHelper dbHelper;
     private City dropdownSelectedCity;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,61 +95,17 @@ public class RadiusSearchActivity extends BaseActivity {
         minNumberOfReturns = MIN_NUMBER_OF_RETURNS;
 
         // Visual components
-        //AutoCompleteCityTextViewGenerator generator = new AutoCompleteCityTextViewGenerator(this, dbHelper);
+        cityTextViewGenerator = new AutoCompleteCityTextViewGenerator(this, dbHelper);
         edtLocation = (AutoCompleteTextView) findViewById(R.id.radius_search_edt_location);
-
-        adapter = new ArrayAdapter<City>(getBaseContext(), android.R.layout.simple_list_item_1, new ArrayList<City>());
-
-        edtLocation.setAdapter(adapter);
-
-        edtLocation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        cityTextViewGenerator.generate(edtLocation, LIMIT_LENGTH, EditorInfo.IME_ACTION_SEARCH, new MyConsumer<City>() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    handleOnButtonSearchClick();
-                    return true;
-                }
-                return false;
+            public void accept(City city) {
+                dropdownSelectedCity = city;
             }
-        });
-
-        edtLocation.addTextChangedListener(new TextWatcher() {
+        }, new Runnable() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                final int LIST_LIMIT = 8;
-                dropdownSelectedCity = null;
-                if (dbHelper != null) {
-                    String current = edtLocation.getText().toString();
-                    if (current.length() > 2) {
-
-                        //List<City> cities = database.getCitiesWhereNameLike(current, allCities, current.length());
-                        List<City> cities = dbHelper.getCitiesWhereNameLike(current, LIST_LIMIT);
-                        //TODO Add Postal Code
-                        adapter.clear();
-                        adapter.addAll(cities);
-                        edtLocation.showDropDown();
-                    } else {
-                        edtLocation.dismissDropDown();
-                    }
-
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-        edtLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dropdownSelectedCity = (City)parent.getAdapter().getItem(position);
+            public void run() {
+                handleOnButtonSearchClick();
             }
         });
 
@@ -228,8 +182,6 @@ public class RadiusSearchActivity extends BaseActivity {
      */
 
     private void handleOnButtonSearchClick() {
-        Log.i("TGL", "handleOnButtonSearchClicked");
-
         // Retrieve all necessary inputs (convert the edgeLength if necessary)
         int edgeLength = sbEdgeLength.getProgress() + minEdgeLength;
         int numberOfReturnCities = sbNumReturns.getProgress() + minNumberOfReturns;
@@ -237,31 +189,18 @@ public class RadiusSearchActivity extends BaseActivity {
             edgeLength = Math.round(prefManager.convertMilesInKm(edgeLength));
         }
 
-        //List<City> allCities = dbHelper.getAllCities();
-
         // Procedure for retrieving the city (only necessary if no item from the drop down list
         // was selected)
-        City city = dropdownSelectedCity;
-        if (city == null) {
-            List<City> foundCities = dbHelper.getCitiesWhereNameLike(edtLocation.getText().toString(), 2);
-            //List<City> foundCities = dbHelper.getCitiesWhereNameLike(edtLocation.getText().toString(), 2);
-            // 1) No city found
-            if (foundCities.size() == 0) {
-                Toast.makeText(RadiusSearchActivity.this, R.string.dialog_add_no_city_found, Toast.LENGTH_LONG).show();
-                return;
-            }
-            // 2) 1 city found,
-            else if (foundCities.size() == 1) {
-                city = foundCities.get(0);
-            }
-            // 3) > 1 cities found
-            else {
-                Toast.makeText(RadiusSearchActivity.this, R.string.dialog_add_too_many_cities_found, Toast.LENGTH_LONG).show();
+
+        if (dropdownSelectedCity == null) {
+            cityTextViewGenerator.getCityFromText(true);
+            if (dropdownSelectedCity == null) {
                 return;
             }
         }
+
         IHttpRequestForRadiusSearch radiusSearchRequest = new OwmHttpRequestForRadiusSearch(getApplicationContext());
-        radiusSearchRequest.perform(city.getCityId(), edgeLength, numberOfReturnCities);
+        radiusSearchRequest.perform(dropdownSelectedCity.getCityId(), edgeLength, numberOfReturnCities);
     }
 
     /**

@@ -6,10 +6,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.database.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.services.UpdateDataService;
+import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerator;
+import org.secuso.privacyfriendlyweather.ui.util.MyConsumer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The configuration screen for the {@link WeatherWidget WeatherWidget} AppWidget.
@@ -19,45 +37,86 @@ public class WeatherWidgetConfigureActivity extends Activity {
     private static final String PREFS_NAME = "org.secuso.privacyfriendlyweather.widget.WeatherWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    EditText mAppWidgetText;
+    private City selectedCity;
+
+    AutoCompleteTextView mAppWidgetText;
+    AutoCompleteCityTextViewGenerator generator;
+    PFASQLiteHelper database;
+
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
-            final Context context = WeatherWidgetConfigureActivity.this;
-
-            // When the button is clicked, store the string locally
-            String widgetText = mAppWidgetText.getText().toString();
-            saveTitlePref(context, mAppWidgetId, widgetText);
-
-            // It is the responsibility of the configuration activity to update the app widget
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            WeatherWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
-
-            // Make sure we pass back the original appWidgetId
-            Intent resultValue = new Intent();
-            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-            setResult(RESULT_OK, resultValue);
-            finish();
+           handleOk();
         }
     };
+
+    private void handleOk() {
+        Log.i("TGL", "handleOk");
+        final Context context = WeatherWidgetConfigureActivity.this;
+
+        if (selectedCity == null) {
+            generator.getCityFromText(true);
+            if (selectedCity == null) {
+                return;
+            }
+        }
+
+        addLocationForNewCity(selectedCity);
+
+        // When the button is clicked, store the string locally
+        saveTitlePref(context, mAppWidgetId, selectedCity.getCityId());
+
+        // It is the responsibility of the configuration activity to update the app widget
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        WeatherWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+
+        // Make sure we pass back the original appWidgetId
+        Intent resultValue = new Intent();
+        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+        setResult(RESULT_OK, resultValue);
+        finish();
+    }
+
+    private void addLocationForNewCity(City selectedCity) {
+        boolean isAdded = database.isCityWatched(selectedCity.getCityId());
+
+        if (!isAdded) {
+            CityToWatch newCity = new CityToWatch();
+            newCity.setCityId(selectedCity.getCityId());
+            newCity.setRank(42);
+
+            database.addCityToWatch(newCity);
+
+            Intent intent = new Intent(this, UpdateDataService.class);
+            intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
+            intent.putExtra("cityId", selectedCity.getCityId());
+            startService(intent);
+        }
+
+    }
 
     public WeatherWidgetConfigureActivity() {
         super();
     }
 
     // Write the prefix to the SharedPreferences object for this widget
-    static void saveTitlePref(Context context, int appWidgetId, String text) {
+    static void saveTitlePref(Context context, int appWidgetId, int cityId) {
+        Log.i("TGL", "saveTitlePref");
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.putString(PREF_PREFIX_KEY + appWidgetId, text);
+        prefs.putInt(PREF_PREFIX_KEY + appWidgetId, cityId);
         prefs.apply();
     }
 
     // Read the prefix from the SharedPreferences object for this widget.
     // If there is no preference saved, get the default from a resource
     static String loadTitlePref(Context context, int appWidgetId) {
+        Log.i("TGL", "loadTitlePref");
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
-        String titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null);
-        if (titleValue != null) {
-            return titleValue;
+
+        int cityId = prefs.getInt(PREF_PREFIX_KEY + appWidgetId, -1);
+        if (cityId != -1) {
+            City city = PFASQLiteHelper.getInstance(context).getCityById(cityId);
+            Log.i("TGL", "got city: " + city);
+            return city.getCityName();
         } else {
             return context.getString(R.string.appwidget_text);
         }
@@ -78,7 +137,7 @@ public class WeatherWidgetConfigureActivity extends Activity {
         setResult(RESULT_CANCELED);
 
         setContentView(R.layout.weather_widget_configure);
-        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
+
         findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
 
         // Find the widget id from the intent.
@@ -95,7 +154,23 @@ public class WeatherWidgetConfigureActivity extends Activity {
             return;
         }
 
-        mAppWidgetText.setText(loadTitlePref(WeatherWidgetConfigureActivity.this, mAppWidgetId));
+        Log.i("TGL", "onCreate");
+        mAppWidgetText = (AutoCompleteTextView) findViewById(R.id.appwidget_text);
+
+        database = PFASQLiteHelper.getInstance(this);
+        generator = new AutoCompleteCityTextViewGenerator(getApplicationContext(), database);
+
+        generator.generate(mAppWidgetText, 8, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
+            @Override
+            public void accept(City city) {
+                selectedCity = city;
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                handleOk();
+            }
+        });
     }
 }
 
