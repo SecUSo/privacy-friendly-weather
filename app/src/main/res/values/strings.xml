@@ -23,6 +23,17 @@
     <string name="activity_main_snackbar_undo_info">Item was removed</string>
     <string name="activity_main_snackbar_undo_button">UNDO</string>
 
+    <!-- ###TUTORIAL### -->
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="okay">Okay</string>
+    <string name="slide1_heading">Welcome!</string>
+    <string name="slide1_text">blabla</string>
+    <string name="slide2_heading">Key Elements</string>
+    <string name="slide2_text">Introduce key elements of your app. Do not introduce too many details.</string>
+    <string name="slide3_heading">Github and Guide</string>
+    <string name="slide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the Privacy Friendly App Guide.</string>
+
     <!-- ###CARD_HEADINGs### -->
     <string name="card_details_heading">Details</string>
     <string name="card_week_heading">Week</string>
@@ -129,9 +140,9 @@
     <string name="activity_forecast_label">Weather Forecast</string>
 
     <!-- ###DIALOGS### -->
-    <string name="dialog_first_app_title">Welcome</string>
+    <string name="dialog_first_app_title">The First Location</string>
     <string name="dialog_first_app_start_message">
-        Using the button below, please add locations you would like to watch the weather for.\nThese can be removed at any time.
+        And  now add your first Location
     </string>
     <string name="dialog_first_app_help_button">View Help</string>
     <string name="dialog_first_app_close_button">Okay</string>

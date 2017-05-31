@@ -41,7 +41,7 @@
     <string name="dialog_add_too_many_cities_found">Die Eingabe ist nicht eindeutig. Es wird empfohlen, einen Eintrag aus dem Dropdown-Menu zu wählen.</string>
     <string name="dialog_first_app_close_button">Okay</string>
     <string name="dialog_first_app_help_button">Zur Hilfe</string>
-    <string name="dialog_first_app_start_message">Mit dem Button unten können Orte hinzugefügt werden, zu denen Wetterinformationen eingesehen werden können.</string>
+    <string name="dialog_first_app_start_message">Gib nun den ersten Ort ein</string>
     <string name="help">Hilfe</string>
     <string name="help_category">Hilfe-Kategorie</string>
     <string name="help_overview_heading">Übersicht</string>
@@ -84,7 +84,7 @@
     <string name="settings_summary_distance">Die Einheit, die zur Anzeige von Entfernungen verwendet wird.</string>
     <string name="settings_summary_temperature">Die Einheit, die zur Anzeige von Temperaturen verwendet wird.</string>
     <string name="activity_main_location_not_found">Der Server kennt diesen Ort nicht. Sind Sie sich sicher, dass er doch exisitert, versuchen Sie es erneut.</string>
-    <string name="dialog_first_app_title">Willkommen</string>
+    <string name="dialog_first_app_title">Der erste Ort</string>
     <string name="activity_city_weather_tv_details">Tagesverlauf ▼</string>
     <string name="help_delete_items_text">Orte in der Übersichtsliste können entfernt werden, in dem eine Wischbewegung von links nach rechts oder umgekehrt durchgeführt wird.</string>
     <string name="help_move_items_text">Die Position von Einträgen in der Übersichtsliste kann geändert werden, in dem lange auf einen Ort geklickt und dieser anschließend nach unten oder oben verschoben wird.</string>
@@ -102,4 +102,6 @@
     <string name="abbreviation_wednesday">Mi.</string>
     <string name="info_no_data_for_day">Für den ausgewählten Tag sind (noch) keine Daten vorhanden.</string>
     <string name="about_author_contributors">und Mitwirkende</string>
+    <string name="next">Weiter</string>
+    <string name="okay">OK</string>
 </resources>
