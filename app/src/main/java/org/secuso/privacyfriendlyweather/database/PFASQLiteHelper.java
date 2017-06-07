@@ -248,86 +248,15 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         return city;
     }
 
-    public City getCityByName(String cityName) {
-
-        SQLiteDatabase database = this.getWritableDatabase();
-
-        String[] arguments = {String.valueOf(cityName)};
-
-        Cursor cursor = database.rawQuery(
-                "SELECT " + CITIES_ID +
-                        ", " + CITIES_NAME +
-                        ", " + CITIES_COUNTRY_CODE +
-                        ", " + CITIES_POSTAL_CODE +
-                        " FROM " + TABLE_CITIES +
-                        " WHERE " + CITIES_NAME + " = ?", arguments);
-
-        City city = new City();
-
-        if (cursor != null && cursor.moveToFirst()) {
-
-            city.setCityId(Integer.parseInt(cursor.getString(0)));
-            city.setCityName(cursor.getString(1));
-            city.setCountryCode(cursor.getString(2));
-            city.setPostalCode(cursor.getString(3));
-
-            cursor.close();
-        }
-
-        return city;
-    }
-
-    public List<City> getAllCities() {
-        if (allCities.size() == 0) {
-
-            SQLiteDatabase database = this.getWritableDatabase();
-
-            String selectQuery = "SELECT  * FROM " + TABLE_CITIES;
-
-            Cursor cursor = database.rawQuery(selectQuery, null);
-
-            City city = null;
-
-            if (cursor.moveToFirst()) {
-                do {
-                    city = new City();
-                    city.setCityId(Integer.parseInt(cursor.getString(0)));
-                    city.setCityName(cursor.getString(1));
-                    city.setCountryCode(cursor.getString(2));
-                    city.setPostalCode(cursor.getString(3));
-
-                    allCities.add(city);
-                } while (cursor.moveToNext());
-            }
-        }
-        return allCities;
-
-    }
-
-
-//    public List<City> getCitiesWhereNameLike(String cityNameLetters, List<City> allCities, int dropdownListLimit) {
-//        List<City> cities = new ArrayList<>();
-//
-//        int i = 0;
-//        for (City city: allCities) {
-//            if (city.getCityName().startsWith(String.format("%s%%", cityNameLetters))) {
-//                cities.add(city);
-//                i++;
-//                if (i == dropdownListLimit) {
-//                    break;
-//                }
-//            }
-//        }
-//
-//        return cities;
-    // }
-
     public List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit) {
         List<City> cities = new ArrayList<>();
 
         SQLiteDatabase database = this.getReadableDatabase();
 
         String query = "SELECT " + CITIES_ID +
+                ", " + CITIES_NAME +
+                ", " + CITIES_COUNTRY_CODE +
+                ", " + CITIES_POSTAL_CODE +
                 " FROM " + TABLE_CITIES +
                 " WHERE " + CITIES_NAME +
                 " LIKE ?" +
@@ -339,7 +268,11 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                City city = getCityById(cursor.getInt(0));
+                City city = new City();
+                city.setCityId(Integer.parseInt(cursor.getString(0)));
+                city.setCityName(cursor.getString(1));
+                city.setCountryCode(cursor.getString(2));
+                city.setPostalCode(cursor.getString(3));
                 cities.add(city);
             } while (cursor.moveToNext());
         }

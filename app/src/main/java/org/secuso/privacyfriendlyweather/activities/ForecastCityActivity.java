@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -97,10 +98,15 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
         mRecyclerView.setAdapter(mAdapter);
 
-        //TODO Change to city name from DB, need a method to get the city name from the ID
-        //currentWeatherDataList.getCity_id();
-        CityToWatch cityToWatch = database.getCityToWatch(cityID);
-        setTitle(cityToWatch.getCityName());
+        new AsyncTask<Integer, Void, CityToWatch>() {
+            @Override
+            protected CityToWatch doInBackground(Integer... params) {
+                CityToWatch cityToWatch = database.getCityToWatch(cityID);
+                setTitle(cityToWatch.getCityName());
+
+                return cityToWatch;
+            }
+        }.doInBackground(cityID);
     }
 
     @Override
@@ -152,8 +158,15 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         mAdapter = new CityWeatherAdapter(data, mDataSetTypes, getBaseContext());
         mRecyclerView.setAdapter(mAdapter);
 
-        CityToWatch cityToWatch = database.getCityToWatch(cityID);
-        setTitle(cityToWatch.getCityName());
+        new AsyncTask<Integer, Void, CityToWatch>() {
+            @Override
+            protected CityToWatch doInBackground(Integer... params) {
+                CityToWatch cityToWatch = database.getCityToWatch(cityID);
+                setTitle(cityToWatch.getCityName());
+
+                return cityToWatch;
+            }
+        }.doInBackground(cityID);
     }
 
     @Override

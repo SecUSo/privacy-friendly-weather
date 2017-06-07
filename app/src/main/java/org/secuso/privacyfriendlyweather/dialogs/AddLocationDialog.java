@@ -124,7 +124,13 @@ public class AddLocationDialog extends DialogFragment {
 
         }
 
-        database.addCityToWatch(new CityToWatch(
+        new AsyncTask<CityToWatch, Void, Void>() {
+            @Override
+            protected Void doInBackground(CityToWatch... params) {
+                database.addCityToWatch(params[0]);
+                return null;
+            }
+        }.doInBackground(new CityToWatch(
                 15,
                 postCode,
                 selectedCity.getCountryCode(),

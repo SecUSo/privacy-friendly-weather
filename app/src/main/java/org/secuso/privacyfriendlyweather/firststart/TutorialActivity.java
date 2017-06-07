@@ -3,6 +3,7 @@ package org.secuso.privacyfriendlyweather.firststart;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -170,20 +171,28 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     public void addCity() {
-        if (selectedCity != null){
-            database.addCityToWatch(new CityToWatch(
-                    15,
-                    selectedCity.getPostalCode(),
-                    selectedCity.getCountryCode(),
-                    -1,
-                    selectedCity.getCityId(),
-                    selectedCity.getCityName()
-            ));
-            prefManager.setDefaultLocation(selectedCity.getCityId());
-        }
-        Intent intent = new Intent(this, UpdateDataService.class);
-        intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
-        startService(intent);
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                if (selectedCity != null){
+                    database.addCityToWatch(new CityToWatch(
+                            15,
+                            selectedCity.getPostalCode(),
+                            selectedCity.getCountryCode(),
+                            -1,
+                            selectedCity.getCityId(),
+                            selectedCity.getCityName()
+                    ));
+                    prefManager.setDefaultLocation(selectedCity.getCityId());
+                    Intent intent = new Intent(getApplicationContext(), UpdateDataService.class);
+                    intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
+                    startService(intent);
+                }
+
+                return null;
+            }
+        }.doInBackground(null);
     }
 
     //  viewpager change listener

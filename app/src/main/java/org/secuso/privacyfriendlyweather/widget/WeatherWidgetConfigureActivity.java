@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -76,22 +77,29 @@ public class WeatherWidgetConfigureActivity extends Activity {
         finish();
     }
 
-    private void addLocationForNewCity(City selectedCity) {
-        boolean isAdded = database.isCityWatched(selectedCity.getCityId());
+    private void addLocationForNewCity(final City selectedCity) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                boolean isAdded = database.isCityWatched(selectedCity.getCityId());
 
-        if (!isAdded) {
-            CityToWatch newCity = new CityToWatch();
-            newCity.setCityId(selectedCity.getCityId());
-            newCity.setRank(42);
+                if (!isAdded) {
+                    CityToWatch newCity = new CityToWatch();
+                    newCity.setCityId(selectedCity.getCityId());
+                    newCity.setRank(42);
 
-            database.addCityToWatch(newCity);
+                    database.addCityToWatch(newCity);
 
-            Intent intent = new Intent(this, UpdateDataService.class);
-            intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
-            intent.putExtra("cityId", selectedCity.getCityId());
-            startService(intent);
-        }
+                    Intent intent = new Intent(getApplicationContext(), UpdateDataService.class);
+                    intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
+                    intent.putExtra("cityId", selectedCity.getCityId());
+                    startService(intent);
+                }
 
+                return null;
+            }
+
+        }.doInBackground(null);
     }
 
     public WeatherWidgetConfigureActivity() {
@@ -100,7 +108,6 @@ public class WeatherWidgetConfigureActivity extends Activity {
 
     // Write the prefix to the SharedPreferences object for this widget
     static void saveTitlePref(Context context, int appWidgetId, int cityId) {
-        Log.i("TGL", "saveTitlePref");
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
         prefs.putInt(PREF_PREFIX_KEY + appWidgetId, cityId);
         prefs.apply();
@@ -109,17 +116,7 @@ public class WeatherWidgetConfigureActivity extends Activity {
     // Read the prefix from the SharedPreferences object for this widget.
     // If there is no preference saved, get the default from a resource
     static String loadTitlePref(Context context, int appWidgetId) {
-        Log.i("TGL", "loadTitlePref");
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
-
-        int cityId = prefs.getInt(PREF_PREFIX_KEY + appWidgetId, -1);
-        if (cityId != -1) {
-            City city = PFASQLiteHelper.getInstance(context).getCityById(cityId);
-            Log.i("TGL", "got city: " + city);
-            return city.getCityName();
-        } else {
-            return context.getString(R.string.appwidget_text);
-        }
+        return context.getString(R.string.appwidget_text);
     }
 
     static void deleteTitlePref(Context context, int appWidgetId) {

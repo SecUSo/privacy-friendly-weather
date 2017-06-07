@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
@@ -30,26 +31,37 @@ public class WeatherWidget extends AppWidgetProvider {
     private static final String PREFS_NAME = "org.secuso.privacyfriendlyweather.widget.WeatherWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    static void updateAppWidget(final Context context, final AppWidgetManager appWidgetManager,
+                                final int appWidgetId) {
 
         //CharSequence widgetText = WeatherWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
-
-        String number = String.format("%03d", (new Random().nextInt(900) + 100));
+        final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
 
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
-        Integer cityId = prefs.getInt(PREF_PREFIX_KEY + appWidgetId, -1);
+        final Integer cityId = prefs.getInt(PREF_PREFIX_KEY + appWidgetId, -1);
         if (cityId == -1) {
             Toast.makeText(context, "cityId is null?", Toast.LENGTH_LONG);
             return;
         }
 
-        PFASQLiteHelper database = PFASQLiteHelper.getInstance(context);
-        City city = database.getCityById(cityId);
-        CurrentWeatherData weatherData = database.getCurrentWeatherByCityId(city.getCityId());
+        new AsyncTask<Integer, Void, Void>() {
+            @Override
+            protected Void doInBackground(Integer... params) {
+                PFASQLiteHelper database = PFASQLiteHelper.getInstance(context);
+                City city = database.getCityById(cityId);
+                CurrentWeatherData weatherData = database.getCurrentWeatherByCityId(city.getCityId());
 
+                updateView(context, appWidgetManager, views, appWidgetId, city, weatherData);
+
+                database.close();
+
+                return null;
+            }
+        }.doInBackground(cityId);
+    }
+
+    private static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, City city, CurrentWeatherData weatherData) {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
         DecimalFormat decimalFormat = new DecimalFormat("#.0");
@@ -70,8 +82,6 @@ public class WeatherWidget extends AppWidgetProvider {
         views.setOnClickPendingIntent(R.id.widget_city_weather_image_view, pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
-
-        database.close();
     }
 
     @Override

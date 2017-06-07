@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -44,7 +45,6 @@ public class MainActivity extends BaseActivity {
 
         database = PFASQLiteHelper.getInstance(this);
 
-        //TODO Get from DB
         List<CityToWatch> cities = new ArrayList<CityToWatch>();
 
         try {
@@ -62,19 +62,7 @@ public class MainActivity extends BaseActivity {
             toast.show();
         }
 
-
-        //TODO Remove on cleanup
-//        CityToWatch kl = new CityToWatch(2, "", "DE", 1, 2894003, "Kaiserslautern");
-//        CityToWatch riga = new CityToWatch(1, "", "LV", 2, 456172, "Riga");
-//        CityToWatch tokyo = new CityToWatch(3, "", "JP", 3, 1850147, "Tokyo");
-//
-//        cities.add(kl);
-//        cities.add(riga);
-//        cities.add(tokyo);
-
-
         prefManager = new PrefManager(this);
-
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_view_cities);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -95,7 +83,8 @@ public class MainActivity extends BaseActivity {
 
                     public void onLongItemClick(View view, int position) {
                         //sets the current city as default location
-                        setDefaultLocation(RecyclerOverviewListAdapter.getListItems().get(position).getCityId());
+                        CityToWatch city = RecyclerOverviewListAdapter.getListItems().get(position);
+                        setDefaultLocation(city);
                     }
 
                 })
@@ -129,9 +118,8 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    public void setDefaultLocation(int cityId) {
-        prefManager.setDefaultLocation(cityId);
-        City city = database.getCityById(cityId);
+    public void setDefaultLocation(CityToWatch city) {
+        prefManager.setDefaultLocation(city.getCityId());
         Toast.makeText(getBaseContext(), getString(R.string.default_location, city.getCityName()) , Toast.LENGTH_SHORT).show();
         //TODO Is there a better nicer solution?
         recreate();
