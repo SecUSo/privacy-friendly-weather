@@ -90,7 +90,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             "(" +
             CURRENT_WEATHER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             CURRENT_WEATHER_CITY_ID + " INTEGER," +
-            COLUMN_TIME_MEASUREMENT + " TEXT NOT NULL," +
+            COLUMN_TIME_MEASUREMENT + " LONG NOT NULL," +
             COLUMN_WEATHER_ID + " INTEGER," +
             COLUMN_TEMPERATURE_CURRENT + " REAL," +
             COLUMN_TEMPERATURE_MIN + " REAL," +
@@ -100,23 +100,24 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             COLUMN_WIND_SPEED + " REAL," +
             COLUMN_WIND_DIRECTION + " REAL," +
             COLUMN_CLOUDINESS + " REAL," +
-            COLUMN_TIME_SUNRISE + "  TEXT NOT NULL," +
-            COLUMN_TIME_SUNSET + "  TEXT NOT NULL," +
+            COLUMN_TIME_SUNRISE + "  VARCHAR(50) NOT NULL," +
+            COLUMN_TIME_SUNSET + "  VARCHAR(50) NOT NULL," +
             " FOREIGN KEY (" + CURRENT_WEATHER_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
 
     private static final String CREATE_TABLE_CITIES = "CREATE TABLE " + TABLE_CITIES +
             "(" +
             CITIES_ID + " INTEGER PRIMARY KEY," +
-            CITIES_NAME + " TEXT NOT NULL," +
-            CITIES_COUNTRY_CODE + " TEXT NOT NULL," +
-            CITIES_POSTAL_CODE + " TEXT NOT NULL);";
+            CITIES_NAME + " VARCHAR(100) NOT NULL," +
+            CITIES_COUNTRY_CODE + " VARCHAR(10) NOT NULL," +
+            CITIES_POSTAL_CODE + " VARCHAR(10) NOT NULL, " +
+            " INDEX `key` (`" + CITIES_NAME + "`) );";
 
     private static final String CREATE_TABLE_FORECASTS = "CREATE TABLE " + TABLE_FORECAST +
             "(" +
             FORECAST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             FORECAST_CITY_ID + " INTEGER," +
-            FORECAST_COLUMN_TIME_MEASUREMENT + " TEXT NOT NULL," +
-            FORECAST_COLUMN_FORECAST_FOR + " TEXT NOT NULL," +
+            FORECAST_COLUMN_TIME_MEASUREMENT + " LONG NOT NULL," +
+            FORECAST_COLUMN_FORECAST_FOR + " VARCHAR(200) NOT NULL," +
             FORECAST_COLUMN_WEATHER_ID + " INTEGER," +
             FORECAST_COLUMN_TEMPERATURE_CURRENT + " REAL," +
             FORECAST_COLUMN_HUMIDITY + " REAL," +
