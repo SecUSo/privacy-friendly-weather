@@ -6,9 +6,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.orm.City;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-import org.secuso.privacyfriendlyweather.orm.Forecast;
+import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.ListView.ForecastAdapter;
 
 import java.sql.SQLException;
@@ -26,7 +26,7 @@ public class CityWeatherDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_weather_details);
 
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(getApplicationContext());
 
         List<Forecast> forecasts = new ArrayList<>();
 
@@ -35,16 +35,12 @@ public class CityWeatherDetailsActivity extends AppCompatActivity {
         String heading = "";
         int cityId = getIntent().getIntExtra("cityId", -1);
         if (cityId != -1) {
-            try {
-                City city = dbHelper.getCityByID(cityId);
-                if (city != null) {
-                    heading = city.getCityName();
-                }
-
-                forecasts = dbHelper.getForecastForCityByDay(cityId, new Date());
-            } catch (SQLException e) {
-                e.printStackTrace();
+            City city = dbHelper.getCityById(cityId);
+            if (city != null) {
+                heading = city.getCityName();
             }
+
+            forecasts = dbHelper.getForecastForCityByDay(cityId, new Date());
         }
 
         TextView tvHeading = (TextView) findViewById(R.id.activity_weather_details_heading);

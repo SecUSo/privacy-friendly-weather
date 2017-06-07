@@ -14,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-import org.secuso.privacyfriendlyweather.orm.Forecast;
+import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
@@ -82,7 +82,7 @@ public class CityWeatherActivity extends AppCompatActivity {
                 // Open details for today
                 if (tagCurrentTextViewClicked == 0) {
                     Intent intent = new Intent(getApplicationContext(), CityWeatherDetailsActivity.class);
-                    intent.putExtra("cityId", currentWeatherData.getCity().getId());
+                    intent.putExtra("cityId", currentWeatherData.getCity_id());
                     startActivity(intent);
                 }
                 // Open a forecast
@@ -93,7 +93,7 @@ public class CityWeatherActivity extends AppCompatActivity {
 
                     // Open the activity
                     Intent forecastActivity = new Intent(CityWeatherActivity.this, ForecastActivity.class);
-                    forecastActivity.putExtra("cityId", currentWeatherData.getCity().getId());
+                    forecastActivity.putExtra("cityId", currentWeatherData.getCity_id());
                     forecastActivity.putExtra("day", day);
                     startActivity(forecastActivity);
                 }
@@ -103,7 +103,7 @@ public class CityWeatherActivity extends AppCompatActivity {
         // Start a background task to retrieve and store the weather data
         Intent updateService = new Intent(this, UpdateDataService.class);
         updateService.setAction(UpdateDataService.UPDATE_ALL_ACTION);
-        updateService.putExtra(UpdateDataService.CITY_ID, currentWeatherData.getCity().getCityId());
+        updateService.putExtra(UpdateDataService.CITY_ID, currentWeatherData.getCity_id());
         startService(updateService);
     }
 
@@ -192,7 +192,7 @@ public class CityWeatherActivity extends AppCompatActivity {
         // Format the values to display
         String heading = String.format(
                 "%s %s%s",
-                weatherData.getCity().getCityName(),
+                weatherData.getCity_name(),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(weatherData.getTemperatureCurrent())),
                 prefManager.getWeatherUnit()
         );
@@ -242,8 +242,8 @@ public class CityWeatherActivity extends AppCompatActivity {
      * there are no data for the requested day, null will be returned.
      */
     private CurrentWeatherData getWeatherDataToDisplay(Calendar day) throws SQLException {
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        List<Forecast> forecastData = dbHelper.getForecastForCityByDay(currentWeatherData.getCity().getId(), day.getTime());
+        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(getApplicationContext());
+        List<Forecast> forecastData = dbHelper.getForecastForCityByDay(currentWeatherData.getCity_id(), day.getTime());
 
         // Try to use the 3pm data (fallback is the last record for the day)
         final int INDEX_3_PM = 5;
@@ -255,7 +255,8 @@ public class CityWeatherActivity extends AppCompatActivity {
 
             // Set the new data
             CurrentWeatherData newWeatherData = new CurrentWeatherData();
-            newWeatherData.setCity(forecastToUse.getCity());
+            newWeatherData.setCity_id(forecastToUse.getCity_id());
+            newWeatherData.setCity_name(forecastToUse.getCity_name());
             newWeatherData.setTimestamp(forecastToUse.getForecastTime().getTime());
             newWeatherData.setWeatherID(forecastToUse.getWeatherID());
             newWeatherData.setTemperatureCurrent(forecastToUse.getTemperature());
@@ -263,8 +264,6 @@ public class CityWeatherActivity extends AppCompatActivity {
             newWeatherData.setTemperatureMax(forecastToUse.getTemperature());
             newWeatherData.setHumidity(forecastToUse.getHumidity());
             newWeatherData.setPressure(forecastToUse.getPressure());
-            newWeatherData.setWindSpeed(forecastToUse.getWindSpeed());
-            newWeatherData.setWindDirection(forecastToUse.getWindDirection());
             newWeatherData.setCloudiness(Integer.MAX_VALUE);
             newWeatherData.setTimeSunrise(Integer.MAX_VALUE);
             newWeatherData.setTimeSunset(Integer.MAX_VALUE);

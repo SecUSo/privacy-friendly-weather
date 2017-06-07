@@ -6,9 +6,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.orm.City;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-import org.secuso.privacyfriendlyweather.orm.Forecast;
+import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.ListView.ForecastAdapter;
 
 import java.sql.SQLException;
@@ -29,7 +29,7 @@ public class ForecastActivity extends AppCompatActivity {
         int cityId = getIntent().getIntExtra("cityId", -1);
         Calendar day = (Calendar) getIntent().getSerializableExtra("day");
 
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(getApplicationContext());
         List<Forecast> forecasts = new ArrayList<>();
 
 
@@ -37,17 +37,12 @@ public class ForecastActivity extends AppCompatActivity {
         if (cityId != -1) {
             // Retrieve the passed city ID and then the database records; also display the name of the
             // city
-            try {
-                City city = dbHelper.getCityByID(cityId);
-                if (city != null) {
-                    cityName = city.getCityName();
-                }
-
-                forecasts = dbHelper.getForecastForCityByDay(cityId, day.getTime());
-            } catch (SQLException e) {
-                e.printStackTrace();
-                // TODO: Define the error case
+            City city = dbHelper.getCityById(cityId);
+            if (city != null) {
+                cityName = city.getCityName();
             }
+
+            forecasts = dbHelper.getForecastForCityByDay(cityId, day.getTime());
         }
 
         DateFormat dateFormatter = new SimpleDateFormat("dd.MM");

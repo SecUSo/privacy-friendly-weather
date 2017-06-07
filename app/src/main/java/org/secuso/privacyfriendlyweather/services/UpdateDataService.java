@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
@@ -93,7 +94,7 @@ public class UpdateDataService extends IntentService {
             }
 
 
-            updateInterval = prefManager.getLong("pref_updateInterval", 2)*60*60;
+            updateInterval = Long.valueOf(prefManager.getString("pref_updateInterval", "2"))*60*60;
         }
 
         // only Update if a certain time has passed
@@ -113,11 +114,11 @@ public class UpdateDataService extends IntentService {
 
         long timestamp = 0;
         long systemTime = System.currentTimeMillis() / 1000;
-        long updateInterval = 30*60;
+        long updateInterval = 2*60*60;
         boolean shouldUpdate = false;
 
         if (!skipUpdateInterval) {
-            updateInterval = prefManager.getLong("pref_updateInterval", 30*60);
+            updateInterval = Long.valueOf(prefManager.getString("pref_updateInterval", "2"))*60*60;
 
             List<CityToWatch> citiesToWatch = dbHelper.getAllCitiesToWatch();
             // check timestamp of the current weather .. if one of them is out of date.. update them all at once

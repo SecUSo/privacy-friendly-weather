@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.orm.Forecast;
+import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.UiUtils;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
@@ -59,8 +59,6 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
             holder.tvTemperature = (TextView) vi.findViewById(R.id.activity_city_weather_details_tv_temperature_value);
             holder.tvHumidity = (TextView) vi.findViewById(R.id.activity_city_weather_details_tv_humidity_value);
             holder.tvPressure = (TextView) vi.findViewById(R.id.activity_city_weather_details_tv_pressure_value);
-            holder.tvWindspeed = (TextView) vi.findViewById(R.id.activity_city_weather_details_tv_wind_speed_value);
-            holder.tvRainVolume = (TextView) vi.findViewById(R.id.activity_city_weather_details_tv_rain_volume_value);
 
             vi.setTag(holder);
         } else {
@@ -80,10 +78,6 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
         );
         String humidity = String.format("%s %%", item.getHumidity());
         String pressure = String.format("%s hPa", Math.round(item.getPressure()));
-        String windSpeed = String.format("%s m/s", item.getWindSpeed());
-        String rainVolume = (item.getPastRainVolume() == -1) ?
-                context.getString(R.string.activity_city_weather_details_tv_rain_volume_na) :
-                String.format("%s mm", item.getPastRainVolume());
 
         DateFormat dateFormatter = new SimpleDateFormat("HH:mm");
         IApiToDatabaseConversion.WeatherCategories category = IApiToDatabaseConversion.getLabelForValue(item.getWeatherID());
@@ -93,8 +87,6 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
         holder.tvTemperature.setText(temperature);
         holder.tvHumidity.setText(humidity);
         holder.tvPressure.setText(pressure);
-        holder.tvWindspeed.setText(windSpeed);
-        holder.tvRainVolume.setText(rainVolume);
 
         // Make sure the category is displayed entirely
         UiUtils.makeTextViewEntirelyVisible(itemContainer, holder.tvCategory);
@@ -112,8 +104,6 @@ public class ForecastAdapter extends ArrayAdapter<Forecast> {
         private TextView tvTemperature;
         private TextView tvHumidity;
         private TextView tvPressure;
-        private TextView tvWindspeed;
-        private TextView tvRainVolume;
     }
 
 }

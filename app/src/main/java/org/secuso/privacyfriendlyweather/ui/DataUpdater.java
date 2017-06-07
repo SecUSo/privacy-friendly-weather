@@ -2,7 +2,6 @@ package org.secuso.privacyfriendlyweather.ui;
 
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
 
 import java.sql.SQLException;

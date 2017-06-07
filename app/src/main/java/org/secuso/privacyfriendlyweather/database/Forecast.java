@@ -16,6 +16,8 @@ public class Forecast {
     private float humidity;
     private float pressure;
 
+    private String city_name;
+
     public Forecast() {
     }
 
@@ -139,4 +141,11 @@ public class Forecast {
         this.pressure = pressure;
     }
 
+    public String getCity_name() {
+        return city_name;
+    }
+
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
+    }
 }

@@ -21,6 +21,8 @@ public class CurrentWeatherData  {
     private long timeSunrise;
     private long timeSunset;
 
+    private String city_name;
+
     public CurrentWeatherData() {
         this.city_id = Integer.MIN_VALUE;
     }
@@ -152,5 +154,13 @@ public class CurrentWeatherData  {
 
     public void setTimeSunset(long timeSunset) {
         this.timeSunset = timeSunset;
+    }
+
+    public String getCity_name() {
+        return city_name;
+    }
+
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
     }
 }

@@ -85,9 +85,7 @@
         <activity
             android:name=".firststart.TutorialActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <service
-            android:name=".services.CreateDatabaseService"
-            android:exported="false" />
+
         <service
             android:name=".services.UpdateDataService"
             android:exported="false" />
