@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -53,6 +54,8 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
      */
     @Override
     public void processSuccessScenario(String response) {
+        Log.i("TGL", "processSuccess Forecast...");
+
         IDataExtractor extractor = new OwmDataExtractor();
         try {
             JSONObject json = new JSONObject(response);
@@ -97,6 +100,8 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
     @Override
     public void processFailScenario(VolleyError error) {
         // TODO: To be filled with life.
+        Toast.makeText(this.context, "Forecast: " + error.getMessage(), Toast.LENGTH_LONG);
+        Log.i("TGL", "Forecast: " + error.getMessage());
     }
 
 }

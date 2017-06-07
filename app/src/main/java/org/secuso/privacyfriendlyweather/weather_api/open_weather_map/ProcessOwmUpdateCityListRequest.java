@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -93,7 +94,8 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
      */
     @Override
     public void processFailScenario(VolleyError error) {
-
+        Toast.makeText(this.context, "UpdateCityList: " + error.getMessage(), Toast.LENGTH_LONG);
+        Log.i("TGL", "UpdateCityList: " + error.getMessage());
     }
 
 }
