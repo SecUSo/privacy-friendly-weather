@@ -192,5 +192,7 @@
     <string name="appwidget_text">PFA - Weather</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+    <string name="error_no_internet">Your Device is not connected to the internet!</string>
+    <string name="default_location">%s set as default location</string>
 
 </resources>

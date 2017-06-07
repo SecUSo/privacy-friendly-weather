@@ -37,6 +37,8 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     private CurrentWeatherData currentWeatherDataList;
     PrefManager prefManager;
 
+    public static final String SKIP_UPDATE_INTERVAL= "skipUpdateInterval";
+
     private int mDataSetTypes[] = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
 
 
@@ -53,7 +55,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
         ViewUpdater.addSubsriber(this);
 
-        checkForNewData();
+        refreshData(false);
     }
 
     @Override
@@ -125,15 +127,18 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         int id = item.getItemId();
 
         if (id == R.id.menu_refresh) {
-            checkForNewData();
+            refreshData(false);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void checkForNewData() {
+    private void refreshData(Boolean asap) {
         Intent intent = new Intent(this, UpdateDataService.class);
         intent.setAction(UpdateDataService.UPDATE_ALL_ACTION);
+        if (asap) {
+            intent.putExtra(SKIP_UPDATE_INTERVAL, true);
+        }
         startService(intent);
     }
 

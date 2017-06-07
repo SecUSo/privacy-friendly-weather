@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.City;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.dialogs.AddLocationDialog;
@@ -130,7 +131,8 @@ public class MainActivity extends BaseActivity {
 
     public void setDefaultLocation(int cityId) {
         prefManager.setDefaultLocation(cityId);
-        Toast.makeText(getBaseContext(), "XY set as default location", Toast.LENGTH_SHORT).show();
+        City city = database.getCityById(cityId);
+        Toast.makeText(getBaseContext(), getString(R.string.default_location, city.getCityName()) , Toast.LENGTH_SHORT).show();
         //TODO Is there a better nicer solution?
         recreate();
     }

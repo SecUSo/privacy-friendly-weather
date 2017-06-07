@@ -104,4 +104,5 @@
     <string name="about_author_contributors">und Mitwirkende</string>
     <string name="next">Weiter</string>
     <string name="okay">OK</string>
+    <string name="error_no_internet">Das Gerät ist nicht mit dem Internet verbunden!</string>
 </resources>
