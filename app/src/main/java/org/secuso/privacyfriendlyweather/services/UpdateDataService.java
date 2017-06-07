@@ -79,9 +79,11 @@ public class UpdateDataService extends IntentService {
     private void handleUpdateForecastAction(Intent intent, int cityId) {
         boolean skipUpdateInterval = intent.getBooleanExtra(SKIP_UPDATE_INTERVAL, false);
 
+        // TODO: 07.0
+
         long timestamp = 0;
         long systemTime = System.currentTimeMillis() / 1000;
-        long updateInterval = 30*60;
+        long updateInterval = 2*60*60;
 
         if (!skipUpdateInterval) {
             // check timestamp of the current forecasts
@@ -90,8 +92,8 @@ public class UpdateDataService extends IntentService {
                 timestamp = forecasts.get(0).getTimestamp();
             }
 
-            // TODO: insert this into the settings page to make it changeable
-            updateInterval = prefManager.getLong("pref_updateInterval", 30*60);
+
+            updateInterval = prefManager.getLong("pref_updateInterval", 2)*60*60;
         }
 
         // only Update if a certain time has passed

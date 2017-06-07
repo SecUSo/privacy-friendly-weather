@@ -18,6 +18,16 @@
             android:title="@string/settings_title_distance" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/settings_intervals">
+        <ListPreference
+            android:defaultValue="2"
+            android:entries="@array/refreshIntervalArray"
+            android:entryValues="@array/refreshIntervalValues"
+            android:key="pref_updateInterval"
+            android:summary="@string/settings_interval_summary"
+            android:title="@string/settings_update_interval"/>
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/settings_title_API">
         <PreferenceScreen android:summary="@string/settings_description_API"/>
         <EditTextPreference
