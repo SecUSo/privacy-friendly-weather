@@ -1,0 +1,134 @@
+<resources>
+    <string name="app_name">Météo</string>
+    <string name="app_name_long">Météo respectueuse de la vie privée</string>
+
+    <!-- ###DRAWER###-->
+    <string name="action_help">Aide</string>
+    <string name="action_about">À propos</string>
+    <string name="action_settings">Réglages</string>
+    <string name="action_main">Localités</string>
+
+    <string name="navigation_drawer_open">Ouvrir le menu de navigation</string>
+    <string name="navigation_drawer_close">Fermer le menu de navigation</string>
+
+    <!-- ###MAIN### -->
+    <string name="activity_main_icon_descriptor">Un icône correspondant les conditions météo actuelles de l\'item courant dans la liste.</string>
+    <string name="activity_main_location_not_found">Le serveur indique que la localisation est introuvable. Si vous êtes sûr qu\'elle existe, réessayez.</string>
+    <string name="activity_main_snackbar_undo_info">L\'item a été supprimé</string>
+    <string name="activity_main_snackbar_undo_button">DÉFAIRE</string>
+
+    <!-- ###RADIUS_SEARCH### -->
+    <string name="radius_search_label">Rayon de la recherche</string>
+    <string name="radius_search_heading">Trouver la meilleure météo autour d\'un point</string>
+    <string name="radius_search_tv_heading">Localisation (centre du carré de recherche)</string>
+    <string name="radius_search_tv_edge_length">Longueur d\'arrête du carré de recherche</string>
+    <string name="radius_search_tv_num_returns">Nombre de localisations à télécharger</string>
+    <string name="radius_search_btn_search">Rechercher</string>
+
+    <!-- ###RADIUS_SEARCH_RESULT### -->
+    <string name="radius_search_result_label">Résultats de la recherche</string>
+
+    <!--###HELP###-->
+    <string name="help">Aide</string>
+    <string name="help_overview_heading">Vue d\'ensemble</string>
+    <string name="help_delete_items_title">Supprimer des localisations</string>
+    <string name="help_delete_items_text">Les localisations peuvent être supprimées de la liste principale en les faisant glisser de gauche à droite, ou de droite à gauche.</string>
+    <string name="help_move_items_title">Déplacer des localisations</string>
+    <string name="help_move_items_text">Changez l\'ordre de la liste principale en appuyant longuement sur un item avant de le tirer vers le haut ou vers le bas.</string>
+    <string name="help_radius_search_title">Rayon de recherche</string>
+    <string name="help_radius_search_text">Le rayon de recherche offre un mécanisme pour trouver les lieux autour d\'un point où la météo est la plus belle et la plus chaude.</string>
+    <string name="help_category">Catégorie d\'aide</string>
+    <string name="help_privacy_heading">Info vie privée</string>
+    <string name="help_permission_internet_heading">Permission : se connecter au réseau</string>
+    <string name="help_permission_internet_description">La permission \"Internet\" est nécessaire car les données météo sont obtenues de serveurs sur Internet. Sans cette permission, aucune donnée météo ne peut être reçue.</string>
+    <string name="help_permissions_heading">Permissions</string>
+    <string name="help_intro">Bienvenue à la page d\'aide. Cette application vous permet d\'ajouter des localisations, voir la météo actuelle pour ces localisations ainsi que les prédictions. Vous pouvez également demander les lieux autour d\'un point bénéficiant de la meilleure météo.</string>
+
+    <!--###ABOUT###-->
+    <string name="about">À propos</string>
+    <string name="about_author">Auteurs :</string>
+    <string name="about_author_contributors">et contributeurs.</string>
+    <string name="about_affiliation">En association avec</string>
+    <string name="privacy_friendly">Cette application fait partie du groupe d\'applications respectueuses de la vie privée développées à l\'Université technique de Darmstadt. Le code source est diffusé sous licence GPLv3. Images sous copyright TU Darmstadt et Google Inc.</string>
+    <string name="more_info">Pour plus d\'informations, veuillez vous référer à :</string>
+
+    <!-- ###Settings### -->
+    <string name="title_activity_settings">Réglages</string>
+    <string name="pref_header_general">Général</string>
+    <string name="settings_title_units">Unités</string>
+    <string name="settings_summary_temperature">Choisissez les unités de température à utiliser</string>
+    <string name="settings_title_temperature">Températures</string>
+    <string name="settings_celsius">Celsius</string>
+    <string name="settings_fahrenheit">Fahrenheit</string>
+    <string name="settings_summary_distance">Choisissez les unités de distance à utiliser</string>
+    <string name="settings_title_distance">Distances</string>
+    <string name="settings_kilometers">Kilomètres</string>
+    <string name="settings_miles">Miles</string>
+
+    <!-- ###CITY_WEATHER_ACTIVIY### -->
+    <string name="activity_city_weather_label">Vue d\'ensemble</string>
+    <string name="activity_city_weather_iv_description">Un image correspondant ce type de météo</string>
+    <string name="activity_city_weather_tv_category">Météo :</string>
+    <string name="activity_city_weather_tv_humidity">Humidité :</string>
+    <string name="activity_city_weather_tv_pressure">Pression :</string>
+    <string name="activity_city_weather_tv_wind_speed">Vitesse du vent :</string>
+    <string name="activity_city_weather_tv_sunrise">Levé du soleil :</string>
+    <string name="activity_city_weather_tv_sunset">Couché de soleil :</string>
+    <string name="activity_city_weather_tv_details">Détails de la journée ▼</string>
+    <string name="abbreviation_monday">Lu</string>
+    <string name="abbreviation_tuesday">Ma</string>
+    <string name="abbreviation_wednesday">Me</string>
+    <string name="abbreviation_thursday">Je</string>
+    <string name="abbreviation_friday">Ve</string>
+    <string name="abbreviation_saturday">Sa</string>
+    <string name="abbreviation_sunday">Di</string>
+    <string name="info_no_data_for_day">Pour l\'instant, il n\'y a pas de données pour le jour sélectionné.</string>
+
+    <!-- ###CITY_WEATHER_DETAILS_ACTIVITY### -->
+    <string name="activity_city_weather_details_label">Météo du jour</string>
+    <string name="activity_city_weather_details_tv_category">Météo :</string>
+    <string name="activity_city_weather_details_tv_temperature">Température :</string>
+    <string name="activity_city_weather_details_tv_humidity">Humidité :</string>
+    <string name="activity_city_weather_details_tv_pressure">Pression :</string>
+    <string name="activity_city_weather_details_tv_wind_speed">Vent :</string>
+    <string name="activity_city_weather_details_tv_rain_volume">Pluviométrie :</string>
+    <string name="activity_city_weather_details_tv_rain_volume_na">n/a</string>
+
+    <!-- ###FORECAST_ACTIVITY### -->
+    <string name="activity_forecast_label">Prédiction météo</string>
+
+    <!-- ###DIALOGS### -->
+    <string name="dialog_first_app_title">Bienvenue</string>
+    <string name="dialog_first_app_start_message">Utilisez le bouton ci-dessous pour ajouter des localisations dont vous souhaitez connaître la météo. Vous pourrez les supprimer à tout moment.</string>
+    <string name="dialog_first_app_help_button">Voir l\'aide</string>
+    <string name="dialog_first_app_close_button">D\'accord</string>
+
+    <string name="progress_dialog_add_location_title">Configuration de la base de données...</string>
+    <string name="progress_dialog_add_location_msg">Veuillez patienter quelques instants</string>
+
+    <string name="dialog_add_label">Indiquez la localisation à ajouter</string>
+    <string name="dialog_add_checkbox_save">Sauvegarder cette localisation définitivement</string>
+    <string name="dialog_add_textedit_error">Veuillez entrer une localisation valide !</string>
+    <string name="dialog_add_added_successfully_template">Localisation ajoutée avec succès.</string>
+    <string name="dialog_add_no_city_found">Aucune localisation correspondante. Vous devriez ne prendre que des items proposés comme suggestion.</string>
+    <string name="dialog_add_too_many_cities_found">Pas de réponse unique pour votre choix. Vous devriez ne prendre que des items proposés comme suggestion.</string>
+    <string name="dialog_add_already_added">Cette localisation est déjà dans la liste</string>
+    <string name="dialog_add_close_button">Fermer</string>
+    <string name="dialog_add_add_button">Ajouter</string>
+
+    <!-- ###WEATHER CATEGORIES### -->
+    <string name="weather_category_clear_sky">Ciel clair</string>
+    <string name="weather_category_clouds">Nuages</string>
+    <string name="weather_category_scattered_clouds">Nuages éparses</string>
+    <string name="weather_category_broken_clouds">Éclaircies</string>
+    <string name="weather_category_shower_rain">Forte pluie</string>
+    <string name="weather_category_rain">Pluie</string>
+    <string name="weather_category_thunderstorm">Orage</string>
+    <string name="weather_category_snow">Neige</string>
+    <string name="weather_category_mist">Brouillard</string>
+
+    <!-- ###ERRORS###-->
+    <string name="convert_to_json_error">Les données météo reçues ne sont pas bien formatées.</string>
+    <string name="insert_into_db_error">Une erreur est survenue lors de l\'écriture des données dans la base.</string>
+
+</resources>
