@@ -3,6 +3,7 @@ package org.secuso.privacyfriendlyweather.activities;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
+import org.secuso.privacyfriendlyweather.ui.viewPager.WeatherPagerAdapter;
 
 import java.util.List;
 
@@ -28,20 +30,7 @@ import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapte
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.WEEK;
 
 public class ForecastCityActivity extends BaseActivity implements IUpdateableCityUI {
-
-    private RecyclerView mRecyclerView;
-    private CityWeatherAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
-    private PFASQLiteHelper database;
-    private int cityID;
-    private CurrentWeatherData currentWeatherDataList;
-    PrefManager prefManager;
-
-    public static final String SKIP_UPDATE_INTERVAL= "skipUpdateInterval";
-
-    private int mDataSetTypes[] = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
-
+    private WeatherPagerAdapter pagerAdapter;
 
     @Override
     protected void onPause() {
@@ -56,7 +45,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
         ViewUpdater.addSubsriber(this);
 
-        refreshData(false);
+        pagerAdapter.refreshData(false);
     }
 
     @Override
@@ -65,58 +54,19 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         setContentView(R.layout.activity_forecast_city);
         overridePendingTransition(0, 0);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewActivity);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        prefManager = new PrefManager(this);
-        database = PFASQLiteHelper.getInstance(this);
-
-        if (prefManager.isFirstTimeLaunch()) {
-            handleFirstStart();
-        }
-
-        //Location opened from list, not default,
-        if (getIntent().hasExtra("cityId")) {
-            cityID = getIntent().getIntExtra("cityId", -1);
-        } else {
-            cityID = prefManager.getDefaultLocation();
-            //currentWeatherDataList = new CurrentWeatherData(1, 1, 12345678910L, 30, 42, 40, 44, 85, 1000, 85, 1, 1, System.currentTimeMillis(), System.currentTimeMillis());
-        }
-
-        loadContentFromDatabase();
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        pagerAdapter = new WeatherPagerAdapter(this);
+        viewPager.setAdapter(pagerAdapter);
     }
 
-    private void loadContentFromDatabase() {
-        currentWeatherDataList = database.getCurrentWeatherByCityId(cityID);
 
-        if (currentWeatherDataList.getCity_id() == 0) {
-            currentWeatherDataList.setCity_id(cityID);
-        }
-
-        mAdapter = new CityWeatherAdapter(currentWeatherDataList, mDataSetTypes, getBaseContext());
-
-        mRecyclerView.setAdapter(mAdapter);
-
-        new AsyncTask<Integer, Void, CityToWatch>() {
-            @Override
-            protected CityToWatch doInBackground(Integer... params) {
-                CityToWatch cityToWatch = database.getCityToWatch(cityID);
-                setTitle(cityToWatch.getCityName());
-
-                return cityToWatch;
-            }
-        }.doInBackground(cityID);
-    }
 
     @Override
     protected int getNavigationDrawerID() {
         return R.id.nav_weather;
     }
 
-    public void handleFirstStart(){
-        prefManager.setFirstTimeLaunch(false);
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -133,49 +83,21 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         int id = item.getItemId();
 
         if (id == R.id.menu_refresh) {
-            refreshData(false);
+            pagerAdapter.refreshData(false);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void refreshData(Boolean asap) {
-        Intent intent = new Intent(this, UpdateDataService.class);
-        intent.setAction(UpdateDataService.UPDATE_ALL_ACTION);
-        if (asap) {
-            intent.putExtra(SKIP_UPDATE_INTERVAL, true);
-        }
-        startService(intent);
-    }
 
     @Override
     public void updateCurrentWeather(CurrentWeatherData data) {
-        if(data == null || data.getCity_id() != cityID) {
-            return;
-        }
 
-        cityID = data.getCity_id();
-        mAdapter = new CityWeatherAdapter(data, mDataSetTypes, getBaseContext());
-        mRecyclerView.setAdapter(mAdapter);
-
-        new AsyncTask<Integer, Void, CityToWatch>() {
-            @Override
-            protected CityToWatch doInBackground(Integer... params) {
-                CityToWatch cityToWatch = database.getCityToWatch(cityID);
-                setTitle(cityToWatch.getCityName());
-
-                return cityToWatch;
-            }
-        }.doInBackground(cityID);
     }
 
     @Override
     public void updateForecasts(List<Forecast> forecasts) {
-        if(forecasts == null || forecasts.size() == 0 || forecasts.get(0).getCity_id() != cityID) {
-            return;
-        }
 
-        mAdapter.updateForecastData(forecasts);
     }
 }
 

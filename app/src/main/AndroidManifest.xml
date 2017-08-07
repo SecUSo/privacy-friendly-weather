@@ -22,7 +22,6 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.ForecastCityActivity"
@@ -32,7 +31,7 @@
             android:name=".activities.RadiusSearchActivity"
             android:label="@string/radius_search_label"
             android:parentActivityName=".activities.ForecastCityActivity"
-            android:screenOrientation="portrait">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ForecastCityActivity" />
@@ -41,7 +40,7 @@
             android:name=".activities.RadiusSearchResultActivity"
             android:label="@string/radius_search_result_label"
             android:parentActivityName=".activities.RadiusSearchActivity"
-            android:screenOrientation="portrait">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.RadiusSearchActivity" />
@@ -50,7 +49,7 @@
             android:name=".activities.AboutActivity"
             android:label="@string/about"
             android:parentActivityName=".activities.ForecastCityActivity"
-            android:screenOrientation="portrait">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ForecastCityActivity" />
@@ -77,7 +76,7 @@
             android:name=".activities.ForecastActivity"
             android:label="@string/activity_forecast_label"
             android:parentActivityName=".activities.CityWeatherActivity"
-            android:screenOrientation="portrait">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.CityWeatherActivity" />
