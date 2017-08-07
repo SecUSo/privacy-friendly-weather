@@ -17,23 +17,23 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.SplashActivity;
 import org.secuso.privacyfriendlyweather.database.City;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
+import org.secuso.privacyfriendlyweather.ui.util.DayForecastFilter;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Random;
+import java.util.List;
 
 /**
  * Implementation of App Widget functionality.
  * App Widget Configuration implemented in {@link WeatherWidgetConfigureActivity WeatherWidgetConfigureActivity}
  */
-public class WeatherWidget extends AppWidgetProvider {
-    private static final String PREFS_NAME = "org.secuso.privacyfriendlyweather.widget.WeatherWidget";
+public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
+    private static final String PREFS_NAME = "org.secuso.privacyfriendlyweather.widget.WeatherWidget3Day";
     private static final String PREF_PREFIX_KEY = "appwidget_";
 
     static void updateAppWidget(final Context context, final AppWidgetManager appWidgetManager,
@@ -41,7 +41,7 @@ public class WeatherWidget extends AppWidgetProvider {
 
         //CharSequence widgetText = WeatherWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
         // Construct the RemoteViews object
-        final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
+        final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_3day_widget);
 
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
         final Integer cityId = prefs.getInt(PREF_PREFIX_KEY + appWidgetId, -1);
@@ -50,14 +50,15 @@ public class WeatherWidget extends AppWidgetProvider {
             return;
         }
 
+
         new AsyncTask<Integer, Void, Void>() {
             @Override
             protected Void doInBackground(Integer... params) {
                 PFASQLiteHelper database = PFASQLiteHelper.getInstance(context);
-                City city = database.getCityById(cityId);
-                CurrentWeatherData weatherData = database.getCurrentWeatherByCityId(city.getCityId());
 
-                updateView(context, appWidgetManager, views, appWidgetId, city, weatherData);
+                List<Forecast> forecastList = database.getForecastsByCityId(cityId);
+
+                updateView(context, appWidgetManager, views, appWidgetId, forecastList);
 
                 database.close();
 
@@ -66,36 +67,51 @@ public class WeatherWidget extends AppWidgetProvider {
         }.doInBackground(cityId);
     }
 
-    private static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, City city, CurrentWeatherData weatherData) {
+    private static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, List<Forecast> forecastList) {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
         DecimalFormat decimalFormat = new DecimalFormat("#.0");
-        String temperature = String.format(
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
+
+        forecastList = DayForecastFilter.filter(forecastList, 3);
+
+        String day1 = dayFormat.format(forecastList.get(0).getForecastTime());
+        String day2 = dayFormat.format(forecastList.get(1).getForecastTime());
+        String day3 = dayFormat.format(forecastList.get(2).getForecastTime());
+
+        String temperature1 = String.format(
                 "%s%s",
-                decimalFormat.format(prefManager.convertTemperatureFromCelsius(weatherData.getTemperatureCurrent())),
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(forecastList.get(0).getTemperature())),
                 prefManager.getWeatherUnit()
         );
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String temperature2 = String.format(
+                "%s%s",
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(forecastList.get(1).getTemperature())),
+                prefManager.getWeatherUnit()
+        );
+        String temperature3 = String.format(
+                "%s%s",
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(forecastList.get(2).getTemperature())),
+                prefManager.getWeatherUnit()
+        );
 
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.setTimeInMillis(weatherData.getTimeSunrise() * 1000);
-        String sunRise = timeFormat.format(cal.getTime());
-        cal.setTimeInMillis(weatherData.getTimeSunset() * 1000);
-        String sunSet = timeFormat.format(cal.getTime());
+        String hum1 = String.format("%s %%", forecastList.get(0).getHumidity());
+        String hum2 = String.format("%s %%", forecastList.get(1).getHumidity());
+        String hum3 = String.format("%s %%", forecastList.get(2).getHumidity());
 
-        Log.i("TGL", "sunRise: " + sunRise);
-        Log.i("TGL", "sunSet: " + sunSet);
+        views.setTextViewText(R.id.widget_city_weather_3day_day1, day1);
+        views.setTextViewText(R.id.widget_city_weather_3day_day2, day2);
+        views.setTextViewText(R.id.widget_city_weather_3day_day3, day3);
+        views.setTextViewText(R.id.widget_city_weather_3day_temp1, temperature1);
+        views.setTextViewText(R.id.widget_city_weather_3day_temp2, temperature2);
+        views.setTextViewText(R.id.widget_city_weather_3day_temp3, temperature3);
+        views.setTextViewText(R.id.widget_city_weather_3day_hum1, hum1);
+        views.setTextViewText(R.id.widget_city_weather_3day_hum2, hum2);
+        views.setTextViewText(R.id.widget_city_weather_3day_hum3, hum3);
 
-        String windSpeed = String.format("%s m/s", weatherData.getWindSpeed());
-
-        views.setTextViewText(R.id.widget_city_weather_temperature, temperature);
-        views.setTextViewText(R.id.widget_city_weather_humidity, String.format("%s %%", weatherData.getHumidity()));
-        views.setTextViewText(R.id.widget_city_name, city.getCityName());
-        views.setTextViewText(R.id.widget_city_weather_rise, sunRise);
-        views.setTextViewText(R.id.widget_city_weather_set, sunSet);
-        views.setTextViewText(R.id.widget_city_weather_wind, windSpeed);
-
-        views.setImageViewResource(R.id.widget_city_weather_image_view, UiResourceProvider.getIconResourceForWeatherCategory(weatherData.getWeatherID()));
+        views.setImageViewResource(R.id.widget_city_weather_3day_image1, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(0).getWeatherID()));
+        views.setImageViewResource(R.id.widget_city_weather_3day_image2, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(1).getWeatherID()));
+        views.setImageViewResource(R.id.widget_city_weather_3day_image3, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(2).getWeatherID()));
 
         Intent intent = new Intent(context, SplashActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
