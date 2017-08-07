@@ -105,7 +105,8 @@ public class TutorialActivity extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchHomeScreen();
+                viewPager.setCurrentItem(3);
+                //launchHomeScreen();
             }
         });
 
