@@ -46,6 +46,9 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
     private static final String TABLE_FORECAST = "FORECASTS";
     private static final String TABLE_CURRENT_WEATHER = "CURRENT_WEATHER";
 
+    //Names of indices  in TABLE_CITY
+    private static final String TABLE_CITIES_INDEX = "city_name_index";
+
     //Names of columns in TABLE_CITY
     private static final String CITIES_ID = "cities_id";
     private static final String CITIES_NAME = "city_name";
@@ -109,8 +112,10 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
             CITIES_ID + " INTEGER PRIMARY KEY," +
             CITIES_NAME + " VARCHAR(100) NOT NULL," +
             CITIES_COUNTRY_CODE + " VARCHAR(10) NOT NULL," +
-            CITIES_POSTAL_CODE + " VARCHAR(10) NOT NULL, " +
-            " INDEX `key` (`" + CITIES_NAME + "`) );";
+            CITIES_POSTAL_CODE + " VARCHAR(10) NOT NULL ); ";
+
+    private static final String CREATE_TABLE_CITIES_INDEX = "CREATE INDEX " + TABLE_CITIES_INDEX +
+            " ON " + TABLE_CITIES + " ("  + CITIES_NAME +  ");";
 
     private static final String CREATE_TABLE_FORECASTS = "CREATE TABLE " + TABLE_FORECAST +
             "(" +
@@ -151,6 +156,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_FORECASTS);
         db.execSQL(CREATE_CURRENT_WEATHER);
         db.execSQL(CREATE_TABLE_CITIES_TO_WATCH);
+        db.execSQL(CREATE_TABLE_CITIES_INDEX);
 
         // save all the cities into the database
         fillCityDatabase(db);
