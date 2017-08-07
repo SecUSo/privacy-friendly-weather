@@ -194,7 +194,6 @@
     <string name="add_widget">Add widget</string>
     <string name="error_no_internet">Your Device is not connected to the internet!</string>
     <string name="default_location">%s set as default location</string>
-    <string name="settings_interval_half">0.5 h</string>
     <string name="settings_interval_one">1 h</string>
     <string name="settings_interval_two">2 h</string>
     <string name="settings_interval_six">6 h</string>
