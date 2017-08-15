@@ -23,7 +23,10 @@ import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DAY;
@@ -42,6 +45,7 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
 
     private PFASQLiteHelper database;
     PrefManager prefManager;
+    long lastUpdateTime;
 
     private List<CityToWatch> cities;
 
@@ -159,29 +163,27 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return cities.get(position).getCityName();
+        GregorianCalendar calendar = new GregorianCalendar();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        dateFormat.setCalendar(calendar);
+        calendar.setTimeInMillis(lastUpdateTime*1000);
+
+        return cities.get(position).getCityName() + " (" + dateFormat.format(calendar.getTime()) + ")";
     }
 
     private CurrentWeatherData loadContentFromDatabase(int position) {
         final int cityID = cities.get(position).getCityId();
 
-        CurrentWeatherData currentWeatherDataList = database.getCurrentWeatherByCityId(cityID);
+        CurrentWeatherData currentWeatherData = database.getCurrentWeatherByCityId(cityID);
 
-        if (currentWeatherDataList.getCity_id() == 0) {
-            currentWeatherDataList.setCity_id(cityID);
+        if (currentWeatherData.getCity_id() == 0) {
+            currentWeatherData.setCity_id(cityID);
         }
 
-        new AsyncTask<Integer, Void, CityToWatch>() {
-            @Override
-            protected CityToWatch doInBackground(Integer... params) {
-                CityToWatch cityToWatch = database.getCityToWatch(cityID);
-                ((ForecastCityActivity)mContext).setTitle(cityToWatch.getCityName());
+        lastUpdateTime = currentWeatherData.getTimestamp();
+        ((ForecastCityActivity)mContext).setTitle(getPageTitle(position));
 
-                return cityToWatch;
-            }
-        }.doInBackground(cityID);
-
-        return currentWeatherDataList;
+        return currentWeatherData;
     }
 
     public void handleFirstStart(){
@@ -209,15 +211,8 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
         mAdapters.remove(position);
         mAdapters.add(position, mAdapter);
 
-        new AsyncTask<Integer, Void, CityToWatch>() {
-            @Override
-            protected CityToWatch doInBackground(Integer... params) {
-                CityToWatch cityToWatch = database.getCityToWatch(cityID);
-                ((ForecastCityActivity)mContext).setTitle(cityToWatch.getCityName());
-
-                return cityToWatch;
-            }
-        }.doInBackground(cityID);
+        lastUpdateTime = data.getTimestamp();
+        ((ForecastCityActivity)mContext).setTitle(getPageTitle(position));
     }
 
     @Override

@@ -83,9 +83,6 @@ public class WeatherWidget extends AppWidgetProvider {
         cal.setTimeInMillis(weatherData.getTimeSunset() * 1000);
         String sunSet = timeFormat.format(cal.getTime());
 
-        Log.i("TGL", "sunRise: " + sunRise);
-        Log.i("TGL", "sunSet: " + sunSet);
-
         String windSpeed = String.format("%s m/s", weatherData.getWindSpeed());
 
         views.setTextViewText(R.id.widget_city_weather_temperature, temperature);
