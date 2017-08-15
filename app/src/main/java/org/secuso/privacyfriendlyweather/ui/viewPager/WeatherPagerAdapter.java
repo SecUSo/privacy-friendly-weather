@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -58,49 +59,44 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
         database = PFASQLiteHelper.getInstance(context);
 
         cities = database.getAllCitiesToWatch();
-        Log.i("TGL", "got " + cities.size() + " cities");
 
         prefManager = new PrefManager(context);
 
+        int widthPixels = mContext.getResources().getDisplayMetrics().widthPixels;
+        float density = mContext.getResources().getDisplayMetrics().density;
+        float width = widthPixels / density;
+
+        int columns = width > 500 ? 2 : 1;
+
         RecyclerView mRecyclerView1 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity1);
-        RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(context);
-        mRecyclerView1.setLayoutManager(mLayoutManager1);
+        mRecyclerView1.setLayoutManager(new GridLayoutManager(mRecyclerView1.getContext(), columns));
 
         RecyclerView mRecyclerView2 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity2);
-        RecyclerView.LayoutManager mLayoutManager2 = new LinearLayoutManager(context);
-        mRecyclerView2.setLayoutManager(mLayoutManager2);
+        mRecyclerView2.setLayoutManager(new GridLayoutManager(mRecyclerView2.getContext(), columns));
 
         RecyclerView mRecyclerView3 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity3);
-        RecyclerView.LayoutManager mLayoutManager3 = new LinearLayoutManager(context);
-        mRecyclerView3.setLayoutManager(mLayoutManager3);
+        mRecyclerView3.setLayoutManager(new GridLayoutManager(mRecyclerView3.getContext(), columns));
 
         RecyclerView mRecyclerView4 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity4);
-        RecyclerView.LayoutManager mLayoutManager4 = new LinearLayoutManager(context);
-        mRecyclerView4.setLayoutManager(mLayoutManager4);
+        mRecyclerView4.setLayoutManager(new GridLayoutManager(mRecyclerView4.getContext(), columns));
 
         RecyclerView mRecyclerView5 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity5);
-        RecyclerView.LayoutManager mLayoutManager5 = new LinearLayoutManager(context);
-        mRecyclerView5.setLayoutManager(mLayoutManager5);
+        mRecyclerView5.setLayoutManager(new GridLayoutManager(mRecyclerView5.getContext(), columns));
 
         RecyclerView mRecyclerView6 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity6);
-        RecyclerView.LayoutManager mLayoutManager6 = new LinearLayoutManager(context);
-        mRecyclerView6.setLayoutManager(mLayoutManager6);
+        mRecyclerView6.setLayoutManager(new GridLayoutManager(mRecyclerView6.getContext(), columns));
 
         RecyclerView mRecyclerView7 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity7);
-        RecyclerView.LayoutManager mLayoutManager7 = new LinearLayoutManager(context);
-        mRecyclerView7.setLayoutManager(mLayoutManager7);
+        mRecyclerView7.setLayoutManager(new GridLayoutManager(mRecyclerView7.getContext(), columns));
 
         RecyclerView mRecyclerView8 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity8);
-        RecyclerView.LayoutManager mLayoutManager8 = new LinearLayoutManager(context);
-        mRecyclerView8.setLayoutManager(mLayoutManager8);
+        mRecyclerView8.setLayoutManager(new GridLayoutManager(mRecyclerView8.getContext(), columns));
 
         RecyclerView mRecyclerView9 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity9);
-        RecyclerView.LayoutManager mLayoutManager9 = new LinearLayoutManager(context);
-        mRecyclerView9.setLayoutManager(mLayoutManager9);
+        mRecyclerView9.setLayoutManager(new GridLayoutManager(mRecyclerView9.getContext(), columns));
 
         RecyclerView mRecyclerView10 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity10);
-        RecyclerView.LayoutManager mLayoutManager10 = new LinearLayoutManager(context);
-        mRecyclerView10.setLayoutManager(mLayoutManager10);
+        mRecyclerView10.setLayoutManager(new GridLayoutManager(mRecyclerView10.getContext(), columns));
 
         mRecyclerViews.add(mRecyclerView1);
         mRecyclerViews.add(mRecyclerView2);
@@ -120,14 +116,11 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
 
     @Override
     public Object instantiateItem(ViewGroup collection, int position) {
-        Log.i("TGL", "instantiate Item at pos: " + position);
-
         CurrentWeatherData currentWeatherDataList = loadContentFromDatabase(position);
 
         CityWeatherAdapter mAdapter = new CityWeatherAdapter(currentWeatherDataList, mDataSetTypes, ((ForecastCityActivity)mContext).getBaseContext());
 
         RecyclerView mRecyclerView = mRecyclerViews.get(position);
-        Log.i("TGL", "got view: " + mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapters.add(mAdapter);
@@ -153,11 +146,8 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
 
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
-        Log.i("TGL", "changeItem to: " + position);
 
         CurrentWeatherData currentWeatherDataList = loadContentFromDatabase(position);
-
-        Log.i("TGL", "got Weather for: " + currentWeatherDataList.getCity_id() + ": " + currentWeatherDataList.getTemperatureCurrent());
 
         CityWeatherAdapter mAdapter = new CityWeatherAdapter(currentWeatherDataList, mDataSetTypes, ((ForecastCityActivity)mContext).getBaseContext());
 
@@ -169,7 +159,6 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
 
     @Override
     public CharSequence getPageTitle(int position) {
-        Log.i("TGL", "getPageTitle for: " + position);
         return cities.get(position).getCityName();
     }
 
