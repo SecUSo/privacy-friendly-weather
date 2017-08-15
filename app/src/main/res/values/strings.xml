@@ -78,7 +78,7 @@
     <string name="about">About</string>
     <string name="version_number" translatable="false">Version</string>
     <string name="about_author">Authors: </string>
-    <string name="about_author_names" translatable="false">Patrick Mell, Karola Marky, Christopher Beckmann</string>
+    <string name="about_author_names" translatable="false">Patrick Mell, Karola Marky, Christopher Beckmann, Thomas Glaser</string>
     <string name="about_author_contributors">and contributors.</string>
     <string name="about_affiliation">In affiliation with</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
@@ -202,5 +202,14 @@
     <string name="settings_intervals">Intervals</string>
     <string name="settings_update_interval">Update interval</string>
     <string name="settings_interval_summary">Set the interval of automatic updates</string>
+
+    <!--  ##HELP## -->
+    <string name="help_whatis_answer">Privacy Friendly Weather is an App to check the current Weather and Forecasts for your Locations.</string>
+    <string name="help_whatis">What is Privacy Friendly Weather?</string>
+    <string name="help_privacy_answer">Privacy Friendly Weather only uses the permission to access internet. It further does not include any tracking mechanisms or advertisement.</string>
+    <string name="help_permission_answer">permission_answer</string>
+    <string name="help_permission">permission</string>
+    <string name="help_where_from">Where do the weather informations come from?</string>
+    <string name="help_where_from_answer">The information is fetched from the service OpenWeatherMap. If you have your own OpenWeatherMap Key, go to the settings to register it.</string>
 
 </resources>

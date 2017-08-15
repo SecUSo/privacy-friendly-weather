@@ -105,4 +105,9 @@
     <string name="next">Weiter</string>
     <string name="okay">OK</string>
     <string name="error_no_internet">Das Gerät ist nicht mit dem Internet verbunden!</string>
+    <string name="help_whatis_answer">Privacy Friendly Weather überprüft sowohl das aktuelle Wetter, als auch die Vorhersagen für selbst gewählte Orte.</string>
+    <string name="help_privacy_answer">Privacy Friendly Weather benötigt nur Zugang zum Internet. Es werden weder persönliche Daten gesammelt, noch wird Werbung angezeigt.</string>
+    <string name="help_whatis">Was ist Privacy Friendly Weather?</string>
+    <string name="help_where_from">Woher kommen die Wetterinformationen?</string>
+    <string name="help_where_from_answer">Die Informationen stammen von dem Dienst OpenWeatherMap. Haben Sie einen eigenen OpenWeatherMap Key, gehen Sie bitte in die Einstellungen und registrieren diesen.</string>
 </resources>
