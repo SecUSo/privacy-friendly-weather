@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
@@ -29,6 +31,8 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     private Context context;
     private static  List<CityToWatch> cities;
     PrefManager prefManager;
+    PFASQLiteHelper database;
+
 
     /**
      * Constructor.
@@ -37,6 +41,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
         this.context = context;
         this.cities = cities;
         prefManager = new PrefManager(context);
+        database = PFASQLiteHelper.getInstance(context);
     }
 
     /**
@@ -108,26 +113,14 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      */
     @Override
     public void onItemDismiss(int position) {
+        List<CityToWatch> cityList = getListItems();
 
-        //TODO Delete from DB
-//        try {
-//            // Retrieve the records; they are re-inserted in case of undo
-////            final int CWD_ID = listItems.get(position).getCurrentWeatherDataID();
-////            final CurrentWeatherData weatherDataToDelete = dbHelper.getCurrentWeatherDataByID(CWD_ID);
-////            final CityToWatch cityToWatchToDelete = dbHelper.getCityToWatchByCityId(weatherDataToDelete.getCity().getId());
-////            // Remove the corresponding database entries
-////            dbHelper.deleteCityToWatchRecordByCityID(weatherDataToDelete.getCity().getId());
-////            dbHelper.deleteCurrentWeatherRecordByID(CWD_ID);
-//
-//            // Remove the item from the (visual) list
-//            listItems.remove(position);
-//            notifyItemRemoved(position);
-//
-//            // Show the implemented undo snackbar
-////            getUndoSnackbar(cityToWatchToDelete, weatherDataToDelete).show();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+        CityToWatch city = cityList.get(position);
+
+        database.deleteCityToWatch(city);
+
+        cities.remove(position);
+        notifyItemRemoved(position);
     }
 
     /**
