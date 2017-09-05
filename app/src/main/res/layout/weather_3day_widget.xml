@@ -5,7 +5,9 @@
     android:padding="@dimen/widget_margin"
     android:orientation="vertical"
     android:background="@drawable/rounded_corner"
-    android:previewImage="@drawable/weather_widget_preview">
+    android:previewImage="@drawable/weather_widget_preview"
+    android:minHeight="40dp"
+    android:minWidth="250dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,9 +28,10 @@
                 android:layout_width="wrap_content"
                 android:text="Day"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="17dp"
                 android:layout_row="1"
                 android:layout_gravity="center"
+                android:textColor="@color/black"
                 />
             <ImageView
                 android:id="@+id/widget_city_weather_3day_image1"
@@ -47,6 +50,7 @@
                 android:textSize="12dp"
                 android:layout_row="3"
                 android:layout_gravity="center"
+                android:textColor="@color/black"
                 />
             <TextView
                 android:id="@+id/widget_city_weather_3day_hum1"
@@ -56,6 +60,7 @@
                 android:textSize="12dp"
                 android:layout_row="4"
                 android:layout_gravity="top|center"
+                android:textColor="@color/black"
 
                 />
         </GridLayout>
@@ -71,9 +76,10 @@
                 android:layout_width="wrap_content"
                 android:text="Day"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="17dp"
                 android:layout_row="1"
                 android:layout_gravity="center"
+                android:textColor="@color/black"
                 />
             <ImageView
                 android:id="@+id/widget_city_weather_3day_image2"
@@ -92,6 +98,7 @@
                 android:textSize="12dp"
                 android:layout_row="3"
                 android:layout_gravity="center"
+                android:textColor="@color/black"
                 />
             <TextView
                 android:id="@+id/widget_city_weather_3day_hum2"
@@ -101,6 +108,7 @@
                 android:textSize="12dp"
                 android:layout_row="4"
                 android:layout_gravity="top|center"
+                android:textColor="@color/black"
                 />
         </GridLayout>
         <GridLayout
@@ -116,9 +124,10 @@
                 android:layout_width="wrap_content"
                 android:text="Day"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="17dp"
                 android:layout_row="1"
                 android:layout_gravity="center"
+                android:textColor="@color/black"
                 />
             <ImageView
                 android:id="@+id/widget_city_weather_3day_image3"
@@ -137,6 +146,7 @@
                 android:textSize="12dp"
                 android:layout_row="3"
                 android:layout_gravity="center"
+                android:textColor="@color/black"
                 />
             <TextView
                 android:id="@+id/widget_city_weather_3day_hum3"
@@ -146,6 +156,7 @@
                 android:textSize="12dp"
                 android:layout_row="4"
                 android:layout_gravity="top|center"
+                android:textColor="@color/black"
                 />
         </GridLayout>
 

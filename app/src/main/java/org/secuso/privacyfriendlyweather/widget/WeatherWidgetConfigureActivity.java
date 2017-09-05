@@ -51,7 +51,6 @@ public class WeatherWidgetConfigureActivity extends Activity {
     };
 
     private void handleOk() {
-        Log.i("TGL", "handleOk");
         final Context context = WeatherWidgetConfigureActivity.this;
 
         if (selectedCity == null) {
