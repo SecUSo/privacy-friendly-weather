@@ -9,15 +9,11 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
-import org.secuso.privacyfriendlyweather.activities.SplashActivity;
-import org.secuso.privacyfriendlyweather.database.City;
-import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
@@ -26,7 +22,6 @@ import org.secuso.privacyfriendlyweather.ui.util.DayForecastFilter;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
