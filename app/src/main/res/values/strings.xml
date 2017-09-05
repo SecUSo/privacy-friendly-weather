@@ -28,14 +28,14 @@
     <string name="skip">Skip</string>
     <string name="okay">Okay</string>
     <string name="slide1_heading">Welcome!</string>
-    <string name="slide1_text">blabla</string>
+    <string name="slide1_text">Privacy Friendly Weather is an App to check the current Weather and Forecasts for your Locations.</string>
     <string name="slide2_heading">Key Elements</string>
-    <string name="slide2_text">Introduce key elements of your app. Do not introduce too many details.</string>
-    <string name="slide3_heading">Github and Guide</string>
-    <string name="slide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the Privacy Friendly App Guide.</string>
+    <string name="slide2_text">You can choose your own locations and get detailed information about the current weather. You can search for the best weather in a radius around you or place a widgets on your homescreen showing the current weather, a three day forecast or a five day forecast</string>
+    <string name="slide3_heading" translatable="false">Github</string>
+    <string name="slide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the About Page.</string>
 
     <!-- ###CARD_HEADINGs### -->
-    <string name="card_details_heading">Details</string>
+    <string name="card_details_heading" translatable="false">Details</string>
     <string name="card_week_heading">Week</string>
     <string name="card_day_heading">Course of the day</string>
     <string name="card_sun_heading">Sun</string>
@@ -194,11 +194,11 @@
     <string name="add_widget">Add widget</string>
     <string name="error_no_internet">Your Device is not connected to the internet!</string>
     <string name="default_location">%s set as default location</string>
-    <string name="settings_interval_one">1 h</string>
-    <string name="settings_interval_two">2 h</string>
-    <string name="settings_interval_six">6 h</string>
-    <string name="settings_interval_twelve">12 h</string>
-    <string name="settings_interval_twentyfour">24 h</string>
+    <string name="settings_interval_one" translatable="false">1 h</string>
+    <string name="settings_interval_two" translatable="false">2 h</string>
+    <string name="settings_interval_six" translatable="false">6 h</string>
+    <string name="settings_interval_twelve" translatable="false">12 h</string>
+    <string name="settings_interval_twentyfour" translatable="false">24 h</string>
     <string name="settings_intervals">Intervals</string>
     <string name="settings_update_interval">Update interval</string>
     <string name="settings_interval_summary">Set the interval of automatic updates</string>
@@ -211,5 +211,11 @@
     <string name="help_permission">permission</string>
     <string name="help_where_from">Where do the weather informations come from?</string>
     <string name="help_where_from_answer">The information is fetched from the service OpenWeatherMap. If you have your own OpenWeatherMap Key, go to the settings to register it.</string>
+    <string name="error_fetch_forecast">Error while updating Forecast, please try again!</string>
+    <string name="error_fetch_cityList">Error while updating Citylist, please try again!</string>
+    <string name="error_add_city">Error while adding City, please try again!</string>
+    <string name="error_radius_search">Error while doing radius search, please try again!</string>
+    <string name="card_error_heading">Error fetching weather data</string>
+    <string name="card_error_content">Please try to update!</string>
 
 </resources>
