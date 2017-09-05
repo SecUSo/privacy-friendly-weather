@@ -58,7 +58,7 @@ public class WeatherWidgetThreeDayForecastConfigureActivity extends Activity {
 
         // It is the responsibility of the configuration activity to update the app widget
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        WeatherWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+        WeatherWidgetThreeDayForecast.updateAppWidget(context, appWidgetManager, mAppWidgetId);
 
         // Make sure we pass back the original appWidgetId
         Intent resultValue = new Intent();

@@ -83,7 +83,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         int id = item.getItemId();
 
         if (id == R.id.menu_refresh) {
-            pagerAdapter.refreshData(false);
+            pagerAdapter.refreshData(true);
         }
 
         return super.onOptionsItemSelected(item);
