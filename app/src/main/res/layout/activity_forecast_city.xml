@@ -20,7 +20,8 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="55dp">
 
             <android.support.v7.widget.RecyclerView
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,7 +30,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="?attr/actionBarSize"
                 android:id="@+id/recyclerViewActivity1"
-                android:padding="@dimen/card_margin" />
+                android:padding="5dp"
+                />
 
             <android.support.v7.widget.RecyclerView
                 xmlns:android="http://schemas.android.com/apk/res/android"

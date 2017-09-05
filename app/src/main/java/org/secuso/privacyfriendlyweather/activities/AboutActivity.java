@@ -20,18 +20,6 @@ public class AboutActivity extends BaseActivity {
         setContentView(R.layout.activity_about);
         overridePendingTransition(0, 0);
 
-
-        //ActionBar ab = getSupportActionBar();
-        //if(ab != null) {
-        //    ab.setDisplayHomeAsUpEnabled(true);
-        //}
-
-        //View mainContent = findViewById(R.id.main_content);
-        //if (mainContent != null) {
-        //    mainContent.setAlpha(0);
-        //    mainContent.animate().alpha(1).setDuration(BaseActivity.MAIN_CONTENT_FADEIN_DURATION);
-        //}
-
         ((TextView)findViewById(R.id.secusoWebsite)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView)findViewById(R.id.githubURL)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView)findViewById(R.id.textFieldVersionName)).setText(BuildConfig.VERSION_NAME);
