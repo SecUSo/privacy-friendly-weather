@@ -228,7 +228,7 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
         mAdapters.get(position).updateForecastData(forecasts);
     }
 
-    private int getPosForCityID(int cityID) {
+    public int getPosForCityID(int cityID) {
         for (int i = 0; i < cities.size(); i++) {
             CityToWatch city = cities.get(i);
             if (city.getCityId() == cityID) {

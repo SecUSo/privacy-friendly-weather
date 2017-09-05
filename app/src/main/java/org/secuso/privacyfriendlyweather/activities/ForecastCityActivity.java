@@ -54,9 +54,13 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         setContentView(R.layout.activity_forecast_city);
         overridePendingTransition(0, 0);
 
+        int cityId = getIntent().getIntExtra("cityId", -1);
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         pagerAdapter = new WeatherPagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
+
+        viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
     }
 
 

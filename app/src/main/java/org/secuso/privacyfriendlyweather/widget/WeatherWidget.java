@@ -14,11 +14,13 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
 import org.secuso.privacyfriendlyweather.activities.SplashActivity;
 import org.secuso.privacyfriendlyweather.database.City;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
+import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DateFormat;
@@ -94,9 +96,11 @@ public class WeatherWidget extends AppWidgetProvider {
 
         views.setImageViewResource(R.id.widget_city_weather_image_view, UiResourceProvider.getIconResourceForWeatherCategory(weatherData.getWeatherID()));
 
-        Intent intent = new Intent(context, SplashActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        Intent intent = new Intent(context, ForecastCityActivity.class);
+        intent.putExtra("cityId", city.getCityId());
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
         views.setOnClickPendingIntent(R.id.widget_city_weather_image_view, pendingIntent);
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

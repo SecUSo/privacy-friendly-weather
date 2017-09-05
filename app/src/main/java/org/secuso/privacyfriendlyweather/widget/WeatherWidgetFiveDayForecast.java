@@ -14,6 +14,7 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
 import org.secuso.privacyfriendlyweather.activities.SplashActivity;
 import org.secuso.privacyfriendlyweather.database.City;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
@@ -133,8 +134,9 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         views.setImageViewResource(R.id.widget_city_weather_5day_image4, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(3).getWeatherID()));
         views.setImageViewResource(R.id.widget_city_weather_5day_image5, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(4).getWeatherID()));
 
-        Intent intent = new Intent(context, SplashActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        Intent intent = new Intent(context, ForecastCityActivity.class);
+        intent.putExtra("cityId", forecastList.get(0).getCity_id());
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
         views.setOnClickPendingIntent(R.id.widget_city_weather_image_view, pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
