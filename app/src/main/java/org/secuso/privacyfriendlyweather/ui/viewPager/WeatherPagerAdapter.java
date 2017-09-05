@@ -7,6 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +54,6 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
     public static final String SKIP_UPDATE_INTERVAL= "skipUpdateInterval";
 
     private int mDataSetTypes[] = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
-
     private int errorDataSetTypes[] = {ERROR};
 
     private List<RecyclerView> mRecyclerViews = new ArrayList<>();
@@ -68,41 +68,16 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
 
         prefManager = new PrefManager(context);
 
-        int widthPixels = mContext.getResources().getDisplayMetrics().widthPixels;
-        float density = mContext.getResources().getDisplayMetrics().density;
-        float width = widthPixels / density;
-
-        int columns = width > 500 ? 2 : 1;
-
         RecyclerView mRecyclerView1 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity1);
-        mRecyclerView1.setLayoutManager(new GridLayoutManager(mRecyclerView1.getContext(), columns));
-
         RecyclerView mRecyclerView2 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity2);
-        mRecyclerView2.setLayoutManager(new GridLayoutManager(mRecyclerView2.getContext(), columns));
-
         RecyclerView mRecyclerView3 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity3);
-        mRecyclerView3.setLayoutManager(new GridLayoutManager(mRecyclerView3.getContext(), columns));
-
         RecyclerView mRecyclerView4 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity4);
-        mRecyclerView4.setLayoutManager(new GridLayoutManager(mRecyclerView4.getContext(), columns));
-
         RecyclerView mRecyclerView5 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity5);
-        mRecyclerView5.setLayoutManager(new GridLayoutManager(mRecyclerView5.getContext(), columns));
-
         RecyclerView mRecyclerView6 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity6);
-        mRecyclerView6.setLayoutManager(new GridLayoutManager(mRecyclerView6.getContext(), columns));
-
         RecyclerView mRecyclerView7 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity7);
-        mRecyclerView7.setLayoutManager(new GridLayoutManager(mRecyclerView7.getContext(), columns));
-
         RecyclerView mRecyclerView8 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity8);
-        mRecyclerView8.setLayoutManager(new GridLayoutManager(mRecyclerView8.getContext(), columns));
-
         RecyclerView mRecyclerView9 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity9);
-        mRecyclerView9.setLayoutManager(new GridLayoutManager(mRecyclerView9.getContext(), columns));
-
         RecyclerView mRecyclerView10 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity10);
-        mRecyclerView10.setLayoutManager(new GridLayoutManager(mRecyclerView10.getContext(), columns));
 
         mRecyclerViews.add(mRecyclerView1);
         mRecyclerViews.add(mRecyclerView2);
@@ -117,6 +92,14 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
 
         if (prefManager.isFirstTimeLaunch()) {
             handleFirstStart();
+        }
+    }
+
+    private RecyclerView.LayoutManager getLayoutManager(float width, Context context) {
+        if (width > 500) {
+            return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        } else {
+            return new LinearLayoutManager(context);
         }
     }
 
@@ -157,10 +140,18 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
 
         CityWeatherAdapter mAdapter = new CityWeatherAdapter(currentWeatherDataList, mDataSetTypes, ((ForecastCityActivity)mContext).getBaseContext());
 
+        int widthPixels = mContext.getResources().getDisplayMetrics().widthPixels;
+        float density = mContext.getResources().getDisplayMetrics().density;
+        float width = widthPixels / density;
+
         RecyclerView mRecyclerView = mRecyclerViews.get(position);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(getLayoutManager(width, mRecyclerView.getContext()));
 
         super.setPrimaryItem(container, position, object);
+
+        mRecyclerView.requestLayout();
+        mRecyclerView.scrollTo(0,0);
     }
 
     @Override
@@ -195,9 +186,7 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
     public void refreshData(Boolean asap) {
         Intent intent = new Intent(mContext, UpdateDataService.class);
         intent.setAction(UpdateDataService.UPDATE_ALL_ACTION);
-        if (asap) {
-            intent.putExtra(SKIP_UPDATE_INTERVAL, true);
-        }
+        intent.putExtra(SKIP_UPDATE_INTERVAL, asap);
         mContext.startService(intent);
     }
 
