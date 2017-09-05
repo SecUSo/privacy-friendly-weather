@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendlyweather.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
@@ -101,6 +102,7 @@ public class RadiusSearchActivity extends BaseActivity {
             @Override
             public void accept(City city) {
                 dropdownSelectedCity = city;
+                enableOkButton(city != null);
             }
         }, new Runnable() {
             @Override
@@ -175,6 +177,15 @@ public class RadiusSearchActivity extends BaseActivity {
                                      }
 
         );
+    }
+
+    private void enableOkButton(Boolean enabled) {
+        btnSearch.setEnabled(enabled);
+        if (enabled) {
+            btnSearch.setBackground(getResources().getDrawable(R.drawable.button_fullwidth));
+        } else  {
+            btnSearch.setBackground(getResources().getDrawable(R.drawable.button_disabled));
+        }
     }
 
     /**
