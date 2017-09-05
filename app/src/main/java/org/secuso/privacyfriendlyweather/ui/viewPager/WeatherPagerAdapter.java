@@ -34,6 +34,7 @@ import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapte
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.OVERVIEW;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.SUN;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.WEEK;
+import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.ERROR;
 
 /**
  * Created by thomagglaser on 07.08.2017.
@@ -53,6 +54,7 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
 
     private int mDataSetTypes[] = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
 
+    private int errorDataSetTypes[] = {ERROR};
 
     private List<RecyclerView> mRecyclerViews = new ArrayList<>();
     private List<CityWeatherAdapter> mAdapters = new ArrayList<>();

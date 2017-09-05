@@ -3,9 +3,12 @@ package org.secuso.privacyfriendlyweather.services;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
+import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
@@ -58,6 +61,17 @@ public class UpdateDataService extends IntentService {
      */
     @Override
     protected void onHandleIntent(Intent intent) {
+        if (!isOnline()) {
+            Handler h = new Handler(getApplicationContext().getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.error_no_internet), Toast.LENGTH_LONG).show();
+                }
+            });
+            return;
+        }
+
         if(intent != null) {
             if      (UPDATE_ALL_ACTION.equals(intent.getAction()))              handleUpdateAll(intent);
             else if (UPDATE_CURRENT_WEATHER_ACTION.equals(intent.getAction()))  handleUpdateCurrentWeatherAction(intent);
@@ -102,6 +116,18 @@ public class UpdateDataService extends IntentService {
             IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext());
             forecastRequest.perform(cityId);
         }
+    }
+
+    private boolean isOnline() {
+        try {
+            Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 api.openweathermap.org");
+            int returnVal = p1.waitFor();
+            boolean reachable = (returnVal == 0);
+            return reachable;
+        } catch (Exception e) {
+
+        }
+        return false;
     }
 
     private void handleUpdateForecastAction(Intent intent) {

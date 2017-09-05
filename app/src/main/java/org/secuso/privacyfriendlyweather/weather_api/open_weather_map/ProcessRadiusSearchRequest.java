@@ -3,7 +3,7 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -171,10 +171,14 @@ public class ProcessRadiusSearchRequest implements IProcessHttpRequest {
          * @see IProcessHttpRequest#processFailScenario(VolleyError)
          */
         @Override
-        public void processFailScenario(VolleyError error) {
-            // TODO: Fill with life
-            Toast.makeText(this.context, "RadiusSearch: " + error.getMessage(), Toast.LENGTH_LONG);
-            Log.i("TGL", "RadiusSearch: " + error.getMessage());
+        public void processFailScenario(final VolleyError error) {
+            Handler h = new Handler(this.context.getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context, context.getResources().getString(R.string.error_radius_search), Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 

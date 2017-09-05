@@ -1,7 +1,7 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
-import android.util.Log;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -82,9 +82,14 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
      * @param error The error that occurred while executing the HTTP request.
      */
     @Override
-    public void processFailScenario(VolleyError error) {
-        Toast.makeText(this.context, "AddCity: " + error.getMessage(), Toast.LENGTH_LONG);
-        Log.i("TGL", "AddCity: " + error.getMessage());
+    public void processFailScenario(final VolleyError error) {
+        Handler h = new Handler(this.context.getMainLooper());
+        h.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, context.getResources().getString(R.string.error_add_city), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }

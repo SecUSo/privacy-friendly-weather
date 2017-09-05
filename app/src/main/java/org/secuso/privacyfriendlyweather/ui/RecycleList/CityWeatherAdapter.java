@@ -41,6 +41,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     public static final int WEEK = 2;
     public static final int DAY = 3;
     public static final int SUN = 4;
+    public static final int ERROR = 5;
 
     public CityWeatherAdapter(CurrentWeatherData currentWeatherDataList, int[] dataSetTypes, Context context) {
         this.currentWeatherDataList = currentWeatherDataList;
@@ -148,6 +149,12 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         }
     }
 
+    public class ErrorViewHolder extends ViewHolder {
+        public ErrorViewHolder(View v) {
+            super(v);
+        }
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v;
@@ -175,11 +182,15 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     .inflate(R.layout.card_day, viewGroup, false);
             return new DayViewHolder(v);
 
-        } else {
+        } else if (viewType == SUN){
 
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_sun, viewGroup, false);
             return new SunViewHolder(v);
+        } else {
+            v = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.card_error, viewGroup, false);
+            return new ErrorViewHolder(v);
         }
     }
 
@@ -225,7 +236,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             CourseOfDayAdapter adapter = new CourseOfDayAdapter(courseDayList, context);
             holder.recyclerView.setAdapter(adapter);
 
-        } else {
+        } else if (viewHolder.getItemViewType() == SUN) {
             SunViewHolder holder = (SunViewHolder) viewHolder;
 
             //TODO Is this local time? No it's UTC change to it local time...
@@ -239,6 +250,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             calendar.setTimeInMillis(currentWeatherDataList.getTimeSunset()*1000);
             holder.sunset.setText(dateFormat.format(calendar.getTime()));
         }
+        //No update for error needed
     }
 
     public void setImage(int value, ImageView imageView) {
