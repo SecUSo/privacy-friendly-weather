@@ -8,6 +8,8 @@
     <string name="action_settings">設定</string>
     <string name="action_main">メイン</string>
 
+
+
     <string name="navigation_drawer_open">ナビゲーションドロワーを開く</string>
     <string name="navigation_drawer_close">ナビゲーションドロワーを閉じる</string>
 
@@ -155,5 +157,44 @@
     <string name="insert_into_db_error">
         データをデータベースに書き込む際にエラーが発生しました。
     </string>
+    <string name="action_manage">Manage locations</string>
+    <string name="add_widget">Add widget</string>
+    <string name="appwidget_text">PFA - Weather</string>
+    <string name="card_day_heading">Course of the day</string>
+    <string name="card_error_content">card_error_content</string>
+    <string name="card_error_heading">Error fetching weather data</string>
+    <string name="card_sun_heading">Sun</string>
+    <string name="card_week_heading">Week</string>
+    <string name="configure">Configure</string>
+    <string name="default_location">%s set as default location</string>
+    <string name="error_add_city">Error while adding City, please try again!</string>
+    <string name="error_fetch_cityList">Error while updating Citylist, please try again!</string>
+    <string name="error_fetch_forecast">Error while updating Forecast, please try again!</string>
+    <string name="error_no_internet">Your Device is not connected to the internet!</string>
+    <string name="error_radius_search">Error while doing radius search, please try again!</string>
+    <string name="help_privacy_answer">Privacy Friendly Weather only uses the permission to access internet. It further does not include any tracking mechanisms or advertisement.</string>
+    <string name="help_whatis">What is Privacy Friendly Weather?</string>
+    <string name="help_whatis_answer">Privacy Friendly Weather is an App to check the current Weather and Forecasts for your Locations.</string>
+    <string name="help_where_from">Where do the weather informations come from?</string>
+    <string name="help_where_from_answer">The information is fetched from the service OpenWeatherMap. If you have your own OpenWeatherMap Key, go to the settings to register it.</string>
+    <string name="next">Next</string>
+    <string name="okay">Okay</string>
+    <string name="reset">reset</string>
+    <string name="settings__API_key_default">No API Key provided</string>
+    <string name="settings_confirm_content_API_key_reset">Do you really want to reset to the default API key?</string>
+    <string name="settings_confirm_title_API_key_reset">Reset API key</string>
+    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org.</string>
+    <string name="settings_interval_summary">Set the interval of automatic updates</string>
+    <string name="settings_intervals">Intervals</string>
+    <string name="settings_title_API">API Key</string>
+    <string name="settings_title_API_key">Enter API Key</string>
+    <string name="settings_title_API_key_reset">Reset API Key</string>
+    <string name="settings_update_interval">Update interval</string>
+    <string name="skip">Skip</string>
+    <string name="slide1_heading">Welcome!</string>
+    <string name="slide1_text">Privacy Friendly Weather is an App to check the current Weather and Forecasts for your Locations.</string>
+    <string name="slide2_heading">Key Elements</string>
+    <string name="slide2_text">You can choose your own locations and get detailed information about the current weather. You can search for the best weather in a radius around you or place a widgets on your homescreen showing the current weather, a three day forecast or a five day forecast</string>
+    <string name="slide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the About Page.</string>
 
 </resources>

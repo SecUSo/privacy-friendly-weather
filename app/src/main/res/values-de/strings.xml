@@ -118,7 +118,6 @@
     <string name="card_week_heading">Woche</string>
     <string name="configure">Wählen Sie einen Ort</string>
     <string name="default_location">%s als Standard gesetzt</string>
-    <string name="help_permission"></string>
     <string name="reset">Zurücksetzen</string>
     <string name="skip">Überspringen</string>
     <string name="slide1_heading">Willkommen!</string>
@@ -132,4 +131,14 @@
     <string name="error_radius_search">Es ist ein Fehler beim Abfragen der Umkreissuche aufgetreten, bitte versuchen Sie es erneut!</string>
     <string name="card_error_content">Bitte versuchen Sie zu aktualisieren!</string>
     <string name="card_error_heading">Fehler beim Abrufen der Wetterdaten</string>
+    <string name="settings__API_key_default">Es wurde kein API Key bereit gestellt</string>
+    <string name="settings_confirm_content_API_key_reset">Wirklich den standard API Key wieder her stellen?</string>
+    <string name="settings_confirm_title_API_key_reset">API Key Zurücksetzen</string>
+    <string name="settings_description_API">Privacy Friendly Weather erhält die Wetterdaten von dem Freien Service openweathermap.org. Dieser Service ist auf 60 Anfragen pro Minute beschränkt. Sie könnten ihren eigenen API Key registrieren, um ihre eigenen 60 Anfragen zu bekommen</string>
+    <string name="settings_interval_summary">Setzen Sie das Interval der automatischen Updates</string>
+    <string name="settings_intervals">Intervalle</string>
+    <string name="settings_title_API">API Key</string>
+    <string name="settings_title_API_key">API Key eingeben</string>
+    <string name="settings_title_API_key_reset">API Key zurücksetzen</string>
+    <string name="settings_update_interval">Intervall der automatischen Updates</string>
 </resources>

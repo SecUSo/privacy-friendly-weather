@@ -207,8 +207,6 @@
     <string name="help_whatis_answer">Privacy Friendly Weather is an App to check the current Weather and Forecasts for your Locations.</string>
     <string name="help_whatis">What is Privacy Friendly Weather?</string>
     <string name="help_privacy_answer">Privacy Friendly Weather only uses the permission to access internet. It further does not include any tracking mechanisms or advertisement.</string>
-    <string name="help_permission_answer">permission_answer</string>
-    <string name="help_permission">permission</string>
     <string name="help_where_from">Where do the weather informations come from?</string>
     <string name="help_where_from_answer">The information is fetched from the service OpenWeatherMap. If you have your own OpenWeatherMap Key, go to the settings to register it.</string>
     <string name="error_fetch_forecast">Error while updating Forecast, please try again!</string>
