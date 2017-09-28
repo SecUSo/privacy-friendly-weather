@@ -7,6 +7,7 @@
     <string name="action_about">About</string>
     <string name="action_settings">Settings</string>
     <string name="action_main">Main</string>
+    <string name="action_manage">Manage locations</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -21,6 +22,23 @@
     </string>
     <string name="activity_main_snackbar_undo_info">Item was removed</string>
     <string name="activity_main_snackbar_undo_button">UNDO</string>
+
+    <!-- ###TUTORIAL### -->
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="okay">Okay</string>
+    <string name="slide1_heading">Welcome!</string>
+    <string name="slide1_text">Privacy Friendly Weather is an App to check the current Weather and Forecasts for your Locations.</string>
+    <string name="slide2_heading">Key Elements</string>
+    <string name="slide2_text">You can choose your own locations and get detailed information about the current weather. You can search for the best weather in a radius around you or place a widgets on your homescreen showing the current weather, a three day forecast or a five day forecast</string>
+    <string name="slide3_heading" translatable="false">Github</string>
+    <string name="slide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the About Page.</string>
+
+    <!-- ###CARD_HEADINGs### -->
+    <string name="card_details_heading" translatable="false">Details</string>
+    <string name="card_week_heading">Week</string>
+    <string name="card_day_heading">Course of the day</string>
+    <string name="card_sun_heading">Sun</string>
 
     <!-- ###RADIUS_SEARCH### -->
     <string name="radius_search_label">Radius Search</string>
@@ -58,9 +76,9 @@
 
     <!--###ABOUT###-->
     <string name="about">About</string>
-    <string name="version_number" translatable="false">Version 1.1</string>
+    <string name="version_number" translatable="false">Version</string>
     <string name="about_author">Authors: </string>
-    <string name="about_author_names" translatable="false">Patrick Mell</string>
+    <string name="about_author_names" translatable="false">Patrick Mell, Karola Marky, Christopher Beckmann, Thomas Glaser</string>
     <string name="about_author_contributors">and contributors.</string>
     <string name="about_affiliation">In affiliation with</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
@@ -80,6 +98,13 @@
     <string name="settings_title_distance">Distances</string>
     <string name="settings_kilometers">Kilometers</string>
     <string name="settings_miles">Miles</string>
+
+    <string name="settings_title_API">API Key</string>
+    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org.
+    This service is limited to 60 calls per minute. You could register your own API key for free to get your own 60 calls.</string>
+    <string name="settings_title_API_key">Enter API Key</string>
+    <string name="settings__API_key_default">No API Key provided</string>
+    <string name="settings_title_API_key_reset">Reset API Key</string>
 
     <!-- ###CITY_WEATHER_ACTIVIY### -->
     <string name="activity_city_weather_label">Weather Overview</string>
@@ -115,9 +140,9 @@
     <string name="activity_forecast_label">Weather Forecast</string>
 
     <!-- ###DIALOGS### -->
-    <string name="dialog_first_app_title">Welcome</string>
+    <string name="dialog_first_app_title">The First Location</string>
     <string name="dialog_first_app_start_message">
-        Using the button below, please add locations you would like to watch the weather for.\nThese can be removed at any time.
+        And  now add your first Location
     </string>
     <string name="dialog_first_app_help_button">View Help</string>
     <string name="dialog_first_app_close_button">Okay</string>
@@ -161,5 +186,34 @@
     <string name="insert_into_db_error">
         There was an error while writing the data into the database.
     </string>
+    <string name="settings_confirm_title_API_key_reset">Reset API key</string>
+    <string name="settings_confirm_content_API_key_reset">Do you really want to reset to the default API key?</string>
+    <string name="reset">reset</string>
+    <string name="appwidget_text">PFA - Weather</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+    <string name="error_no_internet">Your Device is not connected to the internet!</string>
+    <string name="default_location">%s set as default location</string>
+    <string name="settings_interval_one" translatable="false">1 h</string>
+    <string name="settings_interval_two" translatable="false">2 h</string>
+    <string name="settings_interval_six" translatable="false">6 h</string>
+    <string name="settings_interval_twelve" translatable="false">12 h</string>
+    <string name="settings_interval_twentyfour" translatable="false">24 h</string>
+    <string name="settings_intervals">Intervals</string>
+    <string name="settings_update_interval">Update interval</string>
+    <string name="settings_interval_summary">Set the interval of automatic updates</string>
+
+    <!--  ##HELP## -->
+    <string name="help_whatis_answer">Privacy Friendly Weather is an App to check the current Weather and Forecasts for your Locations.</string>
+    <string name="help_whatis">What is Privacy Friendly Weather?</string>
+    <string name="help_privacy_answer">Privacy Friendly Weather only uses the permission to access internet. It further does not include any tracking mechanisms or advertisement.</string>
+    <string name="help_where_from">Where do the weather informations come from?</string>
+    <string name="help_where_from_answer">The information is fetched from the service OpenWeatherMap. If you have your own OpenWeatherMap Key, go to the settings to register it.</string>
+    <string name="error_fetch_forecast">Error while updating Forecast, please try again!</string>
+    <string name="error_fetch_cityList">Error while updating Citylist, please try again!</string>
+    <string name="error_add_city">Error while adding City, please try again!</string>
+    <string name="error_radius_search">Error while doing radius search, please try again!</string>
+    <string name="card_error_heading">Error fetching weather data</string>
+    <string name="card_error_content">Please try to update!</string>
 
 </resources>

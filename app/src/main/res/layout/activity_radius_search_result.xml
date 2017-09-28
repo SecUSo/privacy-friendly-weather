@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.secuso.privacyfriendlyweather.RadiusSearchResultActivity">
+    tools:context="org.secuso.privacyfriendlyweather.activities.RadiusSearchResultActivity">
 
     <ListView
         android:id="@+id/activity_radius_search_result_list_view"

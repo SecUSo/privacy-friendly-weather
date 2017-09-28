@@ -5,8 +5,7 @@ import android.content.Context;
 import org.secuso.privacyfriendlyweather.http.HttpRequestType;
 import org.secuso.privacyfriendlyweather.http.IHttpRequest;
 import org.secuso.privacyfriendlyweather.http.VolleyHttpRequest;
-import org.secuso.privacyfriendlyweather.orm.CityToWatch;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
+import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
 
 import java.util.List;
@@ -18,15 +17,12 @@ import java.util.List;
 public class OwmHttpRequestForUpdatingCityList extends OwmHttpRequest implements IHttpRequestForCityList {
 
     private Context context;
-    private DatabaseHelper dbHelper;
 
     /**
      * @param context
-     * @param dbHelper
      */
-    public OwmHttpRequestForUpdatingCityList(Context context, DatabaseHelper dbHelper) {
+    public OwmHttpRequestForUpdatingCityList(Context context) {
         this.context = context;
-        this.dbHelper = dbHelper;
     }
 
     /**
@@ -36,7 +32,7 @@ public class OwmHttpRequestForUpdatingCityList extends OwmHttpRequest implements
     public void perform(List<CityToWatch> cities) {
         IHttpRequest httpRequest = new VolleyHttpRequest(context);
         final String URL = getUrlForQueryingGroupIDs(joinCityIDs(cities));
-        httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmUpdateCityListRequest(context, dbHelper));
+        httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmUpdateCityListRequest(context));
     }
 
 }

@@ -3,6 +3,7 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -11,7 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.RadiusSearchResultActivity;
+import org.secuso.privacyfriendlyweather.activities.RadiusSearchResultActivity;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItemComparator;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
@@ -170,8 +171,14 @@ public class ProcessRadiusSearchRequest implements IProcessHttpRequest {
          * @see IProcessHttpRequest#processFailScenario(VolleyError)
          */
         @Override
-        public void processFailScenario(VolleyError error) {
-            // TODO: Fill with life
+        public void processFailScenario(final VolleyError error) {
+            Handler h = new Handler(this.context.getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context, context.getResources().getString(R.string.error_radius_search), Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 

@@ -57,7 +57,7 @@ public class AppPreferencesManager {
         if (prefValue == 1) {
             return temperature;
         } else {
-            return (temperature * (9 / 5) + 32);
+            return (((temperature * 9) / 5) + 32);
         }
     }
 

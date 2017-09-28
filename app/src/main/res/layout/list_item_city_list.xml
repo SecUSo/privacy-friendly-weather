@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:padding="10dp">
+
+
+    <TextView
+        android:id="@+id/city_overview_list_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/locationDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/city_overview_list_item_text"
+        android:paddingStart="@dimen/card_margin"
+        android:visibility="gone"
+        android:src="@drawable/ic_default_blue" />
+
+</RelativeLayout>

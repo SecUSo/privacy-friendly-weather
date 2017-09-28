@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -9,13 +10,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-import org.secuso.privacyfriendlyweather.ui.UiUpdater;
+import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
-
-import java.sql.SQLException;
 
 /**
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
@@ -32,16 +31,17 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
      * Member variables
      */
     private Context context;
-    private DatabaseHelper dbHelper;
+    //private DatabaseHelper dbHelper;
+    private PFASQLiteHelper dbHelper;
 
     /**
      * Constructor.
      *
      * @param context The context of the HTTP request.
      */
-    public ProcessOwmUpdateCityListRequest(Context context, DatabaseHelper dbHelper) {
+    public ProcessOwmUpdateCityListRequest(Context context) {
         this.context = context;
-        this.dbHelper = dbHelper;
+        this.dbHelper = PFASQLiteHelper.getInstance(context);
     }
 
     /**
@@ -68,24 +68,23 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
                 }
                 // Could retrieve all data, so proceed
                 else {
-                    weatherData.setCity(dbHelper.getCityByCityID(cityId));
-                    // TODO: Handle the case when the city is null: Extract the data from the response and create a new City record
-                    try {
-                        dbHelper.getCurrentWeatherDataDao().create(weatherData);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        final String ERROR_MSG = context.getResources().getString(R.string.insert_into_db_error);
-                        Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
-                        return;
+                    weatherData.setCity_id(cityId);
+
+                    CurrentWeatherData current = dbHelper.getCurrentWeatherByCityId(cityId);
+                    if(current != null && current.getCity_id() == cityId) {
+                        dbHelper.updateCurrentWeather(weatherData);
+                    } else {
+                        dbHelper.addCurrentWeather(weatherData);
                     }
+
+                    //update UI
+                    ViewUpdater.updateCurrentWeatherData(weatherData);
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        // Update the UI
-        UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
-        uiUpdater.updateCityList();
+        // TODO: Error Handling
     }
 
     /**
@@ -94,8 +93,14 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
      * @param error The error that occurred while executing the HTTP request.
      */
     @Override
-    public void processFailScenario(VolleyError error) {
-
+    public void processFailScenario(final VolleyError error) {
+        Handler h = new Handler(this.context.getMainLooper());
+        h.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, context.getResources().getString(R.string.error_fetch_cityList), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }

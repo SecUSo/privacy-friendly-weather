@@ -1,20 +1,17 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
-import org.secuso.privacyfriendlyweather.CityWeatherActivity;
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.orm.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
-import org.secuso.privacyfriendlyweather.ui.UiUpdater;
+import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
-
-import java.sql.SQLException;
 
 /**
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
@@ -31,19 +28,18 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
      * Member variables
      */
     private Context context;
-    private DatabaseHelper dbHelper;
-    private boolean storePersistently;
+    private PFASQLiteHelper dbHelper;
+    //private boolean storePersistently;
+
 
     /**
      * Constructor.
      *
      * @param context  The context of the HTTP request.
-     * @param dbHelper The database helper to use.
      */
-    public ProcessOwmAddCityRequest(Context context, DatabaseHelper dbHelper, boolean storePersistently) {
+    public ProcessOwmAddCityRequest(Context context) {
         this.context = context;
-        this.dbHelper = dbHelper;
-        this.storePersistently = storePersistently;
+        this.dbHelper = PFASQLiteHelper.getInstance(context);
     }
 
     /**
@@ -64,27 +60,13 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
                 final String ERROR_MSG = context.getResources().getString(R.string.convert_to_json_error);
                 Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
             } else {
-                // TODO: Handle the case when the city is null: Extract the data from the response and create a new City record
-                weatherData.setCity(dbHelper.getCityByCityID(cityId));
-                try {
-                    dbHelper.getCurrentWeatherDataDao().create(weatherData);
-                    if (storePersistently) {
-                        // Update the UI
-                        UiUpdater uiUpdater = new UiUpdater(context, dbHelper);
-                        uiUpdater.addItemToOverview(weatherData);
-                        // Show success message
-                        final String SUCCESS_MSG = context.getResources().getString(R.string.dialog_add_added_successfully_template);
-                        Toast.makeText(context, SUCCESS_MSG, Toast.LENGTH_LONG).show();
-                    } else {
-                        Intent intent = new Intent(context, CityWeatherActivity.class);
-                        intent.putExtra("weatherData", weatherData);
-                        context.startActivity(intent);
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    final String ERROR_MSG = context.getResources().getString(R.string.insert_into_db_error);
-                    Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
-                }
+                weatherData.setCity_id(cityId);
+
+                dbHelper.deleteCurrentWeatherByCityId(cityId);
+
+                dbHelper.addCurrentWeather(weatherData);
+
+                ViewUpdater.updateCurrentWeatherData(weatherData);
             }
         }
         // City was not found; sometimes this happens for OWM requests even though the city ID is
@@ -100,8 +82,14 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
      * @param error The error that occurred while executing the HTTP request.
      */
     @Override
-    public void processFailScenario(VolleyError error) {
-
+    public void processFailScenario(final VolleyError error) {
+        Handler h = new Handler(this.context.getMainLooper());
+        h.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, context.getResources().getString(R.string.error_add_city), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }

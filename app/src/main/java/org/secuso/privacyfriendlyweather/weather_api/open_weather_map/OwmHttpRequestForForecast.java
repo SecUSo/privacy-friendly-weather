@@ -5,7 +5,6 @@ import android.content.Context;
 import org.secuso.privacyfriendlyweather.http.HttpRequestType;
 import org.secuso.privacyfriendlyweather.http.IHttpRequest;
 import org.secuso.privacyfriendlyweather.http.VolleyHttpRequest;
-import org.secuso.privacyfriendlyweather.orm.DatabaseHelper;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
 
 /**
@@ -18,15 +17,12 @@ public class OwmHttpRequestForForecast extends OwmHttpRequest implements IHttpRe
      * Member variables.
      */
     private Context context;
-    private DatabaseHelper dbHelper;
 
     /**
      * @param context  The context to use.
-     * @param dbHelper The DatabaseHelper to use for database communication.
      */
-    public OwmHttpRequestForForecast(Context context, DatabaseHelper dbHelper) {
+    public OwmHttpRequestForForecast(Context context) {
         this.context = context;
-        this.dbHelper = dbHelper;
     }
 
     /**
@@ -36,6 +32,6 @@ public class OwmHttpRequestForForecast extends OwmHttpRequest implements IHttpRe
     public void perform(int cityId) {
         IHttpRequest httpRequest = new VolleyHttpRequest(context);
         final String URL = getUrlForQueryingForecast(cityId);
-        httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmForecastRequest(context, dbHelper));
+        httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmForecastRequest(context));
     }
 }

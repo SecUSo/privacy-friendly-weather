@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +20,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
      * Member variables
      */
     private TextView tvInformation;
-    private ImageView ivIcon;
+    private ImageView isDefault;
 
     /**
      * Constructor.
@@ -29,7 +30,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     public ItemViewHolder(View itemView) {
         super(itemView);
         tvInformation = (TextView) itemView.findViewById(R.id.city_overview_list_item_text);
-        ivIcon = (ImageView) itemView.findViewById(R.id.city_overview_list_item_img);
+        isDefault = (ImageView) itemView.findViewById(R.id.locationDefault);
     }
 
     /**
@@ -40,10 +41,11 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     /**
-     * @return Returns the ImageView that belongs to this item.
+     * @return Returns the TextView of the item.
      */
-    public ImageView getIvIcon() {
-        return ivIcon;
+    public ImageView getIsDefault() {
+        return isDefault;
     }
+
 
 }

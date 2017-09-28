@@ -2,7 +2,7 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.text.TextUtils;
 
-import org.secuso.privacyfriendlyweather.orm.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.CityToWatch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class OwmHttpRequest {
     protected String joinCityIDs(List<CityToWatch> cities) {
         List<Integer> cityIDs = new ArrayList<>();
         for (int i = 0; i < cities.size(); i++) {
-            cityIDs.add(cities.get(i).getCity().getCityId());
+            cityIDs.add(cities.get(i).getCityId());
         }
         return TextUtils.join(",", cityIDs);
     }
@@ -38,7 +38,7 @@ public class OwmHttpRequest {
                 "%sgroup?id=%s&units=metric&appid=%s",
                 OwmApiData.BASE_URL,
                 groupID,
-                OwmApiData.API_KEY
+                OwmApiData.getAPI_KEY()
         );
     }
 
@@ -56,7 +56,7 @@ public class OwmHttpRequest {
                 OwmApiData.BASE_URL,
                 cityId,
                 (useMetric) ? "&units=metric" : "",
-                OwmApiData.API_KEY
+                OwmApiData.getAPI_KEY()
         );
     }
 
@@ -73,7 +73,7 @@ public class OwmHttpRequest {
                 "%sforecast?id=%s&units=metric&appid=%s",
                 OwmApiData.BASE_URL,
                 cityId,
-                OwmApiData.API_KEY
+                OwmApiData.getAPI_KEY()
         );
     }
 
@@ -97,7 +97,7 @@ public class OwmHttpRequest {
                 boundingBox[2],
                 boundingBox[3],
                 mapZoom,
-                OwmApiData.API_KEY
+                OwmApiData.getAPI_KEY()
         );
     }
 
