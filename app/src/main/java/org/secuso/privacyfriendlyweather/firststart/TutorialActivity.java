@@ -116,6 +116,10 @@ public class TutorialActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
+                    if (selectedCity == null) {
+                        Toast.makeText(TutorialActivity.this, R.string.dialog_add_no_city_found, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     launchHomeScreen();
                 }
             }
