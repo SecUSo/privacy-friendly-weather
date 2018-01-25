@@ -101,10 +101,11 @@ public class AddLocationDialog extends DialogFragment {
     private void performDone() {
         if (selectedCity == null) {
             Toast.makeText(activity, R.string.dialog_add_no_city_found, Toast.LENGTH_SHORT).show();
-            dismiss();
             return;
         }
-        addCity();
+        if(!database.isCityWatched(selectedCity.getCityId())) {
+            addCity();
+        }
         //TODO Is there a better solution?
         activity.recreate();
         dismiss();

@@ -166,7 +166,9 @@ public class TutorialActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        addCity();
+        if(!database.isCityWatched(selectedCity.getCityId())) {
+            addCity();
+        }
         startActivity(new Intent(TutorialActivity.this, ForecastCityActivity.class));
         getWeatherData();
         finish();
