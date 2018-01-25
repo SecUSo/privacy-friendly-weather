@@ -103,7 +103,7 @@ public class AddLocationDialog extends DialogFragment {
             Toast.makeText(activity, R.string.dialog_add_no_city_found, Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!database.isCityWatched(selectedCity.getCityId())) {
+        if(database != null && !database.isCityWatched(selectedCity.getCityId())) {
             addCity();
         }
         //TODO Is there a better solution?

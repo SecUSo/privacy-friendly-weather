@@ -15,7 +15,6 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,6 +25,7 @@
             android:parentActivityName=".activities.ForecastCityActivity"/>
         <activity
             android:name=".activities.ForecastCityActivity"
+            android:launchMode="singleInstance"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
@@ -51,8 +51,7 @@
             android:name=".activities.AboutActivity"
             android:label="@string/about"
             android:parentActivityName=".activities.ForecastCityActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ForecastCityActivity" />
@@ -74,24 +73,13 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ForecastCityActivity" />
-        </activity>>
-        <activity
-            android:name=".activities.ForecastActivity"
-            android:label="@string/activity_forecast_label"
-            android:parentActivityName=".activities.CityWeatherActivity"
-            >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.CityWeatherActivity" />
         </activity>
         <activity
             android:name=".firststart.TutorialActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-
         <service
             android:name=".services.UpdateDataService"
             android:exported="false" />
-
         <receiver android:name=".widget.WeatherWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

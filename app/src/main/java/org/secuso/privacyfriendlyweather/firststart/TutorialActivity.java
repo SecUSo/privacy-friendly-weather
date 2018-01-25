@@ -166,7 +166,7 @@ public class TutorialActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        if(!database.isCityWatched(selectedCity.getCityId())) {
+        if(selectedCity != null && database != null && !database.isCityWatched(selectedCity.getCityId())) {
             addCity();
         }
         startActivity(new Intent(TutorialActivity.this, ForecastCityActivity.class));
@@ -206,7 +206,7 @@ public class TutorialActivity extends AppCompatActivity {
 
                 return null;
             }
-        }.doInBackground(null);
+        }.doInBackground();
     }
 
     //  viewpager change listener

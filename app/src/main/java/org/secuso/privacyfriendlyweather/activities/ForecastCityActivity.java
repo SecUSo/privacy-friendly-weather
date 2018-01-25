@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.Forecast;
@@ -96,7 +97,8 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
     @Override
     public void updateCurrentWeather(CurrentWeatherData data) {
-
+        // why is this empty?
+        Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -89,7 +89,7 @@ public class WeatherWidgetThreeDayForecastConfigureActivity extends Activity {
                 return null;
             }
 
-        }.doInBackground(null);
+        }.doInBackground();
     }
 
     public WeatherWidgetThreeDayForecastConfigureActivity() {
