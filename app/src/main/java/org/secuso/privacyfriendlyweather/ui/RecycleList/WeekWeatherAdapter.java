@@ -110,7 +110,6 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
             weather = (ImageView) itemView.findViewById(R.id.week_forecast_weather);
             temperature = (TextView) itemView.findViewById(R.id.week_forecast_temperature);
             humidity = (TextView) itemView.findViewById(R.id.week_forecast_humidity);
-
         }
     }
 
@@ -121,8 +120,6 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
 
     public void setIcon(int value, ImageView imageView) {
         imageView.setImageResource(UiResourceProvider.getIconResourceForWeatherCategory(value));
-
-
     }
 
 }

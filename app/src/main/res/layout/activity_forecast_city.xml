@@ -16,6 +16,14 @@
 
         <include layout="@layout/toolbar" />
 
+        <TextView
+            android:id="@+id/noCitySelectedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/activity_city_weather_no_city_selected"
+            android:visibility="gone"/>
+
         <android.support.v4.view.ViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/viewPager"

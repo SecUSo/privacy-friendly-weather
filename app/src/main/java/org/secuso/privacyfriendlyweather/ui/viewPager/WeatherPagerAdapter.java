@@ -221,7 +221,6 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
                 return i;
             }
         }
-
         return 0;
     };
 }

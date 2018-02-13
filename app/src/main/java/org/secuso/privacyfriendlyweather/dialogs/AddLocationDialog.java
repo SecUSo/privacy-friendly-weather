@@ -106,17 +106,10 @@ public class AddLocationDialog extends DialogFragment {
         if(database != null && !database.isCityWatched(selectedCity.getCityId())) {
             addCity();
         }
-        //TODO Is there a better solution?
+
         activity.recreate();
         dismiss();
     }
-
-// TODO Cleanup
-//    private void setCities(List<City> cities) {
-//        if(this.allCities.size() == 0) {
-//            this.allCities.addAll(cities);
-//        }
-//    }
 
     //TODO setRank
     public void addCity() {

@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
+import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
@@ -51,9 +53,10 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
             protected Void doInBackground(Integer... params) {
                 PFASQLiteHelper database = PFASQLiteHelper.getInstance(context);
 
+                City city = database.getCityById(cityId);
                 List<Forecast> forecastList = database.getForecastsByCityId(cityId);
 
-                updateView(context, appWidgetManager, views, appWidgetId, forecastList);
+                updateView(context, appWidgetManager, views, appWidgetId, forecastList, city);
 
                 database.close();
 
@@ -62,7 +65,7 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         }.doInBackground(cityId);
     }
 
-    private static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, List<Forecast> forecastList) {
+    private static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, List<Forecast> forecastList, City city) {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
         DecimalFormat decimalFormat = new DecimalFormat("#.0");
@@ -107,6 +110,8 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         String hum3 = String.format("%s %%", forecastList.get(2).getHumidity());
         String hum4 = String.format("%s %%", forecastList.get(3).getHumidity());
         String hum5 = String.format("%s %%", forecastList.get(4).getHumidity());
+
+        views.setTextViewText(R.id.widget_city_name, city.getCityName());
 
         views.setTextViewText(R.id.widget_city_weather_5day_day1, day1);
         views.setTextViewText(R.id.widget_city_weather_5day_day2, day2);

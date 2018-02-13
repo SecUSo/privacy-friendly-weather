@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
@@ -32,6 +34,8 @@ import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapte
 
 public class ForecastCityActivity extends BaseActivity implements IUpdateableCityUI {
     private WeatherPagerAdapter pagerAdapter;
+    private ViewPager viewPager;
+    private TextView noCityText;
 
     @Override
     protected void onPause() {
@@ -55,23 +59,39 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         setContentView(R.layout.activity_forecast_city);
         overridePendingTransition(0, 0);
 
+        initResources();
+
         int cityId = getIntent().getIntExtra("cityId", -1);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        pagerAdapter = new WeatherPagerAdapter(this);
-        viewPager.setAdapter(pagerAdapter);
+        PFASQLiteHelper db = PFASQLiteHelper.getInstance(this);
+        if(db.getAllCitiesToWatch().isEmpty()) {
+            // no cities selected.. don't show the viewPager - rather show a text that tells the user that no city was selected
+            viewPager.setVisibility(View.GONE);
+            noCityText.setVisibility(View.VISIBLE);
 
-        viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
+        } else {
+            noCityText.setVisibility(View.GONE);
+            viewPager.setVisibility(View.VISIBLE);
+            viewPager.setAdapter(pagerAdapter);
+            viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
+        }
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
 
+    private void initResources() {
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        pagerAdapter = new WeatherPagerAdapter(this);
+        noCityText = (TextView) findViewById(R.id.noCitySelectedText);
+    }
 
     @Override
     protected int getNavigationDrawerID() {
         return R.id.nav_weather;
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,7 +118,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     @Override
     public void updateCurrentWeather(CurrentWeatherData data) {
         // why is this empty?
-        Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
