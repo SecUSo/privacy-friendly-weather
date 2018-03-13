@@ -1,6 +1,9 @@
 package org.secuso.privacyfriendlyweather.services;
 
 import android.app.IntentService;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -14,6 +17,8 @@ import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
+import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
+import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForForecast;
@@ -55,7 +60,7 @@ public class UpdateDataService extends IntentService {
         dbHelper = PFASQLiteHelper.getInstance(getApplicationContext());
         prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
-    
+
     /**
      * @see IntentService#onHandleIntent(Intent)
      */

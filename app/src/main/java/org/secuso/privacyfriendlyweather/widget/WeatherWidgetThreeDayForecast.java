@@ -3,6 +3,7 @@ package org.secuso.privacyfriendlyweather.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,6 +24,10 @@ import org.secuso.privacyfriendlyweather.ui.util.DayForecastFilter;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -55,8 +60,20 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
 
                 City city = database.getCityById(cityId);
                 List<Forecast> forecastList = database.getForecastsByCityId(cityId);
+                List<Forecast> weekForecastList = new ArrayList<>();
+                Date now = new Date();
 
-                updateView(context, appWidgetManager, views, appWidgetId, forecastList, city);
+                for(Forecast fc : forecastList) {
+                    if(fc.getForecastTime().after(now)) {
+                        Calendar c = new GregorianCalendar();
+                        c.setTime(fc.getForecastTime());
+                        if (c.get(Calendar.HOUR_OF_DAY) == 12) {
+                            weekForecastList.add(fc);
+                        }
+                    }
+                }
+
+                updateView(context, appWidgetManager, views, appWidgetId, weekForecastList, city);
 
                 database.close();
 
@@ -71,7 +88,8 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
         DecimalFormat decimalFormat = new DecimalFormat("#.0");
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
 
-        forecastList = DayForecastFilter.filter(forecastList, 3);
+        //forecastList = DayForecastFilter.filter(forecastList, 3);
+        if(forecastList.size() < 3) return;
 
         String day1 = dayFormat.format(forecastList.get(0).getForecastTime());
         String day2 = dayFormat.format(forecastList.get(1).getForecastTime());
@@ -151,6 +169,23 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    public static void forceWidgetUpdate(Context context){
+        forceWidgetUpdate(null, context);
+    }
+
+    public static void forceWidgetUpdate(Integer widgetId, Context context){
+        Intent intent = new Intent(context, WeatherWidgetThreeDayForecast.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int[] ids;
+        if(widgetId == null) {
+            ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidgetThreeDayForecast.class));
+        }else{
+            ids = new int[]{widgetId};
+        }
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        context.sendBroadcast(intent);
     }
 }
 
