@@ -141,4 +141,5 @@
     <string name="settings_title_API_key">API Key eingeben</string>
     <string name="settings_title_API_key_reset">API Key zurücksetzen</string>
     <string name="settings_update_interval">Intervall der automatischen Updates</string>
+    <string name="activity_city_weather_no_city_selected">"Sie haben keine Stadt ausgewählt. Wählen Sie \"Orte verwalten\" in der Navigation um eine Stadt auszuwählen."</string>
 </resources>
