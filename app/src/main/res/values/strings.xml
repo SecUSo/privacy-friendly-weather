@@ -29,7 +29,7 @@
     <string name="okay">Okay</string>
     <string name="slide1_heading">Welcome!</string>
     <string name="slide1_text">Privacy Friendly Weather is an App to check the current Weather and Forecasts for your Locations.</string>
-    <string name="slide2_heading">Key Elements</string>
+    <string name="slide2_heading">How To</string>
     <string name="slide2_text">You can choose your own locations and get detailed information about the current weather. You can search for the best weather in a radius around you or place a widgets on your homescreen showing the current weather, a three day forecast or a five day forecast</string>
     <string name="slide3_heading" translatable="false">Github</string>
     <string name="slide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the About Page.</string>
