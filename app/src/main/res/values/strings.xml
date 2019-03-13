@@ -215,6 +215,7 @@
     <string name="error_radius_search">Error while doing radius search, please try again!</string>
     <string name="card_error_heading">Error fetching weather data</string>
     <string name="card_error_content">Please try to update!</string>
+    <string name="action_refresh">Refresh</string>
     <string name="activity_city_weather_no_city_selected">There is no city selected. To select a city go to \"Manage locations\".</string>
 
 </resources>

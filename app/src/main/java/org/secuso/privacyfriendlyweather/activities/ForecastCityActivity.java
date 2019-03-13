@@ -1,39 +1,31 @@
 package org.secuso.privacyfriendlyweather.activities;
 
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.secuso.privacyfriendlyweather.database.CityToWatch;
-import org.secuso.privacyfriendlyweather.database.Forecast;
-import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
-import org.secuso.privacyfriendlyweather.services.UpdateDataService;
-import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
+import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.ui.viewPager.WeatherPagerAdapter;
 
 import java.util.List;
 
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DAY;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DETAILS;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.OVERVIEW;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.SUN;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.WEEK;
-
 public class ForecastCityActivity extends BaseActivity implements IUpdateableCityUI {
     private WeatherPagerAdapter pagerAdapter;
+
+    private MenuItem refreshActionButton;
+    private int cityId = -1;
     private ViewPager viewPager;
     private TextView noCityText;
 
@@ -42,6 +34,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         super.onPause();
 
         ViewUpdater.removeSubsriber(this);
+        ViewUpdater.removeSubsriber(pagerAdapter);
     }
 
     @Override
@@ -49,6 +42,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         super.onResume();
 
         ViewUpdater.addSubsriber(this);
+        ViewUpdater.addSubsriber(pagerAdapter);
 
         pagerAdapter.refreshData(false);
     }
@@ -59,10 +53,31 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         setContentView(R.layout.activity_forecast_city);
         overridePendingTransition(0, 0);
 
+        cityId = getIntent().getIntExtra("cityId", -1);
+      
         initResources();
 
-        int cityId = getIntent().getIntExtra("cityId", -1);
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            @Override
+            public void onPageSelected(int position) {
+                if(getSupportActionBar() != null) {
+                    getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(position));
+                }
+                viewPager.setNextFocusRightId(position);
+            }
 
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
+        viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
+      
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager, true);
+      
+        
         PFASQLiteHelper db = PFASQLiteHelper.getInstance(this);
         if(db.getAllCitiesToWatch().isEmpty()) {
             // no cities selected.. don't show the viewPager - rather show a text that tells the user that no city was selected
@@ -84,7 +99,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
     private void initResources() {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        pagerAdapter = new WeatherPagerAdapter(this);
+        pagerAdapter = new WeatherPagerAdapter(this, getSupportFragmentManager());
         noCityText = (TextView) findViewById(R.id.noCitySelectedText);
     }
 
@@ -97,33 +112,84 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_forecast_city, menu);
+
+        final Menu m = menu;
+
+        refreshActionButton = menu.findItem(R.id.menu_refresh);
+        refreshActionButton.setActionView(R.layout.menu_refresh_action_view);
+        refreshActionButton.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                m.performIdentifierAction(refreshActionButton.getItemId(), 0);
+            }
+        });
+
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.menu_refresh) {
-            pagerAdapter.refreshData(true);
+        switch(id) {
+            case R.id.menu_refresh:
+                RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotate.setDuration(500);
+                rotate.setRepeatCount(Animation.INFINITE);
+                rotate.setInterpolator(new LinearInterpolator());
+                rotate.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        refreshActionButton.getActionView().setActivated(false);
+                        refreshActionButton.getActionView().setEnabled(false);
+                        refreshActionButton.getActionView().setClickable(false);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        refreshActionButton.getActionView().setActivated(true);
+                        refreshActionButton.getActionView().setEnabled(true);
+                        refreshActionButton.getActionView().setClickable(true);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {}
+                });
+
+                refreshActionButton.getActionView().startAnimation(rotate);
+
+                pagerAdapter.refreshData(true);
+
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(viewPager.getCurrentItem()));
+        }
+    }
 
     @Override
     public void updateCurrentWeather(CurrentWeatherData data) {
-        // why is this empty?
-        //Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show();
+        if(refreshActionButton != null && refreshActionButton.getActionView() != null) {
+            refreshActionButton.getActionView().clearAnimation();
+        }
     }
 
     @Override
     public void updateForecasts(List<Forecast> forecasts) {
-
+        if(refreshActionButton != null && refreshActionButton.getActionView() != null) {
+            refreshActionButton.getActionView().clearAnimation();
+        }
     }
 }
 

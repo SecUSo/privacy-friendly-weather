@@ -73,6 +73,17 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ForecastCityActivity" />
+
+        </activity>
+        <activity
+            android:name=".activities.ForecastActivity"
+            android:label="@string/activity_forecast_label"
+            android:parentActivityName=".activities.CityWeatherActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.CityWeatherActivity" />
+
         </activity>
         <activity
             android:name=".firststart.TutorialActivity"
