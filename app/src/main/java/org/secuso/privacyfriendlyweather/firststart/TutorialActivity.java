@@ -184,6 +184,13 @@ public class TutorialActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        viewPagerPageChangeListener.onPageSelected(viewPager.getCurrentItem());
+    }
+
     public void addCity() {
         new AsyncTask<Void, Void, Void>() {
 
@@ -221,19 +228,6 @@ public class TutorialActivity extends AppCompatActivity {
                 // last page. make button text to GOT IT
                 btnNext.setText(getString(R.string.okay));
                 btnSkip.setVisibility(View.GONE);
-
-                autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTvAddFirstStart);
-                cityTextViewGenerator.generate(autoCompleteTextView, 8, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
-                    @Override
-                    public void accept(City city) {
-                        selectedCity = city;
-                    }
-                }, new Runnable() {
-                    @Override
-                    public void run() {
-                        performDone();
-                    }
-                });
             } else {
                 // still pages are left
                 btnNext.setText(getString(R.string.next));
@@ -277,6 +271,21 @@ public class TutorialActivity extends AppCompatActivity {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(layouts[position], container, false);
+
+            if(position == dots.length - 1) {
+                autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTvAddFirstStart);
+                cityTextViewGenerator.generate(autoCompleteTextView, 8, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
+                    @Override
+                    public void accept(City city) {
+                        selectedCity = city;
+                    }
+                }, new Runnable() {
+                    @Override
+                    public void run() {
+                        performDone();
+                    }
+                });
+            }
             container.addView(view);
 
             return view;

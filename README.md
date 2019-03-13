@@ -43,6 +43,8 @@ App-Icon, weather icons and backgrounds: <br />
 Markus Hau<br />
 
 Github-Users: <br />
-ptrckkk<br />
+ptrckkk (Patrick Mell) <br />
+Thomas Glaser <br />
 yonjuni (Karola Marky)<br />
+Kamuno (Christopher Beckmann) <br />
 xdema (translation to Italian)

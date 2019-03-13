@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendlyweather.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.ui.viewPager.WeatherPagerAdapter;

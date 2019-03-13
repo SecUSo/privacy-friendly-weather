@@ -152,19 +152,6 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         this.context = context;
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        // creating required tables
-        db.execSQL(CREATE_TABLE_CITIES);
-        db.execSQL(CREATE_TABLE_FORECASTS);
-        db.execSQL(CREATE_CURRENT_WEATHER);
-        db.execSQL(CREATE_TABLE_CITIES_TO_WATCH);
-        db.execSQL(CREATE_TABLE_CITIES_INDEX);
-
-        // save all the cities into the database
-        fillCityDatabase(db);
-
-    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
