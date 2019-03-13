@@ -16,105 +16,27 @@
 
         <include layout="@layout/toolbar" />
 
-        <android.support.v4.view.ViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/viewPager"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="55dp">
+            android:layout_marginTop="?actionBarSize"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                app:tabMode="scrollable"
+                android:layout_gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:id="@+id/recyclerViewActivity1"
-                android:padding="5dp"
-                />
+                android:layout_height="wrap_content" />
 
-            <android.support.v7.widget.RecyclerView
+            <android.support.v4.view.ViewPager
                 xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
+                android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:id="@+id/recyclerViewActivity2"
-                android:padding="@dimen/card_margin" />
+                android:layout_height="match_parent">
+            </android.support.v4.view.ViewPager>
 
-            <android.support.v7.widget.RecyclerView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:id="@+id/recyclerViewActivity3"
-                android:padding="@dimen/card_margin" />
-
-            <android.support.v7.widget.RecyclerView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:id="@+id/recyclerViewActivity4"
-                android:padding="@dimen/card_margin" />
-
-            <android.support.v7.widget.RecyclerView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:id="@+id/recyclerViewActivity5"
-                android:padding="@dimen/card_margin" />
-
-            <android.support.v7.widget.RecyclerView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:id="@+id/recyclerViewActivity6"
-                android:padding="@dimen/card_margin" />
-
-            <android.support.v7.widget.RecyclerView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:id="@+id/recyclerViewActivity7"
-                android:padding="@dimen/card_margin" />
-
-            <android.support.v7.widget.RecyclerView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:id="@+id/recyclerViewActivity8"
-                android:padding="@dimen/card_margin" />
-
-            <android.support.v7.widget.RecyclerView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:id="@+id/recyclerViewActivity9"
-                android:padding="@dimen/card_margin" />
-
-            <android.support.v7.widget.RecyclerView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:id="@+id/recyclerViewActivity10"
-                android:padding="@dimen/card_margin" />
-
-        </android.support.v4.view.ViewPager>
+        </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 

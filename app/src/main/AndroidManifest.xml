@@ -74,7 +74,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ForecastCityActivity" />
-        </activity>>
+        </activity>
         <activity
             android:name=".activities.ForecastActivity"
             android:label="@string/activity_forecast_label"

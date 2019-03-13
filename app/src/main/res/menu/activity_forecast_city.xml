@@ -4,7 +4,10 @@
     <item
         android:id="@+id/menu_refresh"
         android:orderInCategory="100"
-        android:title="refresh"
+        android:title="@string/action_refresh"
         android:icon="@drawable/ic_refresh"
-        app:showAsAction="always"/>
+        app:actionViewClass="android.widget.ImageButton"
+        app:showAsAction="always"
+        style="@android:style/Widget.ActionButton"
+        />
 </menu>

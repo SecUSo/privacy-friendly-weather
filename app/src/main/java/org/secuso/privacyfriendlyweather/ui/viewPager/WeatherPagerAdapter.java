@@ -1,13 +1,22 @@
 package org.secuso.privacyfriendlyweather.ui.viewPager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.PagerAdapter;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
@@ -18,7 +27,9 @@ import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
+import org.secuso.privacyfriendlyweather.ui.WeatherCityFragment;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
+import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,16 +38,16 @@ import java.util.List;
 
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DAY;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DETAILS;
+import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.ERROR;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.OVERVIEW;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.SUN;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.WEEK;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.ERROR;
 
 /**
  * Created by thomagglaser on 07.08.2017.
  */
 
-public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCityUI {
+public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IUpdateableCityUI {
 
     private Context mContext;
 
@@ -48,74 +59,24 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
 
     public static final String SKIP_UPDATE_INTERVAL= "skipUpdateInterval";
 
-    private int mDataSetTypes[] = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
-    private int errorDataSetTypes[] = {ERROR};
+    private static int mDataSetTypes[] = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
+    private static int errorDataSetTypes[] = {ERROR};
 
-    private List<RecyclerView> mRecyclerViews = new ArrayList<>();
-    private List<CityWeatherAdapter> mAdapters = new ArrayList<>();
-
-    public WeatherPagerAdapter(Context context) {
+    public WeatherPagerAdapter(Context context, FragmentManager supportFragmentManager) {
+        super(supportFragmentManager);
         this.mContext = context;
-
-        database = PFASQLiteHelper.getInstance(context);
-
-        cities = database.getAllCitiesToWatch();
-
-        prefManager = new PrefManager(context);
-
-        RecyclerView mRecyclerView1 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity1);
-        RecyclerView mRecyclerView2 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity2);
-        RecyclerView mRecyclerView3 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity3);
-        RecyclerView mRecyclerView4 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity4);
-        RecyclerView mRecyclerView5 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity5);
-        RecyclerView mRecyclerView6 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity6);
-        RecyclerView mRecyclerView7 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity7);
-        RecyclerView mRecyclerView8 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity8);
-        RecyclerView mRecyclerView9 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity9);
-        RecyclerView mRecyclerView10 = (RecyclerView) ((ForecastCityActivity) context).findViewById(R.id.recyclerViewActivity10);
-
-        mRecyclerViews.add(mRecyclerView1);
-        mRecyclerViews.add(mRecyclerView2);
-        mRecyclerViews.add(mRecyclerView3);
-        mRecyclerViews.add(mRecyclerView4);
-        mRecyclerViews.add(mRecyclerView5);
-        mRecyclerViews.add(mRecyclerView6);
-        mRecyclerViews.add(mRecyclerView7);
-        mRecyclerViews.add(mRecyclerView8);
-        mRecyclerViews.add(mRecyclerView9);
-        mRecyclerViews.add(mRecyclerView10);
-
-        if (prefManager.isFirstTimeLaunch()) {
-            handleFirstStart();
-        }
-    }
-
-    private RecyclerView.LayoutManager getLayoutManager(float width, Context context) {
-        if (width > 500) {
-            return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        } else {
-            return new LinearLayoutManager(context);
-        }
+        this.database = PFASQLiteHelper.getInstance(context);
+        this.cities = database.getAllCitiesToWatch();
+        this.prefManager = new PrefManager(context);
     }
 
     @Override
-    public Object instantiateItem(ViewGroup collection, int position) {
-        CurrentWeatherData currentWeatherDataList = loadContentFromDatabase(position);
+    public WeatherCityFragment getItem(int position) {
+        Bundle args = new Bundle();
+        args.putInt("city_id", cities.get(position).getCityId());
+        args.putIntArray("dataSetTypes", mDataSetTypes);
 
-        CityWeatherAdapter mAdapter = new CityWeatherAdapter(currentWeatherDataList, mDataSetTypes, ((ForecastCityActivity)mContext).getBaseContext());
-
-        RecyclerView mRecyclerView = mRecyclerViews.get(position);
-        mRecyclerView.setAdapter(mAdapter);
-
-        mAdapters.add(mAdapter);
-
-        return mRecyclerView;
-    };
-
-    @Override
-    public void destroyItem(ViewGroup collection, int position, Object view) {
-        //Log.i("TGL", "destroyItem: " + position);
-        //collection.removeView((View) view);
+        return (WeatherCityFragment) Fragment.instantiate(mContext, WeatherCityFragment.class.getName(), args);
     }
 
     @Override
@@ -124,58 +85,22 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == object;
-    }
-
-    @Override
-    public void setPrimaryItem(ViewGroup container, int position, Object object) {
-
-        CurrentWeatherData currentWeatherDataList = loadContentFromDatabase(position);
-
-        CityWeatherAdapter mAdapter = new CityWeatherAdapter(currentWeatherDataList, mDataSetTypes, ((ForecastCityActivity)mContext).getBaseContext());
-
-        int widthPixels = mContext.getResources().getDisplayMetrics().widthPixels;
-        float density = mContext.getResources().getDisplayMetrics().density;
-        float width = widthPixels / density;
-
-        RecyclerView mRecyclerView = mRecyclerViews.get(position);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(getLayoutManager(width, mRecyclerView.getContext()));
-
-        super.setPrimaryItem(container, position, object);
-
-        mRecyclerView.requestLayout();
-        mRecyclerView.scrollTo(0,0);
-    }
-
-    @Override
     public CharSequence getPageTitle(int position) {
+//        GregorianCalendar calendar = new GregorianCalendar();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+//        dateFormat.setCalendar(calendar);
+//        calendar.setTimeInMillis(lastUpdateTime*1000);
+
+        return cities.get(position).getCityName(); // + " (" + dateFormat.format(calendar.getTime()) + ")";
+    }
+
+    public CharSequence getPageTitleForActionBar(int position) {
         GregorianCalendar calendar = new GregorianCalendar();
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         dateFormat.setCalendar(calendar);
         calendar.setTimeInMillis(lastUpdateTime*1000);
 
-        return cities.get(position).getCityName() + " (" + dateFormat.format(calendar.getTime()) + ")";
-    }
-
-    private CurrentWeatherData loadContentFromDatabase(int position) {
-        final int cityID = cities.get(position).getCityId();
-
-        CurrentWeatherData currentWeatherData = database.getCurrentWeatherByCityId(cityID);
-
-        if (currentWeatherData.getCity_id() == 0) {
-            currentWeatherData.setCity_id(cityID);
-        }
-
-        lastUpdateTime = currentWeatherData.getTimestamp();
-        ((ForecastCityActivity)mContext).setTitle(getPageTitle(position));
-
-        return currentWeatherData;
-    }
-
-    public void handleFirstStart(){
-        prefManager.setFirstTimeLaunch(false);
+        return getPageTitle(position) + " (" + dateFormat.format(calendar.getTime()) + ")";
     }
 
     public void refreshData(Boolean asap) {
@@ -187,32 +112,11 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
 
     @Override
     public void updateCurrentWeather(CurrentWeatherData data) {
-        final int cityID = data.getCity_id();
-
-        int position = getPosForCityID(cityID);
-
-        CityWeatherAdapter mAdapter = new CityWeatherAdapter(data, mDataSetTypes, ((ForecastCityActivity)mContext).getBaseContext());
-        mRecyclerViews.get(position).setAdapter(mAdapter);
-
-        mAdapters.remove(position);
-        mAdapters.add(position, mAdapter);
-
         lastUpdateTime = data.getTimestamp();
-        ((ForecastCityActivity)mContext).setTitle(getPageTitle(position));
     }
 
     @Override
-    public void updateForecasts(List<Forecast> forecasts) {
-        if(forecasts == null || forecasts.size() == 0) {
-            return;
-        }
-
-        int cityID = forecasts.get(0).getCity_id();
-
-        int position = getPosForCityID(cityID);
-
-        mAdapters.get(position).updateForecastData(forecasts);
-    }
+    public void updateForecasts(List<Forecast> forecasts) {}
 
     public int getPosForCityID(int cityID) {
         for (int i = 0; i < cities.size(); i++) {
@@ -223,5 +127,5 @@ public class WeatherPagerAdapter extends PagerAdapter implements IUpdateableCity
         }
 
         return 0;
-    };
+    }
 }
