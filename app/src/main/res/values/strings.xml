@@ -29,7 +29,7 @@
     <string name="okay">Okay</string>
     <string name="slide1_heading">Welcome!</string>
     <string name="slide1_text">Privacy Friendly Weather is an App to check the current Weather and Forecasts for your Locations.</string>
-    <string name="slide2_heading">Key Elements</string>
+    <string name="slide2_heading">How To</string>
     <string name="slide2_text">You can choose your own locations and get detailed information about the current weather. You can search for the best weather in a radius around you or place a widgets on your homescreen showing the current weather, a three day forecast or a five day forecast</string>
     <string name="slide3_heading" translatable="false">Github</string>
     <string name="slide3_text">The sourcecode of this app is available at GitHub. For further explanations have a look at the About Page.</string>
@@ -142,7 +142,7 @@
     <!-- ###DIALOGS### -->
     <string name="dialog_first_app_title">The First Location</string>
     <string name="dialog_first_app_start_message">
-        And  now add your first Location
+        And now add your first Location
     </string>
     <string name="dialog_first_app_help_button">View Help</string>
     <string name="dialog_first_app_close_button">Okay</string>
@@ -192,7 +192,7 @@
     <string name="appwidget_text">PFA - Weather</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
-    <string name="error_no_internet">Your Device is not connected to the internet!</string>
+    <string name="error_no_internet">Your Device is not connected to the Internet</string>
     <string name="default_location">%s set as default location</string>
     <string name="settings_interval_one" translatable="false">1 h</string>
     <string name="settings_interval_two" translatable="false">2 h</string>
@@ -206,7 +206,7 @@
     <!--  ##HELP## -->
     <string name="help_whatis_answer">Privacy Friendly Weather is an App to check the current Weather and Forecasts for your Locations.</string>
     <string name="help_whatis">What is Privacy Friendly Weather?</string>
-    <string name="help_privacy_answer">Privacy Friendly Weather only uses the permission to access internet. It further does not include any tracking mechanisms or advertisement.</string>
+    <string name="help_privacy_answer">Privacy Friendly Weather only uses the permission \"Internet\" to retrieve weather data. It further does not include any tracking mechanisms or advertisement.</string>
     <string name="help_where_from">Where do the weather informations come from?</string>
     <string name="help_where_from_answer">The information is fetched from the service OpenWeatherMap. If you have your own OpenWeatherMap Key, go to the settings to register it.</string>
     <string name="error_fetch_forecast">Error while updating Forecast, please try again!</string>
@@ -216,5 +216,6 @@
     <string name="card_error_heading">Error fetching weather data</string>
     <string name="card_error_content">Please try to update!</string>
     <string name="action_refresh">Refresh</string>
+    <string name="activity_city_weather_no_city_selected">There is no city selected. To select a city go to \"Manage locations\".</string>
 
 </resources>

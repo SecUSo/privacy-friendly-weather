@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="@string/configure" />
+        android:text="@string/dialog_add_label" />
 
     <AutoCompleteTextView
         android:id="@+id/appwidget_text"
@@ -21,9 +21,11 @@
 
     <Button
         android:id="@+id/add_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_fullwidth"
         android:text="@string/add_widget" />
 
 </LinearLayout>

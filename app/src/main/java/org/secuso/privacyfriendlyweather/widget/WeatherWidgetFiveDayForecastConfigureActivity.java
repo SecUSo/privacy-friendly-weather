@@ -88,7 +88,7 @@ public class WeatherWidgetFiveDayForecastConfigureActivity extends Activity {
                 return null;
             }
 
-        }.doInBackground(null);
+        }.doInBackground();
     }
 
     public WeatherWidgetFiveDayForecastConfigureActivity() {

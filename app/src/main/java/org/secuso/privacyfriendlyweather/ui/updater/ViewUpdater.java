@@ -2,6 +2,7 @@ package org.secuso.privacyfriendlyweather.ui.updater;
 
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.widget.WeatherWidget;
 
 import java.util.ArrayList;
 import java.util.List;

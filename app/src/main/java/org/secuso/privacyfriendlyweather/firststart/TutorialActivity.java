@@ -116,6 +116,10 @@ public class TutorialActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
+                    if (selectedCity == null) {
+                        Toast.makeText(TutorialActivity.this, R.string.dialog_add_no_city_found, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     launchHomeScreen();
                 }
             }
@@ -162,7 +166,9 @@ public class TutorialActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        addCity();
+        if(selectedCity != null && database != null && !database.isCityWatched(selectedCity.getCityId())) {
+            addCity();
+        }
         startActivity(new Intent(TutorialActivity.this, ForecastCityActivity.class));
         getWeatherData();
         finish();
@@ -200,7 +206,7 @@ public class TutorialActivity extends AppCompatActivity {
 
                 return null;
             }
-        }.doInBackground(null);
+        }.doInBackground();
     }
 
     //  viewpager change listener

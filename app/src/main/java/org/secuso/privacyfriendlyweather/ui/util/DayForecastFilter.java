@@ -10,7 +10,6 @@ import java.util.List;
 /**
  * Created by thomasglaser on 02.08.2017.
  */
-
 public class DayForecastFilter {
     public static List<Forecast> filter(List<Forecast> list, int numberOfDays) {
         List<Forecast> result = new ArrayList<Forecast>();

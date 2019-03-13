@@ -125,7 +125,6 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
                 return i;
             }
         }
-
         return 0;
     }
 }

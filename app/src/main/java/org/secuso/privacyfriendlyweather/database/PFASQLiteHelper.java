@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.files.FileReader;
 
@@ -26,10 +28,12 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by yonjuni on 02.01.17.
+ * @author Karola Marky, Christopher Beckmann
+ * @version 1.0
+ * @since 25.01.2018
+ * created 02.01.2017
  */
-
-public class PFASQLiteHelper extends SQLiteOpenHelper {
+public class PFASQLiteHelper extends SQLiteAssetHelper {
 
     private static final int DATABASE_VERSION = 1;
     private Context context;
@@ -38,7 +42,7 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
 
     private static PFASQLiteHelper instance = null;
 
-    public static final String DATABASE_NAME = "PF_WEATHER_DB";
+    public static final String DATABASE_NAME = "PF_WEATHER_DB.db";
 
     //Names of tables in the database
     private static final String TABLE_CITIES_TO_WATCH = "CITIES_TO_WATCH";
@@ -147,7 +151,6 @@ public class PFASQLiteHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {

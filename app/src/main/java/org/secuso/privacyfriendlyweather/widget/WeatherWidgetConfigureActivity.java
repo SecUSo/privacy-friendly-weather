@@ -98,7 +98,7 @@ public class WeatherWidgetConfigureActivity extends Activity {
                 return null;
             }
 
-        }.doInBackground(null);
+        }.doInBackground();
     }
 
     public WeatherWidgetConfigureActivity() {

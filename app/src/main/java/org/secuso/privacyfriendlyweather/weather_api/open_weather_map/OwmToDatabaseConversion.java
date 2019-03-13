@@ -9,7 +9,7 @@ public class OwmToDatabaseConversion extends IApiToDatabaseConversion {
 
     /**
      * @see IApiToDatabaseConversion#convertWeatherCategory(String)
-     * http://openweathermap.org/weather-conditions
+     * https://openweathermap.org/weather-conditions
      */
     @Override
     public int convertWeatherCategory(String category) {

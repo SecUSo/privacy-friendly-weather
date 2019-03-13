@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
@@ -21,10 +23,11 @@ import java.util.List;
 
 public class ForecastCityActivity extends BaseActivity implements IUpdateableCityUI {
     private WeatherPagerAdapter pagerAdapter;
+
     private MenuItem refreshActionButton;
     private int cityId = -1;
     private ViewPager viewPager;
-
+    private TextView noCityText;
 
     @Override
     protected void onPause() {
@@ -51,9 +54,9 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         overridePendingTransition(0, 0);
 
         cityId = getIntent().getIntExtra("cityId", -1);
+      
+        initResources();
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        pagerAdapter = new WeatherPagerAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -70,10 +73,34 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
             public void onPageScrollStateChanged(int state) {}
         });
         viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
-
-
+      
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
+      
+        
+        PFASQLiteHelper db = PFASQLiteHelper.getInstance(this);
+        if(db.getAllCitiesToWatch().isEmpty()) {
+            // no cities selected.. don't show the viewPager - rather show a text that tells the user that no city was selected
+            viewPager.setVisibility(View.GONE);
+            noCityText.setVisibility(View.VISIBLE);
+
+        } else {
+            noCityText.setVisibility(View.GONE);
+            viewPager.setVisibility(View.VISIBLE);
+            viewPager.setAdapter(pagerAdapter);
+            viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
+    private void initResources() {
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        pagerAdapter = new WeatherPagerAdapter(this, getSupportFragmentManager());
+        noCityText = (TextView) findViewById(R.id.noCitySelectedText);
     }
 
     @Override

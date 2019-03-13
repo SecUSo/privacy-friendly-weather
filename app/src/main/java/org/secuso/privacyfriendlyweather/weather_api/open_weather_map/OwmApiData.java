@@ -7,7 +7,7 @@ import org.secuso.privacyfriendlyweather.BuildConfig;
  */
 public class OwmApiData {
 
-    public static final String BASE_URL = "http://api.openweathermap.org/data/2.5/";
+    public static final String BASE_URL = "https://api.openweathermap.org/data/2.5/";
 
     private static String API_KEY = BuildConfig.DEFAULT_API_KEY;
 
