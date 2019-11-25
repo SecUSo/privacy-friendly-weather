@@ -1,0 +1,17 @@
+Privacy Friendly Weather lets you watch the weather for cities and locations you are interested in. The app has been developed by the research group SECUSO at Technische Universität Darmstadt. More info can be found on https://secuso.org/pfa
+
+The weather includes current weather as well as a 5 day / 3 hour forecast. The weather data includes details such as temperature, a short description of the current weather condition and humidity. Locations can either be added permanently until they are removed or non-permanently which means that the location and its weather is forgotten when exiting the location's weather data.
+Furthermore, Privacy Friendly Weather provides a radius search. This makes it possible to find the locations around a given location which have the best weather conditions at the moment. The search space can be set by the user.
+The unit of temperatures can be set to Celsius or Fahrenheit and the unit of distances to kilometres or miles.
+
+All weather data are retrieved from the OpenWeatherMap by using their API (http://openweathermap.com/api) which provides a free service.
+
+1. Minimum permissions
+Privacy Friendly Weather requires only the minimum amount of permission, namely only the INTERNET permission. This permission is necessary to make HTTP requests to remote servers for retrieving weather data.
+For comparison: The Top Ten of similar memory app the Google Play Store (September 2016) in average uses 3,9 permissions. Many apps required a network or internet connection which is totally unnecessary for a memory application.
+
+2. Radius Search
+Find the locations around a given location which have the best weather conditions at the moment.
+
+3. No advertisement
+Other free apps display advertisement which might result in privacy violations, shorten the device's battery life or use mobile data.
