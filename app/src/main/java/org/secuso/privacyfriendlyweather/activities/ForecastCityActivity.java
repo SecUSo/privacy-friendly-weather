@@ -185,6 +185,10 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         if(refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(viewPager.getCurrentItem()));
+        }
     }
 
     @Override

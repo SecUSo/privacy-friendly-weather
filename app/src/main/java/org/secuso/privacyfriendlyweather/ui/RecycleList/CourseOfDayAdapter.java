@@ -12,6 +12,7 @@ import android.widget.TextView;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
+import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DecimalFormat;
@@ -65,29 +66,11 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
     @Override
     public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
 
-        GregorianCalendar calendar = new GregorianCalendar();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        dateFormat.setCalendar(calendar);
-
-        Date time = (courseOfDayList.get(position).getForecastTime());
-
-        //TODO set the time
         //Time has to be the local time in the city!
-        holder.time.setText(dateFormat.format(time));
+        holder.time.setText(StringFormatUtils.formatTime(context, courseOfDayList.get(position).getForecastTime()));
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather);
-        holder.humidity.setText(String.format("%s %%", courseOfDayList.get(position).getHumidity()));
-
-        AppPreferencesManager prefManager =
-                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
-        DecimalFormat decimalFormat = new DecimalFormat("#.0");
-        // Format the values to display
-        String heading = String.format(
-                "%s%s",
-                decimalFormat.format(prefManager.convertTemperatureFromCelsius(courseOfDayList.get(position).getTemperature())),
-                prefManager.getWeatherUnit()
-        );
-
-        holder.temperature.setText(heading);
+        holder.humidity.setText(StringFormatUtils.formatDecimal(courseOfDayList.get(position).getHumidity(), "%"));
+        holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseOfDayList.get(position).getTemperature()));
 
     }
 

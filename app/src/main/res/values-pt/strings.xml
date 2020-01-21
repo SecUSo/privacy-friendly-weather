@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Tempo</string>
-    <string name="abbreviation_friday">6<Data><![CDATA[<sup><small>a</small></sup> ]]></Data></string>
-    <string name="abbreviation_monday">2<Data><![CDATA[<sup><small>a</small></sup> ]]></Data></string>
-    <string name="abbreviation_tuesday">3<Data><![CDATA[<sup><small>a</small></sup> ]]></Data></string>
-    <string name="abbreviation_wednesday">4<Data><![CDATA[<sup><small>a</small></sup> ]]></Data></string>
-    <string name="abbreviation_thursday">5<Data><![CDATA[<sup><small>a</small></sup> ]]></Data></string>
+    <string name="abbreviation_friday">Seg.</string>
+    <string name="abbreviation_monday">Ter.</string>
+    <string name="abbreviation_tuesday">Qua.</string>
+    <string name="abbreviation_wednesday">Qui.</string>
+    <string name="abbreviation_thursday">Sex.</string>
     <string name="abbreviation_saturday">Sáb.</string>
-    <string name="abbreviation_sunday">Do.</string>
+    <string name="abbreviation_sunday">Dom.</string>
     <string name="action_help">Ajuda</string>
     <string name="action_main">Tempo</string>
     <string name="action_settings">Atitude</string>

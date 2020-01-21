@@ -12,6 +12,7 @@ import android.widget.TextView;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
+import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DecimalFormat;
@@ -45,7 +46,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         Forecast f = forecastList.get(position);
 
         setIcon(f.getWeatherID(), holder.weather);
-        holder.humidity.setText(String.format("%s %%", f.getHumidity()));
+        holder.humidity.setText(StringFormatUtils.formatDecimal(f.getHumidity(), "%"));
 
         Calendar c = new GregorianCalendar();
         c.setTime(f.getForecastTime());
@@ -77,18 +78,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
                 day = R.string.abbreviation_monday;
         }
         holder.day.setText(day);
-
-        AppPreferencesManager prefManager =
-                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
-        DecimalFormat decimalFormat = new DecimalFormat("#.0");
-        // Format the values to display
-        String heading = String.format(
-                "%s%s",
-                decimalFormat.format(prefManager.convertTemperatureFromCelsius(f.getTemperature())),
-                prefManager.getWeatherUnit()
-        );
-
-        holder.temperature.setText(heading);
+        holder.temperature.setText(StringFormatUtils.formatTemperature(context, f.getTemperature()));
     }
 
     @Override

@@ -24,6 +24,8 @@ import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForForecast;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForUpdatingCityList;
 
+import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -125,14 +127,11 @@ public class UpdateDataService extends IntentService {
 
     private boolean isOnline() {
         try {
-            Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 api.openweathermap.org");
-            int returnVal = p1.waitFor();
-            boolean reachable = (returnVal == 0);
-            return reachable;
-        } catch (Exception e) {
-
+            InetAddress inetAddress = InetAddress.getByName("api.openweathermap.org");
+            return inetAddress.isReachable(2000);
+        } catch (IOException | IllegalArgumentException e) {
+            return false;
         }
-        return false;
     }
 
     private void handleUpdateForecastAction(Intent intent) {

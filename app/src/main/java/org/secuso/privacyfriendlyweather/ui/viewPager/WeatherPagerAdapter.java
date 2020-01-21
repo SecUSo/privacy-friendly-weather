@@ -26,6 +26,7 @@ import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
+import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
 import org.secuso.privacyfriendlyweather.ui.WeatherCityFragment;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
@@ -56,6 +57,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     long lastUpdateTime;
 
     private List<CityToWatch> cities;
+    private List<CurrentWeatherData> currentWeathers;
 
     public static final String SKIP_UPDATE_INTERVAL= "skipUpdateInterval";
 
@@ -67,6 +69,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         this.mContext = context;
         this.database = PFASQLiteHelper.getInstance(context);
         this.cities = database.getAllCitiesToWatch();
+        this.currentWeathers = database.getAllCurrentWeathers();
         this.prefManager = new PrefManager(context);
     }
 
@@ -97,12 +100,15 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     }
 
     public CharSequence getPageTitleForActionBar(int position) {
-        GregorianCalendar calendar = new GregorianCalendar();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        dateFormat.setCalendar(calendar);
-        calendar.setTimeInMillis(lastUpdateTime*1000);
-
-        return getPageTitle(position) + " (" + dateFormat.format(calendar.getTime()) + ")";
+        long time = lastUpdateTime;
+        int currentCityId = cities.get(position).getCityId();
+        for(CurrentWeatherData weatherData : currentWeathers) {
+            if(weatherData.getCity_id() == currentCityId) {
+                time = weatherData.getTimestamp();
+                break;
+            }
+        }
+        return String.format("%s (%s)", getPageTitle(position), StringFormatUtils.formatTime(mContext, lastUpdateTime*1000));
     }
 
     public void refreshData(Boolean asap) {

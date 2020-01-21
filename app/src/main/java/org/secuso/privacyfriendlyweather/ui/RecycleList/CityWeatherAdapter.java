@@ -15,6 +15,7 @@ import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
+import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DecimalFormat;
@@ -24,6 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.ViewHolder> {
     private static final String TAG = "Forecast_Adapter";
@@ -201,24 +203,14 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             OverViewHolder holder = (OverViewHolder) viewHolder;
             setImage(currentWeatherDataList.getWeatherID(), holder.weather);
 
-            AppPreferencesManager prefManager =
-                    new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
-            DecimalFormat decimalFormat = new DecimalFormat("#.0");
-            // Format the values to display
-            String heading = String.format(
-                    "%s%s",
-                    decimalFormat.format(prefManager.convertTemperatureFromCelsius(currentWeatherDataList.getTemperatureCurrent())),
-                    prefManager.getWeatherUnit()
-            );
-
-            holder.temperature.setText(heading);
+            holder.temperature.setText(StringFormatUtils.formatTemperature(context, currentWeatherDataList.getTemperatureCurrent()));
 
         } else if (viewHolder.getItemViewType() == DETAILS) {
 
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
-            holder.humidity.setText(String.format("%s %%", currentWeatherDataList.getHumidity()));
-            holder.pressure.setText(String.format("%s hPa", Math.round(currentWeatherDataList.getPressure())));
-            holder.windspeed.setText(String.format("%s m/s", currentWeatherDataList.getWindSpeed()));
+            holder.humidity.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getHumidity(), "%"));
+            holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
+            holder.windspeed.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getWindSpeed(), " m/s"));
 
         } else if (viewHolder.getItemViewType() == WEEK) {
 
@@ -239,16 +231,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         } else if (viewHolder.getItemViewType() == SUN) {
             SunViewHolder holder = (SunViewHolder) viewHolder;
 
-            //TODO Is this local time? No it's UTC change to it local time...
-            GregorianCalendar calendar = new GregorianCalendar();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-            dateFormat.setCalendar(calendar);
-
-            calendar.setTimeInMillis(currentWeatherDataList.getTimeSunrise()*1000);
-            holder.sunrise.setText(dateFormat.format(calendar.getTime()));
-
-            calendar.setTimeInMillis(currentWeatherDataList.getTimeSunset()*1000);
-            holder.sunset.setText(dateFormat.format(calendar.getTime()));
+            holder.sunrise.setText(StringFormatUtils.formatTime(context, currentWeatherDataList.getTimeSunrise()*1000));
+            holder.sunset.setText(StringFormatUtils.formatTime(context, currentWeatherDataList.getTimeSunset()*1000));
         }
         //No update for error needed
     }
