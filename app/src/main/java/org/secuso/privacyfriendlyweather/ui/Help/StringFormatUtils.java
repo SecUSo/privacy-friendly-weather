@@ -6,22 +6,14 @@ import android.text.format.DateUtils;
 
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 public final class StringFormatUtils {
 
+    private static DecimalFormat decimalFormat = new DecimalFormat("0.0");
+
     public static String formatDecimal(float decimal) {
-        DecimalFormat decimalFormat = null;
-        if(Locale.getDefault() == Locale.GERMAN) {
-            decimalFormat = new DecimalFormat("0,0");
-        } else {
-            decimalFormat = new DecimalFormat("0.0");
-        }
         return decimalFormat.format(decimal);
     }
 
