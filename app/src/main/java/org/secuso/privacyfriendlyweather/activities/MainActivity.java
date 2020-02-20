@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+//in-App: where cities get added & default can be selected
 public class MainActivity extends BaseActivity {
 
     private final String DEBUG_TAG = "main_activity_debug";
@@ -36,6 +37,8 @@ public class MainActivity extends BaseActivity {
     PrefManager prefManager;
     private ItemTouchHelper.Callback callback;
     private ItemTouchHelper touchHelper;
+    RecyclerOverviewListAdapter adapter;
+    List<CityToWatch> cities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class MainActivity extends BaseActivity {
 
         database = PFASQLiteHelper.getInstance(this);
 
-        List<CityToWatch> cities = new ArrayList<CityToWatch>();
+        cities = new ArrayList<CityToWatch>();
 
         try {
             cities = database.getAllCitiesToWatch();
@@ -90,7 +93,7 @@ public class MainActivity extends BaseActivity {
                 })
         );
 
-        RecyclerOverviewListAdapter adapter = new RecyclerOverviewListAdapter(getBaseContext(), cities);
+        adapter = new RecyclerOverviewListAdapter(getBaseContext(), cities);
         recyclerView.setAdapter(adapter);
 
         //TODO Drag and drop
@@ -120,9 +123,7 @@ public class MainActivity extends BaseActivity {
     public void setDefaultLocation(CityToWatch city) {
         prefManager.setDefaultLocation(city.getCityId());
         Toast.makeText(getBaseContext(), getString(R.string.default_location, city.getCityName()) , Toast.LENGTH_SHORT).show();
-        //TODO Is there a better nicer solution?
-        recreate();
-    }
+        adapter.notifyDataSetChanged();    }
 
     public void startFetchingService(int cityId) {
         // Start a background task to retrieve and store the weather data
@@ -145,6 +146,11 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int getNavigationDrawerID() {
         return R.id.nav_manage;
+    }
+
+    public void addCityToList(CityToWatch city){
+        cities.add(city);
+        adapter.notifyDataSetChanged();
     }
 
 }
