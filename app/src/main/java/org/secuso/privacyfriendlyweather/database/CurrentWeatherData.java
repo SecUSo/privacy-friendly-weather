@@ -20,6 +20,7 @@ public class CurrentWeatherData  {
     private float cloudiness;
     private long timeSunrise;
     private long timeSunset;
+    private int timeZoneSeconds;
 
     private String city_name;
 
@@ -27,7 +28,7 @@ public class CurrentWeatherData  {
         this.city_id = Integer.MIN_VALUE;
     }
 
-    public CurrentWeatherData(int id, int city_id, long timestamp, int weatherID, float temperatureCurrent, float temperatureMin, float temperatureMax, float humidity, float pressure, float windSpeed, float windDirection, float cloudiness, long timeSunrise, long timeSunset) {
+    public CurrentWeatherData(int id, int city_id, long timestamp, int weatherID, float temperatureCurrent, float temperatureMin, float temperatureMax, float humidity, float pressure, float windSpeed, float windDirection, float cloudiness, long timeSunrise, long timeSunset, int timeZoneSeconds) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
@@ -42,6 +43,7 @@ public class CurrentWeatherData  {
         this.cloudiness = cloudiness;
         this.timeSunrise = timeSunrise;
         this.timeSunset = timeSunset;
+        this.timeZoneSeconds=timeZoneSeconds;
     }
 
     public int getId() {
@@ -163,4 +165,8 @@ public class CurrentWeatherData  {
     public void setCity_name(String city_name) {
         this.city_name = city_name;
     }
+
+    public int getTimeZoneSeconds() { return timeZoneSeconds; }
+
+    public void setTimeZoneSeconds(int timeZoneSeconds) { this.timeZoneSeconds = timeZoneSeconds; }
 }

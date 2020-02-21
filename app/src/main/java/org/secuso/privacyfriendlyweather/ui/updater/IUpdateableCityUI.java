@@ -9,6 +9,6 @@ import java.util.List;
  * Created by chris on 24.01.2017.
  */
 public interface IUpdateableCityUI {
-    void updateCurrentWeather(CurrentWeatherData data);
+    void setLastUpdateTime(CurrentWeatherData data);
     void updateForecasts(List<Forecast> forecasts);
 }

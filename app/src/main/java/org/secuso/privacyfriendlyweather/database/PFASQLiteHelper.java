@@ -2,6 +2,7 @@ package org.secuso.privacyfriendlyweather.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabaseLockedException;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 
 import java.util.Date;
 import java.text.DateFormat;
@@ -27,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
+
 /**
  * @author Karola Marky, Christopher Beckmann
  * @version 1.0
@@ -35,7 +39,7 @@ import java.util.Locale;
  */
 public class PFASQLiteHelper extends SQLiteAssetHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private Context context;
 
     private List<City> allCities = new ArrayList<>();
@@ -89,6 +93,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
     private static final String COLUMN_CLOUDINESS = "cloudiness";
     private static final String COLUMN_TIME_SUNRISE = "time_sunrise";
     private static final String COLUMN_TIME_SUNSET = "time_sunset";
+    private static final String COLUMN_TIMEZONE_SECONDS = "timezone_seconds";
 
     /**
      * Create Table statements for all tables
@@ -109,6 +114,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             COLUMN_CLOUDINESS + " REAL," +
             COLUMN_TIME_SUNRISE + "  VARCHAR(50) NOT NULL," +
             COLUMN_TIME_SUNSET + "  VARCHAR(50) NOT NULL," +
+            COLUMN_TIMEZONE_SECONDS + " INTEGER," +
             " FOREIGN KEY (" + CURRENT_WEATHER_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
 
     private static final String CREATE_TABLE_CITIES = "CREATE TABLE " + TABLE_CITIES +
@@ -155,14 +161,22 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        /**
         // on upgrade drop older tables
-        db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CITIES);
-        db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_FORECASTS);
-        db.execSQL("DROP TABLE IF EXISTS " + CREATE_CURRENT_WEATHER);
-        db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CITIES_TO_WATCH);
+        db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_TABLE_CITIES));
+        db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_TABLE_FORECASTS));
+        db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_CURRENT_WEATHER));
+        db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_TABLE_CITIES_TO_WATCH));
 
         // create new tables
         onCreate(db);
+         **/
+        super.onUpgrade(db, oldVersion,newVersion);
+
+        Intent intent = new Intent(context, UpdateDataService.class);
+        intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
+        intent.putExtra(SKIP_UPDATE_INTERVAL, true);
+        context.startService(intent);
     }
 
     /**
@@ -613,6 +627,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         values.put(COLUMN_CLOUDINESS, currentWeather.getCloudiness());
         values.put(COLUMN_TIME_SUNRISE, currentWeather.getTimeSunrise());
         values.put(COLUMN_TIME_SUNSET, currentWeather.getTimeSunset());
+        values.put(COLUMN_TIMEZONE_SECONDS, currentWeather.getTimeZoneSeconds());
+
 
         database.insert(TABLE_CURRENT_WEATHER, null, values);
         database.close();
@@ -635,7 +651,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         COLUMN_WIND_DIRECTION,
                         COLUMN_CLOUDINESS,
                         COLUMN_TIME_SUNRISE,
-                        COLUMN_TIME_SUNSET},
+                        COLUMN_TIME_SUNSET,
+                        COLUMN_TIMEZONE_SECONDS},
                 CURRENT_WEATHER_ID + " = ?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -656,6 +673,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             currentWeather.setCloudiness(Float.parseFloat(cursor.getString(11)));
             currentWeather.setTimeSunrise(Long.parseLong(cursor.getString(12)));
             currentWeather.setTimeSunset(Long.parseLong(cursor.getString(13)));
+            currentWeather.setTimeZoneSeconds(Integer.parseInt(cursor.getString(14)));
 
             cursor.close();
         }
@@ -680,7 +698,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         COLUMN_WIND_DIRECTION,
                         COLUMN_CLOUDINESS,
                         COLUMN_TIME_SUNRISE,
-                        COLUMN_TIME_SUNSET},
+                        COLUMN_TIME_SUNSET,
+                        COLUMN_TIMEZONE_SECONDS},
                 CURRENT_WEATHER_CITY_ID + " = ?",
                 new String[]{String.valueOf(cityId)}, null, null, null, null);
 
@@ -701,6 +720,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             currentWeather.setCloudiness(Float.parseFloat(cursor.getString(11)));
             currentWeather.setTimeSunrise(Long.parseLong(cursor.getString(12)));
             currentWeather.setTimeSunset(Long.parseLong(cursor.getString(13)));
+            currentWeather.setTimeZoneSeconds(Integer.parseInt(cursor.getString(14)));
 
             cursor.close();
         }
@@ -735,6 +755,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 currentWeather.setCloudiness(Float.parseFloat(cursor.getString(11)));
                 currentWeather.setTimeSunrise(Long.parseLong(cursor.getString(12)));
                 currentWeather.setTimeSunset(Long.parseLong(cursor.getString(13)));
+                currentWeather.setTimeZoneSeconds(Integer.parseInt(cursor.getString(14)));
 
                 currentWeatherList.add(currentWeather);
             } while (cursor.moveToNext());
@@ -760,6 +781,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         values.put(COLUMN_CLOUDINESS, currentWeather.getCloudiness());
         values.put(COLUMN_TIME_SUNRISE, currentWeather.getTimeSunrise());
         values.put(COLUMN_TIME_SUNSET, currentWeather.getTimeSunset());
+        values.put(COLUMN_TIMEZONE_SECONDS, currentWeather.getTimeZoneSeconds());
 
         return database.update(TABLE_CURRENT_WEATHER, values, CURRENT_WEATHER_CITY_ID + " = ?",
                 new String[]{String.valueOf(currentWeather.getCity_id())});

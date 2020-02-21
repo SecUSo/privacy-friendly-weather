@@ -1,25 +1,14 @@
 package org.secuso.privacyfriendlyweather.ui.viewPager;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.util.Log;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
@@ -27,16 +16,16 @@ import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
-import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
 import org.secuso.privacyfriendlyweather.ui.WeatherCityFragment;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
-import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
+import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DAY;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DETAILS;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.ERROR;
@@ -58,8 +47,6 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
 
     private List<CityToWatch> cities;
     private List<CurrentWeatherData> currentWeathers;
-
-    public static final String SKIP_UPDATE_INTERVAL= "skipUpdateInterval";
 
     private static int mDataSetTypes[] = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
     private static int errorDataSetTypes[] = {ERROR};
@@ -100,15 +87,29 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     }
 
     public CharSequence getPageTitleForActionBar(int position) {
+
+        int zoneseconds=0;
+        TimeZone timeZone = TimeZone.getDefault();
+        if (timeZone.inDaylightTime(new Date())){
+            zoneseconds+=3600;
+        }
+        //fallback to last time the weather data was updated
         long time = lastUpdateTime;
         int currentCityId = cities.get(position).getCityId();
+        //search for current city
         for(CurrentWeatherData weatherData : currentWeathers) {
             if(weatherData.getCity_id() == currentCityId) {
+                //set time to last update time for the city and zoneseconds to UTC difference (in seconds)
                 time = weatherData.getTimestamp();
+                zoneseconds += weatherData.getTimeZoneSeconds();
                 break;
             }
         }
-        return String.format("%s (%s)", getPageTitle(position), StringFormatUtils.formatTime(mContext, lastUpdateTime*1000));
+        //for formatting into time respective to UTC/GMT
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date updateTime = new Date((time+zoneseconds)*1000L);
+        return String.format("%s (%s)", getPageTitle(position), dateFormat.format(updateTime));
     }
 
     public void refreshData(Boolean asap) {
@@ -119,7 +120,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     }
 
     @Override
-    public void updateCurrentWeather(CurrentWeatherData data) {
+    public void setLastUpdateTime(CurrentWeatherData data) {
         lastUpdateTime = data.getTimestamp();
     }
 

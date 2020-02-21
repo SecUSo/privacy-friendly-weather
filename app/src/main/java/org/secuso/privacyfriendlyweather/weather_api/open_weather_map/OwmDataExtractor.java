@@ -144,6 +144,7 @@ public class OwmDataExtractor implements IDataExtractor {
                 JSONObject jsonSunRiseSet = jsonData.getJSONObject("sys");
                 weatherData.setTimeSunrise(jsonSunRiseSet.getLong("sunrise"));
                 weatherData.setTimeSunset(jsonSunRiseSet.getLong("sunset"));
+                weatherData.setTimeZoneSeconds(jsonSunRiseSet.getInt("timezone"));
             }
 
             return weatherData;

@@ -2,7 +2,6 @@ package org.secuso.privacyfriendlyweather.ui.updater;
 
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
-import org.secuso.privacyfriendlyweather.widget.WeatherWidget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ public class ViewUpdater {
 
     public static void updateCurrentWeatherData(CurrentWeatherData data) {
         for(IUpdateableCityUI sub : subscribers) {
-            sub.updateCurrentWeather(data);
+            sub.setLastUpdateTime(data);
         }
     }
 

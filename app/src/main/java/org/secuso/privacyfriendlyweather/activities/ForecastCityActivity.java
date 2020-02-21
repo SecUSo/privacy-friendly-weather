@@ -181,7 +181,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     }
 
     @Override
-    public void updateCurrentWeather(CurrentWeatherData data) {
+    public void setLastUpdateTime(CurrentWeatherData data) {
         if(refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }
