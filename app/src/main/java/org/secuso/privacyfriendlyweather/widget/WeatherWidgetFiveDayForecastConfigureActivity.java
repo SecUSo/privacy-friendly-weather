@@ -5,18 +5,14 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.City;
-import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
-import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerator;
 import org.secuso.privacyfriendlyweather.ui.util.MyConsumer;
 
@@ -50,14 +46,12 @@ public class WeatherWidgetFiveDayForecastConfigureActivity extends Activity {
             }
         }
 
-        addLocationForNewCity(selectedCity);
+        //Task starts update Service with widget updates after insert is finished
+        AddLocationWidgetTask addLocationWidgetTask = new AddLocationWidgetTask(getApplicationContext());
+        addLocationWidgetTask.execute(selectedCity, mAppWidgetId, 5);
 
         // When the button is clicked, store the string locally
         saveTitlePref(context, mAppWidgetId, selectedCity.getCityId());
-
-        // It is the responsibility of the configuration activity to update the app widget
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        WeatherWidgetFiveDayForecast.updateAppWidget(context, appWidgetManager, mAppWidgetId);
 
         // Make sure we pass back the original appWidgetId
         Intent resultValue = new Intent();
@@ -66,30 +60,6 @@ public class WeatherWidgetFiveDayForecastConfigureActivity extends Activity {
         finish();
     }
 
-    private void addLocationForNewCity(final City selectedCity) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                boolean isAdded = database.isCityWatched(selectedCity.getCityId());
-
-                if (!isAdded) {
-                    CityToWatch newCity = new CityToWatch();
-                    newCity.setCityId(selectedCity.getCityId());
-                    newCity.setRank(42);
-
-                    database.addCityToWatch(newCity);
-
-                    Intent intent = new Intent(getApplicationContext(), UpdateDataService.class);
-                    intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
-                    intent.putExtra("cityId", selectedCity.getCityId());
-                    startService(intent);
-                }
-
-                return null;
-            }
-
-        }.doInBackground();
-    }
 
     public WeatherWidgetFiveDayForecastConfigureActivity() {
         super();

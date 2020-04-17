@@ -1,34 +1,36 @@
 package org.secuso.privacyfriendlyweather.services;
 
 import android.app.IntentService;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
-import org.secuso.privacyfriendlyweather.preferences.PrefManager;
-import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
-import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
+import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecastWidget;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForForecast;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForUpdatingCityList;
+import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForWidgetUpdate;
+import org.secuso.privacyfriendlyweather.widget.WeatherWidget;
+import org.secuso.privacyfriendlyweather.widget.WeatherWidgetFiveDayForecast;
+import org.secuso.privacyfriendlyweather.widget.WeatherWidgetThreeDayForecast;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * This class provides the functionality to fetch forecast data for a given city as a background
@@ -39,6 +41,7 @@ public class UpdateDataService extends IntentService {
     public static final String UPDATE_CURRENT_WEATHER_ACTION = "org.secuso.privacyfriendlyweather.services.UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION";
     public static final String UPDATE_FORECAST_ACTION = "org.secuso.privacyfriendlyweather.services.UpdateDataService.UPDATE_FORECAST_ACTION";
     public static final String UPDATE_ALL_ACTION = "org.secuso.privacyfriendlyweather.services.UpdateDataService.UPDATE_ALL_ACTION";
+    public static final String UPDATE_WIDGET_ACTION = "org.secuso.privacyfriendlyweather.services.UpdateDataService.UPDATE_WIDGET_ACTION";
 
     public static final String CITY_ID = "cityId";
     public static final String SKIP_UPDATE_INTERVAL= "skipUpdateInterval";
@@ -83,6 +86,55 @@ public class UpdateDataService extends IntentService {
             if      (UPDATE_ALL_ACTION.equals(intent.getAction()))              handleUpdateAll(intent);
             else if (UPDATE_CURRENT_WEATHER_ACTION.equals(intent.getAction()))  handleUpdateCurrentWeatherAction(intent);
             else if (UPDATE_FORECAST_ACTION.equals(intent.getAction()))         handleUpdateForecastAction(intent);
+            else if (UPDATE_WIDGET_ACTION.equals(intent.getAction())) handleWidgetUpdate(intent);
+        }
+    }
+
+    private void handleWidgetUpdate(Intent intent) {
+
+        handleUpdateCurrentWeatherAction(intent);
+
+
+        int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
+        int widgetType = intent.getIntExtra("widget_type", 0);
+        Log.d("weatherwidget", "widgetUpdate: type " + widgetType + " id: " + widgetId);
+
+        if (widgetId > -1 && widgetType > 0) {
+
+            Context context = getApplicationContext();
+            // Create an Intent to launch ExampleActivity
+            Intent clickIntent = new Intent(context, ForecastCityActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, clickIntent, 0);
+
+            //initialize depending on widget type
+            RemoteViews views;
+            SharedPreferences prefs;
+            // Construct the RemoteViews object
+            if (widgetType == 1) {
+                views = new RemoteViews(getBaseContext().getPackageName(), R.layout.weather_widget);
+                views.setOnClickPendingIntent(R.id.widget1day_layout, pendingIntent);
+                prefs = getBaseContext().getSharedPreferences(WeatherWidget.PREFS_NAME, 0);
+            } else if (widgetType == 3) {
+                views = new RemoteViews(getBaseContext().getPackageName(), R.layout.weather_3day_widget);
+                views.setOnClickPendingIntent(R.id.widget3day_layout, pendingIntent);
+                prefs = getBaseContext().getSharedPreferences(WeatherWidgetThreeDayForecast.PREFS_NAME, 0);
+            } else {
+                views = new RemoteViews(getBaseContext().getPackageName(), R.layout.weather_5day_widget);
+                views.setOnClickPendingIntent(R.id.widget5day_layout, pendingIntent);
+                prefs = getBaseContext().getSharedPreferences(WeatherWidgetFiveDayForecast.PREFS_NAME, 0);
+            }
+
+            int cityId = prefs.getInt(WeatherWidget.PREF_PREFIX_KEY + widgetId, -1);
+            Log.d("weatherwidget", "cityID: " + cityId);
+            if (cityId == -1) {
+                Toast.makeText(context, "cityId is null?", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            //Widget update code
+            IHttpRequestForForecastWidget forecastRequestWidget = new OwmHttpRequestForWidgetUpdate(getApplicationContext());
+            forecastRequestWidget.perform(cityId, widgetId, widgetType, views);
+
         }
     }
 
@@ -142,13 +194,11 @@ public class UpdateDataService extends IntentService {
     private void handleUpdateCurrentWeatherAction(Intent intent) {
         boolean skipUpdateInterval = intent.getBooleanExtra(SKIP_UPDATE_INTERVAL, false);
 
-        long timestamp = 0;
         long systemTime = System.currentTimeMillis() / 1000;
-        long updateInterval = 2*60*60;
         boolean shouldUpdate = false;
 
         if (!skipUpdateInterval) {
-            updateInterval = Long.valueOf(prefManager.getString("pref_updateInterval", "2"))*60*60;
+            long updateInterval = Long.valueOf(prefManager.getString("pref_updateInterval", "2")) * 60 * 60;
 
             List<CityToWatch> citiesToWatch = dbHelper.getAllCitiesToWatch();
             // check timestamp of the current weather .. if one of them is out of date.. update them all at once
@@ -162,7 +212,7 @@ public class UpdateDataService extends IntentService {
 
                         foundId = true;
 
-                        timestamp = w.getTimestamp();
+                        long timestamp = w.getTimestamp();
                         if (timestamp + updateInterval - systemTime <= 0) {
                             shouldUpdate = true;
                             break;
