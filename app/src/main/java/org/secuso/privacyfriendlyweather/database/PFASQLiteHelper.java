@@ -5,29 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabaseLockedException;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.files.FileReader;
+import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.secuso.privacyfriendlyweather.database.City;
-import org.secuso.privacyfriendlyweather.services.UpdateDataService;
-
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
@@ -46,7 +36,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
 
     private static PFASQLiteHelper instance = null;
 
-    public static final String DATABASE_NAME = "PF_WEATHER_DB.db";
+    private static final String DATABASE_NAME = "PF_WEATHER_DB.db";
 
     //Names of tables in the database
     private static final String TABLE_CITIES_TO_WATCH = "CITIES_TO_WATCH";
@@ -174,7 +164,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         super.onUpgrade(db, oldVersion,newVersion);
 
         Intent intent = new Intent(context, UpdateDataService.class);
-        intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
+        intent.setAction(UpdateDataService.UPDATE_ALL_ACTION);
         intent.putExtra(SKIP_UPDATE_INTERVAL, true);
         context.startService(intent);
     }
@@ -357,6 +347,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         if (cursor.moveToFirst()) {
             result = !cursor.isNull(0);
         }
+        cursor.close();
 
         return result;
     }
@@ -377,7 +368,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         " ON " + TABLE_CITIES_TO_WATCH + "." + CITIES_TO_WATCH_CITY_ID + " = " + TABLE_CITIES + "." + CITIES_ID
                 , new String[]{});
 
-        CityToWatch cityToWatch = null;
+        CityToWatch cityToWatch;
 
         if (cursor.moveToFirst()) {
             do {
@@ -393,6 +384,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         return cityToWatchList;
     }
 
@@ -460,7 +452,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 new String[]{String.valueOf(cityId)});
 
         List<Forecast> list = new ArrayList<>();
-        Forecast forecast = null;
+        Forecast forecast;
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -499,7 +491,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 new String[]{String.valueOf(cityId)}, null, null, null, null);
 
         List<Forecast> list = new ArrayList<>();
-        Forecast forecast = null;
+        Forecast forecast;
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -563,7 +555,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
-        Forecast forecast = null;
+        Forecast forecast;
 
         if (cursor.moveToFirst()) {
             do {
@@ -581,6 +573,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         return forecastList;
     }
 
@@ -736,7 +729,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
-        CurrentWeatherData currentWeather = null;
+        CurrentWeatherData currentWeather;
 
         if (cursor.moveToFirst()) {
             do {
@@ -761,6 +754,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         return currentWeatherList;
     }
 
