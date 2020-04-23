@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.JobIntentService;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ import java.util.List;
  * This class provides the functionality to fetch forecast data for a given city as a background
  * task.
  */
-public class UpdateDataService extends IntentService {
+public class UpdateDataService extends JobIntentService {
 
     public static final String UPDATE_CURRENT_WEATHER_ACTION = "org.secuso.privacyfriendlyweather.services.UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION";
     public static final String UPDATE_FORECAST_ACTION = "org.secuso.privacyfriendlyweather.services.UpdateDataService.UPDATE_FORECAST_ACTION";
@@ -53,7 +54,7 @@ public class UpdateDataService extends IntentService {
      * Constructor.
      */
     public UpdateDataService() {
-        super("fetch-forecast-data-service");
+        super();
     }
 
     /**
@@ -67,10 +68,10 @@ public class UpdateDataService extends IntentService {
     }
 
     /**
-     * @see IntentService#onHandleIntent(Intent)
+     *
      */
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleWork(Intent intent) {
         if (!isOnline()) {
             Handler h = new Handler(getApplicationContext().getMainLooper());
             h.post(new Runnable() {
@@ -127,7 +128,7 @@ public class UpdateDataService extends IntentService {
             int cityId = prefs.getInt(WeatherWidget.PREF_PREFIX_KEY + widgetId, -1);
             Log.d("weatherwidget", "cityID: " + cityId);
             if (cityId == -1) {
-                Toast.makeText(context, "cityId is null?", Toast.LENGTH_LONG).show();
+                Log.d("weatherwidget", "cityId is null?");
                 return;
             }
 

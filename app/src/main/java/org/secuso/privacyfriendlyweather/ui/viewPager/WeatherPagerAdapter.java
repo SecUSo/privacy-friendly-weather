@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
@@ -15,16 +14,15 @@ import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
-import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.WeatherCityFragment;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import static android.support.v4.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DAY;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DETAILS;
@@ -116,7 +114,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         Intent intent = new Intent(mContext, UpdateDataService.class);
         intent.setAction(UpdateDataService.UPDATE_ALL_ACTION);
         intent.putExtra(SKIP_UPDATE_INTERVAL, asap);
-        mContext.startService(intent);
+        enqueueWork(mContext, UpdateDataService.class, 0, intent);
     }
 
     @Override

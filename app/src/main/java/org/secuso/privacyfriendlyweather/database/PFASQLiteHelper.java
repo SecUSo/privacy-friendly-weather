@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static android.support.v4.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
 /**
@@ -166,7 +167,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         Intent intent = new Intent(context, UpdateDataService.class);
         intent.setAction(UpdateDataService.UPDATE_ALL_ACTION);
         intent.putExtra(SKIP_UPDATE_INTERVAL, true);
-        context.startService(intent);
+        enqueueWork(context, UpdateDataService.class, 0, intent);
     }
 
     /**

@@ -3,6 +3,7 @@
     package="org.secuso.privacyfriendlyweather">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -76,20 +77,11 @@
 
         </activity>
         <activity
-            android:name=".activities.ForecastActivity"
-            android:label="@string/activity_forecast_label"
-            android:parentActivityName=".activities.CityWeatherActivity"
-            >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.CityWeatherActivity" />
-
-        </activity>
-        <activity
             android:name=".firststart.TutorialActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <service
             android:name=".services.UpdateDataService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
         <receiver android:name=".widget.WeatherWidget">
             <intent-filter>

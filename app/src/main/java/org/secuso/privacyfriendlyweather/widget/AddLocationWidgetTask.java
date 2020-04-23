@@ -10,6 +10,7 @@ import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 
+import static android.support.v4.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
 public class AddLocationWidgetTask extends AsyncTask<Object, Void, Object[]> {
@@ -48,6 +49,7 @@ public class AddLocationWidgetTask extends AsyncTask<Object, Void, Object[]> {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, ID);
         intent.putExtra(SKIP_UPDATE_INTERVAL, true);
         intent.putExtra("widget_type", type);
-        context.startService(intent);
+        enqueueWork(context, UpdateDataService.class, 0, intent);
+
     }
 }

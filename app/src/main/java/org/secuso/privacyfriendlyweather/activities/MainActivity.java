@@ -1,7 +1,6 @@
 package org.secuso.privacyfriendlyweather.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +12,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.database.City;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.dialogs.AddLocationDialog;
@@ -28,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import static android.support.v4.app.JobIntentService.enqueueWork;
 
 //in-App: where cities get added & default can be selected
 public class MainActivity extends BaseActivity {
@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(this, UpdateDataService.class);
         intent.setAction(UpdateDataService.UPDATE_ALL_ACTION);
         intent.putExtra("cityId", cityId);
-        startService(intent);
+        enqueueWork(this, UpdateDataService.class, 0, intent);
     }
 
     @Override

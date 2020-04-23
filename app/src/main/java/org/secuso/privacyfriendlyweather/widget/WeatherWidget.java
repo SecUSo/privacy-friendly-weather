@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
+import static android.support.v4.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
 /**
@@ -39,7 +40,8 @@ public class WeatherWidget extends AppWidgetProvider {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.putExtra("widget_type", 1);
         intent.putExtra(SKIP_UPDATE_INTERVAL, true);
-        context.startService(intent);
+        enqueueWork(context, UpdateDataService.class, 0, intent);
+
     }
 
     public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, City city, CurrentWeatherData weatherData) {
