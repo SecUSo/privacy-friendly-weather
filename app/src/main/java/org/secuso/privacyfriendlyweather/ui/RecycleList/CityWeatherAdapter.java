@@ -1,7 +1,6 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,18 +13,14 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
-import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 
 public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.ViewHolder> {
     private static final String TAG = "Forecast_Adapter";
@@ -57,6 +52,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         updateForecastData(forecasts);
     }
 
+
+    // function for 3-hour forecast list
     public void updateForecastData(List<Forecast> forecasts) {
         forecastList = new ArrayList<Forecast>();
         courseDayList = new ArrayList<Forecast>();
@@ -102,8 +99,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         public OverViewHolder(View v) {
             super(v);
-            this.temperature = (TextView) v.findViewById(R.id.activity_city_weather_temperature);
-            this.weather = (ImageView) v.findViewById(R.id.activity_city_weather_image_view);
+            this.temperature = v.findViewById(R.id.activity_city_weather_temperature);
+            this.weather = v.findViewById(R.id.activity_city_weather_image_view);
         }
     }
 
@@ -114,9 +111,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         public DetailViewHolder(View v) {
             super(v);
-            this.humidity = (TextView) v.findViewById(R.id.activity_city_weather_tv_humidity_value);
-            this.pressure = (TextView) v.findViewById(R.id.activity_city_weather_tv_pressure_value);
-            this.windspeed = (TextView) v.findViewById(R.id.activity_city_weather_tv_wind_speed_value);
+            this.humidity = v.findViewById(R.id.activity_city_weather_tv_humidity_value);
+            this.pressure = v.findViewById(R.id.activity_city_weather_tv_pressure_value);
+            this.windspeed = v.findViewById(R.id.activity_city_weather_tv_wind_speed_value);
         }
     }
 
@@ -125,7 +122,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         public WeekViewHolder(View v) {
             super(v);
-            recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_week);
+            recyclerView = v.findViewById(R.id.recycler_view_week);
             recyclerView.setHasFixedSize(true);
         }
     }
@@ -135,7 +132,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         public DayViewHolder(View v) {
             super(v);
-            recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view_course_day);
+            recyclerView = v.findViewById(R.id.recycler_view_course_day);
             recyclerView.setHasFixedSize(true);
         }
     }
@@ -146,8 +143,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         public SunViewHolder(View v) {
             super(v);
-            this.sunrise = (TextView) v.findViewById(R.id.activity_city_weather_tv_sunrise_value);
-            this.sunset = (TextView) v.findViewById(R.id.activity_city_weather_tv_sunset_value);
+            this.sunrise = v.findViewById(R.id.activity_city_weather_tv_sunrise_value);
+            this.sunset = v.findViewById(R.id.activity_city_weather_tv_sunset_value);
         }
     }
 
@@ -208,7 +205,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         } else if (viewHolder.getItemViewType() == DETAILS) {
 
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
-            holder.humidity.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getHumidity(), "%"));
+            holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), "%"));
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
             holder.windspeed.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getWindSpeed(), " m/s"));
 

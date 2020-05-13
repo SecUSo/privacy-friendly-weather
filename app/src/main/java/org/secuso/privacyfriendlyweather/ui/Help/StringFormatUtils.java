@@ -12,9 +12,18 @@ import java.util.Date;
 public final class StringFormatUtils {
 
     private static DecimalFormat decimalFormat = new DecimalFormat("0.0");
+    private static DecimalFormat intFormat = new DecimalFormat("0");
 
     public static String formatDecimal(float decimal) {
         return decimalFormat.format(decimal);
+    }
+
+    public static String formatInt(float decimal) {
+        return intFormat.format(decimal);
+    }
+
+    public static String formatInt(float decimal, String appendix) {
+        return String.format("%s%s", formatInt(decimal), appendix);
     }
 
     public static String formatDecimal(float decimal, String appendix) {

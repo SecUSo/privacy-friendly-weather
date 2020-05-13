@@ -1,7 +1,6 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +10,9 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.Forecast;
-import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
-import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -46,7 +43,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         Forecast f = forecastList.get(position);
 
         setIcon(f.getWeatherID(), holder.weather);
-        holder.humidity.setText(StringFormatUtils.formatDecimal(f.getHumidity(), "%"));
+        holder.humidity.setText(StringFormatUtils.formatInt(f.getHumidity(), "%"));
 
         Calendar c = new GregorianCalendar();
         c.setTime(f.getForecastTime());
@@ -96,10 +93,10 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         public WeekForecastViewHolder(View itemView) {
             super(itemView);
 
-            day = (TextView) itemView.findViewById(R.id.week_forecast_day);
-            weather = (ImageView) itemView.findViewById(R.id.week_forecast_weather);
-            temperature = (TextView) itemView.findViewById(R.id.week_forecast_temperature);
-            humidity = (TextView) itemView.findViewById(R.id.week_forecast_humidity);
+            day = itemView.findViewById(R.id.week_forecast_day);
+            weather = itemView.findViewById(R.id.week_forecast_weather);
+            temperature = itemView.findViewById(R.id.week_forecast_temperature);
+            humidity = itemView.findViewById(R.id.week_forecast_humidity);
         }
     }
 
