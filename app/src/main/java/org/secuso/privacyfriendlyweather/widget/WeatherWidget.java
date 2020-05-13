@@ -20,7 +20,8 @@ import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import static android.support.v4.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
@@ -54,12 +55,15 @@ public class WeatherWidget extends AppWidgetProvider {
                 prefManager.getWeatherUnit()
         );
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.setTimeInMillis(weatherData.getTimeSunrise() * 1000);
-        String sunRise = timeFormat.format(cal.getTime());
-        cal.setTimeInMillis(weatherData.getTimeSunset() * 1000);
-        String sunSet = timeFormat.format(cal.getTime());
+        //correct for timezone differences
+        int zoneseconds = weatherData.getTimeZoneSeconds();
+
+        Date riseTime = new Date((weatherData.getTimeSunrise() + zoneseconds) * 1000L);
+        String sunRise = timeFormat.format(riseTime);
+        Date setTime = new Date((weatherData.getTimeSunset() + zoneseconds) * 1000L);
+        String sunSet = timeFormat.format(setTime);
 
         String windSpeed = String.format("%s m/s", weatherData.getWindSpeed());
 

@@ -46,8 +46,8 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     private List<CityToWatch> cities;
     private List<CurrentWeatherData> currentWeathers;
 
-    private static int mDataSetTypes[] = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
-    private static int errorDataSetTypes[] = {ERROR};
+    private static int[] mDataSetTypes = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
+    private static int[] errorDataSetTypes = {ERROR};
 
     public WeatherPagerAdapter(Context context, FragmentManager supportFragmentManager) {
         super(supportFragmentManager);
@@ -87,10 +87,6 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     public CharSequence getPageTitleForActionBar(int position) {
 
         int zoneseconds=0;
-        TimeZone timeZone = TimeZone.getDefault();
-        if (timeZone.inDaylightTime(new Date())){
-            zoneseconds+=3600;
-        }
         //fallback to last time the weather data was updated
         long time = lastUpdateTime;
         int currentCityId = cities.get(position).getCityId();
