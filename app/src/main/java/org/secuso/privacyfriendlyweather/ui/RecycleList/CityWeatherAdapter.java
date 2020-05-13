@@ -16,11 +16,13 @@ import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.ViewHolder> {
     private static final String TAG = "Forecast_Adapter";
@@ -228,8 +230,15 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         } else if (viewHolder.getItemViewType() == SUN) {
             SunViewHolder holder = (SunViewHolder) viewHolder;
 
-            holder.sunrise.setText(StringFormatUtils.formatTime(context, currentWeatherDataList.getTimeSunrise()*1000));
-            holder.sunset.setText(StringFormatUtils.formatTime(context, currentWeatherDataList.getTimeSunset()*1000));
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+            //correct for timezone differences
+            int zoneseconds = currentWeatherDataList.getTimeZoneSeconds();
+            Date riseTime = new Date((currentWeatherDataList.getTimeSunrise() + zoneseconds) * 1000L);
+            Date setTime = new Date((currentWeatherDataList.getTimeSunset() + zoneseconds) * 1000L);
+
+            holder.sunrise.setText(timeFormat.format(riseTime));
+            holder.sunset.setText(timeFormat.format(setTime));
         }
         //No update for error needed
     }
