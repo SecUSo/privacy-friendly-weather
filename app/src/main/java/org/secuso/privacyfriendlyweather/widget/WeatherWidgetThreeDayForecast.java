@@ -75,9 +75,9 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
                 prefManager.getWeatherUnit()
         );
 
-        String hum1 = String.format("%s %%", forecastList.get(0).getHumidity());
-        String hum2 = String.format("%s %%", forecastList.get(1).getHumidity());
-        String hum3 = String.format("%s %%", forecastList.get(2).getHumidity());
+        String hum1 = String.format("%s %%", (int) forecastList.get(0).getHumidity());
+        String hum2 = String.format("%s %%", (int) forecastList.get(1).getHumidity());
+        String hum3 = String.format("%s %%", (int) forecastList.get(2).getHumidity());
 
         views.setTextViewText(R.id.widget_city_name, city.getCityName());
 

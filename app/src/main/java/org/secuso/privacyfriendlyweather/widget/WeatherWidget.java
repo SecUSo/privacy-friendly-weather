@@ -68,7 +68,7 @@ public class WeatherWidget extends AppWidgetProvider {
         String windSpeed = String.format("%s m/s", weatherData.getWindSpeed());
 
         views.setTextViewText(R.id.widget_city_weather_temperature, temperature);
-        views.setTextViewText(R.id.widget_city_weather_humidity, String.format("%s %%", weatherData.getHumidity()));
+        views.setTextViewText(R.id.widget_city_weather_humidity, String.format("%s %%", (int) weatherData.getHumidity()));
         views.setTextViewText(R.id.widget_city_name, city.getCityName());
         views.setTextViewText(R.id.widget_city_weather_rise, sunRise);
         views.setTextViewText(R.id.widget_city_weather_set, sunSet);
