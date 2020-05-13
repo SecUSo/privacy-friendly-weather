@@ -11,7 +11,6 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
@@ -75,8 +74,8 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
             public void onPageScrollStateChanged(int state) {}
         });
         viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
-      
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
       
         
@@ -97,12 +96,14 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        cityId = intent.getIntExtra("cityId", -1);
+        viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
     }
 
     private void initResources() {
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager);
         pagerAdapter = new WeatherPagerAdapter(this, getSupportFragmentManager());
-        noCityText = (TextView) findViewById(R.id.noCitySelectedText);
+        noCityText = findViewById(R.id.noCitySelectedText);
     }
 
     @Override

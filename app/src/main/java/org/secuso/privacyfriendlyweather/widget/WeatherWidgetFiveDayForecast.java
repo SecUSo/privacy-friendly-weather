@@ -117,7 +117,8 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", forecastList.get(0).getCity_id());
         PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
-        views.setOnClickPendingIntent(R.id.widget_city_weather_image_view, pendingIntent);
+
+        views.setOnClickPendingIntent(R.id.widget5day_layout, pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

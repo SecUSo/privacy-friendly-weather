@@ -1,9 +1,7 @@
 package org.secuso.privacyfriendlyweather.services;
 
 import android.app.IntentService;
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -14,7 +12,6 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
@@ -102,26 +99,18 @@ public class UpdateDataService extends JobIntentService {
 
         if (widgetId > -1 && widgetType > 0) {
 
-            Context context = getApplicationContext();
-            // Create an Intent to launch ExampleActivity
-            Intent clickIntent = new Intent(context, ForecastCityActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, clickIntent, 0);
-
             //initialize depending on widget type
             RemoteViews views;
             SharedPreferences prefs;
             // Construct the RemoteViews object
             if (widgetType == 1) {
                 views = new RemoteViews(getBaseContext().getPackageName(), R.layout.weather_widget);
-                views.setOnClickPendingIntent(R.id.widget1day_layout, pendingIntent);
                 prefs = getBaseContext().getSharedPreferences(WeatherWidget.PREFS_NAME, 0);
             } else if (widgetType == 3) {
                 views = new RemoteViews(getBaseContext().getPackageName(), R.layout.weather_3day_widget);
-                views.setOnClickPendingIntent(R.id.widget3day_layout, pendingIntent);
                 prefs = getBaseContext().getSharedPreferences(WeatherWidgetThreeDayForecast.PREFS_NAME, 0);
             } else {
                 views = new RemoteViews(getBaseContext().getPackageName(), R.layout.weather_5day_widget);
-                views.setOnClickPendingIntent(R.id.widget5day_layout, pendingIntent);
                 prefs = getBaseContext().getSharedPreferences(WeatherWidgetFiveDayForecast.PREFS_NAME, 0);
             }
 
