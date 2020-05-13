@@ -4,7 +4,7 @@
     android:padding="@dimen/widget_margin"
     android:orientation="vertical"
     android:id="@+id/widget5day_layout"
-    android:background="@drawable/rounded_corner"
+    android:background="@drawable/rounded_corner_dark"
     android:previewImage="@drawable/weather_widget_preview"
     android:minHeight="40dp"
     android:minWidth="250dp">
@@ -16,17 +16,16 @@
         android:textAlignment="center"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:layout_marginEnd="11dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-
+        android:paddingBottom="3dp"
         >
 
         <GridLayout
@@ -44,11 +43,11 @@
                 android:textSize="13sp"
                 android:layout_row="1"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
             <ImageView
                 android:id="@+id/widget_city_weather_5day_image1"
-                android:layout_width="wrap_content"
+                android:layout_width="27dp"
                 android:layout_height="20dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/weather_icon_sunny_with_clouds"
@@ -63,7 +62,7 @@
                 android:textSize="12sp"
                 android:layout_row="3"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
             <TextView
                 android:id="@+id/widget_city_weather_5day_hum1"
@@ -73,7 +72,7 @@
                 android:textSize="12sp"
                 android:layout_row="4"
                 android:layout_gravity="top|center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
 
                 />
         </GridLayout>
@@ -92,11 +91,11 @@
                 android:textSize="13sp"
                 android:layout_row="1"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
             <ImageView
                 android:id="@+id/widget_city_weather_5day_image2"
-                android:layout_width="wrap_content"
+                android:layout_width="27dp"
                 android:layout_height="20dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/weather_icon_sunny_with_clouds"
@@ -111,7 +110,7 @@
                 android:textSize="12sp"
                 android:layout_row="3"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
             <TextView
                 android:id="@+id/widget_city_weather_5day_hum2"
@@ -121,7 +120,7 @@
                 android:textSize="12sp"
                 android:layout_row="4"
                 android:layout_gravity="top|center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
         </GridLayout>
         <GridLayout
@@ -140,11 +139,11 @@
                 android:textSize="13sp"
                 android:layout_row="1"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
             <ImageView
                 android:id="@+id/widget_city_weather_5day_image3"
-                android:layout_width="wrap_content"
+                android:layout_width="27dp"
                 android:layout_height="20dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/weather_icon_sunny_with_clouds"
@@ -159,7 +158,7 @@
                 android:textSize="12sp"
                 android:layout_row="3"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
             <TextView
                 android:id="@+id/widget_city_weather_5day_hum3"
@@ -169,7 +168,7 @@
                 android:textSize="12sp"
                 android:layout_row="4"
                 android:layout_gravity="top|center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
         </GridLayout>
         <GridLayout
@@ -188,11 +187,11 @@
                 android:textSize="13sp"
                 android:layout_row="1"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
             <ImageView
                 android:id="@+id/widget_city_weather_5day_image4"
-                android:layout_width="wrap_content"
+                android:layout_width="27dp"
                 android:layout_height="20dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/weather_icon_sunny_with_clouds"
@@ -207,7 +206,7 @@
                 android:textSize="12sp"
                 android:layout_row="3"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
             <TextView
                 android:id="@+id/widget_city_weather_5day_hum4"
@@ -217,7 +216,7 @@
                 android:textSize="12sp"
                 android:layout_row="4"
                 android:layout_gravity="top|center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
         </GridLayout>
         <GridLayout
@@ -236,11 +235,11 @@
                 android:textSize="13sp"
                 android:layout_row="1"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
             <ImageView
                 android:id="@+id/widget_city_weather_5day_image5"
-                android:layout_width="wrap_content"
+                android:layout_width="27dp"
                 android:layout_height="20dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/weather_icon_sunny_with_clouds"
@@ -255,7 +254,7 @@
                 android:textSize="12sp"
                 android:layout_row="3"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
             <TextView
                 android:id="@+id/widget_city_weather_5day_hum5"
@@ -265,7 +264,7 @@
                 android:textSize="12sp"
                 android:layout_row="4"
                 android:layout_gravity="top|center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
         </GridLayout>
 
