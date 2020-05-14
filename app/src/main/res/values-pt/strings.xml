@@ -101,7 +101,7 @@
     <string name="about_author">Autores:</string>
     <string name="about_author_contributors">and contributors.</string>
     <string name="more_info">Mais informações podem ser encontradas em:</string>
-    <string name="privacy_friendly">Este aplicativo pertence ao grupo Privacy Friendly Apps  desenvolvido por Technische Universität Darmstadt. Código fonte licenciado sob GPLv3. Direitos autorais das imagens TU Darmstadt e Google Inc.</string>
+    <string name="privacy_friendly">Este aplicativo pertence ao grupo Privacy Friendly Apps  desenvolvido pelo grupo de investigação SECUSO. Código fonte licenciado sob GPLv3. Direitos autorais das imagens SECUSO e Google Inc.</string>
     <string name="action_manage">Gerenciar locais</string>
     <string name="add_widget">Adicionar widget</string>
     <string name="appwidget_text">PFA - Tempo</string>
