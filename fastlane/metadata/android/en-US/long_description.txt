@@ -1,4 +1,4 @@
-Privacy Friendly Weather lets you watch the weather for cities and locations you are interested in. The app has been developed by the research group SECUSO at Technische Universität Darmstadt. More info can be found on https://secuso.org/pfa
+Privacy Friendly Weather lets you watch the weather for cities and locations you are interested in. The app has been developed by the research group SECUSO at Karlsruhe Institute of Technology. More info can be found on https://secuso.org/pfa
 
 The weather includes current weather as well as a 5 day / 3 hour forecast. The weather data includes details such as temperature, a short description of the current weather condition and humidity. Locations can either be added permanently until they are removed or non-permanently which means that the location and its weather is forgotten when exiting the location's weather data.
 Furthermore, Privacy Friendly Weather provides a radius search. This makes it possible to find the locations around a given location which have the best weather conditions at the moment. The search space can be set by the user.
