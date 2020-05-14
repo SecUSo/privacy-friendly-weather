@@ -81,7 +81,7 @@
     <string name="about_author_names" translatable="false">Patrick Mell, Karola Marky, Christopher Beckmann, Thomas Glaser</string>
     <string name="about_author_contributors">and contributors.</string>
     <string name="about_affiliation">In affiliation with</string>
-    <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
+    <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by the research group SECUSO. Sourcecode licensed under GPLv3. Images copyright SECUSO and Google Inc.</string>
     <string name="more_info">More information can be found on:</string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
     <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-weather-app">Github-Repo</a></string>
