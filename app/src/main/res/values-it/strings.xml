@@ -101,7 +101,7 @@
     <string name="about_author">Autori:</string>
     <string name="about_author_contributors">e contribuenti.</string>
     <string name="more_info">Maggiori informazioni su:</string>
-    <string name="privacy_friendly">Questa app fa parte delle Privacy Friendly App sviluppate da Technische Universität Darmstadt. Codice sorgente rilasciato con licenza GPLv3. Copyright immagini TU Darmstadt and Google Inc.</string>
+    <string name="privacy_friendly">Questa app fa parte delle Privacy Friendly App sviluppato dal gruppo di ricerca SECUSO. Codice sorgente rilasciato con licenza GPLv3. Copyright immagini SECUSO and Google Inc.</string>
     <string name="action_manage">Manage locations</string>
     <string name="add_widget">Add widget</string>
     <string name="appwidget_text">PFA - Weather</string>
