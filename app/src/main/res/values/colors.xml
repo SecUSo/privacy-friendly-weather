@@ -10,5 +10,6 @@
     <color name="black">#000000</color>
     <color name="middleblue">#8aa5ce</color>
     <color name="backgroundBlue">#6fb1e2</color>
+    <color name="ic_launcher_background">#3680BB</color>
 </resources>
 
