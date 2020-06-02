@@ -250,7 +250,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         return city;
     }
 
-    public synchronized List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit) {
+    public synchronized List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit, String country) {
         List<City> cities = new ArrayList<>();
 
         SQLiteDatabase database = this.getReadableDatabase();
@@ -262,10 +262,12 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 " FROM " + TABLE_CITIES +
                 " WHERE " + CITIES_NAME +
                 " LIKE ?" +
+                " AND "+ CITIES_COUNTRY_CODE +
+                " LIKE ?" +
                 " ORDER BY " + CITIES_NAME +
                 " LIMIT " + dropdownListLimit;
 
-        String[] args = {String.format("%s%%", cityNameLetters)};
+        String[] args = {String.format("%s%%", cityNameLetters), String.format("%s%%", country)};
         Cursor cursor = database.rawQuery(query, args);
 
         if (cursor.moveToFirst()) {
@@ -276,6 +278,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 city.setCountryCode(cursor.getString(2));
                 city.setPostalCode(cursor.getString(3));
                 cities.add(city);
+
             } while (cursor.moveToNext());
         }
 
