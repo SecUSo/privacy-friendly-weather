@@ -40,7 +40,7 @@ public class AddLocationDialog extends DialogFragment {
     // TODO Cleanup
     private final List<City> allCities = new ArrayList<>();
 
-    final int LIST_LIMIT = 8;
+    final int LIST_LIMIT = 100;
 
     @Override
     public void onAttach(Activity activity) {

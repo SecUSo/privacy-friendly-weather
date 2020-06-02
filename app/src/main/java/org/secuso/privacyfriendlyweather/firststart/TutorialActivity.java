@@ -277,7 +277,7 @@ public class TutorialActivity extends AppCompatActivity {
 
             if(position == dots.length - 1) {
                 autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTvAddFirstStart);
-                cityTextViewGenerator.generate(autoCompleteTextView, 8, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
+                cityTextViewGenerator.generate(autoCompleteTextView, 100, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
                     @Override
                     public void accept(City city) {
                         selectedCity = city;
