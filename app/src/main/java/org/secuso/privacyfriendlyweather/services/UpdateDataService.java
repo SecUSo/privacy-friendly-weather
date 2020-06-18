@@ -90,9 +90,6 @@ public class UpdateDataService extends JobIntentService {
 
     private void handleWidgetUpdate(Intent intent) {
 
-        handleUpdateCurrentWeatherAction(intent);
-
-
         int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
         int widgetType = intent.getIntExtra("widget_type", 0);
         Log.d("weatherwidget", "widgetUpdate: type " + widgetType + " id: " + widgetId);

@@ -139,6 +139,9 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
         switch(id) {
             case R.id.menu_refresh:
+
+                pagerAdapter.refreshData(true);
+
                 RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotate.setDuration(500);
                 rotate.setRepeatCount(Animation.INFINITE);
@@ -163,9 +166,6 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
                 });
 
                 refreshActionButton.getActionView().startAnimation(rotate);
-
-                pagerAdapter.refreshData(true);
-
                 break;
         }
 
