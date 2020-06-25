@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public class Forecast {
 
+    public static final float NO_RAIN_VALUE = 0;
     private int id;
     private int city_id;
     private long timestamp;
@@ -17,14 +18,17 @@ public class Forecast {
     private float temperature;
     private float humidity;
     private float pressure;
-
+    private float windSpeed;
+    private float windDirection;
+    private float rainValue;
     private String city_name;
+
 
     public Forecast() {
     }
 
     public Forecast(int id, int city_id, long timestamp, Date forecastFor, int weatherID, float temperature, float humidity,
-                    float pressure) {
+                    float pressure, float windSpeed, float windDirection, float rainValue) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
@@ -33,6 +37,25 @@ public class Forecast {
         this.temperature = temperature;
         this.humidity = humidity;
         this.pressure = pressure;
+        this.windSpeed = windSpeed;
+        this.windDirection = windDirection;
+        this.rainValue = rainValue;
+    }
+
+    public float getWindDirection() {
+        return windDirection;
+    }
+
+    public void setWindDirection(float windDirection) {
+        this.windDirection = windDirection;
+    }
+
+    public float getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(float speed) {
+        windSpeed = speed;
     }
 
     /**
@@ -155,5 +178,13 @@ public class Forecast {
 
     void setCity_name(String city_name) {
         this.city_name = city_name;
+    }
+
+    public float getRainValue() {
+        return rainValue;
+    }
+
+    public void setRainVolume(float RainValue) {
+        rainValue = RainValue;
     }
 }
