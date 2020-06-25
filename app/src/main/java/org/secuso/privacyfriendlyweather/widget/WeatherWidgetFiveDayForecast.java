@@ -43,7 +43,7 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
 
     }
 
-    public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, List<Forecast> forecastList, City city) {
+    public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, List<Forecast> forecastList, float[][] minMax, City city) {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
         DecimalFormat decimalFormat = new DecimalFormat("#.0");
@@ -52,11 +52,11 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         //forecastList = DayForecastFilter.filter(forecastList, 5);
         if(forecastList.size() < 5) return;
 
-        String day1 = dayFormat.format(forecastList.get(0).getForecastTime());
-        String day2 = dayFormat.format(forecastList.get(1).getForecastTime());
-        String day3 = dayFormat.format(forecastList.get(2).getForecastTime());
-        String day4 = dayFormat.format(forecastList.get(3).getForecastTime());
-        String day5 = dayFormat.format(forecastList.get(4).getForecastTime());
+        String day1 = dayFormat.format(forecastList.get(0).getLocalForecastTime(context));
+        String day2 = dayFormat.format(forecastList.get(1).getLocalForecastTime(context));
+        String day3 = dayFormat.format(forecastList.get(2).getLocalForecastTime(context));
+        String day4 = dayFormat.format(forecastList.get(3).getLocalForecastTime(context));
+        String day5 = dayFormat.format(forecastList.get(4).getLocalForecastTime(context));
 
         String temperature1 = String.format(
                 "%s%s",

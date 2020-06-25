@@ -1,5 +1,7 @@
 package org.secuso.privacyfriendlyweather.database;
 
+import android.content.Context;
+
 import java.util.Date;
 
 /**
@@ -53,6 +55,12 @@ public class Forecast {
      */
     public Date getForecastTime() {
         return forecastFor;
+    }
+
+    public Date getLocalForecastTime(Context context) {
+        PFASQLiteHelper dbhelper = PFASQLiteHelper.getInstance(context);
+        int timezoneseconds = dbhelper.getCurrentWeatherByCityId(city_id).getTimeZoneSeconds();
+        return new Date(forecastFor.getTime() + timezoneseconds * 1000);
     }
 
     /**
@@ -130,7 +138,7 @@ public class Forecast {
     /**
      * @return Returns the air pressure value in hectopascal (hPa).
      */
-    public float getPressure() {
+    float getPressure() {
         return pressure;
     }
 
@@ -145,7 +153,7 @@ public class Forecast {
         return city_name;
     }
 
-    public void setCity_name(String city_name) {
+    void setCity_name(String city_name) {
         this.city_name = city_name;
     }
 }

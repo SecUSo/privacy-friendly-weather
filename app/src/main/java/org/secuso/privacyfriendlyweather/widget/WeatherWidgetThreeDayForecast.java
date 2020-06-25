@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import org.secuso.privacyfriendlyweather.R;
@@ -34,8 +33,7 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
     public static final String PREFS_NAME = "org.secuso.privacyfriendlyweather.widget.WeatherWidget3Day";
 
     public static void updateAppWidget(final Context context, final int appWidgetId) {
-        Log.d("weatherwidget", "3Day: updated id: " + appWidgetId);
-        //CharSequence widgetText = WeatherWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+
         // Construct the RemoteViews object
         Intent intent = new Intent(context, UpdateDataService.class);
         intent.setAction(UpdateDataService.UPDATE_WIDGET_ACTION);
@@ -46,18 +44,17 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
 
     }
 
-    public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, List<Forecast> forecastList, City city) {
+    public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, List<Forecast> forecastList, float[][] minMaxTemp, City city) {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
         DecimalFormat decimalFormat = new DecimalFormat("#.0");
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
-
         //forecastList = DayForecastFilter.filter(forecastList, 3);
         if(forecastList.size() < 3) return;
 
-        String day1 = dayFormat.format(forecastList.get(0).getForecastTime());
-        String day2 = dayFormat.format(forecastList.get(1).getForecastTime());
-        String day3 = dayFormat.format(forecastList.get(2).getForecastTime());
+        String day1 = dayFormat.format(forecastList.get(0).getLocalForecastTime(context));
+        String day2 = dayFormat.format(forecastList.get(1).getLocalForecastTime(context));
+        String day3 = dayFormat.format(forecastList.get(2).getLocalForecastTime(context));
 
         String temperature1 = String.format(
                 "%s%s",

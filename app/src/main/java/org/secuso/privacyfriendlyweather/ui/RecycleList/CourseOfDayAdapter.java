@@ -1,7 +1,6 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +10,9 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.Forecast;
-import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 //**
@@ -32,7 +26,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
     private List<Forecast> courseOfDayList;
     private Context context;
 
-    public CourseOfDayAdapter(List<Forecast> courseOfDayList, Context context) {
+    CourseOfDayAdapter(List<Forecast> courseOfDayList, Context context) {
         this.context = context;
         this.courseOfDayList = courseOfDayList;
 
@@ -67,9 +61,9 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
     public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
 
         //Time has to be the local time in the city!
-        holder.time.setText(StringFormatUtils.formatTime(context, courseOfDayList.get(position).getForecastTime()));
+        holder.time.setText(StringFormatUtils.formatTime(context, courseOfDayList.get(position).getLocalForecastTime(context)));
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather);
-        holder.humidity.setText(StringFormatUtils.formatDecimal(courseOfDayList.get(position).getHumidity(), "%"));
+        holder.humidity.setText(StringFormatUtils.formatInt(courseOfDayList.get(position).getHumidity(), "%"));
         holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseOfDayList.get(position).getTemperature()));
 
     }
@@ -79,24 +73,24 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         return courseOfDayList.size();
     }
 
-    public class CourseOfDayViewHolder extends RecyclerView.ViewHolder {
+    class CourseOfDayViewHolder extends RecyclerView.ViewHolder {
         TextView time;
         ImageView weather;
         TextView temperature;
         TextView humidity;
 
-        public CourseOfDayViewHolder(View itemView) {
+        CourseOfDayViewHolder(View itemView) {
             super(itemView);
 
-            time = (TextView) itemView.findViewById(R.id.course_of_day_time);
-            weather = (ImageView) itemView.findViewById(R.id.course_of_day_weather);
-            temperature = (TextView) itemView.findViewById(R.id.course_of_day_temperature);
-            humidity = (TextView) itemView.findViewById(R.id.course_of_day_humidity);
+            time = itemView.findViewById(R.id.course_of_day_time);
+            weather = itemView.findViewById(R.id.course_of_day_weather);
+            temperature = itemView.findViewById(R.id.course_of_day_temperature);
+            humidity = itemView.findViewById(R.id.course_of_day_humidity);
 
         }
     }
 
-    public void setIcon(int value, ImageView imageView) {
+    private void setIcon(int value, ImageView imageView) {
         imageView.setImageResource(UiResourceProvider.getIconResourceForWeatherCategory(value));
 
     }
