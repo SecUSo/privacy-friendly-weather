@@ -81,31 +81,32 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
                     } else {
                         dbHelper.addCurrentWeather(weatherData);
                     }
-
-                    //Update Widgets
-                    AppWidgetManager awm = AppWidgetManager.getInstance(context);
-
-                    int[] ids1 = awm.getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
-                    int[] ids3 = awm.getAppWidgetIds(new ComponentName(context, WeatherWidgetThreeDayForecast.class));
-                    int[] ids5 = awm.getAppWidgetIds(new ComponentName(context, WeatherWidgetFiveDayForecast.class));
-
-                    Intent intent1 = new Intent(context, WeatherWidget.class);
-                    Intent intent3 = new Intent(context, WeatherWidgetThreeDayForecast.class);
-                    Intent intent5 = new Intent(context, WeatherWidgetFiveDayForecast.class);
-
-                    intent1.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-                    intent3.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-                    intent5.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-
-                    intent1.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids1);
-                    intent3.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids3);
-                    intent5.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids5);
-
-                    context.sendBroadcast(intent1);
-                    context.sendBroadcast(intent3);
-                    context.sendBroadcast(intent5);
                 }
             }
+
+            //Update Widgets
+            AppWidgetManager awm = AppWidgetManager.getInstance(context);
+
+            int[] ids1 = awm.getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
+            int[] ids3 = awm.getAppWidgetIds(new ComponentName(context, WeatherWidgetThreeDayForecast.class));
+            int[] ids5 = awm.getAppWidgetIds(new ComponentName(context, WeatherWidgetFiveDayForecast.class));
+
+            Intent intent1 = new Intent(context, WeatherWidget.class);
+            Intent intent3 = new Intent(context, WeatherWidgetThreeDayForecast.class);
+            Intent intent5 = new Intent(context, WeatherWidgetFiveDayForecast.class);
+
+            intent1.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            intent3.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            intent5.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+            intent1.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids1);
+            intent3.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids3);
+            intent5.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids5);
+
+            context.sendBroadcast(intent1);
+            context.sendBroadcast(intent3);
+            context.sendBroadcast(intent5);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
