@@ -52,4 +52,10 @@ ptrckkk (Patrick Mell) <br />
 Thomas Glaser <br />
 yonjuni (Karola Marky)<br />
 Kamuno (Christopher Beckmann) <br />
-xdema (translation to Italian)
+sleep-yearning (Noah Schlegel) <br />
+xdema (translation to Italian) <br />
+dwi336 (certificate authority fix) <br />
+jaison043 (crash fix) <br />
+naofum (translation to Japanese) <br />
+SkewedZeppelin (°C to °F conversion fix, https links) <br />
+bugcrazy (Portuguese translation)
