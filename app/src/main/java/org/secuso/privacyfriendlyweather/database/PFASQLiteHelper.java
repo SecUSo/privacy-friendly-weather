@@ -187,7 +187,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         }
 
         long endInsertTime = System.currentTimeMillis();
-        Log.d("debug_info", "Time for insert:" + String.valueOf(endInsertTime - startInsertTime));
+        Log.d("debug_info", "Time for insert:" + (endInsertTime - startInsertTime));
     }
 
     private synchronized void addCities(SQLiteDatabase database, final List<City> cities) {
@@ -250,7 +250,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         return city;
     }
 
-    public synchronized List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit, String country) {
+    public synchronized List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit) {
         List<City> cities = new ArrayList<>();
 
         SQLiteDatabase database = this.getReadableDatabase();
@@ -262,12 +262,10 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 " FROM " + TABLE_CITIES +
                 " WHERE " + CITIES_NAME +
                 " LIKE ?" +
-                " AND "+ CITIES_COUNTRY_CODE +
-                " LIKE ?" +
                 " ORDER BY " + CITIES_NAME +
                 " LIMIT " + dropdownListLimit;
 
-        String[] args = {String.format("%s%%", cityNameLetters), String.format("%s%%", country)};
+        String[] args = {String.format("%s%%", cityNameLetters)};
         Cursor cursor = database.rawQuery(query, args);
 
         if (cursor.moveToFirst()) {
@@ -278,7 +276,6 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 city.setCountryCode(cursor.getString(2));
                 city.setPostalCode(cursor.getString(3));
                 cities.add(city);
-
             } while (cursor.moveToNext());
         }
 
