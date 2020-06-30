@@ -44,6 +44,9 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
         ViewUpdater.addSubsriber(this);
         ViewUpdater.addSubsriber(pagerAdapter);
+        initResources();
+        viewPager.setAdapter(pagerAdapter);
+        pagerAdapter.notifyDataSetChanged();
 
         pagerAdapter.refreshData(false);
     }
@@ -176,7 +179,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     protected void onPostResume() {
         super.onPostResume();
 
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null && pagerAdapter.getCount() > 0) {
             getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(viewPager.getCurrentItem()));
         }
     }
