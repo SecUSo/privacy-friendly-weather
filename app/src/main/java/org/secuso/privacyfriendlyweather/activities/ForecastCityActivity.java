@@ -29,7 +29,6 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     private int cityId = -1;
     private ViewPager viewPager;
     private TextView noCityText;
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -41,10 +40,11 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     @Override
     protected void onResume() {
         super.onResume();
-
         ViewUpdater.addSubsriber(this);
         ViewUpdater.addSubsriber(pagerAdapter);
-
+        initResources();
+        viewPager.setAdapter(pagerAdapter);
+        pagerAdapter.notifyDataSetChanged();
         pagerAdapter.refreshData(false);
     }
 
