@@ -142,4 +142,7 @@
     <string name="settings_title_API_key_reset">API Key zurücksetzen</string>
     <string name="settings_update_interval">Intervall der automatischen Updates</string>
     <string name="activity_city_weather_no_city_selected">Sie haben keine Stadt ausgewählt. Wählen Sie \"Orte verwalten\" in der Navigation um eine Stadt auszuwählen.</string>
+    <string name="long_press_text">Drücken Sie lange, an die Standard Stadt festzulegen</string>
+    <string name="swipe_to_delete">Wischen Sie zum Löschen</string>
+    <string name="default_city">Standard</string>
 </resources>

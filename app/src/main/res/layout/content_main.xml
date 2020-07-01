@@ -15,6 +15,14 @@
     tools:context="org.secuso.privacyfriendlyweather.activities.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/chip_margin"
+        android:text="@string/long_press_text" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_view_cities"
         android:layout_width="match_parent"

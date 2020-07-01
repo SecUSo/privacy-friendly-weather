@@ -92,10 +92,15 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         holder.getTvInformation().setText(cities.get(position).getCityName());
+        holder.getTvCountryCode().setText(database.getCityById(cities.get(position).getCityId()).getCountryCode());
+
+
         if (cities.get(position).getCityId() == prefManager.getDefaultLocation()) {
-            holder.getIsDefault().setVisibility(View.VISIBLE);
+            holder.getTvDefault().setVisibility(View.VISIBLE);
+
         } else {
-            holder.getIsDefault().setVisibility(View.GONE);
+            holder.getTvDefault().setVisibility(View.GONE);
+
         }
     }
 
