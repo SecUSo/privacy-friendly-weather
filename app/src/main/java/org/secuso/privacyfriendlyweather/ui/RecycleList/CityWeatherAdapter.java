@@ -73,8 +73,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 // course of day list should show entries until the same time the next day is reached
                 // since we force our forecasts to be in the future and they are ordered.. we can assume
                 // the next entry to be to the full 3h mark after this time ..
-                // if we now add a total of 8 entries if should sum up to 24 hours
-                if(courseDayList.size() < 8) {
+                // if we now add a total of 24 entries if should sum up to 72 hours
+                if(courseDayList.size() < 25) {
                     courseDayList.add(f);
                 }
 
