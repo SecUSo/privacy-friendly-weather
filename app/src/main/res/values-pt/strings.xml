@@ -49,7 +49,7 @@
     <string name="radius_search_tv_num_returns">Número dos lugares</string>
     <string name="settings_celsius">Celsius</string>
     <string name="settings_fahrenheit">Fahrenheit</string>
-    <string name="settings_kilometers">Quilómetro</string>
+    <string name="settings_kilometers">Quilômetro</string>
     <string name="settings_miles">Milhas</string>
     <string name="settings_title_distance">Distâncias</string>
     <string name="settings_title_temperature">Temperaturas</string>
@@ -59,7 +59,9 @@
     <string name="weather_category_clouds">Nublado</string>
     <string name="weather_category_mist">Enevoado</string>
     <string name="weather_category_rain">Chuva</string>
-    <string name="weather_category_shower_rain">Pancada de chuva</string>
+    <string name="weather_category_drizzle_rain">Chuvisco</string>
+    <string name="weather_category_light_rain">Chuva leve</string>
+    <string name="weather_category_moderate_rain">Chuva moderada</string>
     <string name="weather_category_snow">Neve</string>
     <string name="weather_category_thunderstorm">Trovoada</string>
     <string name="about">Sobre</string>
@@ -107,6 +109,7 @@
     <string name="appwidget_text">PFA - Tempo</string>
     <string name="card_day_heading">Curso do dia</string>
     <string name="card_error_content">conteúdo_errado_do_cartão</string>
+    <string name="action_refresh">Refresh</string>
     <string name="card_error_heading">Erro ao obter dados meteorológicos</string>
     <string name="card_sun_heading">Sol</string>
     <string name="card_week_heading">Semana</string>

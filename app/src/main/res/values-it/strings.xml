@@ -59,7 +59,9 @@
     <string name="weather_category_clouds">Nuvoloso</string>
     <string name="weather_category_mist">Nebbia</string>
     <string name="weather_category_rain">Pioggia</string>
-    <string name="weather_category_shower_rain">Piovaschi</string>
+    <string name="weather_category_drizzle_rain">Pioggerella</string>
+    <string name="weather_category_light_rain">Pioggia leggera</string>
+    <string name="weather_category_moderate_rain">Pioggia moderata</string>
     <string name="weather_category_snow">Neve</string>
     <string name="weather_category_thunderstorm">Temporale</string>
     <string name="about">Info</string>
@@ -108,6 +110,7 @@
     <string name="card_day_heading">Course of the day</string>
     <string name="card_error_content">card_error_content</string>
     <string name="card_error_heading">Error fetching weather data</string>
+    <string name="action_refresh">Refresh</string>
     <string name="card_sun_heading">Sun</string>
     <string name="card_week_heading">Week</string>
     <string name="configure">Configure</string>

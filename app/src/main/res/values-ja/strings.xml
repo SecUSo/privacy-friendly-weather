@@ -144,7 +144,9 @@
     <string name="weather_category_clouds">曇り</string>
     <string name="weather_category_scattered_clouds">かすみ雲</string>
     <string name="weather_category_broken_clouds">ちぎれ雲</string>
-    <string name="weather_category_shower_rain">にわか雨</string>
+    <string name="weather_category_drizzle_rain">霧雨</string>
+    <string name="weather_category_light_rain">小雨</string>
+    <string name="weather_category_moderate_rain">穏やかな雨</string>
     <string name="weather_category_rain">雨</string>
     <string name="weather_category_thunderstorm">雷雨</string>
     <string name="weather_category_snow">雪</string>
@@ -162,6 +164,7 @@
     <string name="appwidget_text">PFA - Weather</string>
     <string name="card_day_heading">Course of the day</string>
     <string name="card_error_content">card_error_content</string>
+    <string name="action_refresh">Refresh</string>
     <string name="card_error_heading">Error fetching weather data</string>
     <string name="card_sun_heading">Sun</string>
     <string name="card_week_heading">Week</string>
