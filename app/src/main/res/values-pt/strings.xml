@@ -56,6 +56,7 @@
     <string name="settings_title_units">Unidades de medida</string>
     <string name="title_activity_settings">Atitudes</string>
     <string name="weather_category_clear_sky">Céu claro</string>
+    <string name="weather_category_overcast_clouds">overcast clouds</string>
     <string name="weather_category_clouds">Nublado</string>
     <string name="weather_category_mist">Enevoado</string>
     <string name="weather_category_rain">Chuva</string>

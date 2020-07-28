@@ -16,6 +16,7 @@ public abstract class IApiToDatabaseConversion {
         CLOUDS(20),
         SCATTERED_CLOUDS(30),
         BROKEN_CLOUDS(40),
+        OVERCAST_CLOUDS(45),
         MIST(50),
         DRIZZLE_RAIN(60),
         LIGHT_RAIN(70),
@@ -50,6 +51,8 @@ public abstract class IApiToDatabaseConversion {
                 return WeatherCategories.SCATTERED_CLOUDS;
             case 40:
                 return WeatherCategories.BROKEN_CLOUDS;
+            case 45:
+                return WeatherCategories.OVERCAST_CLOUDS;
             case 50:
                 return WeatherCategories.MIST;
             case 60:

@@ -28,6 +28,8 @@ public class UiResourceProvider {
                 return R.mipmap.weather_icon_cloudy_scattered;
             case 40:
                 return R.mipmap.weather_icon_clouds_broken;
+            case 45:
+                return R.mipmap.weather_icon_clouds_overcast;
             case 50:
                 return R.mipmap.weather_icon_foggy;
             case 60:
@@ -62,6 +64,8 @@ public class UiResourceProvider {
                 return R.drawable.weather_image_scattered_clouds;
             case 40:
                 return R.drawable.weather_image_broken_clouds;
+            case 45:
+                return R.drawable.weather_image_overcast_clouds;
             case 50:
                 return R.drawable.weather_image_foggy;
             case 60:

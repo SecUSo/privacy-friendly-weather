@@ -38,7 +38,7 @@ public class OwmToDatabaseConversion extends IApiToDatabaseConversion {
             return WeatherCategories.BROKEN_CLOUDS.getNumVal();
         }
         // Fallback: Clouds
-        return WeatherCategories.BROKEN_CLOUDS.getNumVal();
+        return WeatherCategories.OVERCAST_CLOUDS.getNumVal();
     }
 
 }

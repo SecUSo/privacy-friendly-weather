@@ -97,6 +97,7 @@
     <string name="settings_summary_distance">Unità di misura della distanza.</string>
     <string name="settings_summary_temperature">Unità di misura della temperatura.</string>
     <string name="weather_category_broken_clouds">Poco Nuvoloso</string>
+    <string name="weather_category_overcast_clouds">overcast clouds</string>
     <string name="weather_category_scattered_clouds">Nubi Sparse</string>
     <string name="info_no_data_for_day">Dati non disponibili per questo giorno.</string>
     <string name="about_affiliation">In affiliazione con</string>
