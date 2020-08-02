@@ -28,11 +28,17 @@ public class UiResourceProvider {
                 return R.mipmap.weather_icon_cloudy_scattered;
             case 40:
                 return R.mipmap.weather_icon_clouds_broken;
+            case 45:
+                return R.mipmap.weather_icon_clouds_overcast;
             case 50:
                 return R.mipmap.weather_icon_foggy;
             case 60:
-                return R.mipmap.weather_icon_rain;
+                return R.mipmap.weather_icon_drizzle_rain;
             case 70:
+                return R.mipmap.weather_icon_light_rain;
+            case 71:
+                return R.mipmap.weather_icon_moderate_rain;
+            case 72:
                 return R.mipmap.weather_icon_rain;
             case 80:
                 return R.mipmap.weather_icon_snow;
@@ -58,11 +64,17 @@ public class UiResourceProvider {
                 return R.drawable.weather_image_scattered_clouds;
             case 40:
                 return R.drawable.weather_image_broken_clouds;
+            case 45:
+                return R.drawable.weather_image_overcast_clouds;
             case 50:
                 return R.drawable.weather_image_foggy;
             case 60:
-                return R.drawable.weather_image_rain;
+                return R.drawable.weather_image_drizzle_rain;
             case 70:
+                return R.drawable.weather_image_light_rain;
+            case 71:
+                return R.drawable.weather_image_moderate_rain;
+            case 72:
                 return R.drawable.weather_image_rain;
             case 80:
                 return R.drawable.weather_image_snow;

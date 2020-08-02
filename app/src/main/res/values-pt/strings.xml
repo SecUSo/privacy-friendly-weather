@@ -56,10 +56,13 @@
     <string name="settings_title_units">Unidades de medida</string>
     <string name="title_activity_settings">Atitudes</string>
     <string name="weather_category_clear_sky">Céu claro</string>
+    <string name="weather_category_overcast_clouds">Céu encobertas</string>
     <string name="weather_category_clouds">Nublado</string>
     <string name="weather_category_mist">Enevoado</string>
     <string name="weather_category_rain">Chuva</string>
-    <string name="weather_category_shower_rain">Pancada de chuva</string>
+    <string name="weather_category_drizzle_rain">Chuvisco</string>
+    <string name="weather_category_light_rain">Chuva leve</string>
+    <string name="weather_category_moderate_rain">Chuva moderada</string>
     <string name="weather_category_snow">Neve</string>
     <string name="weather_category_thunderstorm">Trovoada</string>
     <string name="about">Sobre</string>
@@ -107,6 +110,7 @@
     <string name="appwidget_text">PFA - Tempo</string>
     <string name="card_day_heading">Curso do dia</string>
     <string name="card_error_content">conteúdo_errado_do_cartão</string>
+    <string name="action_refresh">Actualizar</string>
     <string name="card_error_heading">Erro ao obter dados meteorológicos</string>
     <string name="card_sun_heading">Sol</string>
     <string name="card_week_heading">Semana</string>

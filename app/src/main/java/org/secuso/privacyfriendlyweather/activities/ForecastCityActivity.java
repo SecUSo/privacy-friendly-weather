@@ -179,7 +179,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     protected void onPostResume() {
         super.onPostResume();
 
-        if (getSupportActionBar() != null && pagerAdapter.getCount() > 0) {
+        if(getSupportActionBar() != null && pagerAdapter.getCount()>0) {
             getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(viewPager.getCurrentItem()));
         }
     }

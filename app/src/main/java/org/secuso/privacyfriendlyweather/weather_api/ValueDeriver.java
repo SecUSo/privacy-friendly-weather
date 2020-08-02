@@ -38,8 +38,14 @@ public class ValueDeriver {
                 return context.getResources().getString(R.string.weather_category_scattered_clouds);
             case BROKEN_CLOUDS:
                 return context.getResources().getString(R.string.weather_category_broken_clouds);
-            case SHOWER_RAIN:
-                return context.getResources().getString(R.string.weather_category_shower_rain);
+            case OVERCAST_CLOUDS:_CLOUDS:
+                return context.getResources().getString(R.string.weather_category_overcast_clouds);
+            case DRIZZLE_RAIN:
+                return context.getResources().getString(R.string.weather_category_drizzle_rain);
+            case LIGHT_RAIN:
+                return context.getResources().getString(R.string.weather_category_light_rain);
+            case MODERATE_RAIN:
+                return context.getResources().getString(R.string.weather_category_moderate_rain);
             case RAIN:
                 return context.getResources().getString(R.string.weather_category_rain);
             case THUNDERSTORM:

@@ -52,7 +52,7 @@
     <string name="more_info">Mehr Informationen können gefunden werden auf:</string>
     <string name="help_permission_internet_description">In dieser Kategorie wird die Berechtigung "Internet" benötigt, um Wetter-Anfragen an Server zu stellen, die sich im Internet befinden. Ohne diese Berechtigung können keine Wetter-Daten bezogen werden.</string>
     <string name="pref_header_general">Allgemein</string>
-    <string name="progress_dialog_add_location_title">Datenbank wird eingerichtet...</string>
+    <string name="progress_dialog_add_location_title">Datenbank wird eingerichtet&#8230;</string>
     <string name="progress_dialog_add_location_msg">Einen Augenblick</string>
     <string name="radius_search_label">Umkreissuche</string>
     <string name="radius_search_result_label">Suchergebnis</string>
@@ -64,13 +64,16 @@
     <string name="radius_search_btn_search">Suche</string>
     <string name="weather_category_snow">Schnee</string>
     <string name="weather_category_thunderstorm">Gewitter</string>
-    <string name="weather_category_shower_rain">Regenschauer</string>
+    <string name="weather_category_drizzle_rain">Nieselregen</string>
     <string name="weather_category_clouds">Wolken</string>
     <string name="weather_category_clear_sky">Klarer Himmel</string>
+    <string name="weather_category_light_rain">Leichter Regen</string>
+    <string name="weather_category_moderate_rain">Mäßiger Regen</string>
     <string name="weather_category_rain">Regen</string>
     <string name="weather_category_mist">Nebel</string>
     <string name="weather_category_scattered_clouds">Aufgelockerte Bewölkung</string>
     <string name="weather_category_broken_clouds">Aufgerissene Bewölkung</string>
+    <string name="weather_category_overcast_clouds">Bedeckt</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="settings_title_units">Maßeinheiten</string>
     <string name="settings_title_temperature">Temperaturen</string>
@@ -130,8 +133,9 @@
     <string name="error_fetch_forecast">Es ist ein Fehler Abrufen der Wettervorhersage aufgetreten, bitte versuchen Sie es erneut!</string>
     <string name="error_radius_search">Es ist ein Fehler beim Abfragen der Umkreissuche aufgetreten, bitte versuchen Sie es erneut!</string>
     <string name="card_error_content">Bitte versuchen Sie zu aktualisieren!</string>
+    <string name="action_refresh">Aktualisieren</string>
     <string name="card_error_heading">Fehler beim Abrufen der Wetterdaten</string>
-    <string name="settings__API_key_default">Es wurde kein API Key bereit gestellt</string>
+    <string name="settings__API_key_default">Es wurde kein API Key bereitgestellt</string>
     <string name="settings_confirm_content_API_key_reset">Wirklich den standard API Key wiederherstellen?</string>
     <string name="settings_confirm_title_API_key_reset">API Key zurücksetzen</string>
     <string name="settings_description_API">Privacy Friendly Wetter erhält die Wetterdaten von dem freien Service openweathermap.org. Dieser Service ist auf 60 Anfragen pro Minute beschränkt. Sie könnten ihren eigenen API Key registrieren, um ihre eigenen 60 Anfragen pro Minute zu bekommen.</string>

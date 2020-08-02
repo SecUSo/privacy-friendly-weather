@@ -29,7 +29,7 @@ public class AutoCompleteCityTextViewGenerator {
     private Context context;
     //private DatabaseHelper dbHelper;
     private PFASQLiteHelper dbHelper;
-    private ArrayAdapter<City> cityAdapter;
+    private CitySelectAdapter cityAdapter;
     private Runnable selectAction;
     private AutoCompleteTextView editField;
     private MyConsumer<City> cityConsumer;
@@ -55,7 +55,7 @@ public class AutoCompleteCityTextViewGenerator {
      * @param listLimit    Determines how many items shall be shown in the drop down list at most.
      */
     public void generate(AutoCompleteTextView editField, int listLimit, final int enterActionId, final MyConsumer<City> cityConsumer, final Runnable selectAction) {
-        cityAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, new ArrayList<City>());
+        cityAdapter = new CitySelectAdapter(context, android.R.layout.simple_list_item_1, new ArrayList<City>());
         this.editField = editField;
         this.cityConsumer = cityConsumer;
         this.listLimit = listLimit;
@@ -66,6 +66,8 @@ public class AutoCompleteCityTextViewGenerator {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("cityfind","parent: "+parent.getAdapter().toString());
+
                 selectedCity = (City) parent.getItemAtPosition(position);
                 cityConsumer.accept(selectedCity);
             }
@@ -87,10 +89,24 @@ public class AutoCompleteCityTextViewGenerator {
     }
 
     private boolean checkCity() {
+        Log.d("cityfind","checkcity called with");
+
         if (selectedCity == null) {
             String current = editField.getText().toString();
-            if (current.length() > 2) {
-                List<City> cities = dbHelper.getCitiesWhereNameLike(current, listLimit);
+            Log.d("cityfind",current);
+            String name;
+            String country;
+            if (current.contains("(")){
+                int split = current.indexOf("(");
+                name = current.substring(0,split);
+                country = current.substring(split+1, Math.min(split+3,current.length()));
+            } else {
+                name = current;
+                country="";
+            }
+
+            if (name.length() > 2) {
+                List<City> cities = dbHelper.getCitiesWhereNameLike(name, listLimit, country);
                 if (cities.size() == 1) {
                     selectedCity = cities.get(0);
                     cityConsumer.accept(selectedCity);
@@ -101,6 +117,7 @@ public class AutoCompleteCityTextViewGenerator {
             Toast.makeText(context, "NO City selected", Toast.LENGTH_SHORT).show();
             return false;
         }
+        Log.d("cityfind","unselected");
         return true;
     }
 
@@ -134,16 +151,33 @@ public class AutoCompleteCityTextViewGenerator {
             //List<City> allCities = dbHelper.getAllCities();
 
             String content = editField.getText().toString();
-            if (content.length() > 2) {
+            String name;
+            String country;
+            //if country code is given split the city name from country
+            if (content.contains("(")){
+                int split = content.indexOf("(");
+                name = content.substring(0,split).replaceAll("\\s+$", "");
+                country = content.substring(split+1, Math.min(split+3,content.length()));
+            } else {
+                //take whole input as city name (except whitespace at the end)
+                name = content.replaceAll("\\s+$", "");
+                country="";
+            }
+
+            if (name.length() > 2) {
                 // Get the matched cities
                 //List<City> cities = dbHelper.getCitiesWhereNameLike(content, allCities, dropdownListLimit);
-                List<City> cities = dbHelper.getCitiesWhereNameLike(content, listLimit);
+                List<City> cities = dbHelper.getCitiesWhereNameLike(name, listLimit, country);
                 // Set the drop down entries
 
                 if (selectWhenUnique && cities.size() == 1) {
+                    Log.d("cityfind","cities size 1, length: "+cities.get(0));
+
                     selectedCity = cities.get(0);
                     cityConsumer.accept(selectedCity);
                 } else {
+                    Log.d("cityfind","not unique, length: "+cities.size());
+
                     cityAdapter.clear();
                     cityAdapter.addAll(cities);
                     editField.showDropDown();
