@@ -23,11 +23,10 @@ import java.util.List;
 
 public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.WeekForecastViewHolder> {
 
-    Context context;
+    private Context context;
+    private List<Forecast> forecastList;
 
-    List<Forecast> forecastList;
-
-    public WeekWeatherAdapter(List<Forecast> forecastList, Context context) {
+    WeekWeatherAdapter(List<Forecast> forecastList, Context context) {
         this.context = context;
         this.forecastList = forecastList;
     }
@@ -46,7 +45,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         holder.humidity.setText(StringFormatUtils.formatInt(f.getHumidity(), "%"));
 
         Calendar c = new GregorianCalendar();
-        c.setTime(f.getForecastTime());
+        c.setTime(f.getLocalForecastTime(context));
         int day = c.get(Calendar.DAY_OF_WEEK);
 
         switch(day) {
@@ -83,14 +82,14 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         return forecastList.size();
     }
 
-    public class WeekForecastViewHolder extends RecyclerView.ViewHolder {
+    class WeekForecastViewHolder extends RecyclerView.ViewHolder {
 
         TextView day;
         ImageView weather;
         TextView temperature;
         TextView humidity;
 
-        public WeekForecastViewHolder(View itemView) {
+        WeekForecastViewHolder(View itemView) {
             super(itemView);
 
             day = itemView.findViewById(R.id.week_forecast_day);
@@ -105,7 +104,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void setIcon(int value, ImageView imageView) {
+    private void setIcon(int value, ImageView imageView) {
         imageView.setImageResource(UiResourceProvider.getIconResourceForWeatherCategory(value));
     }
 

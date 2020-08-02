@@ -79,8 +79,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 }
 
                 Calendar c = new GregorianCalendar();
-                c.setTime(f.getForecastTime());
-                if(c.get(Calendar.HOUR_OF_DAY) == 12) {
+                c.setTime(f.getLocalForecastTime(context));
+                //TODO replace with max and min values for the days
+                if (c.get(Calendar.HOUR_OF_DAY) < 14 && c.get(Calendar.HOUR_OF_DAY) > 10) {
                     forecastList.add(f);
                 }
             }
@@ -89,8 +90,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(View v) {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        ViewHolder(View v) {
             super(v);
         }
     }
@@ -99,7 +100,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView temperature;
         ImageView weather;
 
-        public OverViewHolder(View v) {
+        OverViewHolder(View v) {
             super(v);
             this.temperature = v.findViewById(R.id.activity_city_weather_temperature);
             this.weather = v.findViewById(R.id.activity_city_weather_image_view);
@@ -111,7 +112,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView pressure;
         TextView windspeed;
 
-        public DetailViewHolder(View v) {
+        DetailViewHolder(View v) {
             super(v);
             this.humidity = v.findViewById(R.id.activity_city_weather_tv_humidity_value);
             this.pressure = v.findViewById(R.id.activity_city_weather_tv_pressure_value);
@@ -122,7 +123,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     public class WeekViewHolder extends ViewHolder {
         RecyclerView recyclerView;
 
-        public WeekViewHolder(View v) {
+        WeekViewHolder(View v) {
             super(v);
             recyclerView = v.findViewById(R.id.recycler_view_week);
             recyclerView.setHasFixedSize(true);
@@ -132,7 +133,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     public class DayViewHolder extends ViewHolder {
         RecyclerView recyclerView;
 
-        public DayViewHolder(View v) {
+        DayViewHolder(View v) {
             super(v);
             recyclerView = v.findViewById(R.id.recycler_view_course_day);
             recyclerView.setHasFixedSize(true);
@@ -143,7 +144,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView sunrise;
         TextView sunset;
 
-        public SunViewHolder(View v) {
+        SunViewHolder(View v) {
             super(v);
             this.sunrise = v.findViewById(R.id.activity_city_weather_tv_sunrise_value);
             this.sunset = v.findViewById(R.id.activity_city_weather_tv_sunset_value);
@@ -151,7 +152,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     }
 
     public class ErrorViewHolder extends ViewHolder {
-        public ErrorViewHolder(View v) {
+        ErrorViewHolder(View v) {
             super(v);
         }
     }
@@ -243,7 +244,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         //No update for error needed
     }
 
-    public void setImage(int value, ImageView imageView) {
+    private void setImage(int value, ImageView imageView) {
         imageView.setImageResource(UiResourceProvider.getImageResourceForWeatherCategory(value));
 
     }

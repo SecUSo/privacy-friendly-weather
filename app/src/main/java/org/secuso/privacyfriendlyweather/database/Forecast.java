@@ -1,5 +1,7 @@
 package org.secuso.privacyfriendlyweather.database;
 
+import android.content.Context;
+
 import java.util.Date;
 
 /**
@@ -7,6 +9,7 @@ import java.util.Date;
  */
 public class Forecast {
 
+    public static final float NO_RAIN_VALUE = 0;
     private int id;
     private int city_id;
     private long timestamp;
@@ -15,14 +18,17 @@ public class Forecast {
     private float temperature;
     private float humidity;
     private float pressure;
-
+    private float windSpeed;
+    private float windDirection;
+    private float rainValue;
     private String city_name;
+
 
     public Forecast() {
     }
 
     public Forecast(int id, int city_id, long timestamp, Date forecastFor, int weatherID, float temperature, float humidity,
-                    float pressure) {
+                    float pressure, float windSpeed, float windDirection, float rainValue) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
@@ -31,6 +37,25 @@ public class Forecast {
         this.temperature = temperature;
         this.humidity = humidity;
         this.pressure = pressure;
+        this.windSpeed = windSpeed;
+        this.windDirection = windDirection;
+        this.rainValue = rainValue;
+    }
+
+    public float getWindDirection() {
+        return windDirection;
+    }
+
+    public void setWindDirection(float windDirection) {
+        this.windDirection = windDirection;
+    }
+
+    public float getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(float speed) {
+        windSpeed = speed;
     }
 
     /**
@@ -53,6 +78,12 @@ public class Forecast {
      */
     public Date getForecastTime() {
         return forecastFor;
+    }
+
+    public Date getLocalForecastTime(Context context) {
+        PFASQLiteHelper dbhelper = PFASQLiteHelper.getInstance(context);
+        int timezoneseconds = dbhelper.getCurrentWeatherByCityId(city_id).getTimeZoneSeconds();
+        return new Date(forecastFor.getTime() + timezoneseconds * 1000);
     }
 
     /**
@@ -130,7 +161,7 @@ public class Forecast {
     /**
      * @return Returns the air pressure value in hectopascal (hPa).
      */
-    public float getPressure() {
+    float getPressure() {
         return pressure;
     }
 
@@ -145,7 +176,15 @@ public class Forecast {
         return city_name;
     }
 
-    public void setCity_name(String city_name) {
+    void setCity_name(String city_name) {
         this.city_name = city_name;
+    }
+
+    public float getRainValue() {
+        return rainValue;
+    }
+
+    public void setRainVolume(float RainValue) {
+        rainValue = RainValue;
     }
 }

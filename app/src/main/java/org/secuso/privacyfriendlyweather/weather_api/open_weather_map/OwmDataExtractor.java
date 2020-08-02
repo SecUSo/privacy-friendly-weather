@@ -242,22 +242,22 @@ public class OwmDataExtractor implements IDataExtractor {
             forecast.setPressure((float) jsonMain.getDouble("pressure"));
 
             //TODO: Save wind for the 3h forecast?
-            //JSONObject jsonWind = jsonData.getJSONObject("wind");
-            //forecast.setWindSpeed((float) jsonWind.getDouble("speed"));
-            //forecast.setWindDirection((float) jsonWind.getDouble("deg"));
+            JSONObject jsonWind = jsonData.getJSONObject("wind");
+            forecast.setWindSpeed((float) jsonWind.getDouble("speed"));
+            forecast.setWindDirection((float) jsonWind.getDouble("deg"));
 
             //TODO: leave this out?
             // In case there was no rain in the past 3 hours, there is no "rain" field
-            /*if (jsonData.isNull("rain")) {
-                forecast.setPastRainVolume(Forecast.NO_RAIN_VALUE);
+            if (jsonData.isNull("rain")) {
+                forecast.setRainVolume(Forecast.NO_RAIN_VALUE);
             } else {
                 JSONObject jsonRain = jsonData.getJSONObject("rain");
                 if (jsonRain.isNull("3h")) {
-                    forecast.setPastRainVolume(Forecast.NO_RAIN_VALUE);
+                    forecast.setRainVolume(Forecast.NO_RAIN_VALUE);
                 } else {
-                    forecast.setPastRainVolume((float) jsonRain.getDouble("3h"));
+                    forecast.setRainVolume((float) jsonRain.getDouble("3h"));
                 }
-            }*/
+            }
 
             return forecast;
         } catch (JSONException | ParseException e) {

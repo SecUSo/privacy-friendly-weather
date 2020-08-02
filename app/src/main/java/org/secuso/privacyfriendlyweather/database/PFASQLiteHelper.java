@@ -187,7 +187,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         }
 
         long endInsertTime = System.currentTimeMillis();
-        Log.d("debug_info", "Time for insert:" + String.valueOf(endInsertTime - startInsertTime));
+        Log.d("debug_info", "Time for insert:" + (endInsertTime - startInsertTime));
     }
 
     private synchronized void addCities(SQLiteDatabase database, final List<City> cities) {
