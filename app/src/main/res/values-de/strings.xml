@@ -133,7 +133,7 @@
     <string name="error_fetch_forecast">Es ist ein Fehler Abrufen der Wettervorhersage aufgetreten, bitte versuchen Sie es erneut!</string>
     <string name="error_radius_search">Es ist ein Fehler beim Abfragen der Umkreissuche aufgetreten, bitte versuchen Sie es erneut!</string>
     <string name="card_error_content">Bitte versuchen Sie zu aktualisieren!</string>
-    <string name="action_refresh">Refresh</string>
+    <string name="action_refresh">Aktualisieren</string>
     <string name="card_error_heading">Fehler beim Abrufen der Wetterdaten</string>
     <string name="settings__API_key_default">Es wurde kein API Key bereitgestellt</string>
     <string name="settings_confirm_content_API_key_reset">Wirklich den standard API Key wiederherstellen?</string>
