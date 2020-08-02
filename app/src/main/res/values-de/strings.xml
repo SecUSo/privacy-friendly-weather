@@ -36,7 +36,7 @@
     <string name="dialog_add_checkbox_save">Diesen Ort dauerhaft speichern</string>
     <string name="dialog_add_close_button">Schließen</string>
     <string name="dialog_add_label">Ort, der hinzugefügt werden soll:</string>
-    <string name="dialog_add_no_city_found">Es wurde kein Ort gefunden, der Eingabe entspricht. Es wird empfohlen, einen Eintrag aus dem Dropdown-Menu zu wählen.</string>
+    <string name="dialog_add_no_city_found">Es wurde kein Ort gefunden, der der Eingabe entspricht. Es wird empfohlen, einen Eintrag aus dem Dropdown-Menu zu wählen.</string>
     <string name="dialog_add_textedit_error">Ortsname ist ungültig</string>
     <string name="dialog_add_too_many_cities_found">Die Eingabe ist nicht eindeutig. Es wird empfohlen, einen Eintrag aus dem Dropdown-Menu zu wählen.</string>
     <string name="dialog_first_app_close_button">Okay</string>
