@@ -61,14 +61,14 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         courseDayList = new ArrayList<Forecast>();
 
         // TODO: filter them accordingly and calculate what should be displayed .. (like average all the 3h forecasts for the week list)
-        Date now = new Date();
-        long currentTime = currentWeatherDataList.getTimestamp();
+        Calendar cal = Calendar.getInstance();
+        Date threehoursago = new Date(cal.getTimeInMillis() - (3 * 60 * 60 * 1000));
 
-        for(Forecast f : forecasts) {
+        for (Forecast f : forecasts) {
             Date time = f.getForecastTime();
 
             // only add Forecasts that are in the future
-            if(time.after(now)) {
+            if (time.after(threehoursago)) {
 
                 // course of day list should show entries until the same time the next day is reached
                 // since we force our forecasts to be in the future and they are ordered.. we can assume
