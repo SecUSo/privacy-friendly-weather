@@ -74,7 +74,13 @@ public class WeatherWidget extends AppWidgetProvider {
         views.setTextViewText(R.id.widget_city_weather_set, sunSet);
         views.setTextViewText(R.id.widget_city_weather_wind, windSpeed);
 
-        views.setImageViewResource(R.id.widget_city_weather_image_view, UiResourceProvider.getIconResourceForWeatherCategory(weatherData.getWeatherID()));
+        boolean isDay;
+        if(weatherData.getTimestamp() + weatherData.getTimeZoneSeconds() > weatherData.getTimeSunrise() && weatherData.getTimestamp()+weatherData.getTimeZoneSeconds() < weatherData.getTimeSunset()){
+            isDay = true;
+        } else {isDay = false;}
+
+
+        views.setImageViewResource(R.id.widget_city_weather_image_view, UiResourceProvider.getIconResourceForWeatherCategory(weatherData.getWeatherID(),isDay));
 
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", city.getCityId());

@@ -17,6 +17,7 @@ import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -80,7 +81,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
                 Calendar c = new GregorianCalendar();
                 c.setTime(f.getForecastTime());
-                if(c.get(Calendar.HOUR_OF_DAY) == 12) {
+                //TODO replace with max and min values for the days
+                if (c.get(Calendar.HOUR_OF_DAY) < 14 && c.get(Calendar.HOUR_OF_DAY) > 10) {
                     forecastList.add(f);
                 }
             }
@@ -197,10 +199,13 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
+    boolean isDay;
+        if(currentWeatherDataList.getTimestamp()+currentWeatherDataList.getTimeZoneSeconds() >currentWeatherDataList.getTimeSunrise() && currentWeatherDataList.getTimestamp()+currentWeatherDataList.getTimeZoneSeconds() < currentWeatherDataList.getTimeSunset()){
+            isDay = true;
+        } else {isDay = false;}
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
-            setImage(currentWeatherDataList.getWeatherID(), holder.weather);
+            setImage(currentWeatherDataList.getWeatherID(), holder.weather, isDay);
 
             holder.temperature.setText(StringFormatUtils.formatTemperature(context, currentWeatherDataList.getTemperatureCurrent()));
 
@@ -243,8 +248,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         //No update for error needed
     }
 
-    public void setImage(int value, ImageView imageView) {
-        imageView.setImageResource(UiResourceProvider.getImageResourceForWeatherCategory(value));
+    public void setImage(int value, ImageView imageView, boolean isDay) {
+        imageView.setImageResource(UiResourceProvider.getImageResourceForWeatherCategory(value,isDay));
 
     }
 

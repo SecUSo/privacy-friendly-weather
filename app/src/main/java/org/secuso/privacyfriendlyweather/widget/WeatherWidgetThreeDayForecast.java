@@ -90,10 +90,11 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
         views.setTextViewText(R.id.widget_city_weather_3day_hum1, hum1);
         views.setTextViewText(R.id.widget_city_weather_3day_hum2, hum2);
         views.setTextViewText(R.id.widget_city_weather_3day_hum3, hum3);
-
-        views.setImageViewResource(R.id.widget_city_weather_3day_image1, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(0).getWeatherID()));
-        views.setImageViewResource(R.id.widget_city_weather_3day_image2, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(1).getWeatherID()));
-        views.setImageViewResource(R.id.widget_city_weather_3day_image3, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(2).getWeatherID()));
+        
+        // in weather widgets all icons are day icons, therefore isday always true
+        views.setImageViewResource(R.id.widget_city_weather_3day_image1, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(0).getWeatherID(), true));
+        views.setImageViewResource(R.id.widget_city_weather_3day_image2, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(1).getWeatherID(), true));
+        views.setImageViewResource(R.id.widget_city_weather_3day_image3, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(2).getWeatherID(), true));
 
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", forecastList.get(0).getCity_id());
