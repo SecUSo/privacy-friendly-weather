@@ -3,6 +3,7 @@ package org.secuso.privacyfriendlyweather.ui.util;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
