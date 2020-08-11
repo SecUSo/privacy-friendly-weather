@@ -19,6 +19,7 @@ import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 import static android.support.v4.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
@@ -44,44 +45,45 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
     public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, float[][] data, City city) {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
-        DecimalFormat decimalFormat = new DecimalFormat("#.0");
+        DecimalFormat decimalFormat = new DecimalFormat("#");
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
+        dayFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         //forecastList = DayForecastFilter.filter(forecastList, 5);
         if (data.length < 5) return;
 
-        String day1 = dayFormat.format(data[0][8]);
-        String day2 = dayFormat.format(data[1][8]);
-        String day3 = dayFormat.format(data[2][8]);
-        String day4 = dayFormat.format(data[3][8]);
-        String day5 = dayFormat.format(data[4][8]);
+        String day1 = dayFormat.format((long) data[0][8]);
+        String day2 = dayFormat.format((long) data[1][8]);
+        String day3 = dayFormat.format((long) data[2][8]);
+        String day4 = dayFormat.format((long) data[3][8]);
+        String day5 = dayFormat.format((long) data[4][8]);
 
         String temperature1 = String.format(
-                "%s |%s%s",
+                "%s | %s%s",
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[0][0])),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[0][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature2 = String.format(
-                "%s |%s%s",
+                "%s | %s%s",
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[1][0])),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[1][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature3 = String.format(
-                "%s |%s%s",
+                "%s | %s%s",
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[2][0])),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[2][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature4 = String.format(
-                "%s |%s%s",
+                "%s | %s%s",
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[3][0])),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[3][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature5 = String.format(
-                "%s |%s%s",
+                "%s | %s%s",
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[4][0])),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[4][1])),
                 prefManager.getWeatherUnit()
