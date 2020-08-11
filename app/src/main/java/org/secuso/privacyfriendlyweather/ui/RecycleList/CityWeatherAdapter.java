@@ -18,7 +18,6 @@ import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,8 +30,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     private static final String TAG = "Forecast_Adapter";
 
     private int[] dataSetTypes;
-    private List<Forecast> forecastList;
     private List<Forecast> courseDayList;
+    private float[][] forecastData;
 
     private Context context;
 
@@ -59,7 +58,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     // function for 3-hour forecast list
     public void updateForecastData(List<Forecast> forecasts) {
-        forecastList = new ArrayList<Forecast>();
+        forecastData = compressWeatherData(forecasts);
         courseDayList = new ArrayList<Forecast>();
 
         // TODO: filter them accordingly and calculate what should be displayed .. (like average all the 3h forecasts for the week list)
@@ -70,21 +69,12 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
             // only add Forecasts that are in the future
             if (time.after(threehoursago)) {
-
                 // course of day list should show entries until the same time the next day is reached
                 // since we force our forecasts to be in the future and they are ordered.. we can assume
                 // the next entry to be to the full 3h mark after this time ..
                 // if we now add a total of 24 entries if should sum up to 72 hours
-                if(courseDayList.size() < 25) {
+                if (courseDayList.size() < 25) {
                     courseDayList.add(f);
-                }
-
-                Calendar c = new GregorianCalendar();
-                c.setTime(f.getLocalForecastTime(context));
-              
-                //TODO replace with max and min values for the days
-                if (c.get(Calendar.HOUR_OF_DAY) < 14 && c.get(Calendar.HOUR_OF_DAY) > 10) {
-                    forecastList.add(f);
                 }
             }
         }
@@ -93,14 +83,28 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     }
 
     private float[][] compressWeatherData(List<Forecast> forecastList) {
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        int zonemilliseconds = currentWeatherDataList.getTimeZoneSeconds() * 1000;
-        cal.set(Calendar.ZONE_OFFSET, zonemilliseconds);
-        cal.set(Calendar.MINUTE, 0);
+        int cityId = forecastList.get(0).getCity_id();
+
+        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context.getApplicationContext());
+        int zonemilliseconds = dbHelper.getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
+        Log.d("devtag", "zonehours " + zonemilliseconds / 3600000.0);
+
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(new Date());
         cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.DST_OFFSET, 0);
+        cal.set(Calendar.ZONE_OFFSET, zonemilliseconds);
 
+        long startOfDay = cal.getTimeInMillis();
+        Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
 
-        //temp max, temp min, humidity max, humidity min, wind max, wind min, wind direction, rain total, time, weather ID, number of FCs for day
+        if (System.currentTimeMillis() < startOfDay) cal.add(Calendar.HOUR_OF_DAY, -24);
+        if (System.currentTimeMillis() > startOfDay + 24 * 3600 * 1000)
+            cal.add(Calendar.HOUR_OF_DAY, 24);
+        Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
+
+        //temp max 0, temp min 1, humidity max 2, humidity min 3, wind max 4, wind min 5, wind direction 6, rain total 7, time 8, weather ID 9, number of FCs for day 10
         float[] today = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, 0, 0, 0};
         LinkedList<Integer> todayIDs = new LinkedList<>();
         float[] tomorrow = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, 0, 0, 0};
@@ -133,7 +137,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     today[6] += fc.getWindDirection();
                     today[7] += fc.getRainValue();
                     today[8] += fc.getTimestamp();
-                    Log.d("devtag", "timestamp" + fc.getTimestamp());
+                    Log.d("devtag", "today" + fc.getTimestamp());
                     //count number of FCs
                     today[10] += 1;
 
@@ -151,6 +155,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
                     if (fc.getWindSpeed() > tomorrow[4]) tomorrow[4] = fc.getWindSpeed();
                     if (fc.getWindSpeed() < tomorrow[5]) tomorrow[5] = fc.getWindSpeed();
+                    Log.d("devtag", "tomorrow" + fc.getTimestamp());
 
 
                     tomorrow[6] += fc.getWindDirection();
@@ -173,6 +178,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     if (fc.getWindSpeed() > in2days[4]) in2days[4] = fc.getWindSpeed();
                     if (fc.getWindSpeed() < in2days[5]) in2days[5] = fc.getWindSpeed();
 
+                    Log.d("devtag", "2days" + fc.getTimestamp());
 
                     in2days[6] += fc.getWindDirection();
                     in2days[7] += fc.getRainValue();
@@ -258,7 +264,6 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         in5days[9] = mostPrevalentWeather(in5daysIDs);
 
         //normalize wind direction and time for number of FCs used for that day
-        Log.d("devtag", "today" + today[10]);
         today[6] /= today[10];
         today[8] = today[8] * 1000 / today[10] + zonemilliseconds;
         tomorrow[6] /= tomorrow[10];
@@ -271,7 +276,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         in4days[8] = in4days[8] * 1000 / in4days[10] + zonemilliseconds;
         in5days[6] /= in5days[10];
         in5days[8] = in5days[8] * 1000 / in5days[10] + zonemilliseconds;
-        Log.d("devtag", "times: " + today[10] + " " + today[8] + " " + tomorrow[8] + " " + in2days[8] + " " + in3days[8] + " " + in4days[8] + " " + in5days[8]);
+        Log.d("devtag", "total :" + forecastList.size() + "times: " + today[10] + " " + today[8] + " " + tomorrow[10] + " " + tomorrow[8] + " " + in2days[10] + " " + in2days[8] + " " + in3days[10] + " " + in3days[8] + " " + in4days[10] + " " + in4days[8] + " " + in5days[10] + " " + in5days[8]);
 
         return new float[][]{today, tomorrow, in2days, in3days, in4days, in5days};
     }
@@ -420,7 +425,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     .inflate(R.layout.card_day, viewGroup, false);
             return new DayViewHolder(v);
 
-        } else if (viewType == SUN){
+        } else if (viewType == SUN) {
 
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.card_sun, viewGroup, false);
@@ -434,10 +439,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-    boolean isDay;
-        if(currentWeatherDataList.getTimestamp()+currentWeatherDataList.getTimeZoneSeconds() >currentWeatherDataList.getTimeSunrise() && currentWeatherDataList.getTimestamp()+currentWeatherDataList.getTimeZoneSeconds() < currentWeatherDataList.getTimeSunset()){
-            isDay = true;
-        } else {isDay = false;}
+        boolean isDay;
+        isDay = currentWeatherDataList.getTimestamp() + currentWeatherDataList.getTimeZoneSeconds() > currentWeatherDataList.getTimeSunrise() && currentWeatherDataList.getTimestamp() + currentWeatherDataList.getTimeZoneSeconds() < currentWeatherDataList.getTimeSunset();
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
             setImage(currentWeatherDataList.getWeatherID(), holder.weather, isDay);
@@ -456,7 +459,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             WeekViewHolder holder = (WeekViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
-            WeekWeatherAdapter adapter = new WeekWeatherAdapter(forecastList, context);
+            WeekWeatherAdapter adapter = new WeekWeatherAdapter(forecastData, context);
             holder.recyclerView.setAdapter(adapter);
 
         } else if (viewHolder.getItemViewType() == DAY) {
@@ -484,7 +487,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     }
 
     public void setImage(int value, ImageView imageView, boolean isDay) {
-        imageView.setImageResource(UiResourceProvider.getImageResourceForWeatherCategory(value,isDay));
+        imageView.setImageResource(UiResourceProvider.getImageResourceForWeatherCategory(value, isDay));
     }
 
     @Override
