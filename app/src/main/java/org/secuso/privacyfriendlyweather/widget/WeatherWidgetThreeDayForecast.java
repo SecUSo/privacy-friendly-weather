@@ -19,6 +19,7 @@ import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 import static android.support.v4.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
@@ -47,6 +48,8 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
         DecimalFormat decimalFormat = new DecimalFormat("#.0");
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
+        dayFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+
         //forecastList = DayForecastFilter.filter(forecastList, 3);
         if (data.length < 3) return;
 

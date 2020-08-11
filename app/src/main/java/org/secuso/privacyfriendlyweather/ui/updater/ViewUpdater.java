@@ -20,14 +20,12 @@ public class ViewUpdater {
     }
 
     public static void removeSubsriber(IUpdateableCityUI sub) {
-        if(subscribers.contains(sub)) {
-            subscribers.remove(sub);
-        }
+        subscribers.remove(sub);
     }
 
     public static void updateCurrentWeatherData(CurrentWeatherData data) {
         for(IUpdateableCityUI sub : subscribers) {
-            sub.setLastUpdateTime(data);
+            sub.processNewWeatherData(data);
         }
     }
 
