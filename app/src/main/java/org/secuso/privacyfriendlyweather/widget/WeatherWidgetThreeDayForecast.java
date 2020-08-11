@@ -92,9 +92,9 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
         views.setTextViewText(R.id.widget_city_weather_3day_hum2, hum2);
         views.setTextViewText(R.id.widget_city_weather_3day_hum3, hum3);
 
-        views.setImageViewResource(R.id.widget_city_weather_3day_image1, UiResourceProvider.getIconResourceForWeatherCategory((int) data[0][9]));
-        views.setImageViewResource(R.id.widget_city_weather_3day_image2, UiResourceProvider.getIconResourceForWeatherCategory((int) data[1][9]));
-        views.setImageViewResource(R.id.widget_city_weather_3day_image3, UiResourceProvider.getIconResourceForWeatherCategory((int) data[2][9]));
+        views.setImageViewResource(R.id.widget_city_weather_3day_image1, UiResourceProvider.getIconResourceForWeatherCategory((int) data[0][9], true));
+        views.setImageViewResource(R.id.widget_city_weather_3day_image2, UiResourceProvider.getIconResourceForWeatherCategory((int) data[1][9], true));
+        views.setImageViewResource(R.id.widget_city_weather_3day_image3, UiResourceProvider.getIconResourceForWeatherCategory((int) data[2][9], true));
 
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", city.getCityId());

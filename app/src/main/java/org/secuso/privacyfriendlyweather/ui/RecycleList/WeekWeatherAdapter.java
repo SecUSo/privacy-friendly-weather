@@ -104,8 +104,8 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    private void setIcon(int value, ImageView imageView) {
-        imageView.setImageResource(UiResourceProvider.getIconResourceForWeatherCategory(value));
+    public void setIcon(int value, ImageView imageView) {
+        imageView.setImageResource(UiResourceProvider.getIconResourceForWeatherCategory(value, true));
     }
 
 }
