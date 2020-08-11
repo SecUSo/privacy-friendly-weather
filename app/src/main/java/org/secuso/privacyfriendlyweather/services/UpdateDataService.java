@@ -90,12 +90,9 @@ public class UpdateDataService extends JobIntentService {
 
     private void handleWidgetUpdate(Intent intent) {
 
-        handleUpdateCurrentWeatherAction(intent);
-
-
         int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
         int widgetType = intent.getIntExtra("widget_type", 0);
-        Log.d("weatherwidget", "widgetUpdate: type " + widgetType + " id: " + widgetId);
+        Log.d("devtag", "widgetUpdate: type " + widgetType + " id: " + widgetId);
 
         if (widgetId > -1 && widgetType > 0) {
 
@@ -115,9 +112,8 @@ public class UpdateDataService extends JobIntentService {
             }
 
             int cityId = prefs.getInt(WeatherWidget.PREF_PREFIX_KEY + widgetId, -1);
-            Log.d("weatherwidget", "cityID: " + cityId);
             if (cityId == -1) {
-                Log.d("weatherwidget", "cityId is null?");
+                Log.d("debug", "cityId is null?");
                 return;
             }
 
@@ -130,7 +126,7 @@ public class UpdateDataService extends JobIntentService {
 
     /**
      * Be careful, with using this. It can cause many calls to the API, because it wants to update everything if the update interval allows it.
-     * @param intent
+     * @param intent contains necessary parameters for the service work
      */
     private void handleUpdateAll(Intent intent) {
         handleUpdateCurrentWeatherAction(intent);
@@ -157,7 +153,7 @@ public class UpdateDataService extends JobIntentService {
             }
 
 
-            updateInterval = Long.valueOf(prefManager.getString("pref_updateInterval", "2"))*60*60;
+            updateInterval = Long.parseLong(prefManager.getString("pref_updateInterval", "2")) * 60 * 60;
         }
 
         // only Update if a certain time has passed
@@ -188,7 +184,7 @@ public class UpdateDataService extends JobIntentService {
         boolean shouldUpdate = false;
 
         if (!skipUpdateInterval) {
-            long updateInterval = Long.valueOf(prefManager.getString("pref_updateInterval", "2")) * 60 * 60;
+            long updateInterval = Long.parseLong(prefManager.getString("pref_updateInterval", "2")) * 60 * 60;
 
             List<CityToWatch> citiesToWatch = dbHelper.getAllCitiesToWatch();
             // check timestamp of the current weather .. if one of them is out of date.. update them all at once

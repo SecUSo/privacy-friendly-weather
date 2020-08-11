@@ -36,7 +36,7 @@
     <string name="dialog_add_checkbox_save">Diesen Ort dauerhaft speichern</string>
     <string name="dialog_add_close_button">Schließen</string>
     <string name="dialog_add_label">Ort, der hinzugefügt werden soll:</string>
-    <string name="dialog_add_no_city_found">Es wurde kein Ort gefunden, der Eingabe entspricht. Es wird empfohlen, einen Eintrag aus dem Dropdown-Menu zu wählen.</string>
+    <string name="dialog_add_no_city_found">Es wurde kein Ort gefunden, der der Eingabe entspricht. Es wird empfohlen, einen Eintrag aus dem Dropdown-Menu zu wählen.</string>
     <string name="dialog_add_textedit_error">Ortsname ist ungültig</string>
     <string name="dialog_add_too_many_cities_found">Die Eingabe ist nicht eindeutig. Es wird empfohlen, einen Eintrag aus dem Dropdown-Menu zu wählen.</string>
     <string name="dialog_first_app_close_button">Okay</string>
@@ -133,7 +133,7 @@
     <string name="error_fetch_forecast">Es ist ein Fehler Abrufen der Wettervorhersage aufgetreten, bitte versuchen Sie es erneut!</string>
     <string name="error_radius_search">Es ist ein Fehler beim Abfragen der Umkreissuche aufgetreten, bitte versuchen Sie es erneut!</string>
     <string name="card_error_content">Bitte versuchen Sie zu aktualisieren!</string>
-    <string name="action_refresh">Refresh</string>
+    <string name="action_refresh">Aktualisieren</string>
     <string name="card_error_heading">Fehler beim Abrufen der Wetterdaten</string>
     <string name="settings__API_key_default">Es wurde kein API Key bereitgestellt</string>
     <string name="settings_confirm_content_API_key_reset">Wirklich den standard API Key wiederherstellen?</string>

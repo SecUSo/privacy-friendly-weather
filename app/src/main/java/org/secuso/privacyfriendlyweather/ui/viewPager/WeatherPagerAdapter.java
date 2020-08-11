@@ -91,6 +91,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         long time = lastUpdateTime;
         int currentCityId = cities.get(position).getCityId();
         //search for current city
+        //TODO could time get taken from an old weatherData or is it removed on Update?
         for(CurrentWeatherData weatherData : currentWeathers) {
             if(weatherData.getCity_id() == currentCityId) {
                 //set time to last update time for the city and zoneseconds to UTC difference (in seconds)
@@ -114,12 +115,14 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     }
 
     @Override
-    public void setLastUpdateTime(CurrentWeatherData data) {
+    public void processNewWeatherData(CurrentWeatherData data) {
         lastUpdateTime = data.getTimestamp();
     }
 
     @Override
-    public void updateForecasts(List<Forecast> forecasts) {}
+    public void updateForecasts(List<Forecast> forecasts) {
+        //empty because Fragments are subscribers themselves
+    }
 
     public int getPosForCityID(int cityID) {
         for (int i = 0; i < cities.size(); i++) {

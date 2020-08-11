@@ -45,7 +45,13 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         ViewUpdater.addSubsriber(this);
         ViewUpdater.addSubsriber(pagerAdapter);
 
+        initResources();
+        viewPager.setAdapter(pagerAdapter);
+        pagerAdapter.notifyDataSetChanged();
+
         pagerAdapter.refreshData(false);
+        cityId = getIntent().getIntExtra("cityId", 0);
+        viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
     }
 
     @Override
@@ -96,8 +102,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        cityId = intent.getIntExtra("cityId", -1);
-        viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
+        setIntent(intent);
     }
 
     private void initResources() {
@@ -139,6 +144,9 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
         switch(id) {
             case R.id.menu_refresh:
+
+                pagerAdapter.refreshData(true);
+
                 RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotate.setDuration(500);
                 rotate.setRepeatCount(Animation.INFINITE);
@@ -163,9 +171,6 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
                 });
 
                 refreshActionButton.getActionView().startAnimation(rotate);
-
-                pagerAdapter.refreshData(true);
-
                 break;
         }
 
@@ -182,12 +187,12 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     }
 
     @Override
-    public void setLastUpdateTime(CurrentWeatherData data) {
-        if(refreshActionButton != null && refreshActionButton.getActionView() != null) {
+    public void processNewWeatherData(CurrentWeatherData data) {
+        if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }
 
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(viewPager.getCurrentItem()));
         }
     }
