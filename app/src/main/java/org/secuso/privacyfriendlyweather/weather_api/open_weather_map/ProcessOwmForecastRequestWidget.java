@@ -132,8 +132,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
         City city = dbHelper.getCityById(cityId);
-        List<Forecast> weekForecastList = new ArrayList<>();
-        List<Forecast> forecastList = dbHelper.getForecastsByCityId(cityId);
+       // List<Forecast> weekForecastList = new ArrayList<>();
 
         if (widgetType == 1) {
             CurrentWeatherData weatherData = dbHelper.getCurrentWeatherByCityId(city.getCityId());
@@ -141,6 +140,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
         } else if (widgetType == 3) {
             long start = System.nanoTime();
+            List<Forecast> forecastList = dbHelper.getForecastsByCityId(cityId);
             float[][] data = compressWeatherData(forecastList);
             long end = System.nanoTime();
             Log.d("devtag", (end - start) / 1000000.0 + "ms");
@@ -148,6 +148,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
         } else {
             long start = System.nanoTime();
+            List<Forecast> forecastList = dbHelper.getForecastsByCityId(cityId);
             float[][] data = compressWeatherData(forecastList);
             long end = System.nanoTime();
             Log.d("devtag", (end - start) / 1000000.0 + "ms");
