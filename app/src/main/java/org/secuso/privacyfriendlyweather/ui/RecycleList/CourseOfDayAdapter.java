@@ -70,7 +70,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         // Show day icons between 4am and 8pm.
         // Would be better to use actual sunset and sunrise time, but did not know how to do this, These are not available in forecast database.
         Calendar c = new GregorianCalendar();
-        c.setTime(courseOfDayList.get(position).getForecastTime());
+        c.setTime(courseOfDayList.get(position).getLocalForecastTime(context));
         if (c.get(Calendar.HOUR_OF_DAY) >= 4  && c.get(Calendar.HOUR_OF_DAY) <= 20  ) {
             isDay = true;
         } else {isDay = false;}
@@ -108,12 +108,12 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             holder.time.setText(day);
         } else {
             //Time has to be the local time in the city!
-            holder.time.setText(StringFormatUtils.formatTime(context, courseOfDayList.get(position).getForecastTime()));
+            holder.time.setText(StringFormatUtils.formatTime(context, courseOfDayList.get(position).getLocalForecastTime(context)));
         }
 
 
         //Time has to be the local time in the city!
-        holder.time.setText(StringFormatUtils.formatTime(context, courseOfDayList.get(position).getLocalForecastTime(context)));
+
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather, isDay);
         holder.humidity.setText(StringFormatUtils.formatInt(courseOfDayList.get(position).getHumidity(), "%"));
         holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseOfDayList.get(position).getTemperature()));
