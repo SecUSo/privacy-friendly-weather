@@ -224,8 +224,7 @@ public class OwmDataExtractor implements IDataExtractor {
             Forecast forecast = new Forecast();
             JSONObject jsonData = new JSONObject(data);
 
-            forecast.setTimestamp(System.currentTimeMillis() / 1000);
-            //forecast.setTimestamp(jsonData.getLong("dt"));
+            forecast.setTimestamp(jsonData.getLong("dt"));
 
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date forecastTime = formatter.parse(jsonData.getString("dt_txt"));
