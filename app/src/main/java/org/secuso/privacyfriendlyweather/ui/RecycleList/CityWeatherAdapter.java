@@ -81,9 +81,10 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
                 Calendar c = new GregorianCalendar();
                 c.setTime(f.getLocalForecastTime(context));
-              
+
                 //TODO replace with max and min values for the days
-                if (c.get(Calendar.HOUR_OF_DAY) < 14 && c.get(Calendar.HOUR_OF_DAY) > 10) {
+                int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
+                if (13 < hourOfDay && hourOfDay < 17) {
                     forecastList.add(f);
                 }
             }
