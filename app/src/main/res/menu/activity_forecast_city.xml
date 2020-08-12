@@ -8,6 +8,5 @@
         android:icon="@drawable/ic_refresh"
         app:actionViewClass="android.widget.ImageButton"
         app:showAsAction="always"
-        style="@android:style/Widget.ActionButton"
-        />
+        style="@android:style/Widget.ActionButton" />
 </menu>

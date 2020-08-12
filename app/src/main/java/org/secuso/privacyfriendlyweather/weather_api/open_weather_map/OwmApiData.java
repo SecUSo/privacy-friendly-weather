@@ -14,17 +14,18 @@ public class OwmApiData {
     public static void setAPI_KEY(String key) {
         API_KEY = key;
     }
+
     public static void resetAPI_KEY() {
         API_KEY = BuildConfig.DEFAULT_API_KEY;
     }
 
-    private OwmApiData() {}
+    private OwmApiData() {
+    }
 
 
     public static String getAPI_KEY() {
         return API_KEY;
     }
-
 
 
 }

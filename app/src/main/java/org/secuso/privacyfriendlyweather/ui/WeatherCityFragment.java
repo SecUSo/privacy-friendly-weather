@@ -36,7 +36,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
     public void setAdapter(CityWeatherAdapter adapter) {
         mAdapter = adapter;
 
-        if(recyclerView != null) {
+        if (recyclerView != null) {
             recyclerView.setAdapter(mAdapter);
         }
     }
@@ -117,7 +117,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
 
     @Override
     public void updateForecasts(List<Forecast> forecasts) {
-        if(forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
+        if (forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
             if (mAdapter != null) {
                 mAdapter.updateForecastData(forecasts);
             }

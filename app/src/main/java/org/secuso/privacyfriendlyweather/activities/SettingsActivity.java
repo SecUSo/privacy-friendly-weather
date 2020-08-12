@@ -15,7 +15,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
 
 import org.secuso.privacyfriendlyweather.R;
@@ -138,23 +137,21 @@ public class SettingsActivity extends BaseActivity {
             final String defaultKeyString = getActivity().getString(R.string.settings__API_key_default);
 
             final Preference resetKeyPref = findPreference("API_key_reset");
-            resetKeyPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-            {
+            resetKeyPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(final Preference preference)
-                {
+                public boolean onPreferenceClick(final Preference preference) {
                     new AlertDialog.Builder(getActivity())
-                        .setTitle(R.string.settings_confirm_title_API_key_reset)
-                        .setMessage(R.string.settings_confirm_content_API_key_reset)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                EditTextPreference APIKeyValuePref = ((EditTextPreference)findPreference("API_key_value"));
-                                APIKeyValuePref.setText(defaultKeyString);
-                                APIKeyValuePref.setSummary(defaultKeyString);
-                                OwmApiData.resetAPI_KEY();
-                            }
-                        }).setNegativeButton(android.R.string.cancel, null).create().show();
+                            .setTitle(R.string.settings_confirm_title_API_key_reset)
+                            .setMessage(R.string.settings_confirm_content_API_key_reset)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    EditTextPreference APIKeyValuePref = ((EditTextPreference) findPreference("API_key_value"));
+                                    APIKeyValuePref.setText(defaultKeyString);
+                                    APIKeyValuePref.setSummary(defaultKeyString);
+                                    OwmApiData.resetAPI_KEY();
+                                }
+                            }).setNegativeButton(android.R.string.cancel, null).create().show();
 
                     return false;
                 }
@@ -167,9 +164,9 @@ public class SettingsActivity extends BaseActivity {
 
                     String stringValue = newVal.toString();
 
-                    if(preference instanceof EditTextPreference) {
-                        if(preference.getKey().equals("API_key_value")) {
-                            if(stringValue.equals(defaultKeyString)) {
+                    if (preference instanceof EditTextPreference) {
+                        if (preference.getKey().equals("API_key_value")) {
+                            if (stringValue.equals(defaultKeyString)) {
                                 OwmApiData.resetAPI_KEY();
                             } else {
                                 OwmApiData.setAPI_KEY(stringValue);

@@ -19,7 +19,7 @@ public class OwmHttpRequestForForecast extends OwmHttpRequest implements IHttpRe
     private Context context;
 
     /**
-     * @param context  The context to use.
+     * @param context The context to use.
      */
     public OwmHttpRequestForForecast(Context context) {
         this.context = context;

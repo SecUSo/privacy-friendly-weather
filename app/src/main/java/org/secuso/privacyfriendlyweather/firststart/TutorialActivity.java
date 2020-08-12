@@ -36,6 +36,7 @@ import static android.support.v4.app.JobIntentService.enqueueWork;
 
 /**
  * Class structure taken from tutorial at http://www.androidhive.info/2016/05/android-build-intro-slider-app/
+ *
  * @author Karola Marky
  * @version 20161214
  */
@@ -97,7 +98,6 @@ public class TutorialActivity extends AppCompatActivity {
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
-
 
 
         btnSkip.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +168,7 @@ public class TutorialActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        if(selectedCity != null && database != null && !database.isCityWatched(selectedCity.getCityId())) {
+        if (selectedCity != null && database != null && !database.isCityWatched(selectedCity.getCityId())) {
             addCity();
         }
         startActivity(new Intent(TutorialActivity.this, ForecastCityActivity.class));
@@ -178,7 +178,7 @@ public class TutorialActivity extends AppCompatActivity {
 
     private void getWeatherData() {
         // Start a background task to retrieve and store the weather data
-        if (selectedCity !=  null) {
+        if (selectedCity != null) {
             Intent updateService = new Intent(this, UpdateDataService.class);
             updateService.setAction(UpdateDataService.UPDATE_ALL_ACTION);
             updateService.putExtra(UpdateDataService.CITY_ID, selectedCity.getCityId());
@@ -199,7 +199,7 @@ public class TutorialActivity extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (selectedCity != null){
+                if (selectedCity != null) {
                     database.addCityToWatch(new CityToWatch(
                             15,
                             selectedCity.getPostalCode(),
@@ -275,7 +275,7 @@ public class TutorialActivity extends AppCompatActivity {
 
             View view = layoutInflater.inflate(layouts[position], container, false);
 
-            if(position == dots.length - 1) {
+            if (position == dots.length - 1) {
                 autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTvAddFirstStart);
                 cityTextViewGenerator.generate(autoCompleteTextView, 100, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
                     @Override

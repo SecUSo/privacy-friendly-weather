@@ -18,7 +18,7 @@ public class DayForecastFilter {
 
         int currentDay = cal.get(Calendar.DAY_OF_WEEK);
 
-        for (Forecast forecast: list) {
+        for (Forecast forecast : list) {
             cal.setTime(forecast.getForecastTime());
 
             if (currentDay == cal.get(Calendar.DAY_OF_WEEK)) {
@@ -36,9 +36,10 @@ public class DayForecastFilter {
 
         //for  a 5 day forecast, there might be no forecast for 3pm on the last day, therefore take the latest forecast for that day
         if (result.size() < numberOfDays) {
-            result.add(list.get(list.size()-1));
+            result.add(list.get(list.size() - 1));
         }
 
         return result;
-    };
+    }
+
 }

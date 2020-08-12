@@ -1,9 +1,10 @@
 package org.secuso.privacyfriendlyweather.database;
 
+
 /**
  * Created by yonjuni on 04.01.17.
  * data object for city
- *
+ * <p>
  * Structure taken from the old orm package from previous versions of this app.
  */
 
@@ -55,7 +56,7 @@ public class City {
         if (postalCode == null) {
             return UNKNOWN_POSTAL_CODE_VALUE;
         } else {
-             return postalCode;
+            return postalCode;
         }
 
     }

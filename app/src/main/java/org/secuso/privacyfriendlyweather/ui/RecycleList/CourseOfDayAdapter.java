@@ -65,15 +65,13 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
 
     @Override
     public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
-        boolean isDay;
+
 
         // Show day icons between 4am and 8pm.
         // Would be better to use actual sunset and sunrise time, but did not know how to do this, These are not available in forecast database.
         Calendar c = new GregorianCalendar();
         c.setTime(courseOfDayList.get(position).getLocalForecastTime(context));
-        if (c.get(Calendar.HOUR_OF_DAY) >= 4  && c.get(Calendar.HOUR_OF_DAY) <= 20  ) {
-            isDay = true;
-        } else {isDay = false;}
+        boolean isDay = c.get(Calendar.HOUR_OF_DAY) >= 4 && c.get(Calendar.HOUR_OF_DAY) <= 20;
 
         int day = c.get(Calendar.DAY_OF_WEEK);
 
@@ -103,7 +101,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
                 day = R.string.abbreviation_monday;
         }
 
-        if (c.get(Calendar.HOUR_OF_DAY) > 0  && c.get(Calendar.HOUR_OF_DAY) <= 3  ) {
+        if (c.get(Calendar.HOUR_OF_DAY) > 0 && c.get(Calendar.HOUR_OF_DAY) <= 3) {
             // In first entry per weekday show weekday instead of time
             holder.time.setText(day);
         } else {

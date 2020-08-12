@@ -19,8 +19,7 @@
         android:scaleType="centerCrop"
         android:paddingStart="10dp"
         android:src="@mipmap/weather_icon_sunny_with_clouds"
-        android:layout_weight="2.4"
-        />
+        android:layout_weight="2.4" />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -30,8 +29,7 @@
         android:columnCount="4"
         android:layout_weight="1"
         android:paddingStart="11dp"
-        android:paddingBottom="3dp"
-        >
+        android:paddingBottom="3dp">
 
         <TextView
             android:id="@+id/widget_city_name"
@@ -44,8 +42,7 @@
             android:layout_row="0"
             android:layout_columnSpan="4"
             android:textStyle="bold"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,8 +52,7 @@
             android:textSize="12sp"
             android:layout_column="0"
             android:layout_row="1"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/widget_city_weather_temperature"
@@ -68,8 +64,7 @@
             android:layout_column="1"
             android:layout_row="1"
             android:layout_gravity="end"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -79,8 +74,7 @@
             android:textSize="12sp"
             android:layout_column="0"
             android:layout_row="2"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/widget_city_weather_humidity"
@@ -92,8 +86,8 @@
             android:layout_column="1"
             android:layout_row="2"
             android:layout_gravity="end"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
+
         <TextView
             android:layout_width="wrap_content"
             android:text="Rise:"
@@ -102,8 +96,7 @@
             android:textSize="12sp"
             android:layout_column="2"
             android:layout_row="1"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/widget_city_weather_rise"
@@ -114,8 +107,8 @@
             android:textSize="12sp"
             android:layout_column="3"
             android:layout_row="1"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
+
         <TextView
             android:layout_width="wrap_content"
             android:text="Set:"
@@ -125,8 +118,7 @@
             android:layout_column="2"
             android:layout_row="2"
             android:layout_gravity="end"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/widget_city_weather_set"
@@ -137,8 +129,7 @@
             android:textSize="12sp"
             android:layout_column="3"
             android:layout_row="2"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -148,8 +139,7 @@
             android:textSize="12sp"
             android:layout_column="0"
             android:layout_row="3"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/widget_city_weather_wind"
@@ -161,8 +151,7 @@
             android:layout_column="1"
             android:layout_row="3"
             android:layout_gravity="end"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
     </GridLayout>
 

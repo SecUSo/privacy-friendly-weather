@@ -132,7 +132,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
         City city = dbHelper.getCityById(cityId);
-       // List<Forecast> weekForecastList = new ArrayList<>();
+        // List<Forecast> weekForecastList = new ArrayList<>();
 
         if (widgetType == 1) {
             CurrentWeatherData weatherData = dbHelper.getCurrentWeatherByCityId(city.getCityId());
@@ -192,7 +192,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
         LinkedList<Integer> in4daysIDs = new LinkedList<>();
         float[] in5days = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, 0, 0, 0};
         LinkedList<Integer> in5daysIDs = new LinkedList<>();
-        
+
         //iterate over FCs from today and after
         for (Forecast fc : forecastList) {
             if (fc.getForecastTime().after(cal.getTime())) {
@@ -284,7 +284,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
                     //count weather id occurrences -> use most common
                     in3daysIDs.add(fc.getWeatherID());
-                    
+
                 } else if (fc.getForecastTime().before(new Date(cal.getTimeInMillis() + 432000000))) {
                     //is temp higher lower than current max/min?
                     if (fc.getTemperature() > in4days[0]) in4days[0] = fc.getTemperature();
@@ -305,7 +305,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
                     //count weather id occurrences -> use most common
                     in4daysIDs.add(fc.getWeatherID());
-                    
+
                 } else if (fc.getForecastTime().before(new Date(cal.getTimeInMillis() + 518400000))) {
                     //is temp higher lower than current max/min?
                     if (fc.getTemperature() > in5days[0]) in5days[0] = fc.getTemperature();
@@ -326,7 +326,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
                     //count weather id occurrences -> use most common
                     in5daysIDs.add(fc.getWeatherID());
-                    
+
                 }
             }
         }

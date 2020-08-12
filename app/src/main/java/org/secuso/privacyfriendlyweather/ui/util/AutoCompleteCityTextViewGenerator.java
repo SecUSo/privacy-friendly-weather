@@ -49,10 +49,10 @@ public class AutoCompleteCityTextViewGenerator {
     }
 
     /**
-     * @param editField    The component to "transform" into one that shows a city drop down list
-     *                     based on the current input. Make sure to pass an initialized object,
-     *                     else a java.lang.NullPointerException will be thrown.
-     * @param listLimit    Determines how many items shall be shown in the drop down list at most.
+     * @param editField The component to "transform" into one that shows a city drop down list
+     *                  based on the current input. Make sure to pass an initialized object,
+     *                  else a java.lang.NullPointerException will be thrown.
+     * @param listLimit Determines how many items shall be shown in the drop down list at most.
      */
     public void generate(AutoCompleteTextView editField, int listLimit, final int enterActionId, final MyConsumer<City> cityConsumer, final Runnable selectAction) {
         cityAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, new ArrayList<City>());

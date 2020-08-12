@@ -11,8 +11,8 @@ import java.util.List;
 public interface IHttpRequestForCityList {
 
     /**
-     * @param cities   A list of CityToWatch objects to get the latest weather data for. These data
-     *                 are then displayed on the front page of the app.
+     * @param cities A list of CityToWatch objects to get the latest weather data for. These data
+     *               are then displayed on the front page of the app.
      */
     void perform(List<CityToWatch> cities);
 

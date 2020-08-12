@@ -27,7 +27,7 @@ public final class StringFormatUtils {
     }
 
     public static String formatDecimal(float decimal, String appendix) {
-        return String.format("%s%s",formatDecimal(decimal), appendix);
+        return String.format("%s%s", formatDecimal(decimal), appendix);
     }
 
     public static String formatTemperature(Context context, float temperature) {
