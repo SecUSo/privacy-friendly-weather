@@ -45,37 +45,6 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     }
 
     /**
-     * Shows a Snackbar to undo the deletion of a CityOverviewListItem.
-     *
-     * @param cityToRestore        The CityToWatch record that was deleted but shall be restored now.
-     * @param weatherDataToRestore The CurrentWeatherData record that was deleted but shall be
-     *                             restored now.
-     * @return Returns the Snackbar to show.
-     */
-    private Snackbar getUndoSnackbar(final CityToWatch cityToRestore, final CurrentWeatherData weatherDataToRestore) {
-        final String MSG = context.getResources().getString(R.string.activity_main_snackbar_undo_info);
-        final String BTN_TEXT = context.getResources().getString(R.string.activity_main_snackbar_undo_button);
-        return Snackbar
-                .make(
-                        ((Activity) (context)).findViewById(R.id.main_content),
-                        MSG,
-                        Snackbar.LENGTH_LONG
-                )
-                .setAction(BTN_TEXT, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-//                        try {
-//                            // TODO Re-Insert
-//
-//                        } catch (SQLException e) {
-//                            e.printStackTrace();
-//                            // TODO: Handle the error case
-//                        }
-                    }
-                });
-    }
-
-    /**
      * @see android.support.v7.widget.RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)
      * Returns the template for a list item.
      */
@@ -128,36 +97,6 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      */
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        // For updating the database records
-//        int fromCurrentWeatherDataID = listItems.get(fromPosition).getCurrentWeatherDataID();
-//        int toCurrentWeatherDataID = listItems.get(toPosition).getCurrentWeatherDataID();
-//        CityToWatch fromCityToWatch = null;
-//        CityToWatch toCityToWatch = null;
-//        try {
-//            CurrentWeatherData fromCurrentWeatherData = dbHelper.getCurrentWeatherDataByID(fromCurrentWeatherDataID);
-//            CurrentWeatherData toCurrentWeatherData = dbHelper.getCurrentWeatherDataByID(toCurrentWeatherDataID);
-//            fromCityToWatch = dbHelper.getCityToWatchByCityId(fromCurrentWeatherData.getCity().getId());
-//            toCityToWatch = dbHelper.getCityToWatchByCityId(toCurrentWeatherData.getCity().getId());
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        if (fromPosition < toPosition) {
-//            for (int i = fromPosition; i < toPosition; i++) {
-//                if (fromCityToWatch != null && toCityToWatch != null) {
-//                    dbHelper.swapRanksOfCitiesToWatch(fromCityToWatch, toCityToWatch);
-//                }
-//                Collections.swap(listItems, i, i + 1);
-//            }
-//        } else {
-//            for (int i = fromPosition; i > toPosition; i--) {
-//                if (fromCityToWatch != null && toCityToWatch != null) {
-//                    dbHelper.swapRanksOfCitiesToWatch(toCityToWatch, fromCityToWatch);
-//                }
-//                Collections.swap(listItems, i, i - 1);
-//            }
-//        }
-//        notifyItemMoved(fromPosition, toPosition);
     }
 
     /**

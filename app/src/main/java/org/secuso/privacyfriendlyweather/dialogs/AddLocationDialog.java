@@ -21,9 +21,6 @@ import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerator;
 import org.secuso.privacyfriendlyweather.ui.util.MyConsumer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by yonjuni on 04.01.17.
  */
@@ -37,8 +34,6 @@ public class AddLocationDialog extends DialogFragment {
     private AutoCompleteTextView autoCompleteTextView;
     private AutoCompleteCityTextViewGenerator cityTextViewGenerator;
     City selectedCity;
-    // TODO Cleanup
-    private final List<City> allCities = new ArrayList<>();
 
     final int LIST_LIMIT = 100;
 

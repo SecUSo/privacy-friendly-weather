@@ -132,7 +132,6 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
         City city = dbHelper.getCityById(cityId);
-        List<Forecast> weekForecastList = new ArrayList<>();
         List<Forecast> forecastList = dbHelper.getForecastsByCityId(cityId);
 
         if (widgetType == 1) {

@@ -48,12 +48,6 @@ public class BaseActivity extends AppCompatActivity implements OnNavigationItemS
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mHandler = new Handler();
 
-        //ActionBar ab = getSupportActionBar();
-        //if (ab != null) {
-        //    mActionBar = ab;
-        //    ab.setDisplayHomeAsUpEnabled(true);
-        //}
-
         overridePendingTransition(0, 0);
     }
 
