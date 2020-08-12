@@ -1,21 +1,13 @@
 package org.secuso.privacyfriendlyweather.activities;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.City;
@@ -25,9 +17,6 @@ import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerat
 import org.secuso.privacyfriendlyweather.ui.util.MyConsumer;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForRadiusSearch;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForRadiusSearch;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This activity provides the functionality to search the best weather around a given location.
