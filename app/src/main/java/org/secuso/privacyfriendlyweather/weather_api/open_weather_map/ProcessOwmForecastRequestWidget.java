@@ -26,10 +26,9 @@ import org.secuso.privacyfriendlyweather.widget.WeatherWidgetThreeDayForecast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
@@ -143,7 +142,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
             List<Forecast> forecastList = dbHelper.getForecastsByCityId(cityId);
             float[][] data = compressWeatherData(forecastList);
             long end = System.nanoTime();
-            Log.d("devtag", (end - start) / 1000000.0 + "ms");
+            Log.d("devtag", "compressTime3: " + (end - start) / 1000000.0 + "ms");
             WeatherWidgetThreeDayForecast.updateView(context, appWidgetManager, views, widgetId, data, city);
 
         } else {
@@ -151,7 +150,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
             List<Forecast> forecastList = dbHelper.getForecastsByCityId(cityId);
             float[][] data = compressWeatherData(forecastList);
             long end = System.nanoTime();
-            Log.d("devtag", (end - start) / 1000000.0 + "ms");
+            Log.d("devtag", "compressTime5: " + (end - start) / 1000000.0 + "ms");
             WeatherWidgetFiveDayForecast.updateView(context, appWidgetManager, views, widgetId, data, city);
         }
 
@@ -162,22 +161,24 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
     }
 
     private float[][] compressWeatherData(List<Forecast> forecastList) {
-        Calendar cal = new GregorianCalendar();
         int zonemilliseconds = dbHelper.getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
         Log.d("devtag", "zonehours " + zonemilliseconds / 3600000.0);
-        cal.setTime(new Date());
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeZone(TimeZone.getTimeZone("GMT"));
+        cal.set(Calendar.DST_OFFSET, 0);
+        cal.setTimeInMillis(System.currentTimeMillis());
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.DST_OFFSET, 0);
         cal.set(Calendar.ZONE_OFFSET, zonemilliseconds);
 
         long startOfDay = cal.getTimeInMillis();
-        Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
+        //Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
 
         if (System.currentTimeMillis() < startOfDay) cal.add(Calendar.HOUR_OF_DAY, -24);
         if (System.currentTimeMillis() > startOfDay + 24 * 3600 * 1000)
             cal.add(Calendar.HOUR_OF_DAY, 24);
-        Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
+        //Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
 
         //temp max, temp min, humidity max, humidity min, wind max, wind min, wind direction, rain total, time, weather ID, number of FCs for day
         float[] today = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, 0, 0, 0};
@@ -193,11 +194,13 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
         float[] in5days = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, 0, 0, 0};
         LinkedList<Integer> in5daysIDs = new LinkedList<>();
 
+        long daystart = cal.getTimeInMillis();
         //iterate over FCs from today and after
         for (Forecast fc : forecastList) {
-            if (fc.getForecastTime().after(cal.getTime())) {
+            long forecastTime = fc.getForecastTime();
+            if (fc.getForecastTime() > daystart) {
                 //inside current day
-                if (fc.getForecastTime().before(new Date(cal.getTimeInMillis() + 86400000))) {
+                if (forecastTime <= daystart + 86400000) {
                     //is temp higher lower than current max/min?
                     if (fc.getTemperature() > today[0]) today[0] = fc.getTemperature();
                     if (fc.getTemperature() < today[1]) today[1] = fc.getTemperature();
@@ -211,8 +214,8 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
                     today[6] += fc.getWindDirection();
                     today[7] += fc.getRainValue();
-                    today[8] += fc.getTimestamp();
-                    Log.d("devtag", "today" + fc.getTimestamp());
+                    //earliest forecast Time
+                    if (fc.getForecastTime() < today[8]) today[8] = fc.getForecastTime();
                     //count number of FCs
                     today[10] += 1;
 
@@ -220,7 +223,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
                     todayIDs.add(fc.getWeatherID());
 
                     //inside next day...
-                } else if (fc.getForecastTime().before(new Date(cal.getTimeInMillis() + 172800000))) {
+                } else if (forecastTime <= daystart + 172800000) {
                     //is temp higher lower than current max/min?
                     if (fc.getTemperature() > tomorrow[0]) tomorrow[0] = fc.getTemperature();
                     if (fc.getTemperature() < tomorrow[1]) tomorrow[1] = fc.getTemperature();
@@ -230,19 +233,20 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
                     if (fc.getWindSpeed() > tomorrow[4]) tomorrow[4] = fc.getWindSpeed();
                     if (fc.getWindSpeed() < tomorrow[5]) tomorrow[5] = fc.getWindSpeed();
-                    Log.d("devtag", "tomorrow" + fc.getTimestamp());
+                    Log.d("devtag", "tomorrow" + fc.getForecastTime());
 
 
                     tomorrow[6] += fc.getWindDirection();
                     tomorrow[7] += fc.getRainValue();
-                    tomorrow[8] += fc.getTimestamp();
+                    //earliest forecast Time
+                    if (fc.getForecastTime() < tomorrow[8]) tomorrow[8] = fc.getForecastTime();
                     //count number of FCs
                     ++tomorrow[10];
 
                     //count weather id occurrences -> use most common
                     tomorrowIDs.add(fc.getWeatherID());
 
-                } else if (fc.getForecastTime().before(new Date(cal.getTimeInMillis() + 259200000))) {
+                } else if (forecastTime <= daystart + 259200000) {
                     //is temp higher lower than current max/min?
                     if (fc.getTemperature() > in2days[0]) in2days[0] = fc.getTemperature();
                     if (fc.getTemperature() < in2days[1]) in2days[1] = fc.getTemperature();
@@ -253,18 +257,17 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
                     if (fc.getWindSpeed() > in2days[4]) in2days[4] = fc.getWindSpeed();
                     if (fc.getWindSpeed() < in2days[5]) in2days[5] = fc.getWindSpeed();
 
-                    Log.d("devtag", "2days" + fc.getTimestamp());
-
                     in2days[6] += fc.getWindDirection();
                     in2days[7] += fc.getRainValue();
-                    in2days[8] += fc.getTimestamp();
+                    //earliest forecast Time
+                    if (fc.getForecastTime() < in2days[8]) in2days[8] = fc.getForecastTime();
                     //count number of FCs
                     ++in2days[10];
 
                     //count weather id occurrences -> use most common
                     in2daysIDs.add(fc.getWeatherID());
 
-                } else if (fc.getForecastTime().before(new Date(cal.getTimeInMillis() + 345600000))) {
+                } else if (forecastTime <= daystart + 345600000) {
                     //is temp higher lower than current max/min?
                     if (fc.getTemperature() > in3days[0]) in3days[0] = fc.getTemperature();
                     if (fc.getTemperature() < in3days[1]) in3days[1] = fc.getTemperature();
@@ -278,14 +281,15 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
                     in3days[6] += fc.getWindDirection();
                     in3days[7] += fc.getRainValue();
-                    in3days[8] += fc.getTimestamp();
+                    //earliest forecast Time
+                    if (fc.getForecastTime() < in3days[8]) in3days[8] = fc.getForecastTime();
                     //count number of FCs
                     ++in3days[10];
 
                     //count weather id occurrences -> use most common
                     in3daysIDs.add(fc.getWeatherID());
 
-                } else if (fc.getForecastTime().before(new Date(cal.getTimeInMillis() + 432000000))) {
+                } else if (forecastTime <= daystart + 432000000) {
                     //is temp higher lower than current max/min?
                     if (fc.getTemperature() > in4days[0]) in4days[0] = fc.getTemperature();
                     if (fc.getTemperature() < in4days[1]) in4days[1] = fc.getTemperature();
@@ -299,14 +303,15 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
                     in4days[6] += fc.getWindDirection();
                     in4days[7] += fc.getRainValue();
-                    in4days[8] += fc.getTimestamp();
+                    //earliest forecast Time
+                    if (fc.getForecastTime() < in4days[8]) in4days[8] = fc.getForecastTime();
                     //count number of FCs
                     ++in4days[10];
 
                     //count weather id occurrences -> use most common
                     in4daysIDs.add(fc.getWeatherID());
 
-                } else if (fc.getForecastTime().before(new Date(cal.getTimeInMillis() + 518400000))) {
+                } else if (forecastTime <= daystart + 518400000) {
                     //is temp higher lower than current max/min?
                     if (fc.getTemperature() > in5days[0]) in5days[0] = fc.getTemperature();
                     if (fc.getTemperature() < in5days[1]) in5days[1] = fc.getTemperature();
@@ -320,7 +325,8 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
                     in5days[6] += fc.getWindDirection();
                     in5days[7] += fc.getRainValue();
-                    in5days[8] += fc.getTimestamp();
+                    //earliest forecast Time
+                    if (fc.getForecastTime() < in5days[8]) in5days[8] = fc.getForecastTime();
                     //count number of FCs
                     ++in5days[10];
 
@@ -338,20 +344,21 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
         in4days[9] = mostPrevalentWeather(in4daysIDs);
         in5days[9] = mostPrevalentWeather(in5daysIDs);
 
-        //normalize wind direction and time for number of FCs used for that day
+        //normalize wind direction for number of FCs used for that day and add zonetime
         today[6] /= today[10];
-        today[8] = today[8] * 1000 / today[10] + zonemilliseconds;
+        today[8] = today[8] + zonemilliseconds;
         tomorrow[6] /= tomorrow[10];
-        tomorrow[8] = tomorrow[8] * 1000 / tomorrow[10] + zonemilliseconds;
+        tomorrow[8] = tomorrow[8] + zonemilliseconds;
         in2days[6] /= in2days[10];
-        in2days[8] = in2days[8] * 1000 / in2days[10] + zonemilliseconds;
+        in2days[8] = in2days[8] + zonemilliseconds;
         in3days[6] /= in3days[10];
-        in3days[8] = in3days[8] * 1000 / in3days[10] + zonemilliseconds;
+        in3days[8] = in3days[8] + zonemilliseconds;
         in4days[6] /= in4days[10];
-        in4days[8] = in4days[8] * 1000 / in4days[10] + zonemilliseconds;
+        in4days[8] = in4days[8] + zonemilliseconds;
         in5days[6] /= in5days[10];
-        in5days[8] = in5days[8] * 1000 / in5days[10] + zonemilliseconds;
+        in5days[8] = in5days[8] + zonemilliseconds;
         Log.d("devtag", "total :" + forecastList.size() + "times: " + today[10] + " " + today[8] + " " + tomorrow[10] + " " + tomorrow[8] + " " + in2days[10] + " " + in2days[8] + " " + in3days[10] + " " + in3days[8] + " " + in4days[10] + " " + in4days[8] + " " + in5days[10] + " " + in5days[8]);
+        Log.d("devtag", "content :" + forecastList.get(0).getCity_id());
 
         return new float[][]{today, tomorrow, in2days, in3days, in4days, in5days};
     }
