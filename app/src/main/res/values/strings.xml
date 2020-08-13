@@ -220,5 +220,8 @@
     <string name="card_error_content">Please try to update!</string>
     <string name="action_refresh">Refresh</string>
     <string name="activity_city_weather_no_city_selected">There is no city selected. To select a city go to \"Manage locations\".</string>
+    <string name="long_press_text">Long press to set as default city</string>
+    <string name="swipe_to_delete">Swipe to delete</string>
+    <string name="default_city">Default</string>
 
 </resources>

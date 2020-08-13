@@ -20,6 +20,9 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
      */
     private TextView tvInformation;
     private ImageView isDefault;
+    private TextView tvCountry;
+    private TextView tvDefault;
+
 
     /**
      * Constructor.
@@ -30,6 +33,9 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         tvInformation = (TextView) itemView.findViewById(R.id.city_overview_list_item_text);
         isDefault = (ImageView) itemView.findViewById(R.id.locationDefault);
+        tvCountry=(TextView) itemView.findViewById(R.id.city_country_code);
+        tvDefault=(TextView) itemView.findViewById(R.id.locationDefault_tv);
+
     }
 
     /**
@@ -37,6 +43,12 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
      */
     public TextView getTvInformation() {
         return tvInformation;
+    }
+    public TextView getTvCountryCode() {
+        return tvCountry;
+    }
+    public TextView getTvDefault() {
+        return tvDefault;
     }
 
     /**
