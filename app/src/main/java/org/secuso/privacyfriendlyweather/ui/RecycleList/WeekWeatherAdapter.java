@@ -16,7 +16,7 @@ import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 /**
  * Created by yonjuni on 02.01.17.
@@ -49,7 +49,8 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         setIcon((int) dayValues[9], holder.weather);
         holder.humidity.setText(String.format("%s | %s%%", StringFormatUtils.formatInt(dayValues[2]), StringFormatUtils.formatInt(dayValues[3])));
 
-        Calendar c = new GregorianCalendar();
+        Calendar c = Calendar.getInstance();
+        c.setTimeZone(TimeZone.getTimeZone("GMT"));
         c.setTimeInMillis((long) dayValues[8]);
         int day = c.get(Calendar.DAY_OF_WEEK);
 
