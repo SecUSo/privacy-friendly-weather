@@ -94,7 +94,7 @@ public class UpdateDataService extends JobIntentService {
 
         int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
         int widgetType = intent.getIntExtra("widget_type", 0);
-        Log.d("devtag", "widgetUpdate: type " + widgetType + " id: " + widgetId);
+        //Log.d("devtag", "widgetUpdate: type " + widgetType + " id: " + widgetId);
 
         if (widgetId > -1 && widgetType > 0) {
 
