@@ -423,7 +423,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
         values.put(FORECAST_COLUMN_PRESSURE, forecast.getPressure());
 
-        database.insert(TABLE_FORECAST, null, values);
+        database.insertWithOnConflict(TABLE_FORECAST, null, values, SQLiteDatabase.CONFLICT_REPLACE);
         database.close();
     }
 
@@ -514,7 +514,6 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
                 forecast.setPressure(Float.parseFloat(cursor.getString(7)));
                 list.add(forecast);
-                Log.d("database", forecast.getForecastTime() + "");
             } while (cursor.moveToNext());
 
             cursor.close();
