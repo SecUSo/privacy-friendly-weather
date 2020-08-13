@@ -417,7 +417,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         ContentValues values = new ContentValues();
         values.put(FORECAST_CITY_ID, forecast.getCity_id());
         values.put(FORECAST_COLUMN_TIME_MEASUREMENT, forecast.getTimestamp());
-        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime().getTime());
+        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime());
         values.put(FORECAST_COLUMN_WEATHER_ID, forecast.getWeatherID());
         values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
@@ -461,7 +461,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setId(Integer.parseInt(cursor.getString(0)));
                 forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
                 forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-                forecast.setForecastTime(new Date(Long.parseLong(cursor.getString(3))));
+                forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
                 forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
                 forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
@@ -500,7 +500,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setId(Integer.parseInt(cursor.getString(0)));
                 forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
                 forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-                forecast.setForecastTime(new Date(Long.parseLong(cursor.getString(3))));
+                forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
                 forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
                 forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
@@ -535,7 +535,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             forecast.setId(Integer.parseInt(cursor.getString(0)));
             forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
             forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-            forecast.setForecastTime(new Date(Long.parseLong(cursor.getString(3))));
+            forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
             forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
             forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
             forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
@@ -564,7 +564,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setId(Integer.parseInt(cursor.getString(0)));
                 forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
                 forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-                forecast.setForecastTime(new Date(Long.parseLong(cursor.getString(3))));
+                forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
                 forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
                 forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
@@ -584,7 +584,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         ContentValues values = new ContentValues();
         values.put(FORECAST_CITY_ID, forecast.getCity_id());
         values.put(FORECAST_COLUMN_TIME_MEASUREMENT, forecast.getTimestamp());
-        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime().getTime());
+        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime());
         values.put(FORECAST_COLUMN_WEATHER_ID, forecast.getWeatherID());
         values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
