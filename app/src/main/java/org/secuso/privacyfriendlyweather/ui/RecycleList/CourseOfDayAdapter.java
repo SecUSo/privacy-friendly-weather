@@ -2,6 +2,7 @@ package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 //**
 // * Created by yonjuni on 02.01.17.
@@ -65,17 +64,37 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
 
     @Override
     public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
-
+        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context);
+        CurrentWeatherData currentWeather = dbHelper.getCurrentWeatherByCityId(courseOfDayList.get(position).getCity_id());
 
         // Show day icons between 4am and 8pm.
         // Would be better to use actual sunset and sunrise time, but did not know how to do this, These are not available in forecast database.
-        Calendar c = new GregorianCalendar();
-        c.setTime(courseOfDayList.get(position).getLocalForecastTime(context));
-        boolean isDay = c.get(Calendar.HOUR_OF_DAY) >= 4 && c.get(Calendar.HOUR_OF_DAY) <= 20;
+        Calendar forecastTime = Calendar.getInstance();
+        forecastTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+        forecastTime.setTimeInMillis(courseOfDayList.get(position).getLocalForecastTime(context));
+        //Log.d("devtag","localForecastTime: "+forecastTime.getTime());
 
-        int day = c.get(Calendar.DAY_OF_WEEK);
+        Calendar sunSetTime = Calendar.getInstance();
+        sunSetTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+        sunSetTime.setTimeInMillis(currentWeather.getTimeSunset() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
+        sunSetTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
 
-        switch(day) {
+
+        Calendar sunRiseTime = Calendar.getInstance();
+        sunRiseTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+        sunRiseTime.setTimeInMillis(currentWeather.getTimeSunrise() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
+        sunRiseTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
+
+        Log.d("devtag", position + " " + forecastTime.getTime());
+
+        boolean isDay = forecastTime.after(sunRiseTime) && forecastTime.before(sunSetTime);
+        Log.d("devtag", sunRiseTime.getTime() + " " + sunSetTime.getTime() + " " + sunRiseTime.get(Calendar.HOUR_OF_DAY) + " " + forecastTime.get(Calendar.HOUR_OF_DAY) + " " + sunSetTime.get(Calendar.HOUR_OF_DAY) + " " + isDay);
+
+        //boolean isDay = c.get(Calendar.HOUR_OF_DAY) >= 4 && c.get(Calendar.HOUR_OF_DAY) <= 20;
+
+        int day = forecastTime.get(Calendar.DAY_OF_WEEK);
+
+        switch (day) {
             case Calendar.MONDAY:
                 day = R.string.abbreviation_monday;
                 break;
@@ -101,16 +120,13 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
                 day = R.string.abbreviation_monday;
         }
 
-        if (c.get(Calendar.HOUR_OF_DAY) > 0 && c.get(Calendar.HOUR_OF_DAY) <= 3) {
+        if (forecastTime.get(Calendar.HOUR_OF_DAY) > 0 && forecastTime.get(Calendar.HOUR_OF_DAY) <= 3) {
             // In first entry per weekday show weekday instead of time
             holder.time.setText(day);
         } else {
             //Time has to be the local time in the city!
-            holder.time.setText(StringFormatUtils.formatTime(context, courseOfDayList.get(position).getLocalForecastTime(context)));
+            holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
         }
-
-
-        //Time has to be the local time in the city!
 
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather, isDay);
         holder.humidity.setText(StringFormatUtils.formatInt(courseOfDayList.get(position).getHumidity(), "%"));
