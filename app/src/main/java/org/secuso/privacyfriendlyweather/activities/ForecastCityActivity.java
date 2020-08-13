@@ -45,7 +45,13 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         ViewUpdater.addSubsriber(this);
         ViewUpdater.addSubsriber(pagerAdapter);
 
+        initResources();
+        viewPager.setAdapter(pagerAdapter);
+        pagerAdapter.notifyDataSetChanged();
+
         pagerAdapter.refreshData(false);
+        cityId = getIntent().getIntExtra("cityId", 0);
+        viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
     }
 
     @Override
@@ -55,16 +61,17 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         overridePendingTransition(0, 0);
 
         cityId = getIntent().getIntExtra("cityId", -1);
-      
+
         initResources();
 
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
             @Override
             public void onPageSelected(int position) {
-                if(getSupportActionBar() != null) {
+                if (getSupportActionBar() != null) {
                     getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(position));
                 }
                 viewPager.setNextFocusRightId(position);
@@ -77,10 +84,10 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
-      
-        
+
+
         PFASQLiteHelper db = PFASQLiteHelper.getInstance(this);
-        if(db.getAllCitiesToWatch().isEmpty()) {
+        if (db.getAllCitiesToWatch().isEmpty()) {
             // no cities selected.. don't show the viewPager - rather show a text that tells the user that no city was selected
             viewPager.setVisibility(View.GONE);
             noCityText.setVisibility(View.VISIBLE);
@@ -96,8 +103,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        cityId = intent.getIntExtra("cityId", -1);
-        viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
+        setIntent(intent);
     }
 
     private void initResources() {
@@ -137,8 +143,11 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        switch(id) {
+        switch (id) {
             case R.id.menu_refresh:
+
+                pagerAdapter.refreshData(true);
+
                 RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotate.setDuration(500);
                 rotate.setRepeatCount(Animation.INFINITE);
@@ -163,9 +172,6 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
                 });
 
                 refreshActionButton.getActionView().startAnimation(rotate);
-
-                pagerAdapter.refreshData(true);
-
                 break;
         }
 
@@ -176,25 +182,25 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     protected void onPostResume() {
         super.onPostResume();
 
-        if(getSupportActionBar() != null && pagerAdapter.getCount()>0) {
+        if (getSupportActionBar() != null && pagerAdapter.getCount() > 0) {
             getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(viewPager.getCurrentItem()));
         }
     }
 
     @Override
-    public void setLastUpdateTime(CurrentWeatherData data) {
-        if(refreshActionButton != null && refreshActionButton.getActionView() != null) {
+    public void processNewWeatherData(CurrentWeatherData data) {
+        if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }
 
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(viewPager.getCurrentItem()));
         }
     }
 
     @Override
     public void updateForecasts(List<Forecast> forecasts) {
-        if(refreshActionButton != null && refreshActionButton.getActionView() != null) {
+        if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }
     }

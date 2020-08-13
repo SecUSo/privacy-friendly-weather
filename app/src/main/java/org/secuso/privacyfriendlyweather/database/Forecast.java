@@ -1,28 +1,32 @@
 package org.secuso.privacyfriendlyweather.database;
 
-import java.util.Date;
+import android.content.Context;
 
 /**
  * This class is the database model for the forecasts table.
  */
 public class Forecast {
 
+    public static final float NO_RAIN_VALUE = 0;
     private int id;
     private int city_id;
     private long timestamp;
-    private Date forecastFor;
+    private long forecastFor;
     private int weatherID;
     private float temperature;
     private float humidity;
     private float pressure;
-
+    private float windSpeed;
+    private float windDirection;
+    private float rainValue;
     private String city_name;
+
 
     public Forecast() {
     }
 
-    public Forecast(int id, int city_id, long timestamp, Date forecastFor, int weatherID, float temperature, float humidity,
-                    float pressure) {
+    public Forecast(int id, int city_id, long timestamp, long forecastFor, int weatherID, float temperature, float humidity,
+                    float pressure, float windSpeed, float windDirection, float rainValue) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
@@ -31,6 +35,25 @@ public class Forecast {
         this.temperature = temperature;
         this.humidity = humidity;
         this.pressure = pressure;
+        this.windSpeed = windSpeed;
+        this.windDirection = windDirection;
+        this.rainValue = rainValue;
+    }
+
+    public float getWindDirection() {
+        return windDirection;
+    }
+
+    public void setWindDirection(float windDirection) {
+        this.windDirection = windDirection;
+    }
+
+    public float getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(float speed) {
+        windSpeed = speed;
     }
 
     /**
@@ -44,21 +67,26 @@ public class Forecast {
         this.id = id;
     }
 
-    public void setForecastFor(Date forecastFor) {
-        this.forecastFor = forecastFor;
-    }
-
     /**
      * @return Returns the date and time for the forecast.
      */
-    public Date getForecastTime() {
+    public long getForecastTime() {
         return forecastFor;
+    }
+
+    /**
+     * @return Returns the local time for the forecast in UTC epoch
+     */
+    public long getLocalForecastTime(Context context) {
+        PFASQLiteHelper dbhelper = PFASQLiteHelper.getInstance(context);
+        int timezoneseconds = dbhelper.getCurrentWeatherByCityId(city_id).getTimeZoneSeconds();
+        return forecastFor + timezoneseconds * 1000L;
     }
 
     /**
      * @param forecastFor The point of time for the forecast.
      */
-    public void setForecastTime(Date forecastFor) {
+    public void setForecastTime(long forecastFor) {
         this.forecastFor = forecastFor;
     }
 
@@ -130,7 +158,7 @@ public class Forecast {
     /**
      * @return Returns the air pressure value in hectopascal (hPa).
      */
-    public float getPressure() {
+    float getPressure() {
         return pressure;
     }
 
@@ -145,7 +173,15 @@ public class Forecast {
         return city_name;
     }
 
-    public void setCity_name(String city_name) {
+    void setCity_name(String city_name) {
         this.city_name = city_name;
+    }
+
+    public float getRainValue() {
+        return rainValue;
+    }
+
+    public void setRainVolume(float RainValue) {
+        rainValue = RainValue;
     }
 }

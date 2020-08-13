@@ -1,8 +1,8 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
-import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 //**
 // * Created by yonjuni on 02.01.17.
@@ -32,7 +31,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
     private List<Forecast> courseOfDayList;
     private Context context;
 
-    public CourseOfDayAdapter(List<Forecast> courseOfDayList, Context context) {
+    CourseOfDayAdapter(List<Forecast> courseOfDayList, Context context) {
         this.context = context;
         this.courseOfDayList = courseOfDayList;
 
@@ -65,11 +64,72 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
 
     @Override
     public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
+        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context);
+        CurrentWeatherData currentWeather = dbHelper.getCurrentWeatherByCityId(courseOfDayList.get(position).getCity_id());
 
-        //Time has to be the local time in the city!
-        holder.time.setText(StringFormatUtils.formatTime(context, courseOfDayList.get(position).getForecastTime()));
-        setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather);
-        holder.humidity.setText(StringFormatUtils.formatDecimal(courseOfDayList.get(position).getHumidity(), "%"));
+        // Show day icons between 4am and 8pm.
+        // Would be better to use actual sunset and sunrise time, but did not know how to do this, These are not available in forecast database.
+        Calendar forecastTime = Calendar.getInstance();
+        forecastTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+        forecastTime.setTimeInMillis(courseOfDayList.get(position).getLocalForecastTime(context));
+        //Log.d("devtag","localForecastTime: "+forecastTime.getTime());
+
+        Calendar sunSetTime = Calendar.getInstance();
+        sunSetTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+        sunSetTime.setTimeInMillis(currentWeather.getTimeSunset() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
+        sunSetTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
+
+
+        Calendar sunRiseTime = Calendar.getInstance();
+        sunRiseTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+        sunRiseTime.setTimeInMillis(currentWeather.getTimeSunrise() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
+        sunRiseTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
+
+        Log.d("devtag", position + " " + forecastTime.getTime());
+
+        boolean isDay = forecastTime.after(sunRiseTime) && forecastTime.before(sunSetTime);
+        Log.d("devtag", sunRiseTime.getTime() + " " + sunSetTime.getTime() + " " + sunRiseTime.get(Calendar.HOUR_OF_DAY) + " " + forecastTime.get(Calendar.HOUR_OF_DAY) + " " + sunSetTime.get(Calendar.HOUR_OF_DAY) + " " + isDay);
+
+        //boolean isDay = c.get(Calendar.HOUR_OF_DAY) >= 4 && c.get(Calendar.HOUR_OF_DAY) <= 20;
+
+        int day = forecastTime.get(Calendar.DAY_OF_WEEK);
+
+        switch (day) {
+            case Calendar.MONDAY:
+                day = R.string.abbreviation_monday;
+                break;
+            case Calendar.TUESDAY:
+                day = R.string.abbreviation_tuesday;
+                break;
+            case Calendar.WEDNESDAY:
+                day = R.string.abbreviation_wednesday;
+                break;
+            case Calendar.THURSDAY:
+                day = R.string.abbreviation_thursday;
+                break;
+            case Calendar.FRIDAY:
+                day = R.string.abbreviation_friday;
+                break;
+            case Calendar.SATURDAY:
+                day = R.string.abbreviation_saturday;
+                break;
+            case Calendar.SUNDAY:
+                day = R.string.abbreviation_sunday;
+                break;
+            default:
+                day = R.string.abbreviation_monday;
+        }
+
+        if (forecastTime.get(Calendar.HOUR_OF_DAY) > 0 && forecastTime.get(Calendar.HOUR_OF_DAY) <= 3) {
+            // In first entry per weekday show weekday instead of time
+            holder.time.setText(day);
+        } else {
+            //Time has to be the local time in the city!
+            holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
+        }
+
+        setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather, isDay);
+        holder.humidity.setText(StringFormatUtils.formatInt(courseOfDayList.get(position).getHumidity(), "%"));
         holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseOfDayList.get(position).getTemperature()));
 
     }
@@ -79,26 +139,25 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         return courseOfDayList.size();
     }
 
-    public class CourseOfDayViewHolder extends RecyclerView.ViewHolder {
+    class CourseOfDayViewHolder extends RecyclerView.ViewHolder {
         TextView time;
         ImageView weather;
         TextView temperature;
         TextView humidity;
 
-        public CourseOfDayViewHolder(View itemView) {
+        CourseOfDayViewHolder(View itemView) {
             super(itemView);
 
-            time = (TextView) itemView.findViewById(R.id.course_of_day_time);
-            weather = (ImageView) itemView.findViewById(R.id.course_of_day_weather);
-            temperature = (TextView) itemView.findViewById(R.id.course_of_day_temperature);
-            humidity = (TextView) itemView.findViewById(R.id.course_of_day_humidity);
+            time = itemView.findViewById(R.id.course_of_day_time);
+            weather = itemView.findViewById(R.id.course_of_day_weather);
+            temperature = itemView.findViewById(R.id.course_of_day_temperature);
+            humidity = itemView.findViewById(R.id.course_of_day_humidity);
 
         }
     }
 
-    public void setIcon(int value, ImageView imageView) {
-        imageView.setImageResource(UiResourceProvider.getIconResourceForWeatherCategory(value));
-
+    public void setIcon(int value, ImageView imageView, boolean isDay) {
+        imageView.setImageResource(UiResourceProvider.getIconResourceForWeatherCategory(value, isDay));
     }
 }
 

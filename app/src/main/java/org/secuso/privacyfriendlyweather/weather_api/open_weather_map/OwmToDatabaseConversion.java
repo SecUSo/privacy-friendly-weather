@@ -17,8 +17,12 @@ public class OwmToDatabaseConversion extends IApiToDatabaseConversion {
         if (value >= 200 && value <= 299) {
             return WeatherCategories.THUNDERSTORM.getNumVal();
         } else if (value >= 300 && value <= 399) {
-            return WeatherCategories.SHOWER_RAIN.getNumVal();
-        } else if (value >= 500 && value <= 599) {
+            return WeatherCategories.DRIZZLE_RAIN.getNumVal();
+        } else if (value == 500) {
+            return WeatherCategories.LIGHT_RAIN.getNumVal();
+        } else if (value == 501) {
+            return WeatherCategories.MODERATE_RAIN.getNumVal();
+        } else if (value >= 502 && value <= 599) {
             return WeatherCategories.RAIN.getNumVal();
         } else if (value >= 600 && value <= 699) {
             return WeatherCategories.SNOW.getNumVal();
@@ -34,7 +38,7 @@ public class OwmToDatabaseConversion extends IApiToDatabaseConversion {
             return WeatherCategories.BROKEN_CLOUDS.getNumVal();
         }
         // Fallback: Clouds
-        return WeatherCategories.BROKEN_CLOUDS.getNumVal();
+        return WeatherCategories.OVERCAST_CLOUDS.getNumVal();
     }
 
 }

@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:imeOptions="actionDone"
         android:maxLines="1"
-        android:inputType="text"/>
+        android:inputType="text" />
 
     <Button
         android:id="@+id/add_button"

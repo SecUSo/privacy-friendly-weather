@@ -9,11 +9,6 @@ import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * This is a concrete implementation for extracting weather data that was retrieved by
  * OpenWeatherMap.
@@ -225,11 +220,11 @@ public class OwmDataExtractor implements IDataExtractor {
             JSONObject jsonData = new JSONObject(data);
 
             forecast.setTimestamp(System.currentTimeMillis() / 1000);
+
             //forecast.setTimestamp(jsonData.getLong("dt"));
 
-            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date forecastTime = formatter.parse(jsonData.getString("dt_txt"));
-            forecast.setForecastTime(forecastTime);
+
+            forecast.setForecastTime(jsonData.getLong("dt") * 1000L);
 
             IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
             JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
@@ -242,25 +237,25 @@ public class OwmDataExtractor implements IDataExtractor {
             forecast.setPressure((float) jsonMain.getDouble("pressure"));
 
             //TODO: Save wind for the 3h forecast?
-            //JSONObject jsonWind = jsonData.getJSONObject("wind");
-            //forecast.setWindSpeed((float) jsonWind.getDouble("speed"));
-            //forecast.setWindDirection((float) jsonWind.getDouble("deg"));
+            JSONObject jsonWind = jsonData.getJSONObject("wind");
+            forecast.setWindSpeed((float) jsonWind.getDouble("speed"));
+            forecast.setWindDirection((float) jsonWind.getDouble("deg"));
 
             //TODO: leave this out?
             // In case there was no rain in the past 3 hours, there is no "rain" field
-            /*if (jsonData.isNull("rain")) {
-                forecast.setPastRainVolume(Forecast.NO_RAIN_VALUE);
+            if (jsonData.isNull("rain")) {
+                forecast.setRainVolume(Forecast.NO_RAIN_VALUE);
             } else {
                 JSONObject jsonRain = jsonData.getJSONObject("rain");
                 if (jsonRain.isNull("3h")) {
-                    forecast.setPastRainVolume(Forecast.NO_RAIN_VALUE);
+                    forecast.setRainVolume(Forecast.NO_RAIN_VALUE);
                 } else {
-                    forecast.setPastRainVolume((float) jsonRain.getDouble("3h"));
+                    forecast.setRainVolume((float) jsonRain.getDouble("3h"));
                 }
-            }*/
+            }
 
             return forecast;
-        } catch (JSONException | ParseException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;

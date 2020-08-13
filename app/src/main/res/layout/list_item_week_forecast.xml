@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_weight="19"
-        android:text="xy°C"
+        android:text="yx|xy°C"
         android:textColor="@color/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

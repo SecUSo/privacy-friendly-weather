@@ -4,7 +4,7 @@ package org.secuso.privacyfriendlyweather.database;
  * This class represents the database model for current weather data of cities.
  */
 
-public class CurrentWeatherData  {
+public class CurrentWeatherData {
 
     private int id;
     private int city_id;
@@ -43,7 +43,7 @@ public class CurrentWeatherData  {
         this.cloudiness = cloudiness;
         this.timeSunrise = timeSunrise;
         this.timeSunset = timeSunset;
-        this.timeZoneSeconds=timeZoneSeconds;
+        this.timeZoneSeconds = timeZoneSeconds;
     }
 
     public int getId() {
@@ -166,7 +166,11 @@ public class CurrentWeatherData  {
         this.city_name = city_name;
     }
 
-    public int getTimeZoneSeconds() { return timeZoneSeconds; }
+    public int getTimeZoneSeconds() {
+        return timeZoneSeconds;
+    }
 
-    public void setTimeZoneSeconds(int timeZoneSeconds) { this.timeZoneSeconds = timeZoneSeconds; }
+    public void setTimeZoneSeconds(int timeZoneSeconds) {
+        this.timeZoneSeconds = timeZoneSeconds;
+    }
 }

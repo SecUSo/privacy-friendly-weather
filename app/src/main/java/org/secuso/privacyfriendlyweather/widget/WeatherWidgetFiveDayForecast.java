@@ -13,14 +13,13 @@ import android.widget.RemoteViews;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
 import org.secuso.privacyfriendlyweather.database.City;
-import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.TimeZone;
 
 import static android.support.v4.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
@@ -43,52 +42,58 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
 
     }
 
-    public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, List<Forecast> forecastList, City city) {
+    public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, float[][] data, City city) {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
-        DecimalFormat decimalFormat = new DecimalFormat("#.0");
+        DecimalFormat decimalFormat = new DecimalFormat("#");
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
+        dayFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         //forecastList = DayForecastFilter.filter(forecastList, 5);
-        if(forecastList.size() < 5) return;
+        if (data.length < 5) return;
 
-        String day1 = dayFormat.format(forecastList.get(0).getForecastTime());
-        String day2 = dayFormat.format(forecastList.get(1).getForecastTime());
-        String day3 = dayFormat.format(forecastList.get(2).getForecastTime());
-        String day4 = dayFormat.format(forecastList.get(3).getForecastTime());
-        String day5 = dayFormat.format(forecastList.get(4).getForecastTime());
+        String day1 = dayFormat.format((long) data[0][8]);
+        String day2 = dayFormat.format((long) data[1][8]);
+        String day3 = dayFormat.format((long) data[2][8]);
+        String day4 = dayFormat.format((long) data[3][8]);
+        String day5 = dayFormat.format((long) data[4][8]);
 
         String temperature1 = String.format(
-                "%s%s",
-                decimalFormat.format(prefManager.convertTemperatureFromCelsius(forecastList.get(0).getTemperature())),
+                "%s | %s%s",
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[0][0])),
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[0][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature2 = String.format(
-                "%s%s",
-                decimalFormat.format(prefManager.convertTemperatureFromCelsius(forecastList.get(1).getTemperature())),
+                "%s | %s%s",
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[1][0])),
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[1][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature3 = String.format(
-                "%s%s",
-                decimalFormat.format(prefManager.convertTemperatureFromCelsius(forecastList.get(2).getTemperature())),
+                "%s | %s%s",
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[2][0])),
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[2][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature4 = String.format(
-                "%s%s",
-                decimalFormat.format(prefManager.convertTemperatureFromCelsius(forecastList.get(3).getTemperature())),
+                "%s | %s%s",
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[3][0])),
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[3][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature5 = String.format(
-                "%s%s",
-                decimalFormat.format(prefManager.convertTemperatureFromCelsius(forecastList.get(4).getTemperature())),
+                "%s | %s%s",
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[4][0])),
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[4][1])),
                 prefManager.getWeatherUnit()
         );
 
-        String hum1 = String.format("%s %%", (int) forecastList.get(0).getHumidity());
-        String hum2 = String.format("%s %%", (int) forecastList.get(1).getHumidity());
-        String hum3 = String.format("%s %%", (int) forecastList.get(2).getHumidity());
-        String hum4 = String.format("%s %%", (int) forecastList.get(3).getHumidity());
-        String hum5 = String.format("%s %%", (int) forecastList.get(4).getHumidity());
+        String hum1 = String.format("%s | %s%%", (int) data[0][2], (int) data[0][3]);
+        String hum2 = String.format("%s | %s%%", (int) data[1][2], (int) data[1][3]);
+        String hum3 = String.format("%s | %s%%", (int) data[2][2], (int) data[2][3]);
+        String hum4 = String.format("%s | %s%%", (int) data[3][2], (int) data[3][3]);
+        String hum5 = String.format("%s | %s%%", (int) data[4][2], (int) data[4][3]);
 
         views.setTextViewText(R.id.widget_city_name, city.getCityName());
 
@@ -108,14 +113,14 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         views.setTextViewText(R.id.widget_city_weather_5day_hum4, hum4);
         views.setTextViewText(R.id.widget_city_weather_5day_hum5, hum5);
 
-        views.setImageViewResource(R.id.widget_city_weather_5day_image1, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(0).getWeatherID()));
-        views.setImageViewResource(R.id.widget_city_weather_5day_image2, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(1).getWeatherID()));
-        views.setImageViewResource(R.id.widget_city_weather_5day_image3, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(2).getWeatherID()));
-        views.setImageViewResource(R.id.widget_city_weather_5day_image4, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(3).getWeatherID()));
-        views.setImageViewResource(R.id.widget_city_weather_5day_image5, UiResourceProvider.getIconResourceForWeatherCategory(forecastList.get(4).getWeatherID()));
+        views.setImageViewResource(R.id.widget_city_weather_5day_image1, UiResourceProvider.getIconResourceForWeatherCategory((int) data[0][9], true));
+        views.setImageViewResource(R.id.widget_city_weather_5day_image2, UiResourceProvider.getIconResourceForWeatherCategory((int) data[1][9], true));
+        views.setImageViewResource(R.id.widget_city_weather_5day_image3, UiResourceProvider.getIconResourceForWeatherCategory((int) data[2][9], true));
+        views.setImageViewResource(R.id.widget_city_weather_5day_image4, UiResourceProvider.getIconResourceForWeatherCategory((int) data[3][9], true));
+        views.setImageViewResource(R.id.widget_city_weather_5day_image5, UiResourceProvider.getIconResourceForWeatherCategory((int) data[4][9], true));
 
         Intent intent = new Intent(context, ForecastCityActivity.class);
-        intent.putExtra("cityId", forecastList.get(0).getCity_id());
+        intent.putExtra("cityId", city.getCityId());
         PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
 
         views.setOnClickPendingIntent(R.id.widget5day_layout, pendingIntent);
@@ -154,17 +159,17 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    public static void forceWidgetUpdate(Context context){
+    public static void forceWidgetUpdate(Context context) {
         forceWidgetUpdate(null, context);
     }
 
-    public static void forceWidgetUpdate(Integer widgetId, Context context){
+    public static void forceWidgetUpdate(Integer widgetId, Context context) {
         Intent intent = new Intent(context, WeatherWidgetFiveDayForecast.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         int[] ids;
-        if(widgetId == null) {
+        if (widgetId == null) {
             ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidgetFiveDayForecast.class));
-        }else{
+        } else {
             ids = new int[]{widgetId};
         }
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);

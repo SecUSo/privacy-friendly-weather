@@ -14,25 +14,23 @@ public class ViewUpdater {
     private static List<IUpdateableCityUI> subscribers = new ArrayList<>();
 
     public static void addSubsriber(IUpdateableCityUI sub) {
-        if(!subscribers.contains(sub)) {
+        if (!subscribers.contains(sub)) {
             subscribers.add(sub);
         }
     }
 
     public static void removeSubsriber(IUpdateableCityUI sub) {
-        if(subscribers.contains(sub)) {
-            subscribers.remove(sub);
-        }
+        subscribers.remove(sub);
     }
 
     public static void updateCurrentWeatherData(CurrentWeatherData data) {
-        for(IUpdateableCityUI sub : subscribers) {
-            sub.setLastUpdateTime(data);
+        for (IUpdateableCityUI sub : subscribers) {
+            sub.processNewWeatherData(data);
         }
     }
 
     public static void updateForecasts(List<Forecast> forecasts) {
-        for(IUpdateableCityUI sub : subscribers) {
+        for (IUpdateableCityUI sub : subscribers) {
             sub.updateForecasts(forecasts);
         }
     }

@@ -32,7 +32,7 @@ public class WeatherWidgetFiveDayForecastConfigureActivity extends Activity {
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
-           handleOk();
+            handleOk();
         }
     };
 
@@ -115,7 +115,7 @@ public class WeatherWidgetFiveDayForecastConfigureActivity extends Activity {
         database = PFASQLiteHelper.getInstance(this);
         generator = new AutoCompleteCityTextViewGenerator(getApplicationContext(), database);
 
-        generator.generate(mAppWidgetText, 8, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
+        generator.generate(mAppWidgetText, 100, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
             @Override
             public void accept(City city) {
                 selectedCity = city;

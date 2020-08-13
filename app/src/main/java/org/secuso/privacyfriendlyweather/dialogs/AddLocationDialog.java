@@ -96,14 +96,14 @@ public class AddLocationDialog extends DialogFragment {
             Toast.makeText(activity, R.string.dialog_add_no_city_found, Toast.LENGTH_SHORT).show();
             return;
         }
-        if(database != null && !database.isCityWatched(selectedCity.getCityId())) {
+        if (database != null && !database.isCityWatched(selectedCity.getCityId())) {
             addCity();
         }
-        ((MainActivity)activity).addCityToList(convertCityToWatched());
+        ((MainActivity) activity).addCityToList(convertCityToWatched());
         dismiss();
     }
 
-    private CityToWatch convertCityToWatched(){
+    private CityToWatch convertCityToWatched() {
         String postCode = "-";
         try {
             postCode = selectedCity.getPostalCode();

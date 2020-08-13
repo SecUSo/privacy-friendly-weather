@@ -2,12 +2,13 @@ package org.secuso.privacyfriendlyweather.ui.Help;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
 
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 
 import java.text.DecimalFormat;
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public final class StringFormatUtils {
 
@@ -27,7 +28,7 @@ public final class StringFormatUtils {
     }
 
     public static String formatDecimal(float decimal, String appendix) {
-        return String.format("%s%s",formatDecimal(decimal), appendix);
+        return String.format("%s%s", formatDecimal(decimal), appendix);
     }
 
     public static String formatTemperature(Context context, float temperature) {
@@ -35,13 +36,10 @@ public final class StringFormatUtils {
         return formatDecimal(prefManager.convertTemperatureFromCelsius(temperature), prefManager.getWeatherUnit());
     }
 
-    public static String formatTime(Context context, long timeInMillis) {
-        return DateUtils.formatDateTime(context, timeInMillis, DateUtils.FORMAT_SHOW_TIME);
+    public static String formatTimeWithoutZone(long time) {
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return df.format(time);
     }
-
-    public static String formatTime(Context context, Date date) {
-        return formatTime(context, date.getTime());
-    }
-
 
 }

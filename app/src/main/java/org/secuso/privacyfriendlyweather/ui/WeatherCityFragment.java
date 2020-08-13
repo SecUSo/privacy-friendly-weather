@@ -12,8 +12,6 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
@@ -38,7 +36,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
     public void setAdapter(CityWeatherAdapter adapter) {
         mAdapter = adapter;
 
-        if(recyclerView != null) {
+        if (recyclerView != null) {
             recyclerView.setAdapter(mAdapter);
         }
     }
@@ -47,15 +45,15 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                CurrentWeatherData currentWeatherData = PFASQLiteHelper.getInstance(WeatherCityFragment.this.getContext()).getCurrentWeatherByCityId(mCityId);
+                CurrentWeatherData currentWeatherData = PFASQLiteHelper.getInstance(getContext()).getCurrentWeatherByCityId(mCityId);
 
                 if (currentWeatherData.getCity_id() == 0) {
                     currentWeatherData.setCity_id(mCityId);
                 }
 
-                mAdapter = new CityWeatherAdapter(currentWeatherData, mDataSetTypes, WeatherCityFragment.this.getContext());
+                mAdapter = new CityWeatherAdapter(currentWeatherData, mDataSetTypes, getContext());
 
-                ((Activity)WeatherCityFragment.this.getContext()).runOnUiThread(new Runnable() {
+                ((Activity) getContext()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         setAdapter(mAdapter);
@@ -110,15 +108,16 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
     }
 
     @Override
-    public void setLastUpdateTime(CurrentWeatherData data) {
-        if(data.getCity_id() == mCityId) {
+    public void processNewWeatherData(CurrentWeatherData data) {
+        if (data.getCity_id() == mCityId) {
             setAdapter(new CityWeatherAdapter(data, mDataSetTypes, getContext()));
+            //TODO Update Titlebar Text
         }
     }
 
     @Override
     public void updateForecasts(List<Forecast> forecasts) {
-        if(forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
+        if (forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
             if (mAdapter != null) {
                 mAdapter.updateForecastData(forecasts);
             }

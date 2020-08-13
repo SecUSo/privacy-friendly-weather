@@ -19,7 +19,7 @@
             android:text="@string/card_day_heading"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"

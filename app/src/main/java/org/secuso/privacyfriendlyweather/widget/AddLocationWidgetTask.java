@@ -1,6 +1,5 @@
 package org.secuso.privacyfriendlyweather.widget;
 
-import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -45,8 +44,7 @@ public class AddLocationWidgetTask extends AsyncTask<Object, Void, Object[]> {
         int ID = (int) params[1];
         int type = (int) params[2];
         Intent intent = new Intent(context, UpdateDataService.class);
-        intent.setAction(UpdateDataService.UPDATE_WIDGET_ACTION);
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, ID);
+        intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
         intent.putExtra(SKIP_UPDATE_INTERVAL, true);
         intent.putExtra("widget_type", type);
         enqueueWork(context, UpdateDataService.class, 0, intent);

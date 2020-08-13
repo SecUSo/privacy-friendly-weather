@@ -8,12 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.secuso.privacyfriendlyweather.database.City;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
-import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      * Member variables
      */
     private Context context;
-    private static  List<CityToWatch> cities;
+    private static List<CityToWatch> cities;
     PrefManager prefManager;
     PFASQLiteHelper database;
 
@@ -39,7 +38,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      */
     public RecyclerOverviewListAdapter(Context context, List<CityToWatch> cities) {
         this.context = context;
-        this.cities = cities;
+        RecyclerOverviewListAdapter.cities = cities;
         prefManager = new PrefManager(context);
         database = PFASQLiteHelper.getInstance(context);
     }

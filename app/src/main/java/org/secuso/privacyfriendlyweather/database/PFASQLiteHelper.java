@@ -116,7 +116,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             CITIES_POSTAL_CODE + " VARCHAR(10) NOT NULL ); ";
 
     private static final String CREATE_TABLE_CITIES_INDEX = "CREATE INDEX " + TABLE_CITIES_INDEX +
-            " ON " + TABLE_CITIES + " ("  + CITIES_NAME +  ");";
+            " ON " + TABLE_CITIES + " (" + CITIES_NAME + ");";
 
     private static final String CREATE_TABLE_FORECASTS = "CREATE TABLE " + TABLE_FORECAST +
             "(" +
@@ -153,16 +153,16 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         /**
-        // on upgrade drop older tables
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_TABLE_CITIES));
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_TABLE_FORECASTS));
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_CURRENT_WEATHER));
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_TABLE_CITIES_TO_WATCH));
+         // on upgrade drop older tables
+         db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_TABLE_CITIES));
+         db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_TABLE_FORECASTS));
+         db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_CURRENT_WEATHER));
+         db.execSQL(String.format("DROP TABLE IF EXISTS %s", CREATE_TABLE_CITIES_TO_WATCH));
 
-        // create new tables
-        onCreate(db);
+         // create new tables
+         onCreate(db);
          **/
-        super.onUpgrade(db, oldVersion,newVersion);
+        super.onUpgrade(db, oldVersion, newVersion);
 
         Intent intent = new Intent(context, UpdateDataService.class);
         intent.setAction(UpdateDataService.UPDATE_ALL_ACTION);
@@ -187,7 +187,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         }
 
         long endInsertTime = System.currentTimeMillis();
-        Log.d("debug_info", "Time for insert:" + String.valueOf(endInsertTime - startInsertTime));
+        Log.d("debug_info", "Time for insert:" + (endInsertTime - startInsertTime));
     }
 
     private synchronized void addCities(SQLiteDatabase database, final List<City> cities) {
@@ -250,7 +250,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         return city;
     }
 
-    public synchronized List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit, String country) {
+    public synchronized List<City> getCitiesWhereNameLike(String cityNameLetters, int dropdownListLimit) {
         List<City> cities = new ArrayList<>();
 
         SQLiteDatabase database = this.getReadableDatabase();
@@ -262,12 +262,10 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 " FROM " + TABLE_CITIES +
                 " WHERE " + CITIES_NAME +
                 " LIKE ?" +
-                " AND "+ CITIES_COUNTRY_CODE +
-                " LIKE ?" +
                 " ORDER BY " + CITIES_NAME +
                 " LIMIT " + dropdownListLimit;
 
-        String[] args = {String.format("%s%%", cityNameLetters), String.format("%s%%", country)};
+        String[] args = {String.format("%s%%", cityNameLetters)};
         Cursor cursor = database.rawQuery(query, args);
 
         if (cursor.moveToFirst()) {
@@ -278,7 +276,6 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 city.setCountryCode(cursor.getString(2));
                 city.setPostalCode(cursor.getString(3));
                 cities.add(city);
-
             } while (cursor.moveToNext());
         }
 
@@ -420,7 +417,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         ContentValues values = new ContentValues();
         values.put(FORECAST_CITY_ID, forecast.getCity_id());
         values.put(FORECAST_COLUMN_TIME_MEASUREMENT, forecast.getTimestamp());
-        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime().getTime());
+        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime());
         values.put(FORECAST_COLUMN_WEATHER_ID, forecast.getWeatherID());
         values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
@@ -442,17 +439,17 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         SQLiteDatabase database = this.getWritableDatabase();
 
         Cursor cursor = database.rawQuery("SELECT " + FORECAST_ID + ", " +
-                                FORECAST_CITY_ID + ", " +
-                                FORECAST_COLUMN_TIME_MEASUREMENT + ", " +
-                                FORECAST_COLUMN_FORECAST_FOR + ", " +
-                                FORECAST_COLUMN_WEATHER_ID + ", " +
-                                FORECAST_COLUMN_TEMPERATURE_CURRENT + ", " +
-                                FORECAST_COLUMN_HUMIDITY + ", " +
-                                FORECAST_COLUMN_PRESSURE + ", " +
-                                CITIES_NAME +
-                                " FROM " + TABLE_FORECAST +
-                                " INNER JOIN " + TABLE_CITIES + " ON " + CITIES_ID + " = " + FORECAST_CITY_ID +
-                                " WHERE " + FORECAST_CITY_ID + " = ? AND " + FORECAST_COLUMN_FORECAST_FOR + " = ?",
+                        FORECAST_CITY_ID + ", " +
+                        FORECAST_COLUMN_TIME_MEASUREMENT + ", " +
+                        FORECAST_COLUMN_FORECAST_FOR + ", " +
+                        FORECAST_COLUMN_WEATHER_ID + ", " +
+                        FORECAST_COLUMN_TEMPERATURE_CURRENT + ", " +
+                        FORECAST_COLUMN_HUMIDITY + ", " +
+                        FORECAST_COLUMN_PRESSURE + ", " +
+                        CITIES_NAME +
+                        " FROM " + TABLE_FORECAST +
+                        " INNER JOIN " + TABLE_CITIES + " ON " + CITIES_ID + " = " + FORECAST_CITY_ID +
+                        " WHERE " + FORECAST_CITY_ID + " = ? AND " + FORECAST_COLUMN_FORECAST_FOR + " = ?",
                 new String[]{String.valueOf(cityId)});
 
         List<Forecast> list = new ArrayList<>();
@@ -464,7 +461,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setId(Integer.parseInt(cursor.getString(0)));
                 forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
                 forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-                forecast.setForecastTime(new Date(Long.parseLong(cursor.getString(3))));
+                forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
                 forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
                 forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
@@ -503,7 +500,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setId(Integer.parseInt(cursor.getString(0)));
                 forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
                 forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-                forecast.setForecastTime(new Date(Long.parseLong(cursor.getString(3))));
+                forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
                 forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
                 forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
@@ -538,7 +535,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             forecast.setId(Integer.parseInt(cursor.getString(0)));
             forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
             forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-            forecast.setForecastTime(new Date(Long.parseLong(cursor.getString(3))));
+            forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
             forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
             forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
             forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
@@ -567,7 +564,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setId(Integer.parseInt(cursor.getString(0)));
                 forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
                 forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-                forecast.setForecastTime(new Date(Long.parseLong(cursor.getString(3))));
+                forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
                 forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
                 forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
@@ -587,7 +584,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         ContentValues values = new ContentValues();
         values.put(FORECAST_CITY_ID, forecast.getCity_id());
         values.put(FORECAST_COLUMN_TIME_MEASUREMENT, forecast.getTimestamp());
-        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime().getTime());
+        values.put(FORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime());
         values.put(FORECAST_COLUMN_WEATHER_ID, forecast.getWeatherID());
         values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());

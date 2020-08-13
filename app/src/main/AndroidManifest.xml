@@ -24,12 +24,12 @@
             android:launchMode="singleTop"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".activities.ForecastCityActivity"/>
+            android:parentActivityName=".activities.ForecastCityActivity" />
         <activity
             android:name=".activities.ForecastCityActivity"
             android:launchMode="singleTop"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.RadiusSearchActivity"
             android:label="@string/radius_search_label"
@@ -42,8 +42,7 @@
         <activity
             android:name=".activities.RadiusSearchResultActivity"
             android:label="@string/radius_search_result_label"
-            android:parentActivityName=".activities.RadiusSearchActivity"
-            >
+            android:parentActivityName=".activities.RadiusSearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.RadiusSearchActivity" />
@@ -78,11 +77,13 @@
         </activity>
         <activity
             android:name=".firststart.TutorialActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <service
             android:name=".services.UpdateDataService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
+
         <receiver android:name=".widget.WeatherWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
