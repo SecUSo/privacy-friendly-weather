@@ -434,6 +434,14 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         database.close();
     }
 
+    public synchronized void deleteOldForecastsByCityId(int cityId, long timestamp) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        long cutofftime = timestamp - 24 * 60 * 60 * 1000L;
+        database.delete(TABLE_FORECAST, FORECAST_CITY_ID + " = ? AND " + FORECAST_COLUMN_FORECAST_FOR + " <= ?",
+                new String[]{Integer.toString(cityId), Long.toString(cutofftime)});
+        database.close();
+    }
+
 
     public synchronized List<Forecast> getForecastForCityByDay(int cityId, Date day) {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -506,6 +514,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
                 forecast.setPressure(Float.parseFloat(cursor.getString(7)));
                 list.add(forecast);
+                Log.d("database", forecast.getForecastTime() + "");
             } while (cursor.moveToNext());
 
             cursor.close();

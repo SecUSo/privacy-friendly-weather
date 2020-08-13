@@ -60,7 +60,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
             JSONArray list = json.getJSONArray("list");
             int cityId = json.getJSONObject("city").getInt("id");
 
-            dbHelper.deleteForecastsByCityId(cityId);
+            dbHelper.deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
 
             List<Forecast> forecasts = new ArrayList<>();
             // Continue with inserting new records
