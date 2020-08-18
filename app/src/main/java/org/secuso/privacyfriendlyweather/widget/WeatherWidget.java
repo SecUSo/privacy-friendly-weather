@@ -75,7 +75,7 @@ public class WeatherWidget extends AppWidgetProvider {
         views.setTextViewText(R.id.widget_city_weather_wind, windSpeed);
 
         boolean isDay;
-        if(weatherData.getTimestamp() + weatherData.getTimeZoneSeconds() > weatherData.getTimeSunrise() && weatherData.getTimestamp()+weatherData.getTimeZoneSeconds() < weatherData.getTimeSunset()){
+        if(weatherData.getTimestamp()  > weatherData.getTimeSunrise() && weatherData.getTimestamp() < weatherData.getTimeSunset()){
             isDay = true;
         } else {isDay = false;}
 

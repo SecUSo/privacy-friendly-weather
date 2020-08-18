@@ -435,7 +435,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
     boolean isDay;
-        if(currentWeatherDataList.getTimestamp()+currentWeatherDataList.getTimeZoneSeconds() >currentWeatherDataList.getTimeSunrise() && currentWeatherDataList.getTimestamp()+currentWeatherDataList.getTimeZoneSeconds() < currentWeatherDataList.getTimeSunset()){
+        if(currentWeatherDataList.getTimestamp() >currentWeatherDataList.getTimeSunrise() && currentWeatherDataList.getTimestamp() < currentWeatherDataList.getTimeSunset()){
             isDay = true;
         } else {isDay = false;}
         if (viewHolder.getItemViewType() == OVERVIEW) {
