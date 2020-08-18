@@ -132,6 +132,10 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         holder.humidity.setText(StringFormatUtils.formatInt(courseOfDayList.get(position).getHumidity(), "%"));
         holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseOfDayList.get(position).getTemperature()));
 
+        if (courseOfDayList.get(position).getRainValue() == 0)
+            holder.rainvol.setText("-");
+        else
+            holder.rainvol.setText(StringFormatUtils.formatDecimal(courseOfDayList.get(position).getRainValue(), "mm"));
     }
 
     @Override
@@ -144,6 +148,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         ImageView weather;
         TextView temperature;
         TextView humidity;
+        TextView rainvol;
 
         CourseOfDayViewHolder(View itemView) {
             super(itemView);
@@ -152,6 +157,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             weather = itemView.findViewById(R.id.course_of_day_weather);
             temperature = itemView.findViewById(R.id.course_of_day_temperature);
             humidity = itemView.findViewById(R.id.course_of_day_humidity);
+            rainvol = itemView.findViewById(R.id.course_of_day_rainvol);
 
         }
     }
