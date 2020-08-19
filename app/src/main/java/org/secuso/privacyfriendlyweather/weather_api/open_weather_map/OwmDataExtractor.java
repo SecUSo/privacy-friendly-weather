@@ -257,6 +257,14 @@ public class OwmDataExtractor implements IDataExtractor {
                     forecast.setRainVolume((float) jsonRain.getDouble("3h"));
                 }
             }
+            //add snow precipitation to rain
+            if (!jsonData.isNull("snow")) {
+                JSONObject jsonSnow = jsonData.getJSONObject("snow");
+                if (!jsonSnow.isNull("3h")) {
+                    forecast.setRainVolume(forecast.getRainValue()+(float) jsonSnow.getDouble("3h"));
+                }
+            }
+
 
             return forecast;
         } catch (JSONException | ParseException e) {

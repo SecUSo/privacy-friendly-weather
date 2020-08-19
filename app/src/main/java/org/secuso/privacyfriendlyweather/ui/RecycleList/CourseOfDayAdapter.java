@@ -115,13 +115,13 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         //Time has to be the local time in the city!
 
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather, isDay);
-        holder.humidity.setText(StringFormatUtils.formatInt(courseOfDayList.get(position).getHumidity(), "%"));
+        holder.humidity.setText(StringFormatUtils.formatInt(courseOfDayList.get(position).getHumidity(), "%rh"));
         holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseOfDayList.get(position).getTemperature()));
 
         if(courseOfDayList.get(position).getRainValue()==0)
-            holder.rainvol.setText("-");
+            holder.precipitation.setText("-");
         else
-            holder.rainvol.setText(StringFormatUtils.formatDecimal(courseOfDayList.get(position).getRainValue(), "mm"));
+            holder.precipitation.setText(StringFormatUtils.formatDecimal(courseOfDayList.get(position).getRainValue(), "mm"));
     }
 
     @Override
@@ -134,7 +134,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         ImageView weather;
         TextView temperature;
         TextView humidity;
-        TextView rainvol;
+        TextView precipitation;
 
         CourseOfDayViewHolder(View itemView) {
             super(itemView);
@@ -143,7 +143,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             weather = itemView.findViewById(R.id.course_of_day_weather);
             temperature = itemView.findViewById(R.id.course_of_day_temperature);
             humidity = itemView.findViewById(R.id.course_of_day_humidity);
-            rainvol = itemView.findViewById(R.id.course_of_day_rainvol);
+            precipitation = itemView.findViewById(R.id.course_of_day_precipitation);
 
         }
     }
