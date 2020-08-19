@@ -71,18 +71,18 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         // Would be better to use actual sunset and sunrise time, but did not know how to do this, These are not available in forecast database.
         Calendar forecastTime = Calendar.getInstance();
         forecastTime.setTimeZone(TimeZone.getTimeZone("GMT"));
-        forecastTime.setTimeInMillis(courseOfDayList.get(position).getLocalForecastTime(context));
+        forecastTime.setTimeInMillis(courseOfDayList.get(position).getForecastTime());
         //Log.d("devtag","localForecastTime: "+forecastTime.getTime());
 
         Calendar sunSetTime = Calendar.getInstance();
         sunSetTime.setTimeZone(TimeZone.getTimeZone("GMT"));
-        sunSetTime.setTimeInMillis(currentWeather.getTimeSunset() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
+        sunSetTime.setTimeInMillis(currentWeather.getTimeSunset() * 1000);
         sunSetTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
 
 
         Calendar sunRiseTime = Calendar.getInstance();
         sunRiseTime.setTimeZone(TimeZone.getTimeZone("GMT"));
-        sunRiseTime.setTimeInMillis(currentWeather.getTimeSunrise() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
+        sunRiseTime.setTimeInMillis(currentWeather.getTimeSunrise() * 1000);
         sunRiseTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
 
         Log.d("devtag", position + " " + forecastTime.getTime());
@@ -133,9 +133,9 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseOfDayList.get(position).getTemperature()));
 
         if (courseOfDayList.get(position).getRainValue() == 0)
-            holder.rainvol.setText("-");
+            holder.precipitation.setText("-");
         else
-            holder.rainvol.setText(StringFormatUtils.formatDecimal(courseOfDayList.get(position).getRainValue(), "mm"));
+            holder.precipitation.setText(StringFormatUtils.formatDecimal(courseOfDayList.get(position).getRainValue(), "mm"));
     }
 
     @Override
@@ -148,7 +148,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         ImageView weather;
         TextView temperature;
         TextView humidity;
-        TextView rainvol;
+        TextView precipitation;
 
         CourseOfDayViewHolder(View itemView) {
             super(itemView);
@@ -157,7 +157,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             weather = itemView.findViewById(R.id.course_of_day_weather);
             temperature = itemView.findViewById(R.id.course_of_day_temperature);
             humidity = itemView.findViewById(R.id.course_of_day_humidity);
-            rainvol = itemView.findViewById(R.id.course_of_day_rainvol);
+            precipitation = itemView.findViewById(R.id.course_of_day_precipitation);
 
         }
     }

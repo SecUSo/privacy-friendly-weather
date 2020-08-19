@@ -43,7 +43,7 @@
         android:textColor="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/course_of_day_rainvol"
+        android:id="@+id/course_of_day_precipitation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

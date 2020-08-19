@@ -68,7 +68,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
     private static final String FORECAST_COLUMN_TEMPERATURE_CURRENT = "temperature_current";
     private static final String FORECAST_COLUMN_HUMIDITY = "humidity";
     private static final String FORECAST_COLUMN_PRESSURE = "pressure";
-    private static final String FORECAST_COLUMN_RAINVOL = "precipitation";
+    private static final String FORECAST_COLUMN_PRECIPITATION = "precipitation";
 
     //Names of columns in TABLE_CURRENT_WEATHER
     private static final String CURRENT_WEATHER_ID = "current_weather_id";
@@ -129,7 +129,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             FORECAST_COLUMN_TEMPERATURE_CURRENT + " REAL," +
             FORECAST_COLUMN_HUMIDITY + " REAL," +
             FORECAST_COLUMN_PRESSURE + " REAL," +
-            FORECAST_COLUMN_RAINVOL + " REAL," +
+            FORECAST_COLUMN_PRECIPITATION + " REAL," +
             " FOREIGN KEY (" + FORECAST_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
 
     private static final String CREATE_TABLE_CITIES_TO_WATCH = "CREATE TABLE " + TABLE_CITIES_TO_WATCH +
@@ -424,7 +424,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
         values.put(FORECAST_COLUMN_PRESSURE, forecast.getPressure());
-        values.put(FORECAST_COLUMN_RAINVOL, forecast.getRainValue());
+        values.put(FORECAST_COLUMN_PRECIPITATION, forecast.getRainValue());
 
         database.insert(TABLE_FORECAST, null, values);
         database.close();
@@ -457,7 +457,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         FORECAST_COLUMN_TEMPERATURE_CURRENT + ", " +
                         FORECAST_COLUMN_HUMIDITY + ", " +
                         FORECAST_COLUMN_PRESSURE + ", " +
-                        FORECAST_COLUMN_RAINVOL + ", " +
+                        FORECAST_COLUMN_PRECIPITATION + ", " +
                         CITIES_NAME +
                         " FROM " + TABLE_FORECAST +
                         " INNER JOIN " + TABLE_CITIES + " ON " + CITIES_ID + " = " + FORECAST_CITY_ID +
@@ -501,7 +501,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         FORECAST_COLUMN_TEMPERATURE_CURRENT,
                         FORECAST_COLUMN_HUMIDITY,
                         FORECAST_COLUMN_PRESSURE,
-                        FORECAST_COLUMN_RAINVOL}
+                        FORECAST_COLUMN_PRECIPITATION}
                 , FORECAST_CITY_ID + "=?",
                 new String[]{String.valueOf(cityId)}, null, null, null, null);
 
@@ -541,7 +541,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         FORECAST_COLUMN_TEMPERATURE_CURRENT,
                         FORECAST_COLUMN_HUMIDITY,
                         FORECAST_COLUMN_PRESSURE,
-                        FORECAST_COLUMN_RAINVOL}
+                        FORECAST_COLUMN_PRECIPITATION}
                 , FORECAST_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -605,7 +605,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         values.put(FORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
         values.put(FORECAST_COLUMN_PRESSURE, forecast.getPressure());
-        values.put(FORECAST_COLUMN_RAINVOL, forecast.getRainValue());
+        values.put(FORECAST_COLUMN_PRECIPITATION, forecast.getRainValue());
 
         return database.update(TABLE_FORECAST, values, FORECAST_ID + " = ?",
                 new String[]{String.valueOf(forecast.getId())});
