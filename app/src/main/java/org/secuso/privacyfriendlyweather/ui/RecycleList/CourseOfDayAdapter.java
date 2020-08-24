@@ -131,6 +131,8 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather, isDay);
         holder.humidity.setText(StringFormatUtils.formatInt(courseOfDayList.get(position).getHumidity(), "%rh"));
         holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseOfDayList.get(position).getTemperature()));
+        holder.wind_speed.setText(StringFormatUtils.formatWindSpeed(context, courseOfDayList.get(position).getWindSpeed()));
+        holder.wind_direction.setText(StringFormatUtils.formatWindDir(context, courseOfDayList.get(position).getWindDirection()));
 
         if (courseOfDayList.get(position).getRainValue() == 0)
             holder.precipitation.setText("-");
@@ -149,6 +151,8 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         TextView temperature;
         TextView humidity;
         TextView precipitation;
+        TextView wind_speed;
+        TextView wind_direction;
 
         CourseOfDayViewHolder(View itemView) {
             super(itemView);
@@ -158,6 +162,8 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             temperature = itemView.findViewById(R.id.course_of_day_temperature);
             humidity = itemView.findViewById(R.id.course_of_day_humidity);
             precipitation = itemView.findViewById(R.id.course_of_day_precipitation);
+            wind_speed = itemView.findViewById(R.id.course_of_day_wind_speed);
+            wind_direction = itemView.findViewById(R.id.course_of_day_wind_direction);
 
         }
     }

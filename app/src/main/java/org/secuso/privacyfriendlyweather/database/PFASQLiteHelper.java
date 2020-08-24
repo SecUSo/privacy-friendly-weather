@@ -30,7 +30,7 @@ import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_
  */
 public class PFASQLiteHelper extends SQLiteAssetHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private Context context;
 
     private List<City> allCities = new ArrayList<>();
@@ -69,6 +69,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
     private static final String FORECAST_COLUMN_HUMIDITY = "humidity";
     private static final String FORECAST_COLUMN_PRESSURE = "pressure";
     private static final String FORECAST_COLUMN_PRECIPITATION = "precipitation";
+    private static final String FORECAST_COLUMN_WIND_SPEED = "wind_speed";
+    private static final String FORECAST_COLUMN_WIND_DIRECTION = "wind_direction";
 
     //Names of columns in TABLE_CURRENT_WEATHER
     private static final String CURRENT_WEATHER_ID = "current_weather_id";
@@ -130,6 +132,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             FORECAST_COLUMN_HUMIDITY + " REAL," +
             FORECAST_COLUMN_PRESSURE + " REAL," +
             FORECAST_COLUMN_PRECIPITATION + " REAL," +
+            FORECAST_COLUMN_WIND_SPEED + " REAL," +
+            FORECAST_COLUMN_WIND_DIRECTION + " REAL," +
             " FOREIGN KEY (" + FORECAST_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
 
     private static final String CREATE_TABLE_CITIES_TO_WATCH = "CREATE TABLE " + TABLE_CITIES_TO_WATCH +
@@ -425,7 +429,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
         values.put(FORECAST_COLUMN_PRESSURE, forecast.getPressure());
         values.put(FORECAST_COLUMN_PRECIPITATION, forecast.getRainValue());
-
+        values.put(FORECAST_COLUMN_WIND_SPEED, forecast.getWindSpeed());
+        values.put(FORECAST_COLUMN_WIND_DIRECTION, forecast.getWindDirection());
         database.insert(TABLE_FORECAST, null, values);
         database.close();
     }
@@ -458,6 +463,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         FORECAST_COLUMN_HUMIDITY + ", " +
                         FORECAST_COLUMN_PRESSURE + ", " +
                         FORECAST_COLUMN_PRECIPITATION + ", " +
+                        FORECAST_COLUMN_WIND_SPEED + " REAL," +
+                        FORECAST_COLUMN_WIND_DIRECTION + " REAL," +
                         CITIES_NAME +
                         " FROM " + TABLE_FORECAST +
                         " INNER JOIN " + TABLE_CITIES + " ON " + CITIES_ID + " = " + FORECAST_CITY_ID +
@@ -479,7 +486,9 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
                 forecast.setPressure(Float.parseFloat(cursor.getString(7)));
                 forecast.setRainVolume(Float.parseFloat(cursor.getString(8)));
-                forecast.setCity_name(cursor.getString(9));
+                forecast.setWindSpeed(Float.parseFloat(cursor.getString(9)));
+                forecast.setWindDirection(Float.parseFloat(cursor.getString(10)));
+                forecast.setCity_name(cursor.getString(11));
                 list.add(forecast);
             } while (cursor.moveToNext());
 
@@ -501,7 +510,9 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         FORECAST_COLUMN_TEMPERATURE_CURRENT,
                         FORECAST_COLUMN_HUMIDITY,
                         FORECAST_COLUMN_PRESSURE,
-                        FORECAST_COLUMN_PRECIPITATION}
+                        FORECAST_COLUMN_PRECIPITATION,
+                        FORECAST_COLUMN_WIND_SPEED,
+                        FORECAST_COLUMN_WIND_DIRECTION}
                 , FORECAST_CITY_ID + "=?",
                 new String[]{String.valueOf(cityId)}, null, null, null, null);
 
@@ -520,6 +531,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
                 forecast.setPressure(Float.parseFloat(cursor.getString(7)));
                 forecast.setRainVolume(Float.parseFloat(cursor.getString(8)));
+                forecast.setWindSpeed(Float.parseFloat(cursor.getString(9)));
+                forecast.setWindDirection(Float.parseFloat(cursor.getString(10)));
                 list.add(forecast);
             } while (cursor.moveToNext());
 
@@ -541,7 +554,9 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         FORECAST_COLUMN_TEMPERATURE_CURRENT,
                         FORECAST_COLUMN_HUMIDITY,
                         FORECAST_COLUMN_PRESSURE,
-                        FORECAST_COLUMN_PRECIPITATION}
+                        FORECAST_COLUMN_PRECIPITATION,
+                        FORECAST_COLUMN_WIND_SPEED,
+                        FORECAST_COLUMN_WIND_DIRECTION}
                 , FORECAST_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -557,6 +572,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
             forecast.setPressure(Float.parseFloat(cursor.getString(7)));
             forecast.setRainVolume(Float.parseFloat(cursor.getString(8)));
+            forecast.setWindSpeed(Float.parseFloat(cursor.getString(9)));
+            forecast.setWindDirection(Float.parseFloat(cursor.getString(10)));
             cursor.close();
         }
 
@@ -586,6 +603,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
                 forecast.setPressure(Float.parseFloat(cursor.getString(7)));
                 forecast.setRainVolume(Float.parseFloat(cursor.getString(8)));
+                forecast.setWindSpeed(Float.parseFloat(cursor.getString(9)));
+                forecast.setWindDirection(Float.parseFloat(cursor.getString(10)));
                 forecastList.add(forecast);
             } while (cursor.moveToNext());
         }
@@ -606,6 +625,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         values.put(FORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
         values.put(FORECAST_COLUMN_PRESSURE, forecast.getPressure());
         values.put(FORECAST_COLUMN_PRECIPITATION, forecast.getRainValue());
+        values.put(FORECAST_COLUMN_WIND_SPEED, forecast.getWindSpeed());
+        values.put(FORECAST_COLUMN_WIND_DIRECTION, forecast.getWindDirection());
 
         return database.update(TABLE_FORECAST, values, FORECAST_ID + " = ?",
                 new String[]{String.valueOf(forecast.getId())});
