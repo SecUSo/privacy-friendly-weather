@@ -83,7 +83,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_weather_forecast_city_overview, container, false);
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.weatherForecastRecyclerView);
+        recyclerView = v.findViewById(R.id.weatherForecastRecyclerView);
         recyclerView.setLayoutManager(getLayoutManager(getContext()));
 
         Bundle args = getArguments();
@@ -111,7 +111,6 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
     public void processNewWeatherData(CurrentWeatherData data) {
         if (data.getCity_id() == mCityId) {
             setAdapter(new CityWeatherAdapter(data, mDataSetTypes, getContext()));
-            //TODO Update Titlebar Text
         }
     }
 
@@ -122,5 +121,6 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
                 mAdapter.updateForecastData(forecasts);
             }
         }
+        //TODO Update Titlebar Text
     }
 }
