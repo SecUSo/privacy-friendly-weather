@@ -57,6 +57,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     // function for 3-hour forecast list
     public void updateForecastData(List<Forecast> forecasts) {
+        Log.d("forecast", "in cityweatheradapter " + forecasts.get(0).getCity_id() + " " + forecasts.size() + " " + forecasts.get(0).getForecastTime());
         forecastData = compressWeatherData(forecasts);
         courseDayList = new ArrayList<Forecast>();
 
@@ -64,10 +65,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         long threehoursago = System.currentTimeMillis() - (3 * 60 * 60 * 1000);
 
         for (Forecast f : forecasts) {
-            long time = f.getForecastTime();
 
             // only add Forecasts that are in the future
-            if (time >= threehoursago) {
+            if (f.getForecastTime() >= threehoursago) {
                 // course of day list should show entries until the same time the next day is reached
                 // since we force our forecasts to be in the future and they are ordered.. we can assume
                 // the next entry to be to the full 3h mark after this time ..
