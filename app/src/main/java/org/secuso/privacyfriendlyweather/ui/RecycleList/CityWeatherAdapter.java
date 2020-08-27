@@ -453,7 +453,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
         boolean isDay = currentWeatherDataList.getTimestamp() >currentWeatherDataList.getTimeSunrise() && currentWeatherDataList.getTimestamp() < currentWeatherDataList.getTimeSunset();
-      
+
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
             setImage(currentWeatherDataList.getWeatherID(), holder.weather, isDay);
@@ -465,8 +465,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
             holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), "%"));
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
-            holder.windspeed.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getWindSpeed(), " m/s"));
-            holder.winddirection.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getWindDirection(),"°"));
+            holder.windspeed.setText(StringFormatUtils.formatWindSpeed(context, currentWeatherDataList.getWindSpeed()) + " " + StringFormatUtils.formatWindDir(context, currentWeatherDataList.getWindDirection()));
+            holder.winddirection.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getWindDirection(), "°"));
             holder.rainfall.setText(StringFormatUtils.formatDecimal(15,"ml"));
 
         } else if (viewHolder.getItemViewType() == WEEK) {
