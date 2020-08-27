@@ -28,6 +28,32 @@
             android:title="@string/settings_update_interval" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/widgets_settings">
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/widgetChoiceArray"
+            android:entryValues="@array/widgetChoiceValues"
+            android:key="widgetChoice1"
+            android:summary="@string/fivedaywidgetchoice"
+            android:title="@string/fivedaywidget" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/widgetChoiceArray"
+            android:entryValues="@array/widgetChoiceValues"
+            android:key="widgetChoice2"
+            android:summary="@string/threedaywidgetchoice_one"
+            android:title="@string/threedaywidget_first" />
+
+        <ListPreference
+            android:defaultValue="2"
+            android:entries="@array/widgetChoiceArray"
+            android:entryValues="@array/widgetChoiceValues"
+            android:key="widgetChoice3"
+            android:summary="@string/threedaywidgetchoice_two"
+            android:title="@string/threedaywidget_second" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/settings_title_API">
         <PreferenceScreen android:summary="@string/settings_description_API" />
         <EditTextPreference

@@ -233,7 +233,6 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
                     if (fc.getWindSpeed() > tomorrow[4]) tomorrow[4] = fc.getWindSpeed();
                     if (fc.getWindSpeed() < tomorrow[5]) tomorrow[5] = fc.getWindSpeed();
-                    Log.d("devtag", "tomorrow" + fc.getForecastTime());
 
 
                     tomorrow[6] += fc.getWindDirection();

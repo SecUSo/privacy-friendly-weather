@@ -89,11 +89,34 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
                 prefManager.getWeatherUnit()
         );
 
-        String hum1 = String.format("%s | %s%%", (int) data[0][2], (int) data[0][3]);
-        String hum2 = String.format("%s | %s%%", (int) data[1][2], (int) data[1][3]);
-        String hum3 = String.format("%s | %s%%", (int) data[2][2], (int) data[2][3]);
-        String hum4 = String.format("%s | %s%%", (int) data[3][2], (int) data[3][3]);
-        String hum5 = String.format("%s | %s%%", (int) data[4][2], (int) data[4][3]);
+        String extra1 = "";
+        String extra2 = "";
+        String extra3 = "";
+        String extra4 = "";
+        String extra5 = "";
+        //select extra information to display from settings
+        int extraInfo = prefManager.get5dayWidgetInfo();
+        if (extraInfo==1){
+            extra1 = String.format("%s ml", (int) data[0][7]);
+            extra2 = String.format("%s ml", (int) data[1][7]);
+            extra3 = String.format("%s ml", (int) data[2][7]);
+            extra4 = String.format("%s ml", (int) data[3][7]);
+            extra5 = String.format("%s ml", (int) data[4][7]);
+        } else if (extraInfo==2){
+            //wind max & min
+            extra1 = String.format("%s | %sm/s", (int) data[0][4], (int) data[0][5]);
+            extra2 = String.format("%s | %sm/s", (int) data[1][4], (int) data[1][5]);
+            extra3 = String.format("%s | %sm/s", (int) data[2][4], (int) data[2][5]);
+            extra4 = String.format("%s | %sm/s", (int) data[3][4], (int) data[3][5]);
+            extra5 = String.format("%s | %sm/s", (int) data[4][4], (int) data[4][5]);
+        } else {
+            extra1 = String.format("%s | %s%%", (int) data[0][2], (int) data[0][3]);
+            extra2 = String.format("%s | %s%%", (int) data[1][2], (int) data[1][3]);
+            extra3 = String.format("%s | %s%%", (int) data[2][2], (int) data[2][3]);
+            extra4 = String.format("%s | %s%%", (int) data[3][2], (int) data[3][3]);
+            extra5 = String.format("%s | %s%%", (int) data[4][2], (int) data[4][3]);
+        }
+
 
         views.setTextViewText(R.id.widget_city_name, city.getCityName());
 
@@ -107,11 +130,11 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         views.setTextViewText(R.id.widget_city_weather_5day_temp3, temperature3);
         views.setTextViewText(R.id.widget_city_weather_5day_temp4, temperature4);
         views.setTextViewText(R.id.widget_city_weather_5day_temp5, temperature5);
-        views.setTextViewText(R.id.widget_city_weather_5day_hum1, hum1);
-        views.setTextViewText(R.id.widget_city_weather_5day_hum2, hum2);
-        views.setTextViewText(R.id.widget_city_weather_5day_hum3, hum3);
-        views.setTextViewText(R.id.widget_city_weather_5day_hum4, hum4);
-        views.setTextViewText(R.id.widget_city_weather_5day_hum5, hum5);
+        views.setTextViewText(R.id.widget_city_weather_5day_hum1, extra1);
+        views.setTextViewText(R.id.widget_city_weather_5day_hum2, extra2);
+        views.setTextViewText(R.id.widget_city_weather_5day_hum3, extra3);
+        views.setTextViewText(R.id.widget_city_weather_5day_hum4, extra4);
+        views.setTextViewText(R.id.widget_city_weather_5day_hum5, extra5);
 
         views.setImageViewResource(R.id.widget_city_weather_5day_image1, UiResourceProvider.getIconResourceForWeatherCategory((int) data[0][9], true));
         views.setImageViewResource(R.id.widget_city_weather_5day_image2, UiResourceProvider.getIconResourceForWeatherCategory((int) data[1][9], true));
