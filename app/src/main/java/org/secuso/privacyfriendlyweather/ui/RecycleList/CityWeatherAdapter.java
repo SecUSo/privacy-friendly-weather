@@ -57,7 +57,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     // function for 3-hour forecast list
     public void updateForecastData(List<Forecast> forecasts) {
-        Log.d("forecast", "in cityweatheradapter " + forecasts.get(0).getCity_id() + " " + forecasts.size() + " " + forecasts.get(0).getForecastTime());
+        //Log.d("forecast", "in cityweatheradapter " + forecasts.get(0).getCity_id() + " " + forecasts.size() + " " + forecasts.get(0).getForecastTime());
         forecastData = compressWeatherData(forecasts);
         courseDayList = new ArrayList<Forecast>();
 
@@ -368,7 +368,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             this.pressure = v.findViewById(R.id.activity_city_weather_tv_pressure_value);
             this.windspeed = v.findViewById(R.id.activity_city_weather_tv_wind_speed_value);
             this.winddirection = v.findViewById(R.id.activity_city_weather_tv_wind_direction_value);
-            this.rainfall = v.findViewById(R.id.activity_city_weather_details_tv_rain_volume_value);
+            this.rainfall = v.findViewById(R.id.activity_city_weather_tv_rain_volume_value);
+            Log.d("devtag",rainfall.toString());
         }
     }
 
