@@ -449,7 +449,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
             holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), "%"));
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
-            holder.windspeed.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getWindSpeed(), " m/s"));
+            holder.windspeed.setText(StringFormatUtils.formatWindSpeed(context,currentWeatherDataList.getWindSpeed())+" "+StringFormatUtils.formatWindDir(context, currentWeatherDataList.getWindDirection()));
 
         } else if (viewHolder.getItemViewType() == WEEK) {
 
