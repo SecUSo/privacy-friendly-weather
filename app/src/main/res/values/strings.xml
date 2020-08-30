@@ -204,6 +204,7 @@
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
     <string name="error_no_internet">Your Device is not connected to the Internet</string>
+    <string name="default_location">%s set as default location</string>
     <string name="settings_interval_one" translatable="false">1 h</string>
     <string name="settings_interval_two" translatable="false">2 h</string>
     <string name="settings_interval_six" translatable="false">6 h</string>
@@ -227,6 +228,8 @@
     <string name="card_error_content">Please try to update!</string>
     <string name="action_refresh">Refresh</string>
     <string name="activity_city_weather_no_city_selected">There is no city selected. To select a city go to \"Manage locations\".</string>
+    <string name="RainViewer">Rain Radar</string>
+    <string name="action_rainviewer">Rain Viewer</string>
     <string name="long_press_text">Hold and drag to sort.</string>
     <string name="swipe_to_delete">Swipe to delete</string>
     <string name="rain_volume">Rain volume</string>

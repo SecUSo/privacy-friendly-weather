@@ -159,4 +159,5 @@
     <string name="humidity">Umidità</string>
     <string name="activity_city_weather_tv_rain_volume">Volume pioggia:</string>
     <string name="activity_city_weather_tv_wind_direction">Direzione del vento:</string>
+    <string name="RainViewer">Rain Radar</string>
 </resources>

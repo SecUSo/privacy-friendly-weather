@@ -213,5 +213,6 @@
     <string name="activity_city_weather_tv_rain_volume">雨量</string>
     <string name="long_press_text">Long press to set as default city</string>
     <string name="swipe_to_delete">Swipe to delete</string>
+    <string name="RainViewer">Rain Radar</string>
 
 </resources>

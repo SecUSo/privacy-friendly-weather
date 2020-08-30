@@ -160,4 +160,5 @@
     <string name="activity_city_weather_tv_rain_volume">Regenvolumen:</string>
     <string name="long_press_text">Halten und ziehen Sie, um die Städte zu sortieren.</string>
     <string name="swipe_to_delete">Wischen Sie zum Löschen</string>
+    <string name="RainViewer">Regenradar</string>
 </resources>
