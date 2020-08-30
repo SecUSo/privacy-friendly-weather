@@ -146,4 +146,5 @@
     <string name="slide2_text">Você pode escolher seus próprios locais e obter informações detalhadas sobre o clima atual. Você pode procurar o melhor clima em um raio ao seu redor ou colocar widgets na tela inicial, mostrando o clima atual, uma previsão de três dias ou uma previsão de cinco dias</string>
     <string name="slide3_text">O código-fonte deste aplicativo está disponível no GitHub. Para mais explicações, consulte a página Sobre.</string>
     <string name="activity_city_weather_no_city_selected">Não há cidade selecionada. Para selecionar uma cidade, vá para Gerenciar locais.</string>
+    <string name="RainViewer">Rain Radar</string>
 </resources>
