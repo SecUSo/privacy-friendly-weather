@@ -124,6 +124,11 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         //empty because Fragments are subscribers themselves
     }
 
+    public int getCityIDForPos(int pos) {
+            CityToWatch city = cities.get(pos);
+                 return city.getCityId();
+    }
+
     public int getPosForCityID(int cityID) {
         for (int i = 0; i < cities.size(); i++) {
             CityToWatch city = cities.get(i);

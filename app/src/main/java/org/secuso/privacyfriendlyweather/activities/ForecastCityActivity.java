@@ -26,6 +26,8 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     private WeatherPagerAdapter pagerAdapter;
 
     private MenuItem refreshActionButton;
+    private MenuItem rainviewerButton;
+
     private int cityId = -1;
     private ViewPager viewPager;
     private TextView noCityText;
@@ -61,7 +63,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         overridePendingTransition(0, 0);
 
         cityId = getIntent().getIntExtra("cityId", -1);
-      
+
         initResources();
 
         viewPager.setAdapter(pagerAdapter);
@@ -131,6 +133,14 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
                 m.performIdentifierAction(refreshActionButton.getItemId(), 0);
             }
         });
+        rainviewerButton = menu.findItem(R.id.menu_rainviewer);
+        rainviewerButton.setActionView(R.layout.menu_rainviewer_view);
+        rainviewerButton.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                m.performIdentifierAction(rainviewerButton.getItemId(), 0);
+            }
+        });
 
         return true;
     }
@@ -143,11 +153,18 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         int id = item.getItemId();
 
         switch(id) {
+            case R.id.menu_rainviewer:
+
+                cityId = pagerAdapter.getCityIDForPos(viewPager.getCurrentItem());
+                Intent intent = new Intent(this, RainViewerActivity.class);
+                intent.putExtra("cityId", cityId);
+                startActivity(intent);
+                break;
+
             case R.id.menu_refresh:
+             pagerAdapter.refreshData(true);
 
-                pagerAdapter.refreshData(true);
-
-                RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+             RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotate.setDuration(500);
                 rotate.setRepeatCount(Animation.INFINITE);
                 rotate.setInterpolator(new LinearInterpolator());
