@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Thanks to luckyalvy for his rainviewer-api-example. https://github.com/rainviewer/rainviewer-api-example -->
 <html>
 <head>
     <title>RainViewer</title>
@@ -182,8 +183,13 @@ var map = L.map('mapid', {
     function play() {
         showFrame(animationPosition + 1);
 
-        // Main animation driver. Run this function every 500 ms
-        animationTimer = setTimeout(play, 500);
+        // Main animation driver. Run this function every 500 ms, latest position shown for 1500ms
+        if (animationPosition == (timestamps.length-1)) {
+            animationTimer = setTimeout(play, 1500);
+            }
+        else{
+            animationTimer = setTimeout(play, 500);
+            }
     }
 
     function playStop() {
