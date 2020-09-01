@@ -74,9 +74,8 @@ public class WeatherWidget extends AppWidgetProvider {
         views.setTextViewText(R.id.widget_city_weather_set, sunSet);
         views.setTextViewText(R.id.widget_city_weather_wind, windSpeed);
 
-        boolean isDay;
-        isDay = weatherData.getTimestamp() + weatherData.getTimeZoneSeconds() > weatherData.getTimeSunrise() && weatherData.getTimestamp() + weatherData.getTimeZoneSeconds() < weatherData.getTimeSunset();
 
+        boolean isDay = weatherData.getTimestamp()  > weatherData.getTimeSunrise() && weatherData.getTimestamp() < weatherData.getTimeSunset();
 
         views.setImageViewResource(R.id.widget_city_weather_image_view, UiResourceProvider.getIconResourceForWeatherCategory(weatherData.getWeatherID(), isDay));
 
