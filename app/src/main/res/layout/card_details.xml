@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:columnCount="4"
+            android:columnCount="2"
             android:orientation="vertical">
 
             <TextView
@@ -100,49 +100,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/colorPrimaryDark" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_wind_direction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_marginBottom="5dp"
-                android:layout_row="3"
-                android:text="@string/activity_city_weather_tv_wind_direction"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <TextView
-                android:id="@+id/activity_city_weather_tv_wind_direction_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_marginLeft="10dp"
-                android:layout_row="3"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimaryDark"  />
-
-            <TextView
-                android:id="@+id/activity_city_weather_tv_rain_volume"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_marginBottom="5dp"
-                android:layout_row="1"
-                android:text="@string/activity_city_weather_tv_rain_volume"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <TextView
-                android:id="@+id/activity_city_weather_tv_rain_volume_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_marginLeft="10dp"
-                android:layout_row="1"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimaryDark"  />
         </GridLayout>
     </LinearLayout>
 
