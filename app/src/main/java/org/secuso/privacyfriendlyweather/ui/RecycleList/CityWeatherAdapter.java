@@ -110,17 +110,17 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
 
         //temp max 0, temp min 1, humidity max 2, humidity min 3, wind max 4, wind min 5, wind direction 6, rain total 7, time 8, weather ID 9, number of FCs for day 10
-        float[] today = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
+        float[] today = {-Float.MAX_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
         LinkedList<Integer> todayIDs = new LinkedList<>();
-        float[] tomorrow = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
+        float[] tomorrow = {-Float.MAX_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
         LinkedList<Integer> tomorrowIDs = new LinkedList<>();
-        float[] in2days = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
+        float[] in2days = {-Float.MAX_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
         LinkedList<Integer> in2daysIDs = new LinkedList<>();
-        float[] in3days = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
+        float[] in3days = {-Float.MAX_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
         LinkedList<Integer> in3daysIDs = new LinkedList<>();
-        float[] in4days = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
+        float[] in4days = {-Float.MAX_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
         LinkedList<Integer> in4daysIDs = new LinkedList<>();
-        float[] in5days = {Float.MIN_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
+        float[] in5days = {-Float.MAX_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
         LinkedList<Integer> in5daysIDs = new LinkedList<>();
 
         long daystart = cal.getTimeInMillis();
