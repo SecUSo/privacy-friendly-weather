@@ -106,6 +106,14 @@
     <string name="settings__API_key_default">No API Key provided</string>
     <string name="settings_title_API_key_reset">Reset API Key</string>
 
+    <string name="widgets_settings">Widgets</string>
+    <string name="fivedaywidgetchoice">Set the additional information for 5-day widgets at the bottom.</string>
+    <string name="fivedaywidget">5-day widget</string>
+    <string name="threedaywidgetchoice_one">Set the first additional information for 3-day widgets at the bottom.</string>
+    <string name="threedaywidget_first">3-day widget (1)</string>
+    <string name="threedaywidgetchoice_two">Set the second additional information for 3-day widgets at the bottom.</string>
+    <string name="threedaywidget_second">3-day widget (2)</string>
+
     <!-- ###CITY_WEATHER_ACTIVIY### -->
     <string name="activity_city_weather_label">Weather Overview</string>
     <string name="activity_city_weather_iv_description">An image that fits the weather category</string>
@@ -223,5 +231,11 @@
     <string name="long_press_text">Long press to set as default city</string>
     <string name="swipe_to_delete">Swipe to delete</string>
     <string name="default_city">Default</string>
+    <string name="rain_volume">Rain volume</string>
+    <string name="wind">Wind</string>
+    <string name="humidity">Humidity</string>
+    <string name="activity_city_weather_tv_wind_direction">Wind direction:</string>
+    <string name="activity_city_weather_tv_rain_volume">Rain volume:</string>
+
 
 </resources>

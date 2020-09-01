@@ -149,4 +149,16 @@
     <string name="long_press_text">Pressione e segure para definir como cidade padrão</string>
     <string name="swipe_to_delete">Deslize para excluir</string>
     <string name="default_city">Padrão</string>
+    <string name="widgets_settings">Widgets</string>
+    <string name="fivedaywidgetchoice">Definir a informação adicional para widgets de 5 dias</string>
+    <string name="fivedaywidget">Widget de 5 dias</string>
+    <string name="threedaywidgetchoice_one">Definir as primeiras informações adicionais para widgets de 3 dias</string>
+    <string name="threedaywidget_first">Widget de 3 dias (1)</string>
+    <string name="threedaywidgetchoice_two">Definir a segunda informação adicional para widgets de 3 dias</string>
+    <string name="threedaywidget_second">Widget de 3 dias (2)</string>
+    <string name="rain_volume">Volume de chuva</string>
+    <string name="wind">Vento</string>
+    <string name="humidity">Humidade</string>
+    <string name="activity_city_weather_tv_rain_volume">Volume de chuva:</string>
+    <string name="activity_city_weather_tv_wind_direction">Direcção do vento:</string>
 </resources>

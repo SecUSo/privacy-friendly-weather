@@ -140,4 +140,16 @@ public class AppPreferencesManager {
         }
     }
 
+    public int get5dayWidgetInfo(){
+        return Integer.parseInt(preferences.getString("widgetChoice1", "1"));
+    }
+
+    public int get3dayWidgetInfo1(){
+        return Integer.parseInt(preferences.getString("widgetChoice2", "1"));
+    }
+
+    public int get3dayWidgetInfo2(){
+        return Integer.parseInt(preferences.getString("widgetChoice3", "2"));
+    }
+
 }

@@ -54,4 +54,15 @@
         <item>@color/dot_dark_screen</item>
         <item>@color/dot_dark_screen</item>
     </array>
+
+    <string-array name="widgetChoiceArray">
+        <item>@string/rain_volume</item>
+        <item>@string/wind</item>
+        <item>@string/humidity</item>
+    </string-array>
+    <string-array name="widgetChoiceValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>

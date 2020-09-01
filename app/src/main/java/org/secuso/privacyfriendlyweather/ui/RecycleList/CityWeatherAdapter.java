@@ -57,7 +57,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     // function for 3-hour forecast list
     public void updateForecastData(List<Forecast> forecasts) {
-        Log.d("forecast", "in cityweatheradapter " + forecasts.get(0).getCity_id() + " " + forecasts.size() + " " + forecasts.get(0).getForecastTime());
+        //Log.d("forecast", "in cityweatheradapter " + forecasts.get(0).getCity_id() + " " + forecasts.size() + " " + forecasts.get(0).getForecastTime());
         forecastData = compressWeatherData(forecasts);
         courseDayList = new ArrayList<Forecast>();
 
@@ -359,12 +359,17 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView humidity;
         TextView pressure;
         TextView windspeed;
+        TextView winddirection;
+        TextView rainfall;
 
         DetailViewHolder(View v) {
             super(v);
             this.humidity = v.findViewById(R.id.activity_city_weather_tv_humidity_value);
             this.pressure = v.findViewById(R.id.activity_city_weather_tv_pressure_value);
             this.windspeed = v.findViewById(R.id.activity_city_weather_tv_wind_speed_value);
+            this.winddirection = v.findViewById(R.id.activity_city_weather_tv_wind_direction_value);
+            this.rainfall = v.findViewById(R.id.activity_city_weather_tv_rain_volume_value);
+            Log.d("devtag",rainfall.toString());
         }
     }
 
@@ -446,8 +451,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        boolean isDay;
-        isDay = currentWeatherDataList.getTimestamp() + currentWeatherDataList.getTimeZoneSeconds() > currentWeatherDataList.getTimeSunrise() && currentWeatherDataList.getTimestamp() + currentWeatherDataList.getTimeZoneSeconds() < currentWeatherDataList.getTimeSunset();
+
+        boolean isDay = currentWeatherDataList.getTimestamp() >currentWeatherDataList.getTimeSunrise() && currentWeatherDataList.getTimestamp() < currentWeatherDataList.getTimeSunset();
+      
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
             setImage(currentWeatherDataList.getWeatherID(), holder.weather, isDay);
@@ -460,6 +466,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), "%"));
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
             holder.windspeed.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getWindSpeed(), " m/s"));
+            holder.winddirection.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getWindDirection(),"°"));
+            holder.rainfall.setText(StringFormatUtils.formatDecimal(15,"ml"));
 
         } else if (viewHolder.getItemViewType() == WEEK) {
 
