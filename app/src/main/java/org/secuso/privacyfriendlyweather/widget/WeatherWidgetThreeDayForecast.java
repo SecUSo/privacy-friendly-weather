@@ -76,9 +76,46 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
                 prefManager.getWeatherUnit()
         );
 
-        String hum1 = String.format("%s | %s%%", (int) data[0][2], (int) data[0][3]);
-        String hum2 = String.format("%s | %s%%", (int) data[1][2], (int) data[1][3]);
-        String hum3 = String.format("%s | %s%%", (int) data[2][2], (int) data[2][3]);
+        String extra11 = "";
+        String extra12 = "";
+        String extra13 = "";
+        //select extra information to display from settings
+        int extraInfo = prefManager.get3dayWidgetInfo1();
+        if (extraInfo == 1) {
+            extra11 = String.format("%s ml   ", (int) data[0][7]);
+            extra12 = String.format("%s ml   ", (int) data[1][7]);
+            extra13 = String.format("%s ml   ", (int) data[2][7]);
+        } else if (extraInfo == 2) {
+            //wind max & min
+            extra11 = String.format("%s | %sm/s   ", (int) data[0][4], (int) data[0][5]);
+            extra12 = String.format("%s | %sm/s   ", (int) data[1][4], (int) data[1][5]);
+            extra13 = String.format("%s | %sm/s   ", (int) data[2][4], (int) data[2][5]);
+        } else {
+            extra11 = String.format("%s | %s%%   ", (int) data[0][2], (int) data[0][3]);
+            extra12 = String.format("%s | %s%%   ", (int) data[1][2], (int) data[1][3]);
+            extra13 = String.format("%s | %s%%   ", (int) data[2][2], (int) data[2][3]);
+        }
+
+        String extra21 = "";
+        String extra22 = "";
+        String extra23 = "";
+        //select extra information to display from settings
+        int extra2Info = prefManager.get3dayWidgetInfo2();
+        if (extra2Info == 1) {
+            extra21 = String.format("%s ml", (int) data[0][7]);
+            extra22 = String.format("%s ml", (int) data[1][7]);
+            extra23 = String.format("%s ml", (int) data[2][7]);
+        } else if (extra2Info == 2) {
+            //wind max & min
+            extra21 = String.format("%s | %sm/s", (int) data[0][4], (int) data[0][5]);
+            extra22 = String.format("%s | %sm/s", (int) data[1][4], (int) data[1][5]);
+            extra23 = String.format("%s | %sm/s", (int) data[2][4], (int) data[2][5]);
+        } else {
+            extra21 = String.format("%s | %s%%", (int) data[0][2], (int) data[0][3]);
+            extra22 = String.format("%s | %s%%", (int) data[1][2], (int) data[1][3]);
+            extra23 = String.format("%s | %s%%", (int) data[2][2], (int) data[2][3]);
+        }
+
 
         views.setTextViewText(R.id.widget_city_name, city.getCityName());
 
@@ -88,9 +125,9 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
         views.setTextViewText(R.id.widget_city_weather_3day_temp1, temperature1);
         views.setTextViewText(R.id.widget_city_weather_3day_temp2, temperature2);
         views.setTextViewText(R.id.widget_city_weather_3day_temp3, temperature3);
-        views.setTextViewText(R.id.widget_city_weather_3day_hum1, hum1);
-        views.setTextViewText(R.id.widget_city_weather_3day_hum2, hum2);
-        views.setTextViewText(R.id.widget_city_weather_3day_hum3, hum3);
+        views.setTextViewText(R.id.widget_city_weather_3day_hum1, extra11 + extra21);
+        views.setTextViewText(R.id.widget_city_weather_3day_hum2, extra12 + extra22);
+        views.setTextViewText(R.id.widget_city_weather_3day_hum3, extra13 + extra23);
 
         views.setImageViewResource(R.id.widget_city_weather_3day_image1, UiResourceProvider.getIconResourceForWeatherCategory((int) data[0][9], true));
         views.setImageViewResource(R.id.widget_city_weather_3day_image2, UiResourceProvider.getIconResourceForWeatherCategory((int) data[1][9], true));
