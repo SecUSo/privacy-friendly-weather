@@ -57,7 +57,8 @@
     <string name="radius_search_label">Umkreissuche</string>
     <string name="radius_search_result_label">Suchergebnis</string>
     <string name="radius_search_heading">Das beste Wetter um einen Ort herum finden</string>
-    <string name="radius_search_tv_edge_length">Kantenlänge des Suchquadrates</string><string name="help_intro">Willkommen auf der Hilfeseite. Mit dieser App können Orte hinzugefügt werden, zu denen sowohl das aktuelle Wetter wie auch Wettervorhersagen eingesehen werden können.
+    <string name="radius_search_tv_edge_length">Kantenlänge des Suchquadrates</string>
+    <string name="help_intro">Willkommen auf der Hilfeseite. Mit dieser App können Orte hinzugefügt werden, zu denen sowohl das aktuelle Wetter wie auch Wettervorhersagen eingesehen werden können.
         \n Darüber hinaus kann eine Umkreissuche durchgeführt werden, mit der die Orte mit dem besten Wetter um einen angegebenen Ort ermittelt werden können.</string>
     <string name="navigation_drawer_close">Navigationsleiste schließen</string>
     <string name="privacy_friendly">Diese App gehört zur Gruppe der Privacy Friendly Apps entwickelt von der Forschungsgruppe SECUSO. Quelltext lizenziert unter GPLv3. Bilder copyright SECUSO und Google Inc.</string>
@@ -146,4 +147,7 @@
     <string name="settings_title_API_key_reset">API Key zurücksetzen</string>
     <string name="settings_update_interval">Intervall der automatischen Updates</string>
     <string name="activity_city_weather_no_city_selected">Sie haben keine Stadt ausgewählt. Wählen Sie \"Orte verwalten\" in der Navigation um eine Stadt auszuwählen.</string>
+    <string name="long_press_text">Drücken Sie lange, um die Standard Stadt festzulegen</string>
+    <string name="swipe_to_delete">Wischen Sie zum Löschen</string>
+    <string name="default_city">Standard</string>
 </resources>

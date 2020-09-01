@@ -76,7 +76,7 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
                     weatherData.setCity_id(cityId);
 
                     CurrentWeatherData current = dbHelper.getCurrentWeatherByCityId(cityId);
-                    if(current != null && current.getCity_id() == cityId) {
+                    if (current != null && current.getCity_id() == cityId) {
                         dbHelper.updateCurrentWeather(weatherData);
                     } else {
                         dbHelper.addCurrentWeather(weatherData);

@@ -100,7 +100,7 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
         intent.putExtra("cityId", city.getCityId());
         PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
         views.setOnClickPendingIntent(R.id.widget3day_layout, pendingIntent);
-        
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -136,17 +136,17 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    public static void forceWidgetUpdate(Context context){
+    public static void forceWidgetUpdate(Context context) {
         forceWidgetUpdate(null, context);
     }
 
-    public static void forceWidgetUpdate(Integer widgetId, Context context){
+    public static void forceWidgetUpdate(Integer widgetId, Context context) {
         Intent intent = new Intent(context, WeatherWidgetThreeDayForecast.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         int[] ids;
-        if(widgetId == null) {
+        if (widgetId == null) {
             ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidgetThreeDayForecast.class));
-        }else{
+        } else {
             ids = new int[]{widgetId};
         }
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);

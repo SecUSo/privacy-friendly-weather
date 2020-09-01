@@ -78,7 +78,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 //        dateFormat.setCalendar(calendar);
 //        calendar.setTimeInMillis(lastUpdateTime*1000);
-        if(cities.size() == 0) {
+        if (cities.size() == 0) {
             return mContext.getString(R.string.app_name);
         }
         return cities.get(position).getCityName(); // + " (" + dateFormat.format(calendar.getTime()) + ")";
@@ -86,14 +86,14 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
 
     public CharSequence getPageTitleForActionBar(int position) {
 
-        int zoneseconds=0;
+        int zoneseconds = 0;
         //fallback to last time the weather data was updated
         long time = lastUpdateTime;
         int currentCityId = cities.get(position).getCityId();
         //search for current city
         //TODO could time get taken from an old weatherData or is it removed on Update?
-        for(CurrentWeatherData weatherData : currentWeathers) {
-            if(weatherData.getCity_id() == currentCityId) {
+        for (CurrentWeatherData weatherData : currentWeathers) {
+            if (weatherData.getCity_id() == currentCityId) {
                 //set time to last update time for the city and zoneseconds to UTC difference (in seconds)
                 time = weatherData.getTimestamp();
                 zoneseconds += weatherData.getTimeZoneSeconds();
@@ -103,7 +103,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         //for formatting into time respective to UTC/GMT
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date updateTime = new Date((time+zoneseconds)*1000L);
+        Date updateTime = new Date((time + zoneseconds) * 1000L);
         return String.format("%s (%s)", getPageTitle(position), dateFormat.format(updateTime));
     }
 

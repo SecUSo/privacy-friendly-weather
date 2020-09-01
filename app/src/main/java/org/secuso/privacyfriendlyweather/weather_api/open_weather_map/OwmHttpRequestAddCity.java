@@ -2,11 +2,11 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
 
+import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.http.HttpRequestType;
 import org.secuso.privacyfriendlyweather.http.IHttpRequest;
 import org.secuso.privacyfriendlyweather.http.VolleyHttpRequest;
-import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
 
 import java.util.List;

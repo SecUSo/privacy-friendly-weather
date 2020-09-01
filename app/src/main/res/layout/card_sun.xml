@@ -60,7 +60,7 @@
                 android:background="@color/colorAccent"
                 android:layout_toEndOf="@+id/sun"
                 android:layout_toStartOf="@+id/moon"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true" />
 
             <ImageView
                 android:id="@+id/moon"

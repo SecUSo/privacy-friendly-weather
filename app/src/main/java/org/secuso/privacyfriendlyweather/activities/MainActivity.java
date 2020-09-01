@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_view_cities);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getBaseContext()));
+      //  recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getBaseContext()));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getBaseContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -122,8 +122,9 @@ public class MainActivity extends BaseActivity {
 
     public void setDefaultLocation(CityToWatch city) {
         prefManager.setDefaultLocation(city.getCityId());
-        Toast.makeText(getBaseContext(), getString(R.string.default_location, city.getCityName()) , Toast.LENGTH_SHORT).show();
-        adapter.notifyDataSetChanged();    }
+        Toast.makeText(getBaseContext(), getString(R.string.default_location, city.getCityName()), Toast.LENGTH_SHORT).show();
+        adapter.notifyDataSetChanged();
+    }
 
     public void startFetchingService(int cityId) {
         // Start a background task to retrieve and store the weather data
@@ -148,7 +149,7 @@ public class MainActivity extends BaseActivity {
         return R.id.nav_manage;
     }
 
-    public void addCityToList(CityToWatch city){
+    public void addCityToList(CityToWatch city) {
         cities.add(city);
         adapter.notifyDataSetChanged();
     }

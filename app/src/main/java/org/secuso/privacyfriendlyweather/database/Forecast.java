@@ -2,8 +2,6 @@ package org.secuso.privacyfriendlyweather.database;
 
 import android.content.Context;
 
-import java.util.Date;
-
 /**
  * This class is the database model for the forecasts table.
  */
@@ -13,7 +11,7 @@ public class Forecast {
     private int id;
     private int city_id;
     private long timestamp;
-    private Date forecastFor;
+    private long forecastFor;
     private int weatherID;
     private float temperature;
     private float humidity;
@@ -27,7 +25,7 @@ public class Forecast {
     public Forecast() {
     }
 
-    public Forecast(int id, int city_id, long timestamp, Date forecastFor, int weatherID, float temperature, float humidity,
+    public Forecast(int id, int city_id, long timestamp, long forecastFor, int weatherID, float temperature, float humidity,
                     float pressure, float windSpeed, float windDirection, float rainValue) {
         this.id = id;
         this.city_id = city_id;
@@ -69,27 +67,26 @@ public class Forecast {
         this.id = id;
     }
 
-    public void setForecastFor(Date forecastFor) {
-        this.forecastFor = forecastFor;
-    }
-
     /**
      * @return Returns the date and time for the forecast.
      */
-    public Date getForecastTime() {
+    public long getForecastTime() {
         return forecastFor;
     }
 
-    public Date getLocalForecastTime(Context context) {
+    /**
+     * @return Returns the local time for the forecast in UTC epoch
+     */
+    public long getLocalForecastTime(Context context) {
         PFASQLiteHelper dbhelper = PFASQLiteHelper.getInstance(context);
         int timezoneseconds = dbhelper.getCurrentWeatherByCityId(city_id).getTimeZoneSeconds();
-        return new Date(forecastFor.getTime() + timezoneseconds * 1000);
+        return forecastFor + timezoneseconds * 1000L;
     }
 
     /**
      * @param forecastFor The point of time for the forecast.
      */
-    public void setForecastTime(Date forecastFor) {
+    public void setForecastTime(long forecastFor) {
         this.forecastFor = forecastFor;
     }
 

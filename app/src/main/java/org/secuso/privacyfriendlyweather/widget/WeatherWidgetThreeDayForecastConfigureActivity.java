@@ -33,7 +33,7 @@ public class WeatherWidgetThreeDayForecastConfigureActivity extends Activity {
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
-           handleOk();
+            handleOk();
         }
     };
 

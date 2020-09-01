@@ -42,7 +42,7 @@ public class UpdateDataService extends JobIntentService {
     public static final String UPDATE_WIDGET_ACTION = "org.secuso.privacyfriendlyweather.services.UpdateDataService.UPDATE_WIDGET_ACTION";
 
     public static final String CITY_ID = "cityId";
-    public static final String SKIP_UPDATE_INTERVAL= "skipUpdateInterval";
+    public static final String SKIP_UPDATE_INTERVAL = "skipUpdateInterval";
 
     private PFASQLiteHelper dbHelper;
     private SharedPreferences prefManager;
@@ -80,10 +80,12 @@ public class UpdateDataService extends JobIntentService {
             return;
         }
 
-        if(intent != null) {
-            if      (UPDATE_ALL_ACTION.equals(intent.getAction()))              handleUpdateAll(intent);
-            else if (UPDATE_CURRENT_WEATHER_ACTION.equals(intent.getAction()))  handleUpdateCurrentWeatherAction(intent);
-            else if (UPDATE_FORECAST_ACTION.equals(intent.getAction()))         handleUpdateForecastAction(intent);
+        if (intent != null) {
+            if (UPDATE_ALL_ACTION.equals(intent.getAction())) handleUpdateAll(intent);
+            else if (UPDATE_CURRENT_WEATHER_ACTION.equals(intent.getAction()))
+                handleUpdateCurrentWeatherAction(intent);
+            else if (UPDATE_FORECAST_ACTION.equals(intent.getAction()))
+                handleUpdateForecastAction(intent);
             else if (UPDATE_WIDGET_ACTION.equals(intent.getAction())) handleWidgetUpdate(intent);
         }
     }
@@ -92,7 +94,7 @@ public class UpdateDataService extends JobIntentService {
 
         int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
         int widgetType = intent.getIntExtra("widget_type", 0);
-        Log.d("devtag", "widgetUpdate: type " + widgetType + " id: " + widgetId);
+        //Log.d("devtag", "widgetUpdate: type " + widgetType + " id: " + widgetId);
 
         if (widgetId > -1 && widgetType > 0) {
 
@@ -126,12 +128,13 @@ public class UpdateDataService extends JobIntentService {
 
     /**
      * Be careful, with using this. It can cause many calls to the API, because it wants to update everything if the update interval allows it.
+     *
      * @param intent contains necessary parameters for the service work
      */
     private void handleUpdateAll(Intent intent) {
         handleUpdateCurrentWeatherAction(intent);
         List<CityToWatch> cities = dbHelper.getAllCitiesToWatch();
-        for(CityToWatch c : cities) {
+        for (CityToWatch c : cities) {
             handleUpdateForecastAction(intent, c.getCityId());
         }
     }
@@ -143,7 +146,7 @@ public class UpdateDataService extends JobIntentService {
 
         long timestamp = 0;
         long systemTime = System.currentTimeMillis() / 1000;
-        long updateInterval = 2*60*60;
+        long updateInterval = 2 * 60 * 60;
 
         if (!skipUpdateInterval) {
             // check timestamp of the current forecasts
@@ -190,11 +193,11 @@ public class UpdateDataService extends JobIntentService {
             // check timestamp of the current weather .. if one of them is out of date.. update them all at once
             List<CurrentWeatherData> weather = dbHelper.getAllCurrentWeathers();
 
-            for(CityToWatch city : citiesToWatch) {
+            for (CityToWatch city : citiesToWatch) {
                 int cityId = city.getCityId();
                 boolean foundId = false;
                 for (CurrentWeatherData w : weather) {
-                    if(w.getCity_id() == cityId) {
+                    if (w.getCity_id() == cityId) {
 
                         foundId = true;
 
@@ -205,7 +208,7 @@ public class UpdateDataService extends JobIntentService {
                         }
                     }
                 }
-                if(shouldUpdate || !foundId) {
+                if (shouldUpdate || !foundId) {
                     shouldUpdate = true;
                     break;
                 }

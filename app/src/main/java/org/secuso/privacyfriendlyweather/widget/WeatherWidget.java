@@ -74,13 +74,10 @@ public class WeatherWidget extends AppWidgetProvider {
         views.setTextViewText(R.id.widget_city_weather_set, sunSet);
         views.setTextViewText(R.id.widget_city_weather_wind, windSpeed);
 
-        boolean isDay;
-        if(weatherData.getTimestamp()  > weatherData.getTimeSunrise() && weatherData.getTimestamp() < weatherData.getTimeSunset()){
-            isDay = true;
-        } else {isDay = false;}
 
+        boolean isDay = weatherData.getTimestamp()  > weatherData.getTimeSunrise() && weatherData.getTimestamp() < weatherData.getTimeSunset();
 
-        views.setImageViewResource(R.id.widget_city_weather_image_view, UiResourceProvider.getIconResourceForWeatherCategory(weatherData.getWeatherID(),isDay));
+        views.setImageViewResource(R.id.widget_city_weather_image_view, UiResourceProvider.getIconResourceForWeatherCategory(weatherData.getWeatherID(), isDay));
 
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", city.getCityId());
@@ -122,17 +119,17 @@ public class WeatherWidget extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    public static void forceWidgetUpdate(Context context){
+    public static void forceWidgetUpdate(Context context) {
         forceWidgetUpdate(null, context);
     }
 
-    public static void forceWidgetUpdate(Integer widgetId, Context context){
+    public static void forceWidgetUpdate(Integer widgetId, Context context) {
         Intent intent = new Intent(context, WeatherWidget.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         int[] ids;
-        if(widgetId == null) {
+        if (widgetId == null) {
             ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
-        }else{
+        } else {
             ids = new int[]{widgetId};
         }
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);

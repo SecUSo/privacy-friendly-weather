@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by yonjuni on 02.01.17.
@@ -24,11 +25,11 @@ import java.util.List;
 public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.WeekForecastViewHolder> {
 
     private Context context;
-    private List<Forecast> forecastList;
+    private float[][] forecastData;
 
-    WeekWeatherAdapter(List<Forecast> forecastList, Context context) {
+    WeekWeatherAdapter(float[][] forecastData, Context context) {
         this.context = context;
-        this.forecastList = forecastList;
+        this.forecastData = forecastData;
     }
 
     @Override
@@ -39,16 +40,21 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
 
     @Override
     public void onBindViewHolder(WeekForecastViewHolder holder, int position) {
-        Forecast f = forecastList.get(position);
+        float[] dayValues = forecastData[position];
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
+        DecimalFormat decimalFormat = new DecimalFormat("#.0");
 
-        setIcon(f.getWeatherID(), holder.weather);
-        holder.humidity.setText(StringFormatUtils.formatInt(f.getHumidity(), "%"));
 
-        Calendar c = new GregorianCalendar();
-        c.setTime(f.getLocalForecastTime(context));
+        setIcon((int) dayValues[9], holder.weather);
+        holder.humidity.setText(String.format("%s | %s%%", StringFormatUtils.formatInt(dayValues[2]), StringFormatUtils.formatInt(dayValues[3])));
+
+        Calendar c = Calendar.getInstance();
+        c.setTimeZone(TimeZone.getTimeZone("GMT"));
+        c.setTimeInMillis((long) dayValues[8]);
         int day = c.get(Calendar.DAY_OF_WEEK);
 
-        switch(day) {
+        switch (day) {
             case Calendar.MONDAY:
                 day = R.string.abbreviation_monday;
                 break;
@@ -74,12 +80,13 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
                 day = R.string.abbreviation_monday;
         }
         holder.day.setText(day);
-        holder.temperature.setText(StringFormatUtils.formatTemperature(context, f.getTemperature()));
+        holder.temperature.setText(String.format("%s | %s%s", decimalFormat.format(prefManager.convertTemperatureFromCelsius(dayValues[0])),
+                decimalFormat.format(prefManager.convertTemperatureFromCelsius(dayValues[1])), prefManager.getWeatherUnit()));
     }
 
     @Override
     public int getItemCount() {
-        return forecastList.size();
+        return forecastData.length - 1;
     }
 
     class WeekForecastViewHolder extends RecyclerView.ViewHolder {

@@ -4,7 +4,8 @@ import android.content.Context;
 
 import org.secuso.privacyfriendlyweather.R;
 
-/**TODO Delele after redesign
+/**
+ * TODO Delete after redesign
  * This class is sort of the counterpart class to IApiToDatabaseConversion as it takes values from
  * the database and converts them (not necessarily API-dependent).
  */
@@ -38,7 +39,7 @@ public class ValueDeriver {
                 return context.getResources().getString(R.string.weather_category_scattered_clouds);
             case BROKEN_CLOUDS:
                 return context.getResources().getString(R.string.weather_category_broken_clouds);
-            case OVERCAST_CLOUDS:_CLOUDS:
+            case OVERCAST_CLOUDS:
                 return context.getResources().getString(R.string.weather_category_overcast_clouds);
             case DRIZZLE_RAIN:
                 return context.getResources().getString(R.string.weather_category_drizzle_rain);

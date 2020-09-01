@@ -35,7 +35,7 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
     /**
      * Constructor.
      *
-     * @param context  The context of the HTTP request.
+     * @param context The context of the HTTP request.
      */
     public ProcessOwmAddCityRequest(Context context) {
         this.context = context;

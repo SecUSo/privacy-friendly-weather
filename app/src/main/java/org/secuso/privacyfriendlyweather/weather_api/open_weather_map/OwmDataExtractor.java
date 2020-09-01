@@ -9,11 +9,6 @@ import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * This is a concrete implementation for extracting weather data that was retrieved by
  * OpenWeatherMap.
@@ -224,11 +219,12 @@ public class OwmDataExtractor implements IDataExtractor {
             Forecast forecast = new Forecast();
             JSONObject jsonData = new JSONObject(data);
 
-            forecast.setTimestamp(jsonData.getLong("dt"));
+            forecast.setTimestamp(System.currentTimeMillis() / 1000);
 
-            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date forecastTime = formatter.parse(jsonData.getString("dt_txt"));
-            forecast.setForecastTime(forecastTime);
+            //forecast.setTimestamp(jsonData.getLong("dt"));
+
+
+            forecast.setForecastTime(jsonData.getLong("dt") * 1000L);
 
             IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
             JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
@@ -259,7 +255,7 @@ public class OwmDataExtractor implements IDataExtractor {
             }
 
             return forecast;
-        } catch (JSONException | ParseException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;

@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLines="1"
-                android:imeOptions="actionSearch"/>
+                android:imeOptions="actionSearch" />
 
             <TextView
                 android:id="@+id/radius_search_tv_edge_length"
@@ -103,7 +103,7 @@
                 android:textColor="@color/white"
                 android:background="@drawable/button_disabled"
                 android:text="@string/radius_search_btn_search"
-                android:enabled="false"/>
+                android:enabled="false" />
         </LinearLayout>
 
     </ScrollView>
