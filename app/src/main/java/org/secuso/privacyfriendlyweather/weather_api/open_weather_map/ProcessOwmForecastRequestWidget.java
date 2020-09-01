@@ -80,6 +80,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
             JSONArray list = json.getJSONArray("list");
             int cityId = json.getJSONObject("city").getInt("id");
 
+            //delete forecasts older than 24 hours
             dbHelper.deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
 
             List<Forecast> forecasts = new ArrayList<>();
@@ -101,7 +102,16 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
                     forecasts.add(forecast);
                 }
             }
-
+            /*
+            //make current weather another Forecast because the data can be used
+            CurrentWeatherData weatherData = dbHelper.getCurrentWeatherByCityId(cityId);
+            Forecast current = new Forecast(0, weatherData.getCity_id(), weatherData.getTimestamp()*1000L,
+                    weatherData.getTimestamp()*1000L, weatherData.getWeatherID(), weatherData.getTemperatureCurrent(),
+                    weatherData.getHumidity(), weatherData.getPressure(), weatherData.getWindSpeed(),
+                    weatherData.getWindDirection(), 0);
+            forecasts.add(0,current);
+            dbHelper.addForecast(current);
+            */
 
             ViewUpdater.updateForecasts(forecasts);
             updateWidget();
@@ -131,28 +141,28 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
         City city = dbHelper.getCityById(cityId);
-        // List<Forecast> weekForecastList = new ArrayList<>();
 
         if (widgetType == 1) {
-            CurrentWeatherData weatherData = dbHelper.getCurrentWeatherByCityId(city.getCityId());
+            CurrentWeatherData weatherData = dbHelper.getCurrentWeatherByCityId(cityId);
+
             WeatherWidget.updateView(context, appWidgetManager, views, widgetId, city, weatherData);
 
-        } else if (widgetType == 3) {
-            long start = System.nanoTime();
-            List<Forecast> forecastList = dbHelper.getForecastsByCityId(cityId);
-            float[][] data = compressWeatherData(forecastList);
-            long end = System.nanoTime();
-            Log.d("devtag", "compressTime3: " + (end - start) / 1000000.0 + "ms");
-            WeatherWidgetThreeDayForecast.updateView(context, appWidgetManager, views, widgetId, data, city);
-
         } else {
-            long start = System.nanoTime();
             List<Forecast> forecastList = dbHelper.getForecastsByCityId(cityId);
+            long start = System.nanoTime();
+
             float[][] data = compressWeatherData(forecastList);
             long end = System.nanoTime();
-            Log.d("devtag", "compressTime5: " + (end - start) / 1000000.0 + "ms");
-            WeatherWidgetFiveDayForecast.updateView(context, appWidgetManager, views, widgetId, data, city);
+            Log.d("devtag", "compressTime: " + (end - start) / 1000000.0 + "ms");
+
+            if (widgetType == 3) {
+                WeatherWidgetThreeDayForecast.updateView(context, appWidgetManager, views, widgetId, data, city);
+            } else {
+                WeatherWidgetFiveDayForecast.updateView(context, appWidgetManager, views, widgetId, data, city);
+            }
+
         }
+
 
         dbHelper.close();
 

@@ -60,6 +60,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
             JSONArray list = json.getJSONArray("list");
             int cityId = json.getJSONObject("city").getInt("id");
 
+            //delete forecasts older than 24 hours
             dbHelper.deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
 
             List<Forecast> forecasts = new ArrayList<>();
@@ -81,7 +82,17 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
                     forecasts.add(forecast);
                 }
             }
-
+            /*
+            //make current weather another Forecast because the data can be used
+            CurrentWeatherData weatherData = dbHelper.getCurrentWeatherByCityId(cityId);
+            Forecast current = new Forecast(0, cityId, weatherData.getTimestamp()*1000L,
+                    weatherData.getTimestamp()*1000L, weatherData.getWeatherID(), weatherData.getTemperatureCurrent(),
+                    weatherData.getHumidity(), weatherData.getPressure(), weatherData.getWindSpeed(),
+                    weatherData.getWindDirection(), 0);
+            forecasts.add(0,current);
+            Log.d("forecast", "timestamp!: "+weatherData.getTimestamp());
+            dbHelper.addForecast(current);
+            */
 
             ViewUpdater.updateForecasts(forecasts);
 
