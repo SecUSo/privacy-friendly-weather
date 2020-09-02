@@ -14,14 +14,25 @@
             list-style: none;
             display: inline-block;
         }
+
+        .btn {
+        border: 2px solid #a8a8a8;
+        outline: none;
+        background-color:white;
+        font-size:110%;
+        font-weight:bold;
+        height:30px;
+        border-radius: 6px;
+        }
     </style>
 </head>
-<body>
+
+<body style="background-color:#8aa5ce;">
 
 <ul style="text-align:center; position: absolute;top: 0; left: 0; right: 0; height: 50px;">
-    <li><input type="button" onclick="stop(); showFrame(animationPosition - 1); return;" value="&lt;" /></li>
-    <li><input type="button" onclick="playStop();" value="Start / Stop" /></li>
-    <li><input type="button" onclick="stop(); showFrame(animationPosition + 1); return;" value="&gt;" /></li>
+    <li><button class="btn" onclick="stop(); showFrame(animationPosition - 1); return;"> &lt </button></li>
+    <li><button class="btn" onclick="playStop();"> Start / Stop </button></li>
+    <li><button class="btn" onclick="stop(); showFrame(animationPosition + 1); return;"> &gt </button></li>
 </ul>
 
 <div id="timestamp" style="text-align:center; position: absolute;top: 50px; left: 0; right: 0; height: 80px;">FRAME TIME</div>
@@ -48,7 +59,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
         };
 
   
-document.write("CityID=" + getUrlParameter('cityid') + "<br>");
+//document.write("CityID=" + getUrlParameter('cityid') + "<br>");
 document.write("APPID=" + getUrlParameter('appid') + "<br>");
 
 var weatherdata =[]; 
