@@ -15,7 +15,7 @@ jobs:
       - name: Run unit tests
         run: ./gradlew test
         
-  instrumentedTest:
+  androidTest:
     name: Instrumented Tests
     runs-on: macOS-latest
     steps:
@@ -25,7 +25,13 @@ jobs:
         with:
           java-version: 1.8
       - name: Run Instrumented Tests
-        uses: vgaidarji/android-github-actions-emulator@v1.0.1
+        uses: reactivecircus/android-emulator-runner@v1
+        with:
+          api-level: 29
+          arch: x86
+          disable-animations: true
+          script: ./gradlew connectedAndroidTest --stacktrace
+    
 
   apk:
     name: Build APK
