@@ -90,6 +90,7 @@ var map = L.map('mapid', {
         attributions: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+var marker = L.marker([weatherdata.coord.lat, weatherdata.coord.lon]).addTo(map);
 
     /**
      * RainViewer radar animation part
