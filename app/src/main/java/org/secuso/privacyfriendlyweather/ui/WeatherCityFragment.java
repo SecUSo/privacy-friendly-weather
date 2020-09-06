@@ -69,12 +69,12 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        ViewUpdater.addSubsriber(this);
+        ViewUpdater.addSubscriber(this);
     }
 
     @Override
     public void onDetach() {
-        ViewUpdater.removeSubsriber(this);
+        ViewUpdater.removeSubscriber(this);
 
         super.onDetach();
     }

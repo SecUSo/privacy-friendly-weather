@@ -13,13 +13,13 @@ import java.util.List;
 public class ViewUpdater {
     private static List<IUpdateableCityUI> subscribers = new ArrayList<>();
 
-    public static void addSubsriber(IUpdateableCityUI sub) {
+    public static void addSubscriber(IUpdateableCityUI sub) {
         if (!subscribers.contains(sub)) {
             subscribers.add(sub);
         }
     }
 
-    public static void removeSubsriber(IUpdateableCityUI sub) {
+    public static void removeSubscriber(IUpdateableCityUI sub) {
         subscribers.remove(sub);
     }
 

@@ -34,22 +34,20 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     protected void onPause() {
         super.onPause();
 
-        ViewUpdater.removeSubsriber(this);
-        ViewUpdater.removeSubsriber(pagerAdapter);
+        ViewUpdater.removeSubscriber(this);
+        ViewUpdater.removeSubscriber(pagerAdapter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        ViewUpdater.addSubsriber(this);
-        ViewUpdater.addSubsriber(pagerAdapter);
+        ViewUpdater.addSubscriber(this);
+        ViewUpdater.addSubscriber(pagerAdapter);
 
-        initResources();
-        viewPager.setAdapter(pagerAdapter);
-        pagerAdapter.notifyDataSetChanged();
-
+        //TODO possible slowdown when opening Activity
         pagerAdapter.refreshData(false);
+
         cityId = getIntent().getIntExtra("cityId", 0);
         viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
     }
@@ -97,6 +95,12 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
             viewPager.setVisibility(View.VISIBLE);
             viewPager.setAdapter(pagerAdapter);
             viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
+        }
+    }
+
+    public void updatePageTitle() {
+        if (getSupportActionBar() != null && pagerAdapter.getCount() > 0) {
+            getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(viewPager.getCurrentItem()));
         }
     }
 
@@ -182,9 +186,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     protected void onPostResume() {
         super.onPostResume();
 
-        if (getSupportActionBar() != null && pagerAdapter.getCount() > 0) {
-            getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(viewPager.getCurrentItem()));
-        }
+        updatePageTitle();
     }
 
     @Override
@@ -192,10 +194,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(viewPager.getCurrentItem()));
-        }
+        updatePageTitle();
     }
 
     @Override

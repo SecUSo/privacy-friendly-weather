@@ -61,7 +61,6 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         forecastData = compressWeatherData(forecasts);
         courseDayList = new ArrayList<Forecast>();
 
-        // TODO: filter them accordingly and calculate what should be displayed .. (like average all the 3h forecasts for the week list)
         long threehoursago = System.currentTimeMillis() - (3 * 60 * 60 * 1000);
 
         for (Forecast f : forecasts) {
@@ -77,7 +76,6 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 }
             }
         }
-        //TODO update Titlebar text
         notifyDataSetChanged();
     }
 
