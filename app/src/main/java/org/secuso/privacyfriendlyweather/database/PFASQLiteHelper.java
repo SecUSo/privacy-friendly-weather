@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -30,7 +31,7 @@ import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_
  */
 public class PFASQLiteHelper extends SQLiteAssetHelper {
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private Context context;
 
     private List<City> allCities = new ArrayList<>();
@@ -411,6 +412,13 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         database.delete(TABLE_CITIES_TO_WATCH, CITIES_TO_WATCH_ID + " = ?",
                 new String[]{Integer.toString(cityToWatch.getId())});
         database.close();
+    }
+
+    public int getWatchedCitiesCount() {
+        SQLiteDatabase database = this.getWritableDatabase();
+        long count = DatabaseUtils.queryNumEntries(database, TABLE_CITIES_TO_WATCH);
+        database.close();
+        return (int) count;
     }
 
 

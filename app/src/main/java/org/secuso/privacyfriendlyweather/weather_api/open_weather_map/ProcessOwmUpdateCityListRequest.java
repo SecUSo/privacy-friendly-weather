@@ -37,7 +37,6 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
      * Member variables
      */
     private Context context;
-    //private DatabaseHelper dbHelper;
     private PFASQLiteHelper dbHelper;
 
     /**

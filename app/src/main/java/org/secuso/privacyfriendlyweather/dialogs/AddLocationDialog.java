@@ -111,7 +111,7 @@ public class AddLocationDialog extends DialogFragment {
 
         }
         return new CityToWatch(
-                15,
+                database.getWatchedCitiesCount(),
                 postCode,
                 selectedCity.getCountryCode(),
                 -1,

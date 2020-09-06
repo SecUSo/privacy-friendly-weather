@@ -201,7 +201,7 @@ public class TutorialActivity extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 if (selectedCity != null) {
                     database.addCityToWatch(new CityToWatch(
-                            15,
+                            0,
                             selectedCity.getPostalCode(),
                             selectedCity.getCountryCode(),
                             -1,
