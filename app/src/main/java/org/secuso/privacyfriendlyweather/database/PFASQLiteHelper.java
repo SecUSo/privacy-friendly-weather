@@ -421,6 +421,15 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         return (int) count;
     }
 
+    public int getMaxRank() {
+        List<CityToWatch> cities = getAllCitiesToWatch();
+        int maxRank = 0;
+        for (CityToWatch ctw : cities) {
+            if (ctw.getRank() > maxRank) maxRank = ctw.getRank();
+        }
+        return maxRank;
+    }
+
 
     /**
      * Methods for TABLE_FORECAST
