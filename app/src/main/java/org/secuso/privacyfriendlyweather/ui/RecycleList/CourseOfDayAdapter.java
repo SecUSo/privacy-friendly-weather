@@ -71,18 +71,18 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         // Would be better to use actual sunset and sunrise time, but did not know how to do this, These are not available in forecast database.
         Calendar forecastTime = Calendar.getInstance();
         forecastTime.setTimeZone(TimeZone.getTimeZone("GMT"));
-        forecastTime.setTimeInMillis(courseOfDayList.get(position).getForecastTime());
+        forecastTime.setTimeInMillis(courseOfDayList.get(position).getLocalForecastTime(context));
         //Log.d("devtag","localForecastTime: "+forecastTime.getTime());
 
         Calendar sunSetTime = Calendar.getInstance();
         sunSetTime.setTimeZone(TimeZone.getTimeZone("GMT"));
-        sunSetTime.setTimeInMillis(currentWeather.getTimeSunset() * 1000);
+        sunSetTime.setTimeInMillis(currentWeather.getTimeSunset() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
         sunSetTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
 
 
         Calendar sunRiseTime = Calendar.getInstance();
         sunRiseTime.setTimeZone(TimeZone.getTimeZone("GMT"));
-        sunRiseTime.setTimeInMillis(currentWeather.getTimeSunrise() * 1000);
+        sunRiseTime.setTimeInMillis(currentWeather.getTimeSunrise() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
         sunRiseTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
 
         Log.d("devtag", position + " " + forecastTime.getTime());
