@@ -121,7 +121,6 @@
     <string name="card_sun_heading">Sonne</string>
     <string name="card_week_heading">Woche</string>
     <string name="configure">Wählen Sie einen Ort</string>
-    <string name="default_location">%s als Standard gesetzt</string>
     <string name="reset">Zurücksetzen</string>
     <string name="skip">Überspringen</string>
     <string name="slide1_heading">Willkommen!</string>
@@ -159,7 +158,6 @@
     <string name="humidity">Luftfeuchtigkeit</string>
     <string name="activity_city_weather_tv_wind_direction">Windrichtung:</string>
     <string name="activity_city_weather_tv_rain_volume">Regenvolumen:</string>
-    <string name="long_press_text">Drücken Sie lange, um die Standard Stadt festzulegen</string>
+    <string name="long_press_text">Halten und ziehen Sie, um die Städte zu sortieren.</string>
     <string name="swipe_to_delete">Wischen Sie zum Löschen</string>
-    <string name="default_city">Standard</string>
 </resources>

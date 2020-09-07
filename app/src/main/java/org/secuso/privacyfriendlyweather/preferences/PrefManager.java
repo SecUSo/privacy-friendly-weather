@@ -23,7 +23,6 @@ public class PrefManager {
     private static final String PREF_NAME = "weather-Preference";
 
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
-    private static final String DEFAULT_LOCATION = "DefaultLocation";
 
     public PrefManager(Context context) {
         this.context = context;
@@ -38,15 +37,6 @@ public class PrefManager {
 
     public boolean isFirstTimeLaunch() {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
-    }
-
-    public void setDefaultLocation(int defaultLocation) {
-        editor.putInt(DEFAULT_LOCATION, defaultLocation);
-        editor.commit();
-    }
-
-    public int getDefaultLocation() {
-        return pref.getInt(DEFAULT_LOCATION, -1);
     }
 
 }

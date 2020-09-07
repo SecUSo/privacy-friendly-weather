@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -19,7 +20,6 @@ import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerItemClickListener;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
-import org.secuso.privacyfriendlyweather.ui.RecycleList.SimpleDividerItemDecoration;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.List;
 
 import static android.support.v4.app.JobIntentService.enqueueWork;
 
-//in-App: where cities get added & default can be selected
+//in-App: where cities get added & sorted
 public class MainActivity extends BaseActivity {
 
     private final String DEBUG_TAG = "main_activity_debug";
@@ -55,6 +55,7 @@ public class MainActivity extends BaseActivity {
             Collections.sort(cities, new Comparator<CityToWatch>() {
                 @Override
                 public int compare(CityToWatch o1, CityToWatch o2) {
+                    Log.d("devtag", o1.getRank() + " _ " + o2.getRank());
                     return o1.getRank() - o2.getRank();
                 }
 
@@ -85,9 +86,9 @@ public class MainActivity extends BaseActivity {
                     }
 
                     public void onLongItemClick(View view, int position) {
-                        //sets the current city as default location
-                        CityToWatch city = RecyclerOverviewListAdapter.getListItems().get(position);
-                        setDefaultLocation(city);
+                        //sets the current city as default location - not used since sorting available
+                        //CityToWatch city = RecyclerOverviewListAdapter.getListItems().get(position);
+                        //setDefaultLocation(city);
                     }
 
                 })
@@ -118,12 +119,6 @@ public class MainActivity extends BaseActivity {
 
         }
 
-    }
-
-    public void setDefaultLocation(CityToWatch city) {
-        prefManager.setDefaultLocation(city.getCityId());
-        Toast.makeText(getBaseContext(), getString(R.string.default_location, city.getCityName()), Toast.LENGTH_SHORT).show();
-        adapter.notifyDataSetChanged();
     }
 
     public void startFetchingService(int cityId) {

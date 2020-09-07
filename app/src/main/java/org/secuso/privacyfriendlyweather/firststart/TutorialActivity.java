@@ -208,7 +208,6 @@ public class TutorialActivity extends AppCompatActivity {
                             selectedCity.getCityId(),
                             selectedCity.getCityName()
                     ));
-                    prefManager.setDefaultLocation(selectedCity.getCityId());
                     Intent intent = new Intent(getApplicationContext(), UpdateDataService.class);
                     intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
                     enqueueWork(getApplicationContext(), UpdateDataService.class, 0, intent);

@@ -115,7 +115,6 @@
     <string name="card_sun_heading">Sole</string>
     <string name="card_week_heading">Settimana</string>
     <string name="configure">Configurare</string>
-    <string name="default_location">%s impostato come posizione standard</string>
     <string name="error_add_city">Error while adding City, please try again!</string>
     <string name="error_fetch_cityList">Error while updating Citylist, please try again!</string>
     <string name="error_fetch_forecast">Error while updating Forecast, please try again!</string>
@@ -146,9 +145,8 @@
     <string name="slide2_text">Potete scegliere le vostre località e ottenere informazioni dettagliate sul tempo attuale. Potete cercare il tempo migliore in un raggio intorno a voi o posizionare un widget sul vostro schermo di casa che mostra il tempo attuale, una previsione a tre giorni o una previsione a cinque giorni.</string>
     <string name="slide3_text">Il codice sorgente di questa app è disponibile su GitHub. Per ulteriori spiegazioni date un\'occhiata alla pagina About.</string>
     <string name="activity_city_weather_no_city_selected">Non è stata selezionata nessuna città. Per selezionare una città andare su "Gestire i luoghi".</string>
-    <string name="long_press_text">Premere a lungo per impostare come città predefinita</string>
+    <string name="long_press_text">Tieni e trascina per smistare le città.</string>
     <string name="swipe_to_delete">Striscia per cancellare</string>
-    <string name="default_city">Predefinito</string>
     <string name="widgets_settings">Widgets</string>
     <string name="fivedaywidgetchoice">Impostare le informazioni aggiuntive per i widget di 5 giorni</string>
     <string name="fivedaywidget">Widget 5 giorni</string>
