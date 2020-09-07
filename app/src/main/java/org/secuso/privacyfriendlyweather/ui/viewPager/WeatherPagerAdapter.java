@@ -18,6 +18,8 @@ import org.secuso.privacyfriendlyweather.ui.WeatherCityFragment;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -52,10 +54,22 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     public WeatherPagerAdapter(Context context, FragmentManager supportFragmentManager) {
         super(supportFragmentManager);
         this.mContext = context;
-        this.database = PFASQLiteHelper.getInstance(context);
-        this.cities = database.getAllCitiesToWatch();
-        this.currentWeathers = database.getAllCurrentWeathers();
         this.prefManager = new PrefManager(context);
+        this.database = PFASQLiteHelper.getInstance(context);
+        this.currentWeathers = database.getAllCurrentWeathers();
+        this.cities = database.getAllCitiesToWatch();
+        try {
+            cities = database.getAllCitiesToWatch();
+            Collections.sort(cities, new Comparator<CityToWatch>() {
+                @Override
+                public int compare(CityToWatch o1, CityToWatch o2) {
+                    return o1.getRank() - o2.getRank();
+                }
+
+            });
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

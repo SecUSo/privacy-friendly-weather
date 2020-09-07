@@ -14,6 +14,7 @@ import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -93,14 +94,6 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
         holder.getTvInformation().setText(cities.get(position).getCityName());
         holder.getTvCountryCode().setText(database.getCityById(cities.get(position).getCityId()).getCountryCode());
 
-
-        if (cities.get(position).getCityId() == prefManager.getDefaultLocation()) {
-            holder.getTvDefault().setVisibility(View.VISIBLE);
-
-        } else {
-            holder.getTvDefault().setVisibility(View.GONE);
-
-        }
     }
 
     /**
@@ -133,10 +126,18 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
         // For updating the database records
-//        int fromCurrentWeatherDataID = listItems.get(fromPosition).getCurrentWeatherDataID();
-//        int toCurrentWeatherDataID = listItems.get(toPosition).getCurrentWeatherDataID();
-//        CityToWatch fromCityToWatch = null;
-//        CityToWatch toCityToWatch = null;
+        CityToWatch fromCityToWatch = cities.get(fromPosition);
+        int fromRank = fromCityToWatch.getRank();
+        CityToWatch toCityToWatch = cities.get(toPosition);
+        int toRank = toCityToWatch.getRank();
+
+        fromCityToWatch.setRank(toRank);
+        toCityToWatch.setRank(fromRank);
+        database.updateCityToWatch(fromCityToWatch);
+        database.updateCityToWatch(toCityToWatch);
+        Collections.swap(cities, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+
 //        try {
 //            CurrentWeatherData fromCurrentWeatherData = dbHelper.getCurrentWeatherDataByID(fromCurrentWeatherDataID);
 //            CurrentWeatherData toCurrentWeatherData = dbHelper.getCurrentWeatherDataByID(toCurrentWeatherDataID);
