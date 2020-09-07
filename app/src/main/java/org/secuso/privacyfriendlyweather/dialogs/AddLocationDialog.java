@@ -104,15 +104,10 @@ public class AddLocationDialog extends DialogFragment {
     }
 
     private CityToWatch convertCityToWatched() {
-        String postCode = "-";
-        try {
-            postCode = selectedCity.getPostalCode();
-        } catch (NullPointerException e) {
 
-        }
+
         return new CityToWatch(
                 database.getMaxRank() + 1,
-                postCode,
                 selectedCity.getCountryCode(),
                 -1,
                 selectedCity.getCityId(),

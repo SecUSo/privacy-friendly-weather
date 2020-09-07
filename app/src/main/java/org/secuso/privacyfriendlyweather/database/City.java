@@ -15,16 +15,18 @@ public class City {
     private int cityId;
     private String cityName;
     private String countryCode;
-    private String postalCode;
+    private float lon;
+    private float lat;
 
     public City() {
     }
 
-    public City(int cityId, String cityName, String countryCode, String postalCode) {
+    public City(int cityId, String cityName, String countryCode, float lon, float lat) {
         this.cityId = cityId;
         this.cityName = cityName;
         this.countryCode = countryCode;
-        this.postalCode = postalCode;
+        this.lon = lon;
+        this.lat = lat;
     }
 
     public int getCityId() {
@@ -51,27 +53,24 @@ public class City {
         this.countryCode = countryCode;
     }
 
-    public String getPostalCode() {
-
-        if (postalCode == null) {
-            return UNKNOWN_POSTAL_CODE_VALUE;
-        } else {
-            return postalCode;
-        }
-
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
     @Override
     public String toString() {
-        if (postalCode.equals(UNKNOWN_POSTAL_CODE_VALUE)) {
-            return String.format("%s (%s)", cityName, countryCode);
-        } else {
-            return String.format("%s, %s (%s)", cityName, postalCode, countryCode);
-        }
+        return String.format("%s, %s (%f - %f)", cityName, countryCode, lon, lat);
     }
 
+    public void setLatitude(float latitude) {
+        lat = latitude;
+    }
+
+    public float getLatitude() {
+        return lat;
+    }
+
+    public float getLongitude() {
+        return lon;
+    }
+
+    public void setLongitude(float lon) {
+        this.lon = lon;
+    }
 }

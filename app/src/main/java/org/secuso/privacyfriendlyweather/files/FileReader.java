@@ -25,14 +25,15 @@ public class FileReader {
         // Skip the first line as it contains headings
         String line = br.readLine();
         while ((line = br.readLine()) != null) {
-            // id, name, lat, lon, country code
+            // id, name, country code, lon, lat
             String[] fields = line.split("\t");
 
-            int id = Integer.parseInt(fields[0]);
+            int id = (int) Float.parseFloat(fields[0]);
             String name = fields[1];
             String countryCode = fields[2];
-            String postalCode = fields[3];
-            cities.add(new City(id, name, countryCode, postalCode));
+            float lon = Float.parseFloat(fields[3]);
+            float lat = Float.parseFloat(fields[4]);
+            cities.add(new City(id, name, countryCode, lon, lat));
         }
         br.close();
         return cities;

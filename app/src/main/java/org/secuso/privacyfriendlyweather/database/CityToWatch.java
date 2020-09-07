@@ -11,15 +11,13 @@ public class CityToWatch {
     private int cityId;
     private String cityName;
     private String countryCode;
-    private String postalCode;
     private int rank;
 
     public CityToWatch() {
     }
 
-    public CityToWatch(int rank, String postalCode, String countryCode, int id, int cityId, String cityName) {
+    public CityToWatch(int rank, String countryCode, int id, int cityId, String cityName) {
         this.rank = rank;
-        this.postalCode = postalCode;
         this.countryCode = countryCode;
         this.id = id;
         this.cityId = cityId;
@@ -56,14 +54,6 @@ public class CityToWatch {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
     }
 
     public int getRank() {
