@@ -32,6 +32,7 @@ public class AddLocationWidgetTask extends AsyncTask<Object, Void, Object[]> {
             CityToWatch newCity = new CityToWatch();
             newCity.setCityId(selectedCity.getCityId());
             newCity.setRank(database.getMaxRank() + 1);
+            newCity.setCityName(selectedCity.getCityName());
             database.addCityToWatch(newCity);
         }
         database.close();
