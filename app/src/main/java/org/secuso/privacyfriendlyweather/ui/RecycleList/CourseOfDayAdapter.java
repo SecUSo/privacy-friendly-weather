@@ -2,7 +2,6 @@ package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,10 +84,10 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         sunRiseTime.setTimeInMillis(currentWeather.getTimeSunrise() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
         sunRiseTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
 
-        Log.d("devtag", position + " " + forecastTime.getTime());
+        //Log.d("devtag", position + " " + forecastTime.getTime());
 
         boolean isDay = forecastTime.after(sunRiseTime) && forecastTime.before(sunSetTime);
-        Log.d("devtag", sunRiseTime.getTime() + " " + sunSetTime.getTime() + " " + sunRiseTime.get(Calendar.HOUR_OF_DAY) + " " + forecastTime.get(Calendar.HOUR_OF_DAY) + " " + sunSetTime.get(Calendar.HOUR_OF_DAY) + " " + isDay);
+        //Log.d("devtag", sunRiseTime.getTime() + " " + sunSetTime.getTime() + " " + sunRiseTime.get(Calendar.HOUR_OF_DAY) + " " + forecastTime.get(Calendar.HOUR_OF_DAY) + " " + sunSetTime.get(Calendar.HOUR_OF_DAY) + " " + isDay);
 
         //boolean isDay = c.get(Calendar.HOUR_OF_DAY) >= 4 && c.get(Calendar.HOUR_OF_DAY) <= 20;
 

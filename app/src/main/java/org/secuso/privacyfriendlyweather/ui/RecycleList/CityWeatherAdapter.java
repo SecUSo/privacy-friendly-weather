@@ -88,7 +88,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context.getApplicationContext());
         int zonemilliseconds = dbHelper.getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
-        Log.d("devtag", "zonehours " + zonemilliseconds / 3600000.0);
+        //Log.d("devtag", "zonehours " + zonemilliseconds / 3600000.0);
 
         Calendar cal = Calendar.getInstance();
         cal.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -100,12 +100,12 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
 
         long startOfDay = cal.getTimeInMillis();
-        Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
+        //Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
 
         if (System.currentTimeMillis() < startOfDay) cal.add(Calendar.HOUR_OF_DAY, -24);
         if (System.currentTimeMillis() > startOfDay + 24 * 3600 * 1000)
             cal.add(Calendar.HOUR_OF_DAY, 24);
-        Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
+        //Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
 
         //temp max 0, temp min 1, humidity max 2, humidity min 3, wind max 4, wind min 5, wind direction 6, rain total 7, time 8, weather ID 9, number of FCs for day 10
         float[] today = {-Float.MAX_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
@@ -282,7 +282,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         in4days[8] = in4days[8] + zonemilliseconds;
         in5days[6] /= in5days[10];
         in5days[8] = in5days[8] + zonemilliseconds;
-        Log.d("devtag", "total :" + forecastList.size() + "times: " + today[10] + " " + today[8] + " " + tomorrow[10] + " " + tomorrow[8] + " " + in2days[10] + " " + in2days[8] + " " + in3days[10] + " " + in3days[8] + " " + in4days[10] + " " + in4days[8] + " " + in5days[10] + " " + in5days[8]);
+        //Log.d("devtag", "total :" + forecastList.size() + "times: " + today[10] + " " + today[8] + " " + tomorrow[10] + " " + tomorrow[8] + " " + in2days[10] + " " + in2days[8] + " " + in3days[10] + " " + in3days[8] + " " + in4days[10] + " " + in4days[8] + " " + in5days[10] + " " + in5days[8]);
         return new float[][]{today, tomorrow, in2days, in3days, in4days, in5days};
     }
 

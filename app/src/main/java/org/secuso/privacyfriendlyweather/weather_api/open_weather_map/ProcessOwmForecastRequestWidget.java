@@ -3,7 +3,6 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -153,7 +152,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
             float[][] data = compressWeatherData(forecastList);
             long end = System.nanoTime();
-            Log.d("devtag", "compressTime: " + (end - start) / 1000000.0 + "ms");
+            //Log.d("devtag", "compressTime: " + (end - start) / 1000000.0 + "ms");
 
             if (widgetType == 3) {
                 WeatherWidgetThreeDayForecast.updateView(context, appWidgetManager, views, widgetId, data, city);
@@ -172,7 +171,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
     private float[][] compressWeatherData(List<Forecast> forecastList) {
         int zonemilliseconds = dbHelper.getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
-        Log.d("devtag", "zonehours " + zonemilliseconds / 3600000.0);
+        //Log.d("devtag", "zonehours " + zonemilliseconds / 3600000.0);
 
         Calendar cal = Calendar.getInstance();
         cal.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -366,8 +365,8 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
         in4days[8] = in4days[8] + zonemilliseconds;
         in5days[6] /= in5days[10];
         in5days[8] = in5days[8] + zonemilliseconds;
-        Log.d("devtag", "total :" + forecastList.size() + "times: " + today[10] + " " + today[8] + " " + tomorrow[10] + " " + tomorrow[8] + " " + in2days[10] + " " + in2days[8] + " " + in3days[10] + " " + in3days[8] + " " + in4days[10] + " " + in4days[8] + " " + in5days[10] + " " + in5days[8]);
-        Log.d("devtag", "content :" + forecastList.get(0).getCity_id());
+        //Log.d("devtag", "total :" + forecastList.size() + "times: " + today[10] + " " + today[8] + " " + tomorrow[10] + " " + tomorrow[8] + " " + in2days[10] + " " + in2days[8] + " " + in3days[10] + " " + in3days[8] + " " + in4days[10] + " " + in4days[8] + " " + in5days[10] + " " + in5days[8]);
+        //Log.d("devtag", "content :" + forecastList.get(0).getCity_id());
 
         return new float[][]{today, tomorrow, in2days, in3days, in4days, in5days};
     }

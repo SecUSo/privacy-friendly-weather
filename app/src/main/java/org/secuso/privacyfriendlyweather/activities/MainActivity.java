@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -55,7 +54,6 @@ public class MainActivity extends BaseActivity {
             Collections.sort(cities, new Comparator<CityToWatch>() {
                 @Override
                 public int compare(CityToWatch o1, CityToWatch o2) {
-                    Log.d("devtag", o1.getRank() + " _ " + o2.getRank());
                     return o1.getRank() - o2.getRank();
                 }
 
