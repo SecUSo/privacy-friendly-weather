@@ -31,7 +31,7 @@ import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_
  */
 public class PFASQLiteHelper extends SQLiteAssetHelper {
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private Context context;
 
     private List<City> allCities = new ArrayList<>();
@@ -53,7 +53,9 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
     private static final String CITIES_ID = "cities_id";
     private static final String CITIES_NAME = "city_name";
     private static final String CITIES_COUNTRY_CODE = "country_code";
-    private static final String CITIES_POSTAL_CODE = "postal_code";
+    private static final String CITIES_LONGITUDE = "longitude";
+    private static final String CITIES_LATITUDE = "latitude";
+
 
     //Names of columns in TABLE_CITIES_TO_WATCH
     private static final String CITIES_TO_WATCH_ID = "cities_to_watch_id";
@@ -117,7 +119,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             CITIES_ID + " INTEGER PRIMARY KEY," +
             CITIES_NAME + " VARCHAR(100) NOT NULL," +
             CITIES_COUNTRY_CODE + " VARCHAR(10) NOT NULL," +
-            CITIES_POSTAL_CODE + " VARCHAR(10) NOT NULL ); ";
+            CITIES_LONGITUDE + " REAL NOT NULL," +
+            CITIES_LATITUDE + " REAL NOT NULL ); ";
 
     private static final String CREATE_TABLE_CITIES_INDEX = "CREATE INDEX " + TABLE_CITIES_INDEX +
             " ON " + TABLE_CITIES + " (" + CITIES_NAME + ");";
@@ -171,6 +174,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
          **/
         super.onUpgrade(db, oldVersion, newVersion);
 
+        if (oldVersion < 5) fillCityDatabase(db);
+
         Intent intent = new Intent(context, UpdateDataService.class);
         intent.setAction(UpdateDataService.UPDATE_ALL_ACTION);
         intent.putExtra(SKIP_UPDATE_INTERVAL, true);
@@ -195,6 +200,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
 
         long endInsertTime = System.currentTimeMillis();
         Log.d("debug_info", "Time for insert:" + (endInsertTime - startInsertTime));
+        db.execSQL(CREATE_TABLE_CITIES_INDEX);
     }
 
     private synchronized void addCities(SQLiteDatabase database, final List<City> cities) {
@@ -223,7 +229,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 values.put(CITIES_ID, c.getCityId());
                 values.put(CITIES_NAME, c.getCityName());
                 values.put(CITIES_COUNTRY_CODE, c.getCountryCode());
-                values.put(CITIES_POSTAL_CODE, c.getPostalCode());
+                values.put(CITIES_LONGITUDE, c.getLongitude());
+                values.put(CITIES_LATITUDE, c.getLatitude());
                 database.insert(TABLE_CITIES, null, values);
             }
         }
@@ -238,7 +245,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 "SELECT " + CITIES_ID +
                         ", " + CITIES_NAME +
                         ", " + CITIES_COUNTRY_CODE +
-                        ", " + CITIES_POSTAL_CODE +
+                        ", " + CITIES_LONGITUDE +
+                        ", " + CITIES_LATITUDE +
                         " FROM " + TABLE_CITIES +
                         " WHERE " + CITIES_ID + " = ?", args);
 
@@ -249,7 +257,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             city.setCityId(Integer.parseInt(cursor.getString(0)));
             city.setCityName(cursor.getString(1));
             city.setCountryCode(cursor.getString(2));
-            city.setPostalCode(cursor.getString(3));
+            city.setLongitude(cursor.getFloat(3));
+            city.setLatitude(cursor.getFloat(4));
 
             cursor.close();
         }
@@ -265,13 +274,15 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         String query = "SELECT " + CITIES_ID +
                 ", " + CITIES_NAME +
                 ", " + CITIES_COUNTRY_CODE +
-                ", " + CITIES_POSTAL_CODE +
+                ", " + CITIES_LONGITUDE +
+                ", " + CITIES_LATITUDE +
                 " FROM " + TABLE_CITIES +
                 " WHERE " + CITIES_NAME +
                 " LIKE ?" +
                 " ORDER BY " + CITIES_NAME +
                 " LIMIT " + dropdownListLimit;
 
+        Log.d("devtag", "searchphrase: " + String.format("%s", cityNameLetters));
         String[] args = {String.format("%s%%", cityNameLetters)};
         Cursor cursor = database.rawQuery(query, args);
 
@@ -281,7 +292,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 city.setCityId(Integer.parseInt(cursor.getString(0)));
                 city.setCityName(cursor.getString(1));
                 city.setCountryCode(cursor.getString(2));
-                city.setPostalCode(cursor.getString(3));
+                city.setLongitude(cursor.getFloat(3));
+                city.setLatitude(cursor.getFloat(4));
                 cities.add(city);
             } while (cursor.moveToNext());
         }
@@ -317,7 +329,6 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         ", " + CITIES_TO_WATCH_CITY_ID +
                         ", " + CITIES_NAME +
                         ", " + CITIES_COUNTRY_CODE +
-                        ", " + CITIES_POSTAL_CODE +
                         ", " + CITIES_TO_WATCH_COLUMN_RANK +
                         " FROM " + TABLE_CITIES_TO_WATCH + " INNER JOIN " + TABLE_CITIES +
                         " ON " + TABLE_CITIES_TO_WATCH + "." + CITIES_TO_WATCH_CITY_ID + " = " + TABLE_CITIES + "." + CITIES_ID +
@@ -330,8 +341,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             cityToWatch.setCityId(Integer.parseInt(cursor.getString(1)));
             cityToWatch.setCityName(cursor.getString(2));
             cityToWatch.setCountryCode(cursor.getString(3));
-            cityToWatch.setPostalCode(cursor.getString(4));
-            cityToWatch.setRank(Integer.parseInt(cursor.getString(5)));
+            cityToWatch.setRank(Integer.parseInt(cursor.getString(4)));
 
             cursor.close();
         }
@@ -370,7 +380,6 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         ", " + CITIES_TO_WATCH_CITY_ID +
                         ", " + CITIES_NAME +
                         ", " + CITIES_COUNTRY_CODE +
-                        ", " + CITIES_POSTAL_CODE +
                         ", " + CITIES_TO_WATCH_COLUMN_RANK +
                         " FROM " + TABLE_CITIES_TO_WATCH + " INNER JOIN " + TABLE_CITIES +
                         " ON " + TABLE_CITIES_TO_WATCH + "." + CITIES_TO_WATCH_CITY_ID + " = " + TABLE_CITIES + "." + CITIES_ID
@@ -385,8 +394,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 cityToWatch.setCityId(Integer.parseInt(cursor.getString(1)));
                 cityToWatch.setCityName(cursor.getString(2));
                 cityToWatch.setCountryCode(cursor.getString(3));
-                cityToWatch.setPostalCode(cursor.getString(4));
-                cityToWatch.setRank(Integer.parseInt(cursor.getString(5)));
+                cityToWatch.setRank(Integer.parseInt(cursor.getString(4)));
 
                 cityToWatchList.add(cityToWatch);
             } while (cursor.moveToNext());
@@ -402,6 +410,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         ContentValues values = new ContentValues();
         values.put(CITIES_TO_WATCH_CITY_ID, cityToWatch.getCityId());
         values.put(CITIES_TO_WATCH_COLUMN_RANK, cityToWatch.getRank());
+        values.put(CITIES_TO_WATCH_ID, cityToWatch.getId());
 
         return database.update(TABLE_CITIES_TO_WATCH, values, CITIES_TO_WATCH_ID + " = ?",
                 new String[]{String.valueOf(cityToWatch.getId())});
