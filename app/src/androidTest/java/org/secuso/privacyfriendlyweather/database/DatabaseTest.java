@@ -16,6 +16,7 @@ import org.secuso.privacyfriendlyweather.database.City;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -93,8 +94,20 @@ public class DatabaseTest {
     @Test
     public void migrationTest4_5() {
         // TODO: PF_WEATHER_DB original database with schema 1 in test assets to be able to test migrations
-        SQLiteDatabase db = new PFASQLiteHelper(testContext, "PF_WEATHER_DB_4.db", null, 4).getWritableDatabase();
+        PFASQLiteHelper helper = new PFASQLiteHelper(appContext, "PF_WEATHER_DB_4.db", null, 4);
+        // todo: add assertion of data contents
+
+        // create database
+        SQLiteDatabase db = helper.getReadableDatabase();
         assertNotNull(db);
+        assertEquals(4, db.getVersion());
+
+        // migrate database
+        helper.onUpgrade(db, 4, 5);
+
+        db = helper.getWritableDatabase();
+        assertNotNull(db);
+        //assertEquals(5, db.getVersion());
     }
 
 }

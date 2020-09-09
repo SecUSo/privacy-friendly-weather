@@ -7,6 +7,7 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -18,21 +19,50 @@ public class TimeTest {
 
     @Test
     public void testTimeStartOfDay() {
-        long currentTime = System.currentTimeMillis();
+        long currentTime = 1599659833857L;
         long startOfDay = TimeUtil.getStartOfDayCustomCurrentTime(3 * 3600, currentTime);
 
-        String time = (new SimpleDateFormat("HH:mm", Locale.getDefault())).format(new Date(currentTime));
-        String time2 = TimeUtil.formatTimeSimple(0, currentTime);
-        assertTrue(false); // TODO: test incorrect
-
-        //assertEquals(startOfDay, );
+        assertEquals(1599609603057L ,startOfDay);
     }
 
     @Test
     public void testTimePrinter() {
-        long currentTime = System.currentTimeMillis();
-        String formattedString = TimeUtil.formatTimeSimple(0, currentTime); // TODO: use valid value
-        assertEquals("10:00", formattedString); // TODO: Test incorrect
+        long currentTimeInMillis = 1599659833857L;
+        long currentTimeInSeconds = currentTimeInMillis / 1000;
+        String formattedString = TimeUtil.formatTimeSimple(2 * 3600, currentTimeInSeconds);
+        assertEquals("15:57", formattedString);
+    }
+
+    @Test
+    public void testTimePrinter2() {
+        long currentTimeInMillis = 1599659833857L;
+        long currentTimeInSeconds = currentTimeInMillis / 1000;
+        String formattedString = TimeUtil.formatTimeSimple(3 * 3600, currentTimeInSeconds);
+        assertEquals("16:57", formattedString);
+    }
+
+    @Test
+    public void testTimePrinterZero() {
+        long currentTimeInMillis = 0;
+        long currentTimeInSeconds = currentTimeInMillis / 1000;
+        String formattedString = TimeUtil.formatTimeSimple(0, currentTimeInSeconds);
+        assertEquals("00:00", formattedString);
+    }
+
+    @Test
+    public void testTimePrinterNegativeTimezone() {
+        long currentTimeInMillis = 1599659833857L;
+        long currentTimeInSeconds = currentTimeInMillis / 1000;
+        String formattedString = TimeUtil.formatTimeSimple(-1 * 3600, currentTimeInSeconds);
+        assertEquals("12:57", formattedString);
+    }
+
+    @Test
+    public void testTimePrinter3() {
+        long currentTimeInMillis = 1599659833857L;
+        long currentTimeInSeconds = currentTimeInMillis / 1000;
+        String formattedString = TimeUtil.formatTimeSimple(4 * 3600, currentTimeInSeconds);
+        assertEquals("17:57", formattedString);
     }
 
 

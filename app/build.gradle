@@ -20,7 +20,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            sourceSets {
+                main.assets.srcDirs += ['src/main/assets/', 'src/androidTest/assets/']
+            }
+        }
     }
+
 }
 
 dependencies {
