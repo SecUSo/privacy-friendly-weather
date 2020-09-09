@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
@@ -38,7 +39,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
 
     private static PFASQLiteHelper instance = null;
 
-    private static final String DATABASE_NAME = "PF_WEATHER_DB.db";
+    public static final String DATABASE_NAME = "PF_WEATHER_DB.db";
 
     //Names of tables in the database
     private static final String TABLE_CITIES_TO_WATCH = "CITIES_TO_WATCH";
@@ -159,6 +160,12 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         this.context = context;
     }
 
+    @VisibleForTesting
+    public PFASQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+        this.context = context;
+    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -205,25 +212,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
 
     private synchronized void addCities(SQLiteDatabase database, final List<City> cities) {
         if (cities.size() > 0) {
-
-            //############################################
-            // construct everything into one statement
-//            StringBuilder sb = new StringBuilder();
-//            sb.append("INSERT INTO ").append(TABLE_CITIES).append(" VALUES ");
-//
-//            for (int i = 0; i < cities.size(); i++) {
-//                sb.append("(")
-//                        .append(cities.get(i).getCityId()).append(", ")
-//                        .append(cities.get(i).getCityName()).append(", ")
-//                        .append(cities.get(i).getCountryCode()).append(", ")
-//                        .append(cities.get(i).getPostalCode()).append(")");
-//                if(i < cities.size() - 1) {
-//                    sb.append(", ");
-//                }
-//            }
-//            String sql = sb.toString();
-//            database.rawQuery(sql, new String[]{});
-            //############################################
+            database.beginTransaction();
+            boolean success = true;
             for (City c : cities) {
                 ContentValues values = new ContentValues();
                 values.put(CITIES_ID, c.getCityId());
@@ -231,8 +221,13 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 values.put(CITIES_COUNTRY_CODE, c.getCountryCode());
                 values.put(CITIES_LONGITUDE, c.getLongitude());
                 values.put(CITIES_LATITUDE, c.getLatitude());
-                database.insert(TABLE_CITIES, null, values);
+                long id = database.insert(TABLE_CITIES, null, values);
+                success &= id == -1;
             }
+            if (success) {
+                database.setTransactionSuccessful();
+            }
+            database.endTransaction();
         }
     }
 

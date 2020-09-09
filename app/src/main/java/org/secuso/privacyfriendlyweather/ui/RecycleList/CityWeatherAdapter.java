@@ -16,6 +16,7 @@ import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
+import org.secuso.privacyfriendlyweather.util.TimeUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -88,24 +89,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context.getApplicationContext());
         int zonemilliseconds = dbHelper.getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
-        //Log.d("devtag", "zonehours " + zonemilliseconds / 3600000.0);
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeZone(TimeZone.getTimeZone("GMT"));
-        cal.set(Calendar.DST_OFFSET, 0);
-        cal.setTimeInMillis(System.currentTimeMillis());
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.ZONE_OFFSET, zonemilliseconds);
-
-
-        long startOfDay = cal.getTimeInMillis();
-        //Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
-
-        if (System.currentTimeMillis() < startOfDay) cal.add(Calendar.HOUR_OF_DAY, -24);
-        if (System.currentTimeMillis() > startOfDay + 24 * 3600 * 1000)
-            cal.add(Calendar.HOUR_OF_DAY, 24);
-        //Log.d("devtag", "calendar " + cal.getTimeInMillis() + cal.getTime());
+        long daystart = TimeUtil.getStartOfDay(zonemilliseconds);
 
         //temp max 0, temp min 1, humidity max 2, humidity min 3, wind max 4, wind min 5, wind direction 6, rain total 7, time 8, weather ID 9, number of FCs for day 10
         float[] today = {-Float.MAX_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
@@ -121,7 +105,6 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         float[] in5days = {-Float.MAX_VALUE, Float.MAX_VALUE, 0, 100, 0, Float.MAX_VALUE, 0, 0, Float.MAX_VALUE, 0, 0};
         LinkedList<Integer> in5daysIDs = new LinkedList<>();
 
-        long daystart = cal.getTimeInMillis();
         //iterate over FCs from today and after
         for (Forecast fc : forecastList) {
             long forecastTime = fc.getForecastTime();
@@ -479,15 +462,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         } else if (viewHolder.getItemViewType() == SUN) {
             SunViewHolder holder = (SunViewHolder) viewHolder;
 
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-            //correct for timezone differences
             int zoneseconds = currentWeatherDataList.getTimeZoneSeconds();
-            Date riseTime = new Date((currentWeatherDataList.getTimeSunrise() + zoneseconds) * 1000L);
-            Date setTime = new Date((currentWeatherDataList.getTimeSunset() + zoneseconds) * 1000L);
-
-            holder.sunrise.setText(timeFormat.format(riseTime));
-            holder.sunset.setText(timeFormat.format(setTime));
+            holder.sunrise.setText(TimeUtil.formatTimeSimple(zoneseconds, currentWeatherDataList.getTimeSunrise()));
+            holder.sunset.setText(TimeUtil.formatTimeSimple(zoneseconds, currentWeatherDataList.getTimeSunset()));
         }
         //No update for error needed
     }

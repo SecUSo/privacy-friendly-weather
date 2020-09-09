@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.database;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -20,12 +21,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.secuso.privacyfriendlyweather.database.PFASQLiteHelper.DATABASE_NAME;
 
 @RunWith(AndroidJUnit4.class)
 public class DatabaseTest {
     private static final String TAG = "AppTest";
     private static final Context appContext =  InstrumentationRegistry.getInstrumentation().getTargetContext();
+    private static final Context testContext =  InstrumentationRegistry.getInstrumentation().getContext();
 
     private PFASQLiteHelper database;
 
@@ -37,6 +41,7 @@ public class DatabaseTest {
     @Before
     public void setupDatabase() {
         database = PFASQLiteHelper.getInstance(appContext);
+        clearDatabase();
     }
 
     @After
@@ -63,7 +68,7 @@ public class DatabaseTest {
         assertEquals(0, database.getAllCitiesToWatch().size());
 
         // add city
-        CityToWatch c = new CityToWatch(0, "-", "DE", 0, 2938913, "Darmstadt");
+        CityToWatch c = new CityToWatch(0, "DE", 0, 2938913, "Darmstadt");
         database.addCityToWatch(c);
 
         // now one city
@@ -74,15 +79,22 @@ public class DatabaseTest {
 
     @Test
     public void getRecommendationsTest() {
-        List<City> possibleCities = database.getCitiesWhereNameLike("Frankfurt", 3);
-        assertEquals(2 , possibleCities.size());
+        List<City> possibleCities = database.getCitiesWhereNameLike("Frankfurt", 10);
+        assertEquals(5 , possibleCities.size());
 
-        List<String> possibleCityNames = Arrays.asList("Frankfurt am Main", "Frankfurt (Oder)");
+        List<String> possibleCityNames = Arrays.asList("Frankfurt am Main", "Frankfurt (Oder)", "Frankfurt Main Flughafen", "Frankfurter Vorstadt");
 
         for(City c : possibleCities) {
             assertEquals("DE", c.getCountryCode());
             assertTrue(possibleCityNames.contains(c.getCityName()));
         }
+    }
+
+    @Test
+    public void migrationTest4_5() {
+        // TODO: PF_WEATHER_DB original database with schema 1 in test assets to be able to test migrations
+        SQLiteDatabase db = new PFASQLiteHelper(testContext, "PF_WEATHER_DB_4.db", null, 4).getWritableDatabase();
+        assertNotNull(db);
     }
 
 }
