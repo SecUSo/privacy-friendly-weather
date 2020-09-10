@@ -39,7 +39,7 @@ public class OwmHttpRequestAddCity extends OwmHttpRequest implements IHttpReques
     @Override
     public void perform(List<CityToWatch> cities) {
         IHttpRequest httpRequest = new VolleyHttpRequest(context);
-        final String URL = getUrlForQueryingSingleCity(cities.get(0).getCityId(), true);
+        final String URL = getUrlForQueryingSingleCity(context,cities.get(0).getCityId(), true);
         httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmAddCityRequest(context));
     }
 

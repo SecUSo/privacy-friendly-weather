@@ -31,7 +31,7 @@ public class OwmHttpRequestForUpdatingCityList extends OwmHttpRequest implements
     @Override
     public void perform(List<CityToWatch> cities) {
         IHttpRequest httpRequest = new VolleyHttpRequest(context);
-        final String URL = getUrlForQueryingGroupIDs(joinCityIDs(cities));
+        final String URL = getUrlForQueryingGroupIDs(context, joinCityIDs(cities));
         httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmUpdateCityListRequest(context));
     }
 

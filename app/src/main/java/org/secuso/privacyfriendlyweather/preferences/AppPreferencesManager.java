@@ -1,6 +1,10 @@
 package org.secuso.privacyfriendlyweather.preferences;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+
+import org.secuso.privacyfriendlyweather.BuildConfig;
+import org.secuso.privacyfriendlyweather.R;
 
 /**
  * This class provides access and methods for relevant preferences.
@@ -152,4 +156,12 @@ public class AppPreferencesManager {
         return Integer.parseInt(preferences.getString("widgetChoice3", "2"));
     }
 
+    public String getOWMApiKey(Context context){
+        String prefValue = preferences.getString("API_key_value", BuildConfig.DEFAULT_API_KEY);
+        if (prefValue.equals(context.getString(R.string.settings__API_key_default))) {
+            return BuildConfig.DEFAULT_API_KEY;
+        } else {
+            return prefValue;
+        }
+    }
 }
