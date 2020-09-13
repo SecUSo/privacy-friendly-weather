@@ -135,11 +135,20 @@ public class OwmDataExtractor implements IDataExtractor {
             JSONObject jsonClouds = jsonData.getJSONObject("clouds");
             weatherData.setCloudiness((float) jsonClouds.getDouble("all"));
 
-            if (jsonData.has("sys")) {
-                JSONObject jsonSunRiseSet = jsonData.getJSONObject("sys");
-                weatherData.setTimeSunrise(jsonSunRiseSet.getLong("sunrise"));
-                weatherData.setTimeSunset(jsonSunRiseSet.getLong("sunset"));
-                weatherData.setTimeZoneSeconds(jsonSunRiseSet.getInt("timezone"));
+            if(jsonData.has("cod")) {     //update for single city, field cod only available there
+                if (jsonData.has("sys")) {
+                    JSONObject jsonSunRiseSet = jsonData.getJSONObject("sys");
+                    weatherData.setTimeSunrise(jsonSunRiseSet.getLong("sunrise"));
+                    weatherData.setTimeSunset(jsonSunRiseSet.getLong("sunset"));
+                }
+                    weatherData.setTimeZoneSeconds(jsonData.getInt("timezone"));  //timezone is not part of sys for single city
+              } else {                          //update for group of cities
+                if (jsonData.has("sys")) {
+                   JSONObject jsonSunRiseSet = jsonData.getJSONObject("sys");
+                   weatherData.setTimeSunrise(jsonSunRiseSet.getLong("sunrise"));
+                   weatherData.setTimeSunset(jsonSunRiseSet.getLong("sunset"));
+                   weatherData.setTimeZoneSeconds(jsonSunRiseSet.getInt("timezone"));  //timezone part of sys
+               }
             }
 
             return weatherData;
