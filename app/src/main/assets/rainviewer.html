@@ -68,7 +68,7 @@ var weatherdata =[];
     * Get Lat / Lon from Openweather API
     */
 var owmreq = new XMLHttpRequest();
-    owmreq.open("GET", "http://api.openweathermap.org/data/2.5/weather?id=" + getUrlParameter('cityid') + "&appid=" + getUrlParameter('appid'), false); //false means wait until http request is finished
+    owmreq.open("GET", "https://api.openweathermap.org/data/2.5/weather?id=" + getUrlParameter('cityid') + "&appid=" + getUrlParameter('appid'), false); //false means wait until http request is finished
     owmreq.onload = function(e) {
          weatherdata = JSON.parse(owmreq.response);
 //        console.log('lat', weatherdata.coord.lat);
