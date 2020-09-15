@@ -82,12 +82,12 @@ var owmreq = new XMLHttpRequest();
             
 var map = L.map('mapid', {
             zoomControl: true,
-            attributionControl: false
+            attributionControl: true
         }).setView([weatherdata.coord.lat, weatherdata.coord.lon], 8);  //zoom factor 8
 
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attributions: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(map);
 
 var marker = L.marker([weatherdata.coord.lat, weatherdata.coord.lon]).addTo(map);
