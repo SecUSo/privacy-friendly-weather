@@ -467,6 +467,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.recyclerView.setLayoutManager(layoutManager);
             WeekWeatherAdapter adapter = new WeekWeatherAdapter(forecastData, context);
             holder.recyclerView.setAdapter(adapter);
+            holder.recyclerView.setFocusable(false);
 
         } else if (viewHolder.getItemViewType() == DAY) {
 
@@ -475,6 +476,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.recyclerView.setLayoutManager(layoutManager);
             CourseOfDayAdapter adapter = new CourseOfDayAdapter(courseDayList, context);
             holder.recyclerView.setAdapter(adapter);
+            holder.recyclerView.setFocusable(false);
 
         } else if (viewHolder.getItemViewType() == SUN) {
             SunViewHolder holder = (SunViewHolder) viewHolder;

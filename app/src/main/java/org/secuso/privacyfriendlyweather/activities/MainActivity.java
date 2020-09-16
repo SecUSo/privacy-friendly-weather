@@ -94,6 +94,7 @@ public class MainActivity extends BaseActivity {
 
         adapter = new RecyclerOverviewListAdapter(getBaseContext(), cities);
         recyclerView.setAdapter(adapter);
+        recyclerView.setFocusable(false);
 
         //TODO Drag and drop
         callback = new SimpleItemTouchHelperCallback(adapter);

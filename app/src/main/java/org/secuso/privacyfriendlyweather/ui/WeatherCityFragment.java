@@ -38,6 +38,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
 
         if (recyclerView != null) {
             recyclerView.setAdapter(mAdapter);
+            recyclerView.setFocusable(false);
         }
     }
 
