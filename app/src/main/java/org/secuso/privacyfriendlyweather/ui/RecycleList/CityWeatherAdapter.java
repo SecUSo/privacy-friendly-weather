@@ -305,6 +305,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 case 40:
                     counts[3] += 1;
                     break;
+                case 45:
+                    counts[3] += 1;
+                    break;
                 case 50:
                     counts[4] += 1;
                     break;
@@ -312,6 +315,12 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     counts[5] += 1;
                     break;
                 case 70:
+                    counts[6] += 1;
+                    break;
+                case 71:
+                    counts[6] += 1;
+                    break;
+                case 72:
                     counts[6] += 1;
                     break;
                 case 80:
