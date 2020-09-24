@@ -110,7 +110,7 @@ public class AddLocationDialog extends DialogFragment {
                 database.getMaxRank() + 1,
                 selectedCity.getCountryCode(),
                 -1,
-                selectedCity.getCityId(),
+                selectedCity.getCityId(), selectedCity.getLongitude(),selectedCity.getLatitude(),
                 selectedCity.getCityName()
         );
     }

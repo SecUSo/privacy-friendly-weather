@@ -329,6 +329,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         ", " + CITIES_TO_WATCH_CITY_ID +
                         ", " + CITIES_NAME +
                         ", " + CITIES_COUNTRY_CODE +
+                        ", " + CITIES_LONGITUDE +
+                        ", " + CITIES_LATITUDE +
                         ", " + CITIES_TO_WATCH_COLUMN_RANK +
                         " FROM " + TABLE_CITIES_TO_WATCH + " INNER JOIN " + TABLE_CITIES +
                         " ON " + TABLE_CITIES_TO_WATCH + "." + CITIES_TO_WATCH_CITY_ID + " = " + TABLE_CITIES + "." + CITIES_ID +
@@ -341,7 +343,9 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             cityToWatch.setCityId(Integer.parseInt(cursor.getString(1)));
             cityToWatch.setCityName(cursor.getString(2));
             cityToWatch.setCountryCode(cursor.getString(3));
-            cityToWatch.setRank(Integer.parseInt(cursor.getString(4)));
+            cityToWatch.setLongitude(Float.parseFloat(cursor.getString(4)));
+            cityToWatch.setLatitude(Float.parseFloat(cursor.getString(5)));
+            cityToWatch.setRank(Integer.parseInt(cursor.getString(6)));
 
             cursor.close();
         }
@@ -380,6 +384,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         ", " + CITIES_TO_WATCH_CITY_ID +
                         ", " + CITIES_NAME +
                         ", " + CITIES_COUNTRY_CODE +
+                        ", " + CITIES_LONGITUDE +
+                        ", " + CITIES_LATITUDE +
                         ", " + CITIES_TO_WATCH_COLUMN_RANK +
                         " FROM " + TABLE_CITIES_TO_WATCH + " INNER JOIN " + TABLE_CITIES +
                         " ON " + TABLE_CITIES_TO_WATCH + "." + CITIES_TO_WATCH_CITY_ID + " = " + TABLE_CITIES + "." + CITIES_ID
@@ -394,7 +400,9 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 cityToWatch.setCityId(Integer.parseInt(cursor.getString(1)));
                 cityToWatch.setCityName(cursor.getString(2));
                 cityToWatch.setCountryCode(cursor.getString(3));
-                cityToWatch.setRank(Integer.parseInt(cursor.getString(4)));
+                cityToWatch.setLongitude(Float.parseFloat(cursor.getString(4)));
+                cityToWatch.setLatitude(Float.parseFloat(cursor.getString(5)));
+                cityToWatch.setRank(Integer.parseInt(cursor.getString(6)));
 
                 cityToWatchList.add(cityToWatch);
             } while (cursor.moveToNext());

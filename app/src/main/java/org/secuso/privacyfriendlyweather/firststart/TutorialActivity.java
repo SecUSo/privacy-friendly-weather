@@ -204,7 +204,7 @@ public class TutorialActivity extends AppCompatActivity {
                             0,
                             selectedCity.getCountryCode(),
                             -1,
-                            selectedCity.getCityId(),
+                            selectedCity.getCityId(), selectedCity.getLongitude(),selectedCity.getLatitude(),
                             selectedCity.getCityName()
                     ));
                     Intent intent = new Intent(getApplicationContext(), UpdateDataService.class);

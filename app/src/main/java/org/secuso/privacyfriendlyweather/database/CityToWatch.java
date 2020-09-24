@@ -11,14 +11,18 @@ public class CityToWatch {
     private int cityId;
     private String cityName;
     private String countryCode;
+    private float lon;
+    private float lat;
     private int rank;
 
     public CityToWatch() {
     }
 
-    public CityToWatch(int rank, String countryCode, int id, int cityId, String cityName) {
+    public CityToWatch(int rank, String countryCode, int id, int cityId, float lon, float lat, String cityName) {
         this.rank = rank;
         this.countryCode = countryCode;
+        this.lon = lon;
+        this.lat = lat;
         this.id = id;
         this.cityId = cityId;
         this.cityName = cityName;
@@ -64,4 +68,11 @@ public class CityToWatch {
         this.rank = rank;
     }
 
+    public void setLongitude(float lon) { this.lon = lon; }
+
+    public float getLongitude() {  return lon; }
+
+    public float getLatitude() {  return lat; }
+
+    public void setLatitude(float lat) { this.lat = lat; }
 }
