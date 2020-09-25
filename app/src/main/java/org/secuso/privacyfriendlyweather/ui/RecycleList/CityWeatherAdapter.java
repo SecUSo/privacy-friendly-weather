@@ -111,8 +111,14 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         LinkedList<Integer> in4daysIDs = new LinkedList<>();
         float[] in5days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         LinkedList<Integer> in5daysIDs = new LinkedList<>();
+        float[] in6days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in6daysIDs = new LinkedList<>();
+        float[] in7days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in7daysIDs = new LinkedList<>();
+        float[] empty = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};  //last field is not displayed otherwise
+        LinkedList<Integer> emptyIDs = new LinkedList<>();
 
-        forecastData = new float[][]{today, tomorrow, in2days, in3days, in4days, in5days};
+        forecastData = new float[][]{today, tomorrow, in2days, in3days, in4days, in5days, in6days,in7days,empty};
 
         today[0]=forecasts.get(0).getMaxTemperature();
         today[1]=forecasts.get(0).getMinTemperature();
@@ -185,6 +191,30 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         in5days[8]=forecasts.get(5).getForecastTime()+zonemilliseconds;
         in5days[9]=forecasts.get(5).getWeatherID();
         in5days[10]=1;
+
+        in6days[0]=forecasts.get(6).getMaxTemperature();
+        in6days[1]=forecasts.get(6).getMinTemperature();
+        in6days[2]=forecasts.get(6).getHumidity();
+        in6days[3]=forecasts.get(6).getPressure();
+        in6days[4]=forecasts.get(6).getPrecipitation();
+        in6days[5]=forecasts.get(6).getWind_speed();
+        in6days[6]=forecasts.get(6).getWind_direction();
+        in6days[7]=forecasts.get(6).getUv_index();
+        in6days[8]=forecasts.get(6).getForecastTime()+zonemilliseconds;
+        in6days[9]=forecasts.get(6).getWeatherID();
+        in6days[10]=1;
+
+        in7days[0]=forecasts.get(7).getMaxTemperature();
+        in7days[1]=forecasts.get(7).getMinTemperature();
+        in7days[2]=forecasts.get(7).getHumidity();
+        in7days[3]=forecasts.get(7).getPressure();
+        in7days[4]=forecasts.get(7).getPrecipitation();
+        in7days[7]=forecasts.get(7).getWind_speed();
+        in7days[6]=forecasts.get(7).getWind_direction();
+        in7days[7]=forecasts.get(7).getUv_index();
+        in7days[8]=forecasts.get(7).getForecastTime()+zonemilliseconds;
+        in7days[9]=forecasts.get(7).getWeatherID();
+        in7days[10]=1;
 
         notifyDataSetChanged();
     }

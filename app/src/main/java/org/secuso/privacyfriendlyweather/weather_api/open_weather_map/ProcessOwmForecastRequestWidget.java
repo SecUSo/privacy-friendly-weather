@@ -80,7 +80,8 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
             int cityId = json.getJSONObject("city").getInt("id");
 
             //delete forecasts older than 24 hours
-            dbHelper.deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
+            //dbHelper.deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
+            dbHelper.deleteForecastsByCityId(cityId);
 
             List<Forecast> forecasts = new ArrayList<>();
             // Continue with inserting new records
