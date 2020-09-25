@@ -33,9 +33,6 @@ jobs:
           arch: x86
           disable-animations: true
           script: ./gradlew connectedAndroidTest --stacktrace
-      - name: Android Test Report
-        uses: asadmansr/android-test-report-action@v1.2.0
-    
 
   apk:
     name: Build APK
