@@ -14,6 +14,7 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.WeekForecast;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
@@ -51,14 +52,19 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         PFASQLiteHelper database = PFASQLiteHelper.getInstance(context.getApplicationContext());
 
         List<Forecast> forecasts = database.getForecastsByCityId(currentWeatherDataList.getCity_id());
+        List<WeekForecast> weekforecasts = database.getWeekForecastsByCityId(currentWeatherDataList.getCity_id());
 
         updateForecastData(forecasts);
+        updateWeekForecastData(weekforecasts);
+
     }
 
     // function for 3-hour forecast list
     public void updateForecastData(List<Forecast> forecasts) {
         //Log.d("forecast", "in cityweatheradapter " + forecasts.get(0).getCity_id() + " " + forecasts.size() + " " + forecasts.get(0).getForecastTime());
-        forecastData = compressWeatherData(forecasts);
+
+        //Not needed here, data will be taken from updateWeekForecastData
+        //       forecastData = compressWeatherData(forecasts);
         courseDayList = new ArrayList<Forecast>();
 
         long threehoursago = System.currentTimeMillis() - (3 * 60 * 60 * 1000);
@@ -76,6 +82,110 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 }
             }
         }
+        notifyDataSetChanged();
+    }
+
+    // function for week forecast list
+    public void updateWeekForecastData(List<WeekForecast> forecasts) {
+        if (forecasts.isEmpty()) {
+            Log.d("devtag", "######## forecastlist empty");
+            forecastData = new float[][]{new float[]{0}};
+            return;
+        }
+
+        int cityId = forecasts.get(0).getCity_id();
+
+        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context.getApplicationContext());
+        int zonemilliseconds = dbHelper.getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
+
+        //temp max 0, temp min 1, humidity 2, pressure 3, precipitation 4, wind 5, wind direction 6, uv_index 7, time 8, weather ID 9, number of FCs for day 10
+        float[] today = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> todayIDs = new LinkedList<>();
+        float[] tomorrow = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> tomorrowIDs = new LinkedList<>();
+        float[] in2days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in2daysIDs = new LinkedList<>();
+        float[] in3days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in3daysIDs = new LinkedList<>();
+        float[] in4days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in4daysIDs = new LinkedList<>();
+        float[] in5days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in5daysIDs = new LinkedList<>();
+
+        forecastData = new float[][]{today, tomorrow, in2days, in3days, in4days, in5days};
+
+        today[0]=forecasts.get(0).getMaxTemperature();
+        today[1]=forecasts.get(0).getMinTemperature();
+        today[2]=forecasts.get(0).getHumidity();
+        today[3]=forecasts.get(0).getPressure();
+        today[4]=forecasts.get(0).getPrecipitation();
+        today[5]=forecasts.get(0).getWind_speed();
+        today[6]=forecasts.get(0).getWind_direction();
+        today[7]=forecasts.get(0).getUv_index();
+        today[8]=forecasts.get(0).getForecastTime()+zonemilliseconds;
+        today[9]=forecasts.get(0).getWeatherID();
+        today[10]=1;
+
+        tomorrow[0]=forecasts.get(1).getMaxTemperature();
+        tomorrow[1]=forecasts.get(1).getMinTemperature();
+        tomorrow[2]=forecasts.get(1).getHumidity();
+        tomorrow[3]=forecasts.get(1).getPressure();
+        tomorrow[4]=forecasts.get(1).getPrecipitation();
+        tomorrow[5]=forecasts.get(1).getWind_speed();
+        tomorrow[6]=forecasts.get(1).getWind_direction();
+        tomorrow[7]=forecasts.get(1).getUv_index();
+        tomorrow[8]=forecasts.get(1).getForecastTime()+zonemilliseconds;
+        tomorrow[9]=forecasts.get(1).getWeatherID();
+        tomorrow[10]=1;
+
+        in2days[0]=forecasts.get(2).getMaxTemperature();
+        in2days[1]=forecasts.get(2).getMinTemperature();
+        in2days[2]=forecasts.get(2).getHumidity();
+        in2days[3]=forecasts.get(2).getPressure();
+        in2days[4]=forecasts.get(2).getPrecipitation();
+        in2days[5]=forecasts.get(2).getWind_speed();
+        in2days[6]=forecasts.get(2).getWind_direction();
+        in2days[7]=forecasts.get(2).getUv_index();
+        in2days[8]=forecasts.get(2).getForecastTime()+zonemilliseconds;
+        in2days[9]=forecasts.get(2).getWeatherID();
+        in2days[10]=1;
+
+        in3days[0]=forecasts.get(3).getMaxTemperature();
+        in3days[1]=forecasts.get(3).getMinTemperature();
+        in3days[2]=forecasts.get(3).getHumidity();
+        in3days[3]=forecasts.get(3).getPressure();
+        in3days[4]=forecasts.get(3).getPrecipitation();
+        in3days[5]=forecasts.get(3).getWind_speed();
+        in3days[6]=forecasts.get(3).getWind_direction();
+        in3days[7]=forecasts.get(3).getUv_index();
+        in3days[8]=forecasts.get(3).getForecastTime()+zonemilliseconds;
+        in3days[9]=forecasts.get(3).getWeatherID();
+        in3days[10]=1;
+
+        in4days[0]=forecasts.get(4).getMaxTemperature();
+        in4days[1]=forecasts.get(4).getMinTemperature();
+        in4days[2]=forecasts.get(4).getHumidity();
+        in4days[3]=forecasts.get(4).getPressure();
+        in4days[4]=forecasts.get(4).getPrecipitation();
+        in4days[5]=forecasts.get(4).getWind_speed();
+        in4days[6]=forecasts.get(4).getWind_direction();
+        in4days[7]=forecasts.get(4).getUv_index();
+        in4days[8]=forecasts.get(4).getForecastTime()+zonemilliseconds;
+        in4days[9]=forecasts.get(4).getWeatherID();
+        in4days[10]=1;
+
+        in5days[0]=forecasts.get(5).getMaxTemperature();
+        in5days[1]=forecasts.get(5).getMinTemperature();
+        in5days[2]=forecasts.get(5).getHumidity();
+        in5days[3]=forecasts.get(5).getPressure();
+        in5days[4]=forecasts.get(5).getPrecipitation();
+        in5days[5]=forecasts.get(5).getWind_speed();
+        in5days[6]=forecasts.get(5).getWind_direction();
+        in5days[7]=forecasts.get(5).getUv_index();
+        in5days[8]=forecasts.get(5).getForecastTime()+zonemilliseconds;
+        in5days[9]=forecasts.get(5).getWeatherID();
+        in5days[10]=1;
+
         notifyDataSetChanged();
     }
 

@@ -44,6 +44,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
     private static final String TABLE_CITIES_TO_WATCH = "CITIES_TO_WATCH";
     private static final String TABLE_CITIES = "CITIES";
     private static final String TABLE_FORECAST = "FORECASTS";
+    private static final String TABLE_WEEKFORECAST = "WEEKFORECASTS";
     private static final String TABLE_CURRENT_WEATHER = "CURRENT_WEATHER";
 
     //Names of indices  in TABLE_CITY
@@ -74,6 +75,23 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
     private static final String FORECAST_COLUMN_PRECIPITATION = "precipitation";
     private static final String FORECAST_COLUMN_WIND_SPEED = "wind_speed";
     private static final String FORECAST_COLUMN_WIND_DIRECTION = "wind_direction";
+
+    //Names of columns in TABLE_WEEKFORECAST
+    private static final String WEEKFORECAST_ID = "forecast_id";
+    private static final String WEEKFORECAST_CITY_ID = "city_id";
+    private static final String WEEKFORECAST_COLUMN_TIME_MEASUREMENT = "time_of_measurement";
+    private static final String WEEKFORECAST_COLUMN_FORECAST_FOR = "forecast_for";
+    private static final String WEEKFORECAST_COLUMN_WEATHER_ID = "weather_id";
+    private static final String WEEKFORECAST_COLUMN_TEMPERATURE_CURRENT = "temperature_current";
+    private static final String WEEKFORECAST_COLUMN_TEMPERATURE_MIN = "temperature_min";
+    private static final String WEEKFORECAST_COLUMN_TEMPERATURE_MAX = "temperature_max";
+    private static final String WEEKFORECAST_COLUMN_HUMIDITY = "humidity";
+    private static final String WEEKFORECAST_COLUMN_PRESSURE = "pressure";
+    private static final String WEEKFORECAST_COLUMN_PRECIPITATION = "precipitation";
+    private static final String WEEKFORECAST_COLUMN_WIND_SPEED = "wind_speed";
+    private static final String WEEKFORECAST_COLUMN_WIND_DIRECTION = "wind_direction";
+    private static final String WEEKFORECAST_COLUMN_UV_INDEX = "uv_index";
+
 
     //Names of columns in TABLE_CURRENT_WEATHER
     private static final String CURRENT_WEATHER_ID = "current_weather_id";
@@ -138,6 +156,24 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             FORECAST_COLUMN_PRECIPITATION + " REAL," +
             FORECAST_COLUMN_WIND_SPEED + " REAL," +
             FORECAST_COLUMN_WIND_DIRECTION + " REAL," +
+            " FOREIGN KEY (" + FORECAST_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
+
+    private static final String CREATE_TABLE_WEEKFORECASTS = "CREATE TABLE " + TABLE_WEEKFORECAST +
+            "(" +
+            WEEKFORECAST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            WEEKFORECAST_CITY_ID + " INTEGER," +
+            WEEKFORECAST_COLUMN_TIME_MEASUREMENT + " LONG NOT NULL," +
+            WEEKFORECAST_COLUMN_FORECAST_FOR + " VARCHAR(200) NOT NULL," +
+            WEEKFORECAST_COLUMN_WEATHER_ID + " INTEGER," +
+            WEEKFORECAST_COLUMN_TEMPERATURE_CURRENT + " REAL," +
+            WEEKFORECAST_COLUMN_TEMPERATURE_MIN + " REAL," +
+            WEEKFORECAST_COLUMN_TEMPERATURE_MAX + " REAL," +
+            WEEKFORECAST_COLUMN_HUMIDITY + " REAL," +
+            WEEKFORECAST_COLUMN_PRESSURE + " REAL," +
+            WEEKFORECAST_COLUMN_PRECIPITATION + " REAL," +
+            WEEKFORECAST_COLUMN_WIND_SPEED + " REAL," +
+            WEEKFORECAST_COLUMN_WIND_DIRECTION + " REAL," +
+            WEEKFORECAST_COLUMN_UV_INDEX + " REAL," +
             " FOREIGN KEY (" + FORECAST_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
 
     private static final String CREATE_TABLE_CITIES_TO_WATCH = "CREATE TABLE " + TABLE_CITIES_TO_WATCH +
@@ -497,8 +533,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         FORECAST_COLUMN_HUMIDITY + ", " +
                         FORECAST_COLUMN_PRESSURE + ", " +
                         FORECAST_COLUMN_PRECIPITATION + ", " +
-                        FORECAST_COLUMN_WIND_SPEED + " REAL," +
-                        FORECAST_COLUMN_WIND_DIRECTION + " REAL," +
+                        FORECAST_COLUMN_WIND_SPEED + " ," +
+                        FORECAST_COLUMN_WIND_DIRECTION + " ," +
                         CITIES_NAME +
                         " FROM " + TABLE_FORECAST +
                         " INNER JOIN " + TABLE_CITIES + " ON " + CITIES_ID + " = " + FORECAST_CITY_ID +
@@ -672,6 +708,259 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 new String[]{Integer.toString(forecast.getId())});
         database.close();
     }
+
+    /**
+     * Methods for TABLE_WEEKFORECAST
+     */
+    public synchronized void addWeekForecast(WeekForecast forecast) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(WEEKFORECAST_CITY_ID, forecast.getCity_id());
+        values.put(WEEKFORECAST_COLUMN_TIME_MEASUREMENT, forecast.getTimestamp());
+        values.put(WEEKFORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime());
+        values.put(WEEKFORECAST_COLUMN_WEATHER_ID, forecast.getWeatherID());
+        values.put(WEEKFORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
+        values.put(WEEKFORECAST_COLUMN_TEMPERATURE_MIN, forecast.getMinTemperature());
+        values.put(WEEKFORECAST_COLUMN_TEMPERATURE_MAX, forecast.getMaxTemperature());
+        values.put(WEEKFORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
+        values.put(WEEKFORECAST_COLUMN_PRESSURE, forecast.getPressure());
+        values.put(WEEKFORECAST_COLUMN_PRECIPITATION, forecast.getPrecipitation());
+        values.put(WEEKFORECAST_COLUMN_WIND_SPEED, forecast.getWind_speed());
+        values.put(WEEKFORECAST_COLUMN_WIND_DIRECTION, forecast.getWind_direction());
+        values.put(WEEKFORECAST_COLUMN_UV_INDEX, forecast.getUv_index());
+        database.insert(TABLE_WEEKFORECAST, null, values);
+        database.close();
+    }
+
+    public synchronized void deleteWeekForecastsByCityId(int cityId) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.delete(TABLE_WEEKFORECAST, WEEKFORECAST_CITY_ID + " = ?",
+                new String[]{Integer.toString(cityId)});
+        database.close();
+    }
+
+    public synchronized void deleteOldWeekForecastsByCityId(int cityId, long timestamp) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        long cutofftime = timestamp - 24 * 60 * 60 * 1000L;
+        database.delete(TABLE_WEEKFORECAST, WEEKFORECAST_CITY_ID + " = ? AND " + WEEKFORECAST_COLUMN_FORECAST_FOR + " <= ?",
+                new String[]{Integer.toString(cityId), Long.toString(cutofftime)});
+        database.close();
+    }
+
+
+    public synchronized List<WeekForecast> getWeekForecastForCityByDay(int cityId, Date day) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        Cursor cursor = database.rawQuery("SELECT " + WEEKFORECAST_ID + ", " +
+                        WEEKFORECAST_CITY_ID + ", " +
+                        WEEKFORECAST_COLUMN_TIME_MEASUREMENT + ", " +
+                        WEEKFORECAST_COLUMN_FORECAST_FOR + ", " +
+                        WEEKFORECAST_COLUMN_WEATHER_ID + ", " +
+                        WEEKFORECAST_COLUMN_TEMPERATURE_CURRENT + ", " +
+                        WEEKFORECAST_COLUMN_TEMPERATURE_MIN + ", " +
+                        WEEKFORECAST_COLUMN_TEMPERATURE_MAX + ", " +
+                        WEEKFORECAST_COLUMN_HUMIDITY + ", " +
+                        WEEKFORECAST_COLUMN_PRESSURE + ", " +
+                        WEEKFORECAST_COLUMN_PRECIPITATION + ", " +
+                        WEEKFORECAST_COLUMN_WIND_SPEED + ", " +
+                        WEEKFORECAST_COLUMN_WIND_DIRECTION + ", " +
+                        WEEKFORECAST_COLUMN_UV_INDEX +
+                        " FROM " + TABLE_WEEKFORECAST +
+                        " INNER JOIN " + TABLE_CITIES + " ON " + CITIES_ID + " = " + WEEKFORECAST_CITY_ID +
+                        " WHERE " + WEEKFORECAST_CITY_ID + " = ? AND " + WEEKFORECAST_COLUMN_FORECAST_FOR + " = ?",
+                new String[]{String.valueOf(cityId)});
+
+        List<WeekForecast> list = new ArrayList<>();
+        WeekForecast forecast;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                forecast = new WeekForecast();
+                forecast.setId(Integer.parseInt(cursor.getString(0)));
+                forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
+                forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
+                forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
+                forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
+                forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
+                forecast.setMinTemperature(Float.parseFloat(cursor.getString(6)));
+                forecast.setMaxTemperature(Float.parseFloat(cursor.getString(7)));
+                forecast.setHumidity(Float.parseFloat(cursor.getString(8)));
+                forecast.setPressure(Float.parseFloat(cursor.getString(9)));
+                forecast.setPrecipitation(Float.parseFloat(cursor.getString(10)));
+                forecast.setWind_speed(Float.parseFloat(cursor.getString(11)));
+                forecast.setWind_direction(Float.parseFloat(cursor.getString(12)));
+                forecast.setUv_index(Float.parseFloat(cursor.getString(13)));
+                list.add(forecast);
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+
+        return list;
+    }
+
+    public synchronized List<WeekForecast> getWeekForecastsByCityId(int cityId) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        Cursor cursor = database.query(TABLE_WEEKFORECAST,
+                new String[]{WEEKFORECAST_ID,
+                        WEEKFORECAST_CITY_ID,
+                        WEEKFORECAST_COLUMN_TIME_MEASUREMENT,
+                        WEEKFORECAST_COLUMN_FORECAST_FOR,
+                        WEEKFORECAST_COLUMN_WEATHER_ID,
+                        WEEKFORECAST_COLUMN_TEMPERATURE_CURRENT,
+                        WEEKFORECAST_COLUMN_TEMPERATURE_MIN,
+                        WEEKFORECAST_COLUMN_TEMPERATURE_MAX,
+                        WEEKFORECAST_COLUMN_HUMIDITY,
+                        WEEKFORECAST_COLUMN_PRESSURE,
+                        WEEKFORECAST_COLUMN_PRECIPITATION,
+                        WEEKFORECAST_COLUMN_WIND_SPEED,
+                        WEEKFORECAST_COLUMN_WIND_DIRECTION,
+                        WEEKFORECAST_COLUMN_UV_INDEX}
+                , WEEKFORECAST_CITY_ID + "=?",
+                new String[]{String.valueOf(cityId)}, null, null, null, null);
+
+        List<WeekForecast> list = new ArrayList<>();
+        WeekForecast forecast;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                forecast = new WeekForecast();
+                forecast.setId(Integer.parseInt(cursor.getString(0)));
+                forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
+                forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
+                forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
+                forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
+                forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
+                forecast.setMinTemperature(Float.parseFloat(cursor.getString(6)));
+                forecast.setMaxTemperature(Float.parseFloat(cursor.getString(7)));
+                forecast.setHumidity(Float.parseFloat(cursor.getString(8)));
+                forecast.setPressure(Float.parseFloat(cursor.getString(9)));
+                forecast.setPrecipitation(Float.parseFloat(cursor.getString(10)));
+                forecast.setWind_speed(Float.parseFloat(cursor.getString(11)));
+                forecast.setWind_direction(Float.parseFloat(cursor.getString(12)));
+                forecast.setUv_index(Float.parseFloat(cursor.getString(13)));
+                list.add(forecast);
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+
+        return list;
+    }
+
+    public synchronized WeekForecast getWeekForecast(int id) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        Cursor cursor = database.query(TABLE_WEEKFORECAST,
+                new String[]{WEEKFORECAST_ID,
+                        WEEKFORECAST_CITY_ID,
+                        WEEKFORECAST_COLUMN_TIME_MEASUREMENT,
+                        WEEKFORECAST_COLUMN_FORECAST_FOR,
+                        WEEKFORECAST_COLUMN_WEATHER_ID,
+                        WEEKFORECAST_COLUMN_TEMPERATURE_CURRENT,
+                        WEEKFORECAST_COLUMN_TEMPERATURE_MIN,
+                        WEEKFORECAST_COLUMN_TEMPERATURE_MAX,
+                        WEEKFORECAST_COLUMN_HUMIDITY,
+                        WEEKFORECAST_COLUMN_PRESSURE,
+                        WEEKFORECAST_COLUMN_PRECIPITATION,
+                        WEEKFORECAST_COLUMN_WIND_SPEED,
+                        WEEKFORECAST_COLUMN_WIND_DIRECTION,
+                        WEEKFORECAST_COLUMN_UV_INDEX}
+                , WEEKFORECAST_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+
+        WeekForecast forecast = new WeekForecast();
+
+        if (cursor != null && cursor.moveToFirst()) {
+            forecast.setId(Integer.parseInt(cursor.getString(0)));
+            forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
+            forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
+            forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
+            forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
+            forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
+            forecast.setMinTemperature(Float.parseFloat(cursor.getString(6)));
+            forecast.setMaxTemperature(Float.parseFloat(cursor.getString(7)));
+            forecast.setHumidity(Float.parseFloat(cursor.getString(8)));
+            forecast.setPressure(Float.parseFloat(cursor.getString(9)));
+            forecast.setPrecipitation(Float.parseFloat(cursor.getString(10)));
+            forecast.setWind_speed(Float.parseFloat(cursor.getString(11)));
+            forecast.setWind_direction(Float.parseFloat(cursor.getString(12)));
+            forecast.setUv_index(Float.parseFloat(cursor.getString(13)));
+
+            cursor.close();
+        }
+
+        return forecast;
+
+    }
+
+    public synchronized List<WeekForecast> getAllWeekForecasts() {
+        List<WeekForecast> forecastList = new ArrayList<WeekForecast>();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_WEEKFORECAST;
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        WeekForecast forecast;
+
+        if (cursor.moveToFirst()) {
+            do {
+                forecast = new WeekForecast();
+                forecast.setId(Integer.parseInt(cursor.getString(0)));
+                forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
+                forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
+                forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
+                forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
+                forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
+                forecast.setMinTemperature(Float.parseFloat(cursor.getString(6)));
+                forecast.setMaxTemperature(Float.parseFloat(cursor.getString(7)));
+                forecast.setHumidity(Float.parseFloat(cursor.getString(8)));
+                forecast.setPressure(Float.parseFloat(cursor.getString(9)));
+                forecast.setPrecipitation(Float.parseFloat(cursor.getString(10)));
+                forecast.setWind_speed(Float.parseFloat(cursor.getString(11)));
+                forecast.setWind_direction(Float.parseFloat(cursor.getString(12)));
+                forecast.setUv_index(Float.parseFloat(cursor.getString(13)));
+                forecastList.add(forecast);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return forecastList;
+    }
+
+    public synchronized int updateWeekForecast(WeekForecast forecast) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(WEEKFORECAST_CITY_ID, forecast.getCity_id());
+        values.put(WEEKFORECAST_COLUMN_TIME_MEASUREMENT, forecast.getTimestamp());
+        values.put(WEEKFORECAST_COLUMN_FORECAST_FOR, forecast.getForecastTime());
+        values.put(WEEKFORECAST_COLUMN_WEATHER_ID, forecast.getWeatherID());
+        values.put(WEEKFORECAST_COLUMN_TEMPERATURE_CURRENT, forecast.getTemperature());
+        values.put(WEEKFORECAST_COLUMN_TEMPERATURE_MIN, forecast.getMinTemperature());
+        values.put(WEEKFORECAST_COLUMN_TEMPERATURE_MAX, forecast.getMaxTemperature());
+        values.put(WEEKFORECAST_COLUMN_HUMIDITY, forecast.getHumidity());
+        values.put(WEEKFORECAST_COLUMN_PRESSURE, forecast.getPressure());
+        values.put(WEEKFORECAST_COLUMN_PRECIPITATION, forecast.getPrecipitation());
+        values.put(WEEKFORECAST_COLUMN_WIND_SPEED, forecast.getWind_speed());
+        values.put(WEEKFORECAST_COLUMN_WIND_DIRECTION, forecast.getWind_direction());
+        values.put(WEEKFORECAST_COLUMN_UV_INDEX, forecast.getUv_index());
+
+        return database.update(TABLE_WEEKFORECAST, values, WEEKFORECAST_ID + " = ?",
+                new String[]{String.valueOf(forecast.getId())});
+    }
+
+    public synchronized void deleteWeekForecast(WeekForecast forecast) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.delete(TABLE_WEEKFORECAST, WEEKFORECAST_ID + " = ?",
+                new String[]{Integer.toString(forecast.getId())});
+        database.close();
+    }
+
+
 
     /**
      * Methods for TABLE_CURRENT_WEATHER

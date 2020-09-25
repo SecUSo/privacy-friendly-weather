@@ -47,7 +47,8 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
 
 
         setIcon((int) dayValues[9], holder.weather);
-        holder.humidity.setText(String.format("%s | %s%%", StringFormatUtils.formatInt(dayValues[2]), StringFormatUtils.formatInt(dayValues[3])));
+ //       holder.humidity.setText(String.format("%s %%", StringFormatUtils.formatInt(dayValues[2])));
+        holder.humidity.setText(String.format("%s",StringFormatUtils.formatDecimal(dayValues[4],"mm")));
 
         Calendar c = Calendar.getInstance();
         c.setTimeZone(TimeZone.getTimeZone("GMT"));

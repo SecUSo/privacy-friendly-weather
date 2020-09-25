@@ -17,6 +17,7 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.WeekForecast;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
@@ -120,6 +121,16 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
         if (forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
             if (mAdapter != null) {
                 mAdapter.updateForecastData(forecasts);
+            }
+        }
+        //TODO Update Titlebar Text
+    }
+
+    @Override
+    public void updateWeekForecasts(List<WeekForecast> forecasts) {
+        if (forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
+            if (mAdapter != null) {
+                mAdapter.updateWeekForecastData(forecasts);
             }
         }
         //TODO Update Titlebar Text

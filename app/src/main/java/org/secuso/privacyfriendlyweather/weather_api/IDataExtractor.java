@@ -2,6 +2,7 @@ package org.secuso.privacyfriendlyweather.weather_api;
 
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.WeekForecast;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 
 /**
@@ -37,6 +38,12 @@ public interface IDataExtractor {
 
     /**
      * @param data The data that contains the information to instantiate a Forecast object.
+     * @return Returns the extracted weather forecast information. In case some error occurs, null
+     * will be returned.
+     */
+    WeekForecast extractWeekForecast(String data);
+    /**
+     * @param data The data that contains the information to instantiate a WeekForecast object.
      * @return Returns the extracted weather forecast information. In case some error occurs, null
      * will be returned.
      */

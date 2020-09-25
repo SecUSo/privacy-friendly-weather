@@ -12,6 +12,7 @@ import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.WeekForecast;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.WeatherCityFragment;
@@ -147,6 +148,11 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
 
     @Override
     public void updateForecasts(List<Forecast> forecasts) {
+        //empty because Fragments are subscribers themselves
+    }
+
+    @Override
+    public void updateWeekForecasts(List<WeekForecast> forecasts) {
         //empty because Fragments are subscribers themselves
     }
 

@@ -90,6 +90,27 @@ public class OwmHttpRequest {
     }
 
     /**
+     * Builds the URL for the OpenWeatherMap API that can be used to query the weather forecast
+     * via One Call API.
+     *
+     * @param lat The latitude of the city to get the forecast data for.
+     * @param lon The longitude of the city to get the forecast data for.
+     * @return Returns the URL that can be used to query weather forecasts for the given city using
+     * OpenWeatherMap.
+     */
+    protected String getUrlForQueryingOneCallAPI(Context context, float lat, float lon) {
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
+        return String.format(
+                "%sonecall?lat=%s&lon=%s&units=metric&exclude=current,minutely,hourly,alerts&appid=%s",
+                BuildConfig.BASE_URL,
+                lat,
+                lon,
+                prefManager.getOWMApiKey(context)
+        );
+    }
+
+    /**
      * Builds the URL for the OpenWeatherMap API that can be used to query the weather for several
      * cities within a given rectangle.
      *

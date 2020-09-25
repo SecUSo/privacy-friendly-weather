@@ -16,6 +16,7 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.WeekForecast;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.ui.viewPager.WeatherPagerAdapter;
@@ -213,6 +214,13 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
             refreshActionButton.getActionView().clearAnimation();
         }
         updatePageTitle();
+    }
+
+    @Override
+    public void updateWeekForecasts(List<WeekForecast> forecasts) {
+        if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
+            refreshActionButton.getActionView().clearAnimation();
+        }
     }
 
     @Override

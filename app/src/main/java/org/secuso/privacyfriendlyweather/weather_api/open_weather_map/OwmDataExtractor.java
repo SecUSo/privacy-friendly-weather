@@ -1,10 +1,13 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.WeekForecast;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
@@ -278,6 +281,50 @@ public class OwmDataExtractor implements IDataExtractor {
         return null;
     }
 
+    /**
+     * @see IDataExtractor#extractWeekForecast(String)
+     */
+    @Override
+    public WeekForecast extractWeekForecast(String data) {
+        try {
+
+            WeekForecast forecast = new WeekForecast();
+            JSONObject jsonData = new JSONObject(data);
+
+            forecast.setTimestamp(System.currentTimeMillis() / 1000);
+            forecast.setForecastTime(jsonData.getLong("dt") * 1000L);
+
+            IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
+            JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
+            JSONObject jsonWeather = new JSONObject(jsonWeatherArray.get(0).toString());
+            forecast.setWeatherID(conversion.convertWeatherCategory(jsonWeather.getString("id")));
+
+            JSONObject jsonTemp = jsonData.getJSONObject("temp");
+            forecast.setTemperature((float) jsonTemp.getDouble("day"));
+            forecast.setMaxTemperature((float) jsonTemp.getDouble("max"));
+            forecast.setMinTemperature((float) jsonTemp.getDouble("min"));
+            forecast.setHumidity((float) jsonData.getDouble("humidity"));
+            forecast.setPressure((float) jsonData.getDouble("pressure"));
+            forecast.setWind_speed((float) jsonData.getDouble("wind_speed"));
+            forecast.setWind_direction((float) jsonData.getDouble("wind_deg"));
+            forecast.setUv_index((float) jsonData.getDouble("uvi"));
+
+            if (jsonData.isNull("rain")) {
+                forecast.setPrecipitation(Forecast.NO_RAIN_VALUE);
+            } else {
+                    forecast.setPrecipitation((float) jsonData.getDouble("rain"));
+                }
+                        //add snow precipitation to rain
+            if (!jsonData.isNull("snow")) {
+                    forecast.setPrecipitation(forecast.getPrecipitation() + (float) jsonData.getDouble("snow"));
+                }
+
+            return forecast;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     /**
      * @param data The data that contains the information to retrieve the ID of the city.
      *             If data for a single city were requested, the response string can be

@@ -19,7 +19,9 @@ import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecastWidget;
+import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForOneCallAPI;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForForecast;
+import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForOneCallAPI;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForUpdatingCityList;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForWidgetUpdate;
 import org.secuso.privacyfriendlyweather.widget.WeatherWidget;
@@ -135,11 +137,11 @@ public class UpdateDataService extends JobIntentService {
         handleUpdateCurrentWeatherAction(intent);
         List<CityToWatch> cities = dbHelper.getAllCitiesToWatch();
         for (CityToWatch c : cities) {
-            handleUpdateForecastAction(intent, c.getCityId());
+            handleUpdateForecastAction(intent, c.getCityId(),c.getLatitude(),c.getLongitude());
         }
     }
 
-    private void handleUpdateForecastAction(Intent intent, int cityId) {
+    private void handleUpdateForecastAction(Intent intent, int cityId, float lat, float lon) {
         boolean skipUpdateInterval = intent.getBooleanExtra(SKIP_UPDATE_INTERVAL, false);
 
         // TODO: 07.0
@@ -163,6 +165,8 @@ public class UpdateDataService extends JobIntentService {
         if (skipUpdateInterval || timestamp + updateInterval - systemTime <= 0) {
             IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext());
             forecastRequest.perform(cityId);
+            IHttpRequestForOneCallAPI forecastOneCallRequest = new OwmHttpRequestForOneCallAPI(getApplicationContext());
+            forecastOneCallRequest.perform(lat,lon);
         }
     }
 
@@ -177,7 +181,19 @@ public class UpdateDataService extends JobIntentService {
 
     private void handleUpdateForecastAction(Intent intent) {
         int cityId = intent.getIntExtra(CITY_ID, -1);
-        handleUpdateForecastAction(intent, cityId);
+        float lat =0;
+        float lon =0;
+        //get lat lon for cityID
+        List<CityToWatch> citiesToWatch = dbHelper.getAllCitiesToWatch();
+        for (int i = 0; i < citiesToWatch.size(); i++) {
+            CityToWatch city = citiesToWatch.get(i);
+            if (city.getCityId() == cityId) {
+                lat = city.getLatitude();
+                lon = city.getLongitude();
+                break;
+            }
+        }
+        handleUpdateForecastAction(intent, cityId,lat,lon);
     }
 
     private void handleUpdateCurrentWeatherAction(Intent intent) {
