@@ -1,0 +1,380 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 5,
+    "identityHash": "d8e072132800850b56ad545db13e75a5",
+    "entities": [
+      {
+        "tableName": "CITIES",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cities_id` INTEGER NOT NULL, `city_name` TEXT NOT NULL, `country_code` TEXT NOT NULL, `longitude` REAL NOT NULL, `latitude` REAL NOT NULL, PRIMARY KEY(`cities_id`))",
+        "fields": [
+          {
+            "fieldPath": "cityId",
+            "columnName": "cities_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cityName",
+            "columnName": "city_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countryCode",
+            "columnName": "country_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "cities_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_CITIES_city_name_cities_id",
+            "unique": false,
+            "columnNames": [
+              "city_name",
+              "cities_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CITIES_city_name_cities_id` ON `${TABLE_NAME}` (`city_name`, `cities_id`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "CITIES_TO_WATCH",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cities_to_watch_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `city_id` INTEGER NOT NULL, `rank` INTEGER NOT NULL, `cities_id` INTEGER, `city_name` TEXT, `country_code` TEXT, `longitude` REAL, `latitude` REAL, FOREIGN KEY(`city_id`) REFERENCES `CITIES`(`cities_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "cities_to_watch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cityId",
+            "columnName": "city_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rank",
+            "columnName": "rank",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "city.cityId",
+            "columnName": "cities_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city.cityName",
+            "columnName": "city_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city.countryCode",
+            "columnName": "country_code",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city.longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city.latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "cities_to_watch_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "CITIES",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "city_id"
+            ],
+            "referencedColumns": [
+              "cities_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "CURRENT_WEATHER",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`current_weather_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `city_id` INTEGER NOT NULL, `time_of_measurement` INTEGER NOT NULL, `weather_id` INTEGER NOT NULL, `temperature_current` REAL NOT NULL, `temperature_min` REAL NOT NULL, `temperature_max` REAL NOT NULL, `humidity` REAL NOT NULL, `pressure` REAL NOT NULL, `wind_speed` REAL NOT NULL, `wind_direction` REAL NOT NULL, `cloudiness` REAL NOT NULL, `time_sunrise` INTEGER NOT NULL, `time_sunset` INTEGER NOT NULL, `timezone_seconds` INTEGER NOT NULL, FOREIGN KEY(`city_id`) REFERENCES `CITIES`(`cities_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "current_weather_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "city_id",
+            "columnName": "city_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "time_of_measurement",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weatherID",
+            "columnName": "weather_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temperatureCurrent",
+            "columnName": "temperature_current",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temperatureMin",
+            "columnName": "temperature_min",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temperatureMax",
+            "columnName": "temperature_max",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "humidity",
+            "columnName": "humidity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pressure",
+            "columnName": "pressure",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "windSpeed",
+            "columnName": "wind_speed",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "windDirection",
+            "columnName": "wind_direction",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cloudiness",
+            "columnName": "cloudiness",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeSunrise",
+            "columnName": "time_sunrise",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeSunset",
+            "columnName": "time_sunset",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeZoneSeconds",
+            "columnName": "timezone_seconds",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "current_weather_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "CITIES",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "city_id"
+            ],
+            "referencedColumns": [
+              "cities_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "FORECASTS",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`forecast_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `city_id` INTEGER NOT NULL, `time_of_measurement` INTEGER NOT NULL, `forecast_for` INTEGER NOT NULL, `weather_id` INTEGER NOT NULL, `temperature_current` REAL NOT NULL, `humidity` REAL NOT NULL, `pressure` REAL NOT NULL, `wind_speed` REAL NOT NULL, `wind_direction` REAL NOT NULL, `precipitation` REAL NOT NULL, `cities_id` INTEGER, `city_name` TEXT, `country_code` TEXT, `longitude` REAL, `latitude` REAL, FOREIGN KEY(`city_id`) REFERENCES `CITIES`(`cities_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "forecast_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "city_id",
+            "columnName": "city_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "time_of_measurement",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "forecastTime",
+            "columnName": "forecast_for",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weatherID",
+            "columnName": "weather_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temperature",
+            "columnName": "temperature_current",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "humidity",
+            "columnName": "humidity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pressure",
+            "columnName": "pressure",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "windSpeed",
+            "columnName": "wind_speed",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "windDirection",
+            "columnName": "wind_direction",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rainValue",
+            "columnName": "precipitation",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "city.cityId",
+            "columnName": "cities_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city.cityName",
+            "columnName": "city_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city.countryCode",
+            "columnName": "country_code",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city.longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city.latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "forecast_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "CITIES",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "city_id"
+            ],
+            "referencedColumns": [
+              "cities_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd8e072132800850b56ad545db13e75a5')"
+    ]
+  }
+}

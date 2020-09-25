@@ -1,8 +1,8 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,20 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 import org.secuso.privacyfriendlyweather.util.TimeUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TimeZone;
 
 public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.ViewHolder> {
     private static final String TAG = "Forecast_Adapter";

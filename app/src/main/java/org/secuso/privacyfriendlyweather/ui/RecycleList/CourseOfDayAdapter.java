@@ -1,7 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;

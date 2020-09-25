@@ -10,7 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;

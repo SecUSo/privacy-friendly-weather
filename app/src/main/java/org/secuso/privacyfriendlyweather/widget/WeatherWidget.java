@@ -12,8 +12,8 @@ import android.widget.RemoteViews;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
-import org.secuso.privacyfriendlyweather.database.City;
-import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.data.City;
+import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import static android.support.v4.app.JobIntentService.enqueueWork;
+import static androidx.core.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
 /**

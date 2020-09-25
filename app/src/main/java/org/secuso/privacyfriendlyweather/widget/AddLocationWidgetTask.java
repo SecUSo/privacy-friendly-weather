@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 
-import org.secuso.privacyfriendlyweather.database.City;
-import org.secuso.privacyfriendlyweather.database.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.data.City;
+import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 
-import static android.support.v4.app.JobIntentService.enqueueWork;
+import static androidx.core.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
 public class AddLocationWidgetTask extends AsyncTask<Object, Void, Object[]> {

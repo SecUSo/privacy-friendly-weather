@@ -1,34 +1,44 @@
-package org.secuso.privacyfriendlyweather.database;
+package org.secuso.privacyfriendlyweather.database.data;
+
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 /**
  * This class represents the database model for current weather data of cities.
  */
-
+@Entity(tableName = "CURRENT_WEATHER", foreignKeys = {
+        @ForeignKey(entity = City.class,
+        parentColumns = {"cities_id"},
+        childColumns = {"city_id"},
+        onDelete = ForeignKey.CASCADE)})
 public class CurrentWeatherData {
 
-    private int id;
-    private int city_id;
-    private long timestamp;
-    private int weatherID;
-    private float temperatureCurrent;
-    private float temperatureMin;
-    private float temperatureMax;
-    private float humidity;
-    private float pressure;
-    private float windSpeed;
-    private float windDirection;
-    private float cloudiness;
-    private long timeSunrise;
-    private long timeSunset;
-    private int timeZoneSeconds;
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "current_weather_id") private int id;
+    @ColumnInfo(name = "city_id") private int city_id;
+    @ColumnInfo(name = "time_of_measurement") private long timestamp;
+    @ColumnInfo(name = "weather_id") private int weatherID;
+    @ColumnInfo(name = "temperature_current") private float temperatureCurrent;
+    @ColumnInfo(name = "temperature_min") private float temperatureMin;
+    @ColumnInfo(name = "temperature_max") private float temperatureMax;
+    @ColumnInfo(name = "humidity") private float humidity;
+    @ColumnInfo(name = "pressure") private float pressure;
+    @ColumnInfo(name = "wind_speed") private float windSpeed;
+    @ColumnInfo(name = "wind_direction") private float windDirection;
+    @ColumnInfo(name = "cloudiness") private float cloudiness;
+    @ColumnInfo(name = "time_sunrise") private long timeSunrise;
+    @ColumnInfo(name = "time_sunset") private long timeSunset;
+    @ColumnInfo(name = "timezone_seconds") private int timeZoneSeconds;
 
-    private String city_name;
+    @Ignore private String city_name;
 
     public CurrentWeatherData() {
         this.city_id = Integer.MIN_VALUE;
     }
 
-    public CurrentWeatherData(int id, int city_id, long timestamp, int weatherID, float temperatureCurrent, float temperatureMin, float temperatureMax, float humidity, float pressure, float windSpeed, float windDirection, float cloudiness, long timeSunrise, long timeSunset, int timeZoneSeconds) {
+    @Ignore public CurrentWeatherData(int id, int city_id, long timestamp, int weatherID, float temperatureCurrent, float temperatureMin, float temperatureMax, float humidity, float pressure, float windSpeed, float windDirection, float cloudiness, long timeSunrise, long timeSunset, int timeZoneSeconds) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;

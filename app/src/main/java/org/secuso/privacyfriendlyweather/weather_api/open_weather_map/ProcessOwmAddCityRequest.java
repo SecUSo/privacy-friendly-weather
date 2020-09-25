@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;

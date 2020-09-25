@@ -10,7 +10,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerator;

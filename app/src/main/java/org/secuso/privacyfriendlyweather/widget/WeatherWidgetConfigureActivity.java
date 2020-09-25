@@ -12,7 +12,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerator;
 import org.secuso.privacyfriendlyweather.ui.util.MyConsumer;

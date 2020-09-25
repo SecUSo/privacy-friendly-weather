@@ -6,12 +6,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.data.City;
+import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.files.FileReader;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 
@@ -21,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static android.support.v4.app.JobIntentService.enqueueWork;
+import static androidx.core.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
 /**
@@ -30,6 +34,7 @@ import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_
  * @since 25.01.2018
  * created 02.01.2017
  */
+@Deprecated
 public class PFASQLiteHelper extends SQLiteAssetHelper {
 
     private static final int DATABASE_VERSION = 5;
@@ -161,8 +166,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
     }
 
     @VisibleForTesting
-    public PFASQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public PFASQLiteHelper(Context context, String name, String directory, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, directory, factory, version);
         this.context = context;
     }
 
@@ -222,7 +227,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 values.put(CITIES_LONGITUDE, c.getLongitude());
                 values.put(CITIES_LATITUDE, c.getLatitude());
                 long id = database.insert(TABLE_CITIES, null, values);
-                success &= id == -1;
+                success &= id != -1;
             }
             if (success) {
                 database.setTransactionSuccessful();
@@ -471,54 +476,6 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         database.close();
     }
 
-
-    public synchronized List<Forecast> getForecastForCityByDay(int cityId, Date day) {
-        SQLiteDatabase database = this.getWritableDatabase();
-
-        Cursor cursor = database.rawQuery("SELECT " + FORECAST_ID + ", " +
-                        FORECAST_CITY_ID + ", " +
-                        FORECAST_COLUMN_TIME_MEASUREMENT + ", " +
-                        FORECAST_COLUMN_FORECAST_FOR + ", " +
-                        FORECAST_COLUMN_WEATHER_ID + ", " +
-                        FORECAST_COLUMN_TEMPERATURE_CURRENT + ", " +
-                        FORECAST_COLUMN_HUMIDITY + ", " +
-                        FORECAST_COLUMN_PRESSURE + ", " +
-                        FORECAST_COLUMN_PRECIPITATION + ", " +
-                        FORECAST_COLUMN_WIND_SPEED + " REAL," +
-                        FORECAST_COLUMN_WIND_DIRECTION + " REAL," +
-                        CITIES_NAME +
-                        " FROM " + TABLE_FORECAST +
-                        " INNER JOIN " + TABLE_CITIES + " ON " + CITIES_ID + " = " + FORECAST_CITY_ID +
-                        " WHERE " + FORECAST_CITY_ID + " = ? AND " + FORECAST_COLUMN_FORECAST_FOR + " = ?",
-                new String[]{String.valueOf(cityId)});
-
-        List<Forecast> list = new ArrayList<>();
-        Forecast forecast;
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                forecast = new Forecast();
-                forecast.setId(Integer.parseInt(cursor.getString(0)));
-                forecast.setCity_id(Integer.parseInt(cursor.getString(1)));
-                forecast.setTimestamp(Long.parseLong(cursor.getString(2)));
-                forecast.setForecastTime(Long.parseLong(cursor.getString(3)));
-                forecast.setWeatherID(Integer.parseInt(cursor.getString(4)));
-                forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
-                forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
-                forecast.setPressure(Float.parseFloat(cursor.getString(7)));
-                forecast.setRainVolume(Float.parseFloat(cursor.getString(8)));
-                forecast.setWindSpeed(Float.parseFloat(cursor.getString(9)));
-                forecast.setWindDirection(Float.parseFloat(cursor.getString(10)));
-                forecast.setCity_name(cursor.getString(11));
-                list.add(forecast);
-            } while (cursor.moveToNext());
-
-            cursor.close();
-        }
-
-        return list;
-    }
-
     public synchronized List<Forecast> getForecastsByCityId(int cityId) {
         SQLiteDatabase database = this.getWritableDatabase();
 
@@ -551,7 +508,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
                 forecast.setPressure(Float.parseFloat(cursor.getString(7)));
-                forecast.setRainVolume(Float.parseFloat(cursor.getString(8)));
+                forecast.setRainValue(Float.parseFloat(cursor.getString(8)));
                 forecast.setWindSpeed(Float.parseFloat(cursor.getString(9)));
                 forecast.setWindDirection(Float.parseFloat(cursor.getString(10)));
                 list.add(forecast);
@@ -592,7 +549,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
             forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
             forecast.setPressure(Float.parseFloat(cursor.getString(7)));
-            forecast.setRainVolume(Float.parseFloat(cursor.getString(8)));
+            forecast.setRainValue(Float.parseFloat(cursor.getString(8)));
             forecast.setWindSpeed(Float.parseFloat(cursor.getString(9)));
             forecast.setWindDirection(Float.parseFloat(cursor.getString(10)));
             cursor.close();
@@ -623,7 +580,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 forecast.setTemperature(Float.parseFloat(cursor.getString(5)));
                 forecast.setHumidity(Float.parseFloat(cursor.getString(6)));
                 forecast.setPressure(Float.parseFloat(cursor.getString(7)));
-                forecast.setRainVolume(Float.parseFloat(cursor.getString(8)));
+                forecast.setRainValue(Float.parseFloat(cursor.getString(8)));
                 forecast.setWindSpeed(Float.parseFloat(cursor.getString(9)));
                 forecast.setWindDirection(Float.parseFloat(cursor.getString(10)));
                 forecastList.add(forecast);

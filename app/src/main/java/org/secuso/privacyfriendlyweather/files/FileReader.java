@@ -1,6 +1,6 @@
 package org.secuso.privacyfriendlyweather.files;
 
-import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.database.data.City;
 
 import java.io.BufferedReader;
 import java.io.IOException;

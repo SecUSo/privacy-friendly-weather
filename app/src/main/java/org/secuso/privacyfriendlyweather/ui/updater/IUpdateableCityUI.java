@@ -1,7 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui.updater;
 
-import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.data.Forecast;
 
 import java.util.List;
 

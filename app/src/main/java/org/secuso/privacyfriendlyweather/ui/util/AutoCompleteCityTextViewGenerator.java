@@ -11,7 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.secuso.privacyfriendlyweather.database.City;
+import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 
 import java.util.ArrayList;

@@ -3,8 +3,8 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.database.Forecast;
+import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
@@ -244,20 +244,20 @@ public class OwmDataExtractor implements IDataExtractor {
             //TODO: leave this out?
             // In case there was no rain in the past 3 hours, there is no "rain" field
             if (jsonData.isNull("rain")) {
-                forecast.setRainVolume(Forecast.NO_RAIN_VALUE);
+                forecast.setRainValue(Forecast.NO_RAIN_VALUE);
             } else {
                 JSONObject jsonRain = jsonData.getJSONObject("rain");
                 if (jsonRain.isNull("3h")) {
-                    forecast.setRainVolume(Forecast.NO_RAIN_VALUE);
+                    forecast.setRainValue(Forecast.NO_RAIN_VALUE);
                 } else {
-                    forecast.setRainVolume((float) jsonRain.getDouble("3h"));
+                    forecast.setRainValue((float) jsonRain.getDouble("3h"));
                 }
             }
             //add snow precipitation to rain
             if (!jsonData.isNull("snow")) {
                 JSONObject jsonSnow = jsonData.getJSONObject("snow");
                 if (!jsonSnow.isNull("3h")) {
-                    forecast.setRainVolume(forecast.getRainValue() + (float) jsonSnow.getDouble("3h"));
+                    forecast.setRainValue(forecast.getRainValue() + (float) jsonSnow.getDouble("3h"));
                 }
             }
 

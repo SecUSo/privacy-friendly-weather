@@ -1,6 +1,6 @@
 package org.secuso.privacyfriendlyweather.weather_api;
 
-import org.secuso.privacyfriendlyweather.database.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 
 import java.util.List;
 

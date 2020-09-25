@@ -2,7 +2,7 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.text.TextUtils;
 
-import org.secuso.privacyfriendlyweather.database.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 
 import java.util.ArrayList;
 import java.util.List;

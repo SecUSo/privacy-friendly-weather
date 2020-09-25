@@ -1,36 +1,49 @@
-package org.secuso.privacyfriendlyweather.database;
+package org.secuso.privacyfriendlyweather.database.data;
 
 import android.content.Context;
+
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 
 /**
  * This class is the database model for the forecasts table.
  */
+@Entity(tableName = "FORECASTS", foreignKeys = {
+        @ForeignKey(entity = City.class,
+                parentColumns = {"cities_id"},
+                childColumns = {"city_id"},
+                onDelete = ForeignKey.CASCADE)})
 public class Forecast {
 
     public static final float NO_RAIN_VALUE = 0;
-    private int id;
-    private int city_id;
-    private long timestamp;
-    private long forecastFor;
-    private int weatherID;
-    private float temperature;
-    private float humidity;
-    private float pressure;
-    private float windSpeed;
-    private float windDirection;
-    private float rainValue;
-    private String city_name;
 
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "forecast_id") private int id;
+    @ColumnInfo(name = "city_id") private int city_id;
+    @ColumnInfo(name = "time_of_measurement") private long timestamp;
+    @ColumnInfo(name = "forecast_for") private long forecastTime;
+    @ColumnInfo(name = "weather_id") private int weatherID;
+    @ColumnInfo(name = "temperature_current") private float temperature;
+    @ColumnInfo(name = "humidity") private float humidity;
+    @ColumnInfo(name = "pressure") private float pressure;
+    @ColumnInfo(name = "wind_speed") private float windSpeed;
+    @ColumnInfo(name = "wind_direction") private float windDirection;
+    @ColumnInfo(name = "precipitation") private float rainValue;
+    @Embedded private City city;
 
-    public Forecast() {
-    }
+    public Forecast() { }
 
-    public Forecast(int id, int city_id, long timestamp, long forecastFor, int weatherID, float temperature, float humidity,
+    @Ignore public Forecast(int id, int city_id, long timestamp, long forecastFor, int weatherID, float temperature, float humidity,
                     float pressure, float windSpeed, float windDirection, float rainValue) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
-        this.forecastFor = forecastFor;
+        this.forecastTime = forecastFor;
         this.weatherID = weatherID;
         this.temperature = temperature;
         this.humidity = humidity;
@@ -71,7 +84,7 @@ public class Forecast {
      * @return Returns the date and time for the forecast.
      */
     public long getForecastTime() {
-        return forecastFor;
+        return forecastTime;
     }
 
     /**
@@ -80,14 +93,14 @@ public class Forecast {
     public long getLocalForecastTime(Context context) {
         PFASQLiteHelper dbhelper = PFASQLiteHelper.getInstance(context);
         int timezoneseconds = dbhelper.getCurrentWeatherByCityId(city_id).getTimeZoneSeconds();
-        return forecastFor + timezoneseconds * 1000L;
+        return forecastTime + timezoneseconds * 1000L;
     }
 
     /**
      * @param forecastFor The point of time for the forecast.
      */
     public void setForecastTime(long forecastFor) {
-        this.forecastFor = forecastFor;
+        this.forecastTime = forecastFor;
     }
 
     /**
@@ -158,7 +171,7 @@ public class Forecast {
     /**
      * @return Returns the air pressure value in hectopascal (hPa).
      */
-    float getPressure() {
+    public float getPressure() {
         return pressure;
     }
 
@@ -170,18 +183,26 @@ public class Forecast {
     }
 
     public String getCity_name() {
-        return city_name;
+        return city.getCityName();
     }
 
-    void setCity_name(String city_name) {
-        this.city_name = city_name;
+    public void setCity_name(String city_name) {
+        this.city.setCityName(city_name);
     }
 
     public float getRainValue() {
         return rainValue;
     }
 
-    public void setRainVolume(float RainValue) {
+    public void setRainValue(float RainValue) {
         rainValue = RainValue;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 }

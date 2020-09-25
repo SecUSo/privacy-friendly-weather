@@ -3,28 +3,35 @@ package org.secuso.privacyfriendlyweather.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.room.Room;
+import androidx.room.testing.MigrationTestHelper;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.secuso.privacyfriendlyweather.BuildConfig;
-import org.secuso.privacyfriendlyweather.database.City;
-import org.secuso.privacyfriendlyweather.database.CityToWatch;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.data.City;
+import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
+import org.secuso.privacyfriendlyweather.database.data.Forecast;
 
-import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.secuso.privacyfriendlyweather.database.PFASQLiteHelper.DATABASE_NAME;
+import static org.secuso.privacyfriendlyweather.database.AppDatabase.DB_NAME;
 
 @RunWith(AndroidJUnit4.class)
 public class DatabaseTest {
@@ -32,55 +39,61 @@ public class DatabaseTest {
     private static final Context appContext =  InstrumentationRegistry.getInstrumentation().getTargetContext();
     private static final Context testContext =  InstrumentationRegistry.getInstrumentation().getContext();
 
-    private PFASQLiteHelper database;
-
     @Test
     public void useAppContext() {
         Assert.assertEquals(BuildConfig.APPLICATION_ID, appContext.getPackageName());
     }
 
     @Before
-    public void setupDatabase() {
-        database = PFASQLiteHelper.getInstance(appContext);
-        clearDatabase();
+    public void prepareDatabase() {
+        appContext.getDatabasePath(DB_NAME).delete();
+        appContext.getDatabasePath("PF_WEATHER_DB_4.db").delete();
     }
 
-    @After
-    public void clearDatabase() {
-        List<CityToWatch> ctw = database.getAllCitiesToWatch();
-        for(CityToWatch c : ctw) {
-            database.deleteCityToWatch(c);
-        }
+    @Rule
+    public MigrationTestHelper testHelper = new MigrationTestHelper(
+            InstrumentationRegistry.getInstrumentation(),
+            AppDatabase.class.getCanonicalName(),
+            new FrameworkSQLiteOpenHelperFactory()
+    );
 
-        List<CurrentWeatherData> cw = database.getAllCurrentWeathers();
-        for(CurrentWeatherData c : cw) {
-            database.deleteCurrentWeather(c);
-        }
-
-        List<Forecast> fl = database.getAllForecasts();
-        for(Forecast f : fl) {
-            database.deleteForecast(f);
-        }
+    private AppDatabase getMigratedRoomDatabase() {
+        AppDatabase database = AppDatabase.getInstance(appContext);
+        // close the database and release any stream resources when the test finishes
+        testHelper.closeWhenFinished(database);
+        return database;
     }
 
     @Test
-    public void addCityToWatchTest() {
-        // no cities in list be4
-        assertEquals(0, database.getAllCitiesToWatch().size());
+    public void testMigration4_5() throws IOException {
+        PFASQLiteHelper dbHandler = new PFASQLiteHelper(testContext, "PF_WEATHER_DB_4.db", appContext.getApplicationInfo().dataDir + "/databases", null, 4);
 
-        // add city
-        CityToWatch c = new CityToWatch(0, "DE", 0, 2938913, "Darmstadt");
-        database.addCityToWatch(c);
+        // init database
+        dbHandler.getAllCitiesToWatch();
+        dbHandler.close();
 
-        // now one city
-        List<CityToWatch> result = database.getAllCitiesToWatch();
-        assertEquals(1, result.size());
-        assertEquals(2938913, result.get(0).getCityId());
+        // migration
+        testHelper.runMigrationsAndValidate("PF_WEATHER_DB_4.db", 5, true, AppDatabase.getMigrations(appContext));
+
+        AppDatabase appDatabase = Room.databaseBuilder(appContext, AppDatabase.class, "PF_WEATHER_DB_4.db").build();
+        // close the database and release any stream resources when the test finishes
+        testHelper.closeWhenFinished(appDatabase);
+
+        assertNotNull(appDatabase.cityToWatchDao().getAll());
+        assertNotNull(appDatabase.forecastDao().getAll());
+        assertNotNull(appDatabase.currentWeatherDao().getAll());
+        assertEquals(209579, appDatabase.cityDao().count()); // make sure all the cities are written correctly
     }
 
     @Test
-    public void getRecommendationsTest() {
-        List<City> possibleCities = database.getCitiesWhereNameLike("Frankfurt", 10);
+    public void testRecommendationsTest() {
+        AppDatabase appDatabase = getMigratedRoomDatabase();
+
+        // are all the cities in the database?
+        assertEquals(209579, appDatabase.cityDao().count());
+
+        // get recommendations
+        List<City> possibleCities = appDatabase.cityDao().getCitiesWhereNameLike("Frankfurt", 10);
         assertEquals(5 , possibleCities.size());
 
         List<String> possibleCityNames = Arrays.asList("Frankfurt am Main", "Frankfurt (Oder)", "Frankfurt Main Flughafen", "Frankfurter Vorstadt");
@@ -89,25 +102,6 @@ public class DatabaseTest {
             assertEquals("DE", c.getCountryCode());
             assertTrue(possibleCityNames.contains(c.getCityName()));
         }
-    }
-
-    @Test
-    public void migrationTest4_5() {
-        // TODO: PF_WEATHER_DB original database with schema 1 in test assets to be able to test migrations
-        PFASQLiteHelper helper = new PFASQLiteHelper(appContext, "PF_WEATHER_DB_4.db", null, 4);
-        // todo: add assertion of data contents
-
-        // create database
-        SQLiteDatabase db = helper.getReadableDatabase();
-        assertNotNull(db);
-        assertEquals(4, db.getVersion());
-
-        // migrate database
-        helper.onUpgrade(db, 4, 5);
-
-        db = helper.getWritableDatabase();
-        assertNotNull(db);
-        //assertEquals(5, db.getVersion());
     }
 
 }
