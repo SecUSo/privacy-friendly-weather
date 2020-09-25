@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
@@ -45,9 +46,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         this.dataSetTypes = dataSetTypes;
         this.context = context;
 
-        PFASQLiteHelper database = PFASQLiteHelper.getInstance(context.getApplicationContext());
+        AppDatabase database = AppDatabase.getInstance(context.getApplicationContext());
 
-        List<Forecast> forecasts = database.getForecastsByCityId(currentWeatherDataList.getCity_id());
+        List<Forecast> forecasts = database.forecastDao().getForecastsByCityId(currentWeatherDataList.getCity_id());
 
         updateForecastData(forecasts);
     }
@@ -83,8 +84,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         }
         int cityId = forecastList.get(0).getCity_id();
 
-        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context.getApplicationContext());
-        int zonemilliseconds = dbHelper.getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
+        AppDatabase dbHelper = AppDatabase.getInstance(context.getApplicationContext());
+        int zonemilliseconds = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
         long daystart = TimeUtil.getStartOfDay(zonemilliseconds);
 
         //temp max 0, temp min 1, humidity max 2, humidity min 3, wind max 4, wind min 5, wind direction 6, rain total 7, time 8, weather ID 9, number of FCs for day 10

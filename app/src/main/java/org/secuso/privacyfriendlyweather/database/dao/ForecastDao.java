@@ -10,12 +10,15 @@ import org.secuso.privacyfriendlyweather.database.data.Forecast;
 
 import java.util.List;
 
+/**
+ * @author Christopher Beckmann
+ */
 @Dao
 public interface ForecastDao {
     @Query("SELECT * FROM FORECASTS")
     List<Forecast> getAll();
 
-    @Delete
+    @Query("DELETE FROM FORECASTS")
     void deleteAll();
 
     @Update

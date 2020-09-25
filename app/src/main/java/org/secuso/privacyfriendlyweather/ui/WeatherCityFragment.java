@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
@@ -42,27 +43,24 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
     }
 
     public void loadData() {
-        new AsyncTask<Void, Void, Void>() {
+        CurrentWeatherData currentWeatherData = AppDatabase.getInstance(getContext()).currentWeatherDao().getCurrentWeatherByCityId(mCityId);
+
+        if(currentWeatherData == null) {
+            return;
+        }
+
+        if (currentWeatherData.getCity_id() == 0) {
+            currentWeatherData.setCity_id(mCityId);
+        }
+
+        mAdapter = new CityWeatherAdapter(currentWeatherData, mDataSetTypes, getContext());
+
+        ((Activity) getContext()).runOnUiThread(new Runnable() {
             @Override
-            protected Void doInBackground(Void... voids) {
-                CurrentWeatherData currentWeatherData = PFASQLiteHelper.getInstance(getContext()).getCurrentWeatherByCityId(mCityId);
-
-                if (currentWeatherData.getCity_id() == 0) {
-                    currentWeatherData.setCity_id(mCityId);
-                }
-
-                mAdapter = new CityWeatherAdapter(currentWeatherData, mDataSetTypes, getContext());
-
-                ((Activity) getContext()).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setAdapter(mAdapter);
-                    }
-                });
-
-                return null;
+            public void run() {
+                setAdapter(mAdapter);
             }
-        }.doInBackground();
+        });
     }
 
     @Override

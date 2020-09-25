@@ -9,7 +9,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 
 /**
  * This class is the database model for the forecasts table.
@@ -91,8 +91,8 @@ public class Forecast {
      * @return Returns the local time for the forecast in UTC epoch
      */
     public long getLocalForecastTime(Context context) {
-        PFASQLiteHelper dbhelper = PFASQLiteHelper.getInstance(context);
-        int timezoneseconds = dbhelper.getCurrentWeatherByCityId(city_id).getTimeZoneSeconds();
+        AppDatabase dbhelper = AppDatabase.getInstance(context);
+        int timezoneseconds = dbhelper.currentWeatherDao().getCurrentWeatherByCityId(city_id).getTimeZoneSeconds();
         return forecastTime + timezoneseconds * 1000L;
     }
 

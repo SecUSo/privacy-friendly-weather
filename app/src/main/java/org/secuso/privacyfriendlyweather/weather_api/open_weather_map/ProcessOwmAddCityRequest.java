@@ -7,8 +7,8 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
@@ -28,7 +28,7 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
      * Member variables
      */
     private Context context;
-    private PFASQLiteHelper dbHelper;
+    private AppDatabase dbHelper;
     //private boolean storePersistently;
 
 
@@ -39,7 +39,7 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
      */
     public ProcessOwmAddCityRequest(Context context) {
         this.context = context;
-        this.dbHelper = PFASQLiteHelper.getInstance(context);
+        this.dbHelper = AppDatabase.getInstance(context);
     }
 
     /**
@@ -62,9 +62,9 @@ public class ProcessOwmAddCityRequest implements IProcessHttpRequest {
             } else {
                 weatherData.setCity_id(cityId);
 
-                dbHelper.deleteCurrentWeatherByCityId(cityId);
+                dbHelper.currentWeatherDao().deleteCurrentWeatherByCityId(cityId);
 
-                dbHelper.addCurrentWeather(weatherData);
+                dbHelper.currentWeatherDao().addCurrentWeather(weatherData);
 
                 ViewUpdater.updateCurrentWeatherData(weatherData);
             }

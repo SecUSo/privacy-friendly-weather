@@ -6,8 +6,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
-import androidx.annotation.VisibleForTesting;
 import android.util.Log;
+
+import androidx.annotation.VisibleForTesting;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -22,7 +23,6 @@ import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static androidx.core.app.JobIntentService.enqueueWork;
@@ -39,8 +39,6 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
 
     private static final int DATABASE_VERSION = 5;
     private Context context;
-
-    private List<City> allCities = new ArrayList<>();
 
     private static PFASQLiteHelper instance = null;
 

@@ -10,6 +10,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
@@ -46,7 +47,7 @@ public class RadiusSearchActivity extends BaseActivity {
     /**
      * Other components
      */
-    private PFASQLiteHelper dbHelper;
+    private AppDatabase dbHelper;
     private City dropdownSelectedCity;
 
     @Override
@@ -56,7 +57,7 @@ public class RadiusSearchActivity extends BaseActivity {
         overridePendingTransition(0, 0);
 
 
-        dbHelper = PFASQLiteHelper.getInstance(this);
+        dbHelper = AppDatabase.getInstance(this);
         initialize();
     }
 

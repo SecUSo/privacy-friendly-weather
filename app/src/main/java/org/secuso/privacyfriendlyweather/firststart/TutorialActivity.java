@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
@@ -51,7 +52,7 @@ public class TutorialActivity extends AppCompatActivity {
     private Button btnSkip, btnNext;
     private PrefManager prefManager;
 
-    PFASQLiteHelper database;
+    AppDatabase database;
     private AutoCompleteTextView autoCompleteTextView;
     private AutoCompleteCityTextViewGenerator cityTextViewGenerator;
     private City selectedCity;
@@ -127,7 +128,7 @@ public class TutorialActivity extends AppCompatActivity {
             }
         });
 
-        database = PFASQLiteHelper.getInstance(this);
+        database = AppDatabase.getInstance(this);
         cityTextViewGenerator = new AutoCompleteCityTextViewGenerator(this, database);
     }
 
@@ -168,7 +169,7 @@ public class TutorialActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        if (selectedCity != null && database != null && !database.isCityWatched(selectedCity.getCityId())) {
+        if (selectedCity != null && database != null && !database.cityToWatchDao().isCityWatched(selectedCity.getCityId())) {
             addCity();
         }
         startActivity(new Intent(TutorialActivity.this, ForecastCityActivity.class));
@@ -195,26 +196,18 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     public void addCity() {
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                if (selectedCity != null) {
-                    database.addCityToWatch(new CityToWatch(
-                            0,
-                            selectedCity.getCountryCode(),
-                            -1,
-                            selectedCity.getCityId(),
-                            selectedCity.getCityName()
-                    ));
-                    Intent intent = new Intent(getApplicationContext(), UpdateDataService.class);
-                    intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
-                    enqueueWork(getApplicationContext(), UpdateDataService.class, 0, intent);
-                }
-
-                return null;
-            }
-        }.doInBackground();
+        if (selectedCity != null) {
+            database.cityToWatchDao().addCityToWatch(new CityToWatch(
+                    0,
+                    selectedCity.getCountryCode(),
+                    0,
+                    selectedCity.getCityId(),
+                    selectedCity.getCityName()
+            ));
+            Intent intent = new Intent(getApplicationContext(), UpdateDataService.class);
+            intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
+            enqueueWork(getApplicationContext(), UpdateDataService.class, 0, intent);
+        }
     }
 
     //  viewpager change listener

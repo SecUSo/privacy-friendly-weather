@@ -7,6 +7,17 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 
+/**
+ * Migration from version 4 to 5. This is the migration from regular SQLite to Room.
+ * That is why a lot of changes had to be done here. Some tables had wrong entry types and the city list was updated.
+ * Because this was the case for every table, each one is rebuilt completely and repopulated with the old data.
+ * This migration needs a {@link Context} because it needs to populate the city table from a file.
+ *
+ * @see org.secuso.privacyfriendlyweather.database.migration.ContextAwareMigration
+ *
+ * @author Christopher Beckmann
+ *
+ */
 public class Migration_4_5 extends ContextAwareMigration {
 
     public Migration_4_5() {
@@ -14,7 +25,7 @@ public class Migration_4_5 extends ContextAwareMigration {
     }
 
     @Override
-    public void migrate(Context context, @NonNull SupportSQLiteDatabase database) {
+    public void migrate(@NonNull Context context, @NonNull SupportSQLiteDatabase database) {
         // Cities
         database.execSQL("DROP TABLE CITIES;");
         database.execSQL("CREATE TABLE IF NOT EXISTS CITIES (" +

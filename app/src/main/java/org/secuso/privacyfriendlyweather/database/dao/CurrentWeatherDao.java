@@ -1,7 +1,6 @@
 package org.secuso.privacyfriendlyweather.database.dao;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -10,6 +9,9 @@ import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 
 import java.util.List;
 
+/**
+ * @author Christopher Beckmann
+ */
 @Dao
 public interface CurrentWeatherDao {
 

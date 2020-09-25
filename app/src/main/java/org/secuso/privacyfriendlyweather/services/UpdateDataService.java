@@ -12,6 +12,7 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
@@ -28,6 +29,7 @@ import org.secuso.privacyfriendlyweather.widget.WeatherWidgetThreeDayForecast;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 /**
@@ -44,7 +46,7 @@ public class UpdateDataService extends JobIntentService {
     public static final String CITY_ID = "cityId";
     public static final String SKIP_UPDATE_INTERVAL = "skipUpdateInterval";
 
-    private PFASQLiteHelper dbHelper;
+    private AppDatabase dbHelper;
     private SharedPreferences prefManager;
 
     /**
@@ -60,7 +62,7 @@ public class UpdateDataService extends JobIntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        dbHelper = PFASQLiteHelper.getInstance(getApplicationContext());
+        dbHelper = AppDatabase.getInstance(getApplicationContext());
         prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
@@ -133,7 +135,7 @@ public class UpdateDataService extends JobIntentService {
      */
     private void handleUpdateAll(Intent intent) {
         handleUpdateCurrentWeatherAction(intent);
-        List<CityToWatch> cities = dbHelper.getAllCitiesToWatch();
+        List<CityToWatch> cities = dbHelper.cityToWatchDao().getAll();
         for (CityToWatch c : cities) {
             handleUpdateForecastAction(intent, c.getCityId());
         }
@@ -150,7 +152,7 @@ public class UpdateDataService extends JobIntentService {
 
         if (!skipUpdateInterval) {
             // check timestamp of the current forecasts
-            List<Forecast> forecasts = dbHelper.getForecastsByCityId(cityId);
+            List<Forecast> forecasts = dbHelper.forecastDao().getForecastsByCityId(cityId);
             if (forecasts.size() > 0) {
                 timestamp = forecasts.get(0).getTimestamp();
             }
@@ -169,7 +171,7 @@ public class UpdateDataService extends JobIntentService {
     private boolean isOnline() {
         try {
             InetAddress inetAddress = InetAddress.getByName("api.openweathermap.org");
-            return inetAddress.isReachable(2000);
+            return !inetAddress.equals("");
         } catch (IOException | IllegalArgumentException e) {
             return false;
         }
@@ -189,9 +191,9 @@ public class UpdateDataService extends JobIntentService {
         if (!skipUpdateInterval) {
             long updateInterval = Long.parseLong(prefManager.getString("pref_updateInterval", "2")) * 60 * 60;
 
-            List<CityToWatch> citiesToWatch = dbHelper.getAllCitiesToWatch();
+            List<CityToWatch> citiesToWatch = dbHelper.cityToWatchDao().getAll();
             // check timestamp of the current weather .. if one of them is out of date.. update them all at once
-            List<CurrentWeatherData> weather = dbHelper.getAllCurrentWeathers();
+            List<CurrentWeatherData> weather = dbHelper.currentWeatherDao().getAll();
 
             for (CityToWatch city : citiesToWatch) {
                 int cityId = city.getCityId();
@@ -217,7 +219,7 @@ public class UpdateDataService extends JobIntentService {
 
         if (skipUpdateInterval || shouldUpdate) {
             IHttpRequestForCityList currentWeatherRequest = new OwmHttpRequestForUpdatingCityList(getApplicationContext());
-            List<CityToWatch> cityToWatches = dbHelper.getAllCitiesToWatch();
+            List<CityToWatch> cityToWatches = dbHelper.cityToWatchDao().getAll();
             currentWeatherRequest.perform(cityToWatches);
         }
     }

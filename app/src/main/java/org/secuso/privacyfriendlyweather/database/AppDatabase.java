@@ -7,9 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Database;
-import androidx.room.PrimaryKey;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
@@ -31,9 +29,10 @@ import org.secuso.privacyfriendlyweather.files.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.concurrent.Executors;
 
-
+/**
+ * @author Christopher Beckmann
+ */
 @Database(entities = {City.class, CityToWatch.class, CurrentWeatherData.class, Forecast.class}, version = AppDatabase.VERSION)
 public abstract class AppDatabase extends RoomDatabase {
     static final String DB_NAME = "PF_WEATHER_DB.db";
@@ -120,6 +119,7 @@ public abstract class AppDatabase extends RoomDatabase {
                         Log.d(TAG, "City count: " + cityCount);
                     }
                 })
+                .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build();
     }

@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
@@ -44,7 +45,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
      * Member variables
      */
     private Context context;
-    private PFASQLiteHelper dbHelper;
+    private AppDatabase dbHelper;
     private int cityId;
     private int widgetId;
     private int widgetType;
@@ -58,7 +59,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
      */
     ProcessOwmForecastRequestWidget(Context context, int cityId, int widgetId, int widgetType, RemoteViews views) {
         this.context = context;
-        this.dbHelper = PFASQLiteHelper.getInstance(context);
+        this.dbHelper = AppDatabase.getInstance(context);
         this.cityId = cityId;
         this.widgetId = widgetId;
         this.widgetType = widgetType;
@@ -80,7 +81,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
             int cityId = json.getJSONObject("city").getInt("id");
 
             //delete forecasts older than 24 hours
-            dbHelper.deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
+            dbHelper.forecastDao().deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
 
             List<Forecast> forecasts = new ArrayList<>();
             // Continue with inserting new records
@@ -97,7 +98,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
                 else {
                     forecast.setCity_id(cityId);
                     // add it to the database
-                    dbHelper.addForecast(forecast);
+                    dbHelper.forecastDao().addForecast(forecast);
                     forecasts.add(forecast);
                 }
             }
@@ -139,15 +140,15 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
     private void updateWidget() {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
-        City city = dbHelper.getCityById(cityId);
+        City city = dbHelper.cityDao().getCityById(cityId);
 
         if (widgetType == 1) {
-            CurrentWeatherData weatherData = dbHelper.getCurrentWeatherByCityId(cityId);
+            CurrentWeatherData weatherData = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(cityId);
 
             WeatherWidget.updateView(context, appWidgetManager, views, widgetId, city, weatherData);
 
         } else {
-            List<Forecast> forecastList = dbHelper.getForecastsByCityId(cityId);
+            List<Forecast> forecastList = dbHelper.forecastDao().getForecastsByCityId(cityId);
             long start = System.nanoTime();
 
             float[][] data = compressWeatherData(forecastList);
@@ -170,7 +171,7 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
     }
 
     private float[][] compressWeatherData(List<Forecast> forecastList) {
-        int zonemilliseconds = dbHelper.getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
+        int zonemilliseconds = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
         //Log.d("devtag", "zonehours " + zonemilliseconds / 3600000.0);
 
         Calendar cal = Calendar.getInstance();

@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.dialogs.AddLocationDialog;
@@ -32,7 +33,7 @@ import static androidx.core.app.JobIntentService.enqueueWork;
 public class MainActivity extends BaseActivity {
 
     private final String DEBUG_TAG = "main_activity_debug";
-    private PFASQLiteHelper database;
+    private AppDatabase database;
     PrefManager prefManager;
     private ItemTouchHelper.Callback callback;
     private ItemTouchHelper touchHelper;
@@ -45,12 +46,12 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         overridePendingTransition(0, 0);
 
-        database = PFASQLiteHelper.getInstance(this);
+        database = AppDatabase.getInstance(this);
 
         cities = new ArrayList<CityToWatch>();
 
         try {
-            cities = database.getAllCitiesToWatch();
+            cities = database.cityToWatchDao().getAll();
             Collections.sort(cities, new Comparator<CityToWatch>() {
                 @Override
                 public int compare(CityToWatch o1, CityToWatch o2) {

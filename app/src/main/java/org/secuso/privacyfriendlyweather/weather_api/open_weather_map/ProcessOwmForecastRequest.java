@@ -10,8 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
@@ -34,7 +34,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
      * Member variables
      */
     private Context context;
-    private PFASQLiteHelper dbHelper;
+    private AppDatabase dbHelper;
 
     /**
      * Constructor.
@@ -43,7 +43,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
      */
     public ProcessOwmForecastRequest(Context context) {
         this.context = context;
-        this.dbHelper = PFASQLiteHelper.getInstance(context);
+        this.dbHelper = AppDatabase.getInstance(context);
     }
 
     /**
@@ -61,7 +61,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
             int cityId = json.getJSONObject("city").getInt("id");
 
             //delete forecasts older than 24 hours
-            dbHelper.deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
+            dbHelper.forecastDao().deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
 
             List<Forecast> forecasts = new ArrayList<>();
             // Continue with inserting new records
@@ -78,7 +78,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
                 else {
                     forecast.setCity_id(cityId);
                     // add it to the database
-                    dbHelper.addForecast(forecast);
+                    dbHelper.forecastDao().addForecast(forecast);
                     forecasts.add(forecast);
                 }
             }

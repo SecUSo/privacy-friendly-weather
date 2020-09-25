@@ -5,9 +5,7 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import androidx.room.Relation;
 
 /**
  * This class is the database model for the cities to watch. 'Cities to watch' means the locations
@@ -21,7 +19,7 @@ import androidx.room.Relation;
                 onDelete = ForeignKey.CASCADE)})
 public class CityToWatch {
 
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "cities_to_watch_id") private int id;
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "cities_to_watch_id") private int id = 0;
     @ColumnInfo(name = "city_id") private int cityId;
     @ColumnInfo(name = "rank") private int rank;
     @Embedded private City city;

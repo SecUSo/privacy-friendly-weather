@@ -9,6 +9,9 @@ import org.secuso.privacyfriendlyweather.database.data.City;
 
 import java.util.List;
 
+/**
+ * @author Christopher Beckmann
+ */
 @Dao
 public interface CityDao {
     @Insert

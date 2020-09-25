@@ -11,6 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 
@@ -28,7 +29,7 @@ public class AutoCompleteCityTextViewGenerator {
      */
     private Context context;
     //private DatabaseHelper dbHelper;
-    private PFASQLiteHelper dbHelper;
+    private AppDatabase dbHelper;
     private ArrayAdapter<City> cityAdapter;
     private Runnable selectAction;
     private AutoCompleteTextView editField;
@@ -43,7 +44,7 @@ public class AutoCompleteCityTextViewGenerator {
      * @param dbHelper An instance of a DatabaseHelper. This object is used to make the database
      *                 queries.
      */
-    public AutoCompleteCityTextViewGenerator(Context context, PFASQLiteHelper dbHelper) {
+    public AutoCompleteCityTextViewGenerator(Context context, AppDatabase dbHelper) {
         this.context = context;
         this.dbHelper = dbHelper;
     }
@@ -90,7 +91,7 @@ public class AutoCompleteCityTextViewGenerator {
         if (selectedCity == null) {
             String current = editField.getText().toString();
             if (current.length() > 2) {
-                List<City> cities = dbHelper.getCitiesWhereNameLike(current, listLimit);
+                List<City> cities = dbHelper.cityDao().getCitiesWhereNameLike(current, listLimit);
                 if (cities.size() == 1) {
                     selectedCity = cities.get(0);
                     cityConsumer.accept(selectedCity);
@@ -137,7 +138,7 @@ public class AutoCompleteCityTextViewGenerator {
             if (content.length() > 2) {
                 // Get the matched cities
                 //List<City> cities = dbHelper.getCitiesWhereNameLike(content, allCities, dropdownListLimit);
-                List<City> cities = dbHelper.getCitiesWhereNameLike(content, listLimit);
+                List<City> cities = dbHelper.cityDao().getCitiesWhereNameLike(content, listLimit);
                 // Set the drop down entries
 
                 if (selectWhenUnique && cities.size() == 1) {

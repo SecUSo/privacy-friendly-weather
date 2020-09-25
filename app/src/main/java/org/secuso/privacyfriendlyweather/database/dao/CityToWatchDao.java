@@ -4,13 +4,15 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import androidx.room.Update;
 
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 
 import java.util.List;
 
+/**
+ * @author Christopher Beckmann
+ */
 @Dao
 public interface CityToWatchDao {
     @Query("SELECT * FROM CITIES_TO_WATCH")

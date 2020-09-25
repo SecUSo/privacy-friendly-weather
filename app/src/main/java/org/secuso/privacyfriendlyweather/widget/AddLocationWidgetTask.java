@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 
 import static androidx.core.app.JobIntentService.enqueueWork;
@@ -25,15 +25,15 @@ public class AddLocationWidgetTask extends AsyncTask<Object, Void, Object[]> {
 
         City selectedCity = (City) params[0];
 
-        PFASQLiteHelper database = PFASQLiteHelper.getInstance(context);
-        boolean isAdded = database.isCityWatched(selectedCity.getCityId());
+        AppDatabase database = AppDatabase.getInstance(context);
+        boolean isAdded = database.cityToWatchDao().isCityWatched(selectedCity.getCityId());
 
         if (!isAdded) {
             CityToWatch newCity = new CityToWatch();
             newCity.setCityId(selectedCity.getCityId());
-            newCity.setRank(database.getMaxRank() + 1);
+            newCity.setRank(database.cityToWatchDao().getMaxRank() + 1);
             newCity.setCityName(selectedCity.getCityName());
-            database.addCityToWatch(newCity);
+            database.cityToWatchDao().addCityToWatch(newCity);
         }
         database.close();
         return params;

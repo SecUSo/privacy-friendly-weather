@@ -24,10 +24,20 @@ public abstract class ContextAwareMigration extends Migration {
         super(startVersion, endVersion);
     }
 
+    /**
+     * This needs to be called before {@link ContextAwareMigration#migrate(SupportSQLiteDatabase)} is called.
+     * @param context to be injected
+     */
     public void injectContext(Context context) {
         mContext = context;
     }
 
+    /**
+     * This method is automatically called by the migration system.
+     * Make sure to call {@link ContextAwareMigration#injectContext(Context)} before performing the migration.
+     *
+     * @param database the database to migrate
+     */
     @Override
     public void migrate(@NonNull SupportSQLiteDatabase database) {
         if(mContext == null) {
@@ -38,5 +48,12 @@ public abstract class ContextAwareMigration extends Migration {
         migrate(mContext, database);
     }
 
+    /**
+     * This method is automatically called by the migration system.
+     * Make sure to call {@link ContextAwareMigration#injectContext(Context)} before performing the migration.
+     *
+     * @param context the context to be used
+     * @param database the database to migrate
+     */
     public abstract void migrate(final Context context, @NonNull SupportSQLiteDatabase database);
 }

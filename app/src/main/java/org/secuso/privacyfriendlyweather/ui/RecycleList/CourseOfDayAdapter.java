@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
@@ -63,8 +64,8 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
 
     @Override
     public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
-        PFASQLiteHelper dbHelper = PFASQLiteHelper.getInstance(context);
-        CurrentWeatherData currentWeather = dbHelper.getCurrentWeatherByCityId(courseOfDayList.get(position).getCity_id());
+        AppDatabase dbHelper = AppDatabase.getInstance(context);
+        CurrentWeatherData currentWeather = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(courseOfDayList.get(position).getCity_id());
 
         // Show day icons between 4am and 8pm.
         // Would be better to use actual sunset and sunrise time, but did not know how to do this, These are not available in forecast database.

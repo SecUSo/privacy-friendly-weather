@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
@@ -41,7 +42,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
 
     private Context mContext;
 
-    private PFASQLiteHelper database;
+    private AppDatabase database;
     PrefManager prefManager;
     long lastUpdateTime;
 
@@ -55,11 +56,11 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         super(supportFragmentManager);
         this.mContext = context;
         this.prefManager = new PrefManager(context);
-        this.database = PFASQLiteHelper.getInstance(context);
-        this.currentWeathers = database.getAllCurrentWeathers();
-        this.cities = database.getAllCitiesToWatch();
+        this.database = AppDatabase.getInstance(context);
+        this.currentWeathers = database.currentWeatherDao().getAll();
+        this.cities = database.cityToWatchDao().getAll();
         try {
-            cities = database.getAllCitiesToWatch();
+            cities = database.cityToWatchDao().getAll();
             Collections.sort(cities, new Comparator<CityToWatch>() {
                 @Override
                 public int compare(CityToWatch o1, CityToWatch o2) {

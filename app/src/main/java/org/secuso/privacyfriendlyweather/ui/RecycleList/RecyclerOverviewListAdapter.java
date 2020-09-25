@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
@@ -31,7 +32,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     private Context context;
     private static List<CityToWatch> cities;
     PrefManager prefManager;
-    PFASQLiteHelper database;
+    AppDatabase database;
 
 
     /**
@@ -41,7 +42,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
         this.context = context;
         RecyclerOverviewListAdapter.cities = cities;
         prefManager = new PrefManager(context);
-        database = PFASQLiteHelper.getInstance(context);
+        database = AppDatabase.getInstance(context);
     }
 
     /**
@@ -92,7 +93,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         holder.getTvInformation().setText(cities.get(position).getCityName());
-        holder.getTvCountryCode().setText(database.getCityById(cities.get(position).getCityId()).getCountryCode());
+        holder.getTvCountryCode().setText(database.cityDao().getCityById(cities.get(position).getCityId()).getCountryCode());
 
     }
 
@@ -114,7 +115,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
 
         CityToWatch city = cityList.get(position);
 
-        database.deleteCityToWatch(city);
+        database.cityToWatchDao().deleteCityToWatch(city);
 
         cities.remove(position);
         notifyItemRemoved(position);
@@ -133,8 +134,8 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
 
         fromCityToWatch.setRank(toRank);
         toCityToWatch.setRank(fromRank);
-        database.updateCityToWatch(fromCityToWatch);
-        database.updateCityToWatch(toCityToWatch);
+        database.cityToWatchDao().updateCityToWatch(fromCityToWatch);
+        database.cityToWatchDao().updateCityToWatch(toCityToWatch);
         Collections.swap(cities, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
 

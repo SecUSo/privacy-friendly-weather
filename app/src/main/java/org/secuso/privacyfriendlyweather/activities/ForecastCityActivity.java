@@ -13,6 +13,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
@@ -84,8 +85,8 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         tabLayout.setupWithViewPager(viewPager, true);
 
 
-        PFASQLiteHelper db = PFASQLiteHelper.getInstance(this);
-        if (db.getAllCitiesToWatch().isEmpty()) {
+        AppDatabase db = AppDatabase.getInstance(this);
+        if (db.cityToWatchDao().getAll().isEmpty()) {
             // no cities selected.. don't show the viewPager - rather show a text that tells the user that no city was selected
             viewPager.setVisibility(View.GONE);
             noCityText.setVisibility(View.VISIBLE);

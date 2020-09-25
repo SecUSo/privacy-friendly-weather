@@ -6,18 +6,19 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.DialogFragment;
+
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.MainActivity;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerator;
 import org.secuso.privacyfriendlyweather.ui.util.MyConsumer;
 
@@ -32,7 +33,7 @@ public class AddLocationDialog extends DialogFragment {
 
     Activity activity;
     View rootView;
-    PFASQLiteHelper database;
+    AppDatabase database;
 
     private AutoCompleteTextView autoCompleteTextView;
     private AutoCompleteCityTextViewGenerator cityTextViewGenerator;
@@ -62,7 +63,7 @@ public class AddLocationDialog extends DialogFragment {
         builder.setIcon(R.drawable.app_icon);
         builder.setTitle(getActivity().getString(R.string.dialog_add_label));
 
-        this.database = PFASQLiteHelper.getInstance(getActivity());
+        this.database = AppDatabase.getInstance(getActivity());
 
         cityTextViewGenerator = new AutoCompleteCityTextViewGenerator(getContext(), database);
         autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTvAddDialog);
@@ -96,7 +97,7 @@ public class AddLocationDialog extends DialogFragment {
             Toast.makeText(activity, R.string.dialog_add_no_city_found, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (database != null && !database.isCityWatched(selectedCity.getCityId())) {
+        if (database != null && !database.cityToWatchDao().isCityWatched(selectedCity.getCityId())) {
             addCity();
         }
         ((MainActivity) activity).addCityToList(convertCityToWatched());
@@ -107,9 +108,9 @@ public class AddLocationDialog extends DialogFragment {
 
 
         return new CityToWatch(
-                database.getMaxRank() + 1,
+                database.cityToWatchDao().getMaxRank() + 1,
                 selectedCity.getCountryCode(),
-                -1,
+                0,
                 selectedCity.getCityId(),
                 selectedCity.getCityName()
         );
@@ -120,7 +121,7 @@ public class AddLocationDialog extends DialogFragment {
         new AsyncTask<CityToWatch, Void, Void>() {
             @Override
             protected Void doInBackground(CityToWatch... params) {
-                database.addCityToWatch(params[0]);
+                database.cityToWatchDao().addCityToWatch(params[0]);
                 return null;
             }
         }.doInBackground(convertCityToWatched());

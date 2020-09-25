@@ -11,8 +11,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerator;
 import org.secuso.privacyfriendlyweather.ui.util.MyConsumer;
 
@@ -28,7 +28,7 @@ public class WeatherWidgetFiveDayForecastConfigureActivity extends Activity {
 
     AutoCompleteTextView mAppWidgetText;
     AutoCompleteCityTextViewGenerator generator;
-    PFASQLiteHelper database;
+    AppDatabase database;
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
@@ -112,7 +112,7 @@ public class WeatherWidgetFiveDayForecastConfigureActivity extends Activity {
 
         mAppWidgetText = (AutoCompleteTextView) findViewById(R.id.appwidget_text);
 
-        database = PFASQLiteHelper.getInstance(this);
+        database = AppDatabase.getInstance(this);
         generator = new AutoCompleteCityTextViewGenerator(getApplicationContext(), database);
 
         generator.generate(mAppWidgetText, 100, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {

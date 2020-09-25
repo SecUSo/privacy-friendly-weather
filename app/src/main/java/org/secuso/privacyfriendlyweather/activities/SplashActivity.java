@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.firststart.TutorialActivity;
 
@@ -17,8 +18,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PFASQLiteHelper pfasqLiteHelper = PFASQLiteHelper.getInstance(this);
-        pfasqLiteHelper.getCityById(0);
+        AppDatabase database = AppDatabase.getInstance(this);
+        database.cityDao().getCityById(0);
 
         Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
         SplashActivity.this.startActivity(mainIntent);

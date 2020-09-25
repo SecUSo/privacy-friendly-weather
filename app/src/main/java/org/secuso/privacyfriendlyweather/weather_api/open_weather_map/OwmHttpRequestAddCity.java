@@ -2,8 +2,8 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
 
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.http.HttpRequestType;
 import org.secuso.privacyfriendlyweather.http.IHttpRequest;
 import org.secuso.privacyfriendlyweather.http.VolleyHttpRequest;
@@ -19,7 +19,7 @@ import java.util.List;
 public class OwmHttpRequestAddCity extends OwmHttpRequest implements IHttpRequestForCityList {
 
     private Context context;
-    private PFASQLiteHelper dbHelper;
+    private AppDatabase dbHelper;
     private boolean storePersistently;
 
     /**
@@ -27,7 +27,7 @@ public class OwmHttpRequestAddCity extends OwmHttpRequest implements IHttpReques
      * @param dbHelper          The database helper to use.
      * @param storePersistently Indicates whether to store the requested city permanently.
      */
-    public OwmHttpRequestAddCity(Context context, PFASQLiteHelper dbHelper, boolean storePersistently) {
+    public OwmHttpRequestAddCity(Context context, AppDatabase dbHelper, boolean storePersistently) {
         this.context = context;
         this.dbHelper = dbHelper;
         this.storePersistently = storePersistently;

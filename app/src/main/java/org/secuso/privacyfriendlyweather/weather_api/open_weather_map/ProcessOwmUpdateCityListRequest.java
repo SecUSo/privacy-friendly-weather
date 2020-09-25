@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
@@ -37,7 +38,7 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
      * Member variables
      */
     private Context context;
-    private PFASQLiteHelper dbHelper;
+    private AppDatabase dbHelper;
 
     /**
      * Constructor.
@@ -46,7 +47,7 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
      */
     public ProcessOwmUpdateCityListRequest(Context context) {
         this.context = context;
-        this.dbHelper = PFASQLiteHelper.getInstance(context);
+        this.dbHelper = AppDatabase.getInstance(context);
     }
 
     /**
@@ -75,11 +76,11 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
                 else {
                     weatherData.setCity_id(cityId);
 
-                    CurrentWeatherData current = dbHelper.getCurrentWeatherByCityId(cityId);
+                    CurrentWeatherData current = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(cityId);
                     if (current != null && current.getCity_id() == cityId) {
-                        dbHelper.updateCurrentWeather(weatherData);
+                        dbHelper.currentWeatherDao().updateCurrentWeather(weatherData);
                     } else {
-                        dbHelper.addCurrentWeather(weatherData);
+                        dbHelper.currentWeatherDao().addCurrentWeather(weatherData);
                     }
                     ViewUpdater.updateCurrentWeatherData(weatherData);
 
