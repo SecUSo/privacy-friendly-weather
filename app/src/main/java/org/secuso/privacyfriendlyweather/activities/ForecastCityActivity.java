@@ -161,9 +161,9 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         switch(id) {
             case R.id.menu_rainviewer:
 
-                cityId = pagerAdapter.getCityIDForPos(viewPager.getCurrentItem());
                 Intent intent = new Intent(this, RainViewerActivity.class);
-                intent.putExtra("cityId", cityId);
+                intent.putExtra("latitude",pagerAdapter.getLatForPos((viewPager.getCurrentItem())));
+                intent.putExtra("longitude",pagerAdapter.getLonForPos((viewPager.getCurrentItem())));
                 startActivity(intent);
                 break;
 

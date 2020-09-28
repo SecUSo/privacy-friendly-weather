@@ -40,7 +40,7 @@
 <div id="mapid" style="position: absolute; top: 100px; left: 0; bottom: 0; right: 0;"></div>
 
 <script>
-//call: rainviewer.html?appid={appid}&cityid={cityid} Takes appid, and cityid from request and shows rainviewer rain radar on openstreetmap for requested position and zoom
+//call: rainviewer.html?appid={appid}&lat={latitude}&lon={longitude} Takes appid, and latitude/longitude from request and shows rainviewer rain radar on openstreetmap for requested position and zoom
 
 
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -58,39 +58,18 @@ var getUrlParameter = function getUrlParameter(sParam) {
             }
         };
 
-  
-//document.write("CityID=" + getUrlParameter('cityid') + "<br>");
-//document.write("APPID=" + getUrlParameter('appid') + "<br>");
 
-var weatherdata =[]; 
-
-   /**
-    * Get Lat / Lon from Openweather API
-    */
-var owmreq = new XMLHttpRequest();
-    owmreq.open("GET", "https://api.openweathermap.org/data/2.5/weather?id=" + getUrlParameter('cityid') + "&appid=" + getUrlParameter('appid'), false); //false means wait until http request is finished
-    owmreq.onload = function(e) {
-         weatherdata = JSON.parse(owmreq.response);
-//        console.log('lat', weatherdata.coord.lat);
-//        console.log('lat', weatherdata.coord.lon);
-     };
-   owmreq.send(); 
-
-//document.write("Lat=" + weatherdata.coord.lat + "<br>");
-//document.write("Lon=" + weatherdata.coord.lon + "<br>");
-
-            
 var map = L.map('mapid', {
             zoomControl: true,
             attributionControl: true
-        }).setView([weatherdata.coord.lat, weatherdata.coord.lon], 8);  //zoom factor 8
+        }).setView([getUrlParameter('lat'), getUrlParameter('lon')], 8);  //zoom factor 8
 
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-var marker = L.marker([weatherdata.coord.lat, weatherdata.coord.lon]).addTo(map);
+var marker = L.marker([getUrlParameter('lat'), getUrlParameter('lon')]).addTo(map);
 
     /**
      * RainViewer radar animation part

@@ -170,4 +170,16 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         }
         return 0;
     }
+
+    public float getLatForPos(int pos) {
+        CityToWatch city = cities.get(pos);
+        return city.getLatitude();
+    }
+
+    public float getLonForPos(int pos) {
+        CityToWatch city = cities.get(pos);
+        return city.getLongitude();
+    }
+
+
 }
