@@ -76,8 +76,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 // course of day list should show entries until the same time the next day is reached
                 // since we force our forecasts to be in the future and they are ordered.. we can assume
                 // the next entry to be to the full 3h mark after this time ..
-                // if we now add a total of 24 entries if should sum up to 72 hours
-                if (courseDayList.size() < 25) {
+                // if we now add a total of 32 entries if should sum up to 96 hours
+                if (courseDayList.size() < 33) {
                     courseDayList.add(f);
                 }
             }
@@ -612,7 +612,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         } else if (viewHolder.getItemViewType() == WEEK) {
 
             WeekViewHolder holder = (WeekViewHolder) viewHolder;
-            LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
             WeekWeatherAdapter adapter = new WeekWeatherAdapter(forecastData, context);
             holder.recyclerView.setAdapter(adapter);

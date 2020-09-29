@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_city_weather_details_holder"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:weightSum="100">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/week_forecast_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:layout_weight="43"
+        android:layout_gravity="center"
         android:text="Monday:"
         android:textColor="@color/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/week_forecast_weather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="19">
-
-        <ImageView
-            android:id="@+id/week_forecast_weather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/week_forecast_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginBottom="5dp"
-        android:layout_weight="19"
         android:text="yx|xy°C"
         android:textColor="@color/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -42,8 +36,8 @@
         android:id="@+id/week_forecast_humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginBottom="5dp"
-        android:layout_weight="19"
         android:text="xy %"
         android:textColor="@color/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
