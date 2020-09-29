@@ -47,8 +47,10 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
 
 
         setIcon((int) dayValues[9], holder.weather);
- //       holder.humidity.setText(String.format("%s %%", StringFormatUtils.formatInt(dayValues[2])));
-        holder.humidity.setText(String.format("%s",StringFormatUtils.formatDecimal(dayValues[4],"mm")));
+        holder.humidity.setText(StringFormatUtils.formatInt(dayValues[2],"%rh"));
+        holder.precipitation.setText(StringFormatUtils.formatDecimal(dayValues[4],"mm"));
+        holder.uv_index.setText(String.format("UV %s",StringFormatUtils.formatInt((int)(Math.round(dayValues[7])))));
+        holder.wind_speed.setText(StringFormatUtils.formatWindSpeed(context, dayValues[5]));
 
         Calendar c = Calendar.getInstance();
         c.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -81,8 +83,8 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
                 day = R.string.abbreviation_monday;
         }
         holder.day.setText(day);
-        holder.temperature.setText(String.format("%s | %s%s", decimalFormat.format(prefManager.convertTemperatureFromCelsius(dayValues[0])),
-                decimalFormat.format(prefManager.convertTemperatureFromCelsius(dayValues[1])), prefManager.getWeatherUnit()));
+        holder.temperature_max.setText(String.format("%s\u200a%s", decimalFormat.format(prefManager.convertTemperatureFromCelsius(dayValues[0])), prefManager.getWeatherUnit()));
+        holder.temperature_min.setText(String.format("%s\u200a%s", decimalFormat.format(prefManager.convertTemperatureFromCelsius(dayValues[1])), prefManager.getWeatherUnit()));
     }
 
     @Override
@@ -94,16 +96,24 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
 
         TextView day;
         ImageView weather;
-        TextView temperature;
+        TextView temperature_max;
+        TextView temperature_min;
         TextView humidity;
+        TextView wind_speed;
+        TextView precipitation;
+        TextView uv_index;
 
         WeekForecastViewHolder(View itemView) {
             super(itemView);
 
             day = itemView.findViewById(R.id.week_forecast_day);
             weather = itemView.findViewById(R.id.week_forecast_weather);
-            temperature = itemView.findViewById(R.id.week_forecast_temperature);
+            temperature_max = itemView.findViewById(R.id.week_forecast_temperature_max);
+            temperature_min = itemView.findViewById(R.id.week_forecast_temperature_min);
             humidity = itemView.findViewById(R.id.week_forecast_humidity);
+            wind_speed = itemView.findViewById(R.id.week_forecast_wind_speed);
+            precipitation = itemView.findViewById(R.id.week_forecast_precipitation);
+            uv_index = itemView.findViewById(R.id.week_forecast_uv_index);
         }
     }
 
