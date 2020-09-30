@@ -134,7 +134,7 @@ public class UpdateDataService extends JobIntentService {
      * @param intent contains necessary parameters for the service work
      */
     private void handleUpdateAll(Intent intent) {
-        handleUpdateCurrentWeatherAction(intent);
+ //       handleUpdateCurrentWeatherAction(intent);   //TODO: remove, now done via one call api
         List<CityToWatch> cities = dbHelper.getAllCitiesToWatch();
         for (CityToWatch c : cities) {
             handleUpdateForecastAction(intent, c.getCityId(),c.getLatitude(),c.getLongitude());

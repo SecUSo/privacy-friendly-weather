@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.CityToWatch;
+import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.WeekForecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
@@ -77,7 +78,43 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                     break;
                 }
             }
-            
+
+            String rain60min="no data";
+            if (json.has("minutely")) {
+                rain60min="\u2614 60min:    ";
+                JSONArray listrain = json.getJSONArray("minutely");
+                for (int i = 0; i < listrain.length()/5; i++) {   //evaluate in 5min intervals
+                    String currentItem0 = listrain.get(i*5).toString();
+                    String currentItem1 = listrain.get(i*5+1).toString();
+                    String currentItem2 = listrain.get(i*5+2).toString();
+                    String currentItem3 = listrain.get(i*5+3).toString();
+                    String currentItem4 = listrain.get(i*5+4).toString();
+                    rain60min += extractor.extractRain60min(currentItem0,currentItem1,currentItem2,currentItem3,currentItem4);
+                }
+            }
+
+            CurrentWeatherData weatherData = extractor.extractCurrentWeatherDataOneCall(json.getString("current"));
+
+            if (weatherData == null) {
+                final String ERROR_MSG = context.getResources().getString(R.string.convert_to_json_error);
+                Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
+            } else {
+                weatherData.setCity_id(cityId);
+                weatherData.setRain60min(rain60min);
+                weatherData.setTimeZoneSeconds(json.getInt("timezone_offset"));
+                CurrentWeatherData current = dbHelper.getCurrentWeatherByCityId(cityId);
+                if (current != null && current.getCity_id() == cityId) {
+                    dbHelper.updateCurrentWeather(weatherData);
+                } else {
+                    dbHelper.addCurrentWeather(weatherData);
+                }
+
+                ViewUpdater.updateCurrentWeatherData(weatherData);
+            }
+
+
+
+
             JSONArray list = json.getJSONArray("daily");
             //delete forecasts older than 24 hours
             dbHelper.deleteWeekForecastsByCityId(cityId);

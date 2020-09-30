@@ -26,13 +26,25 @@
             android:layout_height="1dp"
             android:background="@color/white" />
 
+        <TextView
+            android:id="@+id/activity_city_weather_tv_rain60min_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Rain60min"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorPrimaryDark" />
+
         <GridLayout
             android:id="@+id/activity_city_weather_content_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
             android:columnCount="2"
             android:orientation="vertical">
+
 
             <TextView
                 android:id="@+id/activity_city_weather_tv_humidity"

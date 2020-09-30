@@ -21,6 +21,7 @@ public class CurrentWeatherData {
     private long timeSunrise;
     private long timeSunset;
     private int timeZoneSeconds;
+    private String Rain60min; //rain60min is not stored in the database as it is valid for short time only
 
     private String city_name;
 
@@ -172,5 +173,13 @@ public class CurrentWeatherData {
 
     public void setTimeZoneSeconds(int timeZoneSeconds) {
         this.timeZoneSeconds = timeZoneSeconds;
+    }
+
+    public String getRain60min() {
+        return Rain60min;
+    }
+
+    public void setRain60min(String Rain60min) {
+        this.Rain60min = Rain60min;
     }
 }

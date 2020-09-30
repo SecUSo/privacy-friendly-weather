@@ -506,12 +506,14 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView humidity;
         TextView pressure;
         TextView windspeed;
+        TextView rain60min;
 
         DetailViewHolder(View v) {
             super(v);
             this.humidity = v.findViewById(R.id.activity_city_weather_tv_humidity_value);
             this.pressure = v.findViewById(R.id.activity_city_weather_tv_pressure_value);
             this.windspeed = v.findViewById(R.id.activity_city_weather_tv_wind_speed_value);
+            this.rain60min = v.findViewById(R.id.activity_city_weather_tv_rain60min_value);
         }
     }
 
@@ -608,6 +610,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), "%"));
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
             holder.windspeed.setText(StringFormatUtils.formatWindSpeed(context, currentWeatherDataList.getWindSpeed()) + " " + StringFormatUtils.formatWindDir(context, currentWeatherDataList.getWindDirection()));
+            holder.rain60min.setText(currentWeatherDataList.getRain60min());
 
         } else if (viewHolder.getItemViewType() == WEEK) {
 

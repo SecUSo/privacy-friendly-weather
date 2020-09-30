@@ -162,6 +162,61 @@ public class OwmDataExtractor implements IDataExtractor {
     }
 
     /**
+     * @param data The data that contains the information to instantiate a CurrentWeatherData
+     *             object.
+     *             If data for a single city were requested, the response string can be
+     *             passed as an argument.
+     *             If data for multiple cities were requested, make sure to pass only one item
+     *             of the response list at a time!
+     * @return Returns an instance of CurrentWeatherData of the information could be extracted
+     * successfully or null in case there was some error while parsing the response (which is not
+     * too good because that means that the response of OpenWeatherMap was not well-formed).
+     */
+    @Override
+    public CurrentWeatherData extractCurrentWeatherDataOneCall(String data) {
+        try {
+            JSONObject jsonData = new JSONObject(data);
+            CurrentWeatherData weatherData = new CurrentWeatherData();
+
+            /*
+            private int id;
+            -private int city_id;
+            -private long timestamp;
+            -private int weatherID;
+            -private float temperatureCurrent;
+            -private float temperatureMin;  //not available
+            -private float temperatureMax;  //not available
+            -private float humidity;
+            -private float pressure;
+            -private float windSpeed;
+            -private float windDirection;
+            -private float cloudiness;
+            -private long timeSunrise;
+            -private long timeSunset;
+             */
+            weatherData.setTimestamp(jsonData.getLong("dt"));
+            IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
+            JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
+            JSONObject jsonWeather = new JSONObject(jsonWeatherArray.get(0).toString());
+            weatherData.setWeatherID(conversion.convertWeatherCategory(jsonWeather.getString("id")));
+            weatherData.setTemperatureCurrent((float) jsonData.getDouble("temp"));
+            weatherData.setTemperatureMin((float) jsonData.getDouble("temp")); //data not available
+            weatherData.setTemperatureMax((float) jsonData.getDouble("temp")); //data not available
+            weatherData.setHumidity((float) jsonData.getDouble("humidity"));
+            weatherData.setPressure((float) jsonData.getDouble("pressure"));
+            weatherData.setWindSpeed((float) jsonData.getDouble("wind_speed"));
+            weatherData.setWindDirection((float) jsonData.getDouble("wind_deg"));
+            weatherData.setCloudiness((float) jsonData.getDouble("clouds"));
+            weatherData.setTimeSunrise(jsonData.getLong("sunrise"));
+            weatherData.setTimeSunset(jsonData.getLong("sunset"));
+            return weatherData;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * @see IDataExtractor#extractRadiusSearchItemData(String)
      */
     @Override
@@ -325,6 +380,39 @@ public class OwmDataExtractor implements IDataExtractor {
         }
         return null;
     }
+
+    /**
+     * @see IDataExtractor#extractRain60min(String, String, String, String, String)
+     */
+    @Override
+    public String extractRain60min(String data0,String data1, String data2, String data3, String data4) {
+        try {
+
+            String rain = "";
+            JSONObject jsonData0 = new JSONObject(data0);
+            JSONObject jsonData1 = new JSONObject(data1);
+            JSONObject jsonData2 = new JSONObject(data2);
+            JSONObject jsonData3 = new JSONObject(data3);
+            JSONObject jsonData4 = new JSONObject(data4);
+            if ((jsonData0.getDouble("precipitation") != 0) ||
+                    (jsonData1.getDouble("precipitation") != 0) ||
+                    (jsonData2.getDouble("precipitation") != 0) ||
+                    (jsonData3.getDouble("precipitation") != 0) ||
+                    (jsonData4.getDouble("precipitation") != 0)){
+                rain ="\u25a0";
+            }else{
+                rain ="\u25a1";
+            }
+
+
+            return rain;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     /**
      * @param data The data that contains the information to retrieve the ID of the city.
      *             If data for a single city were requested, the response string can be
