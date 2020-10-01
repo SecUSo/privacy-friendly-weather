@@ -66,7 +66,7 @@ var map = L.map('mapid', {
 
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        attribution: 'Map data ©<a href="https://openstreetmap.org">OpenStreetMap</a> contributors&<a href="https://www.rainviewer.com/api.html">RainViewer</a>'
     }).addTo(map);
 
 var marker = L.marker([getUrlParameter('lat'), getUrlParameter('lon')]).addTo(map);

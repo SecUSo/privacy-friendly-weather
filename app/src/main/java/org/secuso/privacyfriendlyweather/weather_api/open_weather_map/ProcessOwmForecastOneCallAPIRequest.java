@@ -81,7 +81,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
 
             String rain60min="no data";
             if (json.has("minutely")) {
-                rain60min="\u2614 60min:    ";
+                rain60min="\u2614 60\u200amin:    ";
                 JSONArray listrain = json.getJSONArray("minutely");
                 for (int i = 0; i < listrain.length()/5; i++) {   //evaluate in 5min intervals
                     String currentItem0 = listrain.get(i*5).toString();

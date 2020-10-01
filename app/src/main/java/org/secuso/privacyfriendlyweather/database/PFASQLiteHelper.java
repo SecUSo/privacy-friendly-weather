@@ -109,6 +109,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
     private static final String COLUMN_TIME_SUNRISE = "time_sunrise";
     private static final String COLUMN_TIME_SUNSET = "time_sunset";
     private static final String COLUMN_TIMEZONE_SECONDS = "timezone_seconds";
+    private static final String COLUMN_RAIN60MIN = "Rain60min";
 
     /**
      * Create Table statements for all tables
@@ -130,6 +131,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             COLUMN_TIME_SUNRISE + "  VARCHAR(50) NOT NULL," +
             COLUMN_TIME_SUNSET + "  VARCHAR(50) NOT NULL," +
             COLUMN_TIMEZONE_SECONDS + " INTEGER," +
+            COLUMN_RAIN60MIN + " VARCHAR(25 NOT NULL)," +
             " FOREIGN KEY (" + CURRENT_WEATHER_CITY_ID + ") REFERENCES " + TABLE_CITIES + "(" + CITIES_ID + "));";
 
     private static final String CREATE_TABLE_CITIES = "CREATE TABLE " + TABLE_CITIES +
@@ -983,6 +985,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         values.put(COLUMN_TIME_SUNRISE, currentWeather.getTimeSunrise());
         values.put(COLUMN_TIME_SUNSET, currentWeather.getTimeSunset());
         values.put(COLUMN_TIMEZONE_SECONDS, currentWeather.getTimeZoneSeconds());
+        values.put(COLUMN_RAIN60MIN, currentWeather.getRain60min());
 
 
         database.insert(TABLE_CURRENT_WEATHER, null, values);
@@ -1007,7 +1010,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         COLUMN_CLOUDINESS,
                         COLUMN_TIME_SUNRISE,
                         COLUMN_TIME_SUNSET,
-                        COLUMN_TIMEZONE_SECONDS},
+                        COLUMN_TIMEZONE_SECONDS,
+                        COLUMN_RAIN60MIN},
                 CURRENT_WEATHER_ID + " = ?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -1029,6 +1033,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             currentWeather.setTimeSunrise(Long.parseLong(cursor.getString(12)));
             currentWeather.setTimeSunset(Long.parseLong(cursor.getString(13)));
             currentWeather.setTimeZoneSeconds(Integer.parseInt(cursor.getString(14)));
+            currentWeather.setRain60min(cursor.getString(15));
 
             cursor.close();
         }
@@ -1054,7 +1059,8 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                         COLUMN_CLOUDINESS,
                         COLUMN_TIME_SUNRISE,
                         COLUMN_TIME_SUNSET,
-                        COLUMN_TIMEZONE_SECONDS},
+                        COLUMN_TIMEZONE_SECONDS,
+                        COLUMN_RAIN60MIN},
                 CURRENT_WEATHER_CITY_ID + " = ?",
                 new String[]{String.valueOf(cityId)}, null, null, null, null);
 
@@ -1076,6 +1082,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
             currentWeather.setTimeSunrise(Long.parseLong(cursor.getString(12)));
             currentWeather.setTimeSunset(Long.parseLong(cursor.getString(13)));
             currentWeather.setTimeZoneSeconds(Integer.parseInt(cursor.getString(14)));
+            currentWeather.setRain60min(cursor.getString(15));
 
             cursor.close();
         }
@@ -1111,6 +1118,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
                 currentWeather.setTimeSunrise(Long.parseLong(cursor.getString(12)));
                 currentWeather.setTimeSunset(Long.parseLong(cursor.getString(13)));
                 currentWeather.setTimeZoneSeconds(Integer.parseInt(cursor.getString(14)));
+                currentWeather.setRain60min(cursor.getString(15));
 
                 currentWeatherList.add(currentWeather);
             } while (cursor.moveToNext());
@@ -1138,6 +1146,7 @@ public class PFASQLiteHelper extends SQLiteAssetHelper {
         values.put(COLUMN_TIME_SUNRISE, currentWeather.getTimeSunrise());
         values.put(COLUMN_TIME_SUNSET, currentWeather.getTimeSunset());
         values.put(COLUMN_TIMEZONE_SECONDS, currentWeather.getTimeZoneSeconds());
+        values.put(COLUMN_RAIN60MIN, currentWeather.getRain60min());
 
         return database.update(TABLE_CURRENT_WEATHER, values, CURRENT_WEATHER_CITY_ID + " = ?",
                 new String[]{String.valueOf(currentWeather.getCity_id())});

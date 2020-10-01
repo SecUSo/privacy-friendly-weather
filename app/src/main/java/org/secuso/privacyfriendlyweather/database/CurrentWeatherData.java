@@ -11,8 +11,8 @@ public class CurrentWeatherData {
     private long timestamp;
     private int weatherID;
     private float temperatureCurrent;
-    private float temperatureMin;
-    private float temperatureMax;
+    private float temperatureMin;  //TODO: Remove, not available in one call api
+    private float temperatureMax;  //TODO: Remove, not available in one call api
     private float humidity;
     private float pressure;
     private float windSpeed;
@@ -21,7 +21,7 @@ public class CurrentWeatherData {
     private long timeSunrise;
     private long timeSunset;
     private int timeZoneSeconds;
-    private String Rain60min; //rain60min is not stored in the database as it is valid for short time only
+    private String Rain60min;
 
     private String city_name;
 
