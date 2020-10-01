@@ -208,7 +208,7 @@ public class TutorialActivity extends AppCompatActivity {
                             selectedCity.getCityName()
                     ));
                     Intent intent = new Intent(getApplicationContext(), UpdateDataService.class);
-                    intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
+                    intent.setAction(UpdateDataService.UPDATE_FORECAST_ACTION);  //includes also current weather via one call API
                     enqueueWork(getApplicationContext(), UpdateDataService.class, 0, intent);
                 }
 

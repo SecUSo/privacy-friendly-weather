@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,7 +50,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         ViewUpdater.addSubscriber(pagerAdapter);
 
         //TODO possible slowdown when opening Activity
-        pagerAdapter.refreshData(false);
+        pagerAdapter.refreshSingleData(false, pagerAdapter.getCityIDForPos(0));  //only update tab 0 at start
 
         cityId = getIntent().getIntExtra("cityId", 0);
         viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
@@ -74,6 +75,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
             public void onPageSelected(int position) {
                 if (getSupportActionBar() != null) {
                     getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(position));
+                    pagerAdapter.refreshSingleData(false, pagerAdapter.getCityIDForPos(position));
                 }
                 viewPager.setNextFocusRightId(position);
             }
@@ -169,7 +171,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
             case R.id.menu_refresh:
 
-                pagerAdapter.refreshData(true);
+                pagerAdapter.refreshSingleData(true,pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
 
                 RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 rotate.setDuration(500);

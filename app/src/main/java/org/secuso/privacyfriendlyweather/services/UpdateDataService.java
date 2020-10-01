@@ -42,6 +42,7 @@ public class UpdateDataService extends JobIntentService {
     public static final String UPDATE_FORECAST_ACTION = "org.secuso.privacyfriendlyweather.services.UpdateDataService.UPDATE_FORECAST_ACTION";
     public static final String UPDATE_ALL_ACTION = "org.secuso.privacyfriendlyweather.services.UpdateDataService.UPDATE_ALL_ACTION";
     public static final String UPDATE_WIDGET_ACTION = "org.secuso.privacyfriendlyweather.services.UpdateDataService.UPDATE_WIDGET_ACTION";
+    public static final String UPDATE_SINGLE_ACTION = "org.secuso.privacyfriendlyweather.services.UpdateDataService.UPDATE_SINGLE_ACTION";
 
     public static final String CITY_ID = "cityId";
     public static final String SKIP_UPDATE_INTERVAL = "skipUpdateInterval";
@@ -84,11 +85,12 @@ public class UpdateDataService extends JobIntentService {
 
         if (intent != null) {
             if (UPDATE_ALL_ACTION.equals(intent.getAction())) handleUpdateAll(intent);
-            else if (UPDATE_CURRENT_WEATHER_ACTION.equals(intent.getAction()))
+            else if (UPDATE_CURRENT_WEATHER_ACTION.equals(intent.getAction()))   //should not be needed anymore due to use of One Call API
                 handleUpdateCurrentWeatherAction(intent);
             else if (UPDATE_FORECAST_ACTION.equals(intent.getAction()))
                 handleUpdateForecastAction(intent);
             else if (UPDATE_WIDGET_ACTION.equals(intent.getAction())) handleWidgetUpdate(intent);
+            else if (UPDATE_SINGLE_ACTION.equals(intent.getAction())) handleUpdateSingle(intent);
         }
     }
 
@@ -139,6 +141,12 @@ public class UpdateDataService extends JobIntentService {
         for (CityToWatch c : cities) {
             handleUpdateForecastAction(intent, c.getCityId(),c.getLatitude(),c.getLongitude());
         }
+    }
+
+    private void handleUpdateSingle(Intent intent) {
+        int cityId = intent.getIntExtra("cityId",-1);
+        CityToWatch city = dbHelper.getCityToWatch(cityId);
+        handleUpdateForecastAction(intent, cityId, city.getLatitude(), city.getLongitude());
     }
 
     private void handleUpdateForecastAction(Intent intent, int cityId, float lat, float lon) {
@@ -193,7 +201,7 @@ public class UpdateDataService extends JobIntentService {
                 break;
             }
         }
-        handleUpdateForecastAction(intent, cityId,lat,lon);
+        handleUpdateForecastAction(intent, cityId, lat, lon);
     }
 
     private void handleUpdateCurrentWeatherAction(Intent intent) {
