@@ -507,6 +507,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView pressure;
         TextView windspeed;
         TextView rain60min;
+        TextView time;
 
         DetailViewHolder(View v) {
             super(v);
@@ -514,6 +515,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             this.pressure = v.findViewById(R.id.activity_city_weather_tv_pressure_value);
             this.windspeed = v.findViewById(R.id.activity_city_weather_tv_wind_speed_value);
             this.rain60min = v.findViewById(R.id.activity_city_weather_tv_rain60min_value);
+            this.time=v.findViewById(R.id.activity_city_weather_title);
         }
     }
 
@@ -607,6 +609,14 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         } else if (viewHolder.getItemViewType() == DETAILS) {
 
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
+
+            long time = currentWeatherDataList.getTimestamp();
+            int zoneseconds = currentWeatherDataList.getTimeZoneSeconds();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+            Date updateTime = new Date((time + zoneseconds) * 1000L);
+
+            holder.time.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_details_heading), dateFormat.format(updateTime)));
             holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), "%"));
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
             holder.windspeed.setText(StringFormatUtils.formatWindSpeed(context, currentWeatherDataList.getWindSpeed()) + " " + StringFormatUtils.formatWindDir(context, currentWeatherDataList.getWindDirection()));

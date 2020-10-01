@@ -99,6 +99,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         return cities.get(position).getCityName(); // + " (" + dateFormat.format(calendar.getTime()) + ")";
     }
 
+    //TODO: Remove time form ActionBar. It is now shown in card details, as there is more space
     public CharSequence getPageTitleForActionBar(int position) {
 
         int zoneseconds = 0;

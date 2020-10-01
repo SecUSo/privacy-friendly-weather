@@ -19,7 +19,8 @@
             android:textAllCaps="true"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
-            android:text="@string/card_details_heading" />
+            android:text="@string/card_details_heading"
+            android:id="@+id/activity_city_weather_title"/>
 
         <View
             android:layout_width="match_parent"
