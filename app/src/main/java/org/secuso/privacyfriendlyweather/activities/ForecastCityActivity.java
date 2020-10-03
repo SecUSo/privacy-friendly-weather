@@ -48,12 +48,13 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         ViewUpdater.addSubscriber(this);
         ViewUpdater.addSubscriber(pagerAdapter);
 
-        // if Intent contains cityId use this city, otherwise go to previous position
-        cityId = getIntent().getIntExtra("cityId", pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
-
-        //TODO possible slowdown when opening Activity
-        pagerAdapter.refreshSingleData(false, cityId);  //only update current tab at start
-
+        PFASQLiteHelper db = PFASQLiteHelper.getInstance(this);
+        if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched
+            // if Intent contains cityId use this city, otherwise go to previous position
+            cityId = getIntent().getIntExtra("cityId", pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
+            //TODO possible slowdown when opening Activity
+            pagerAdapter.refreshSingleData(false, cityId);  //only update current tab at start
+        }
         viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
     }
 
@@ -160,18 +161,18 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        PFASQLiteHelper db = PFASQLiteHelper.getInstance(this);
         switch(id) {
             case R.id.menu_rainviewer:
-
-                Intent intent = new Intent(this, RainViewerActivity.class);
-                intent.putExtra("latitude",pagerAdapter.getLatForPos((viewPager.getCurrentItem())));
-                intent.putExtra("longitude",pagerAdapter.getLonForPos((viewPager.getCurrentItem())));
-                startActivity(intent);
-                break;
-
+                if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
+                    Intent intent = new Intent(this, RainViewerActivity.class);
+                    intent.putExtra("latitude", pagerAdapter.getLatForPos((viewPager.getCurrentItem())));
+                    intent.putExtra("longitude", pagerAdapter.getLonForPos((viewPager.getCurrentItem())));
+                    startActivity(intent);
+                    break;
+                }
             case R.id.menu_refresh:
-
+                 if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
                 pagerAdapter.refreshSingleData(true,pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
 
                 RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -199,6 +200,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
                 refreshActionButton.getActionView().startAnimation(rotate);
                 break;
+            }
         }
 
         return super.onOptionsItemSelected(item);
