@@ -98,9 +98,9 @@ public class UiResourceProvider {
                 }
             case 40:
                 if (isDay) {
-                    return R.drawable.weather_image_broken_clouds;
+                    return R.drawable.weather_image_sun_with_broken_clouds;
                 } else {
-                    return R.drawable.weather_image_night_with_broken_clouds;
+                    return R.drawable.weather_image_moon_with_broken_clouds;
                 }
             case 45:
                 if (isDay) {
