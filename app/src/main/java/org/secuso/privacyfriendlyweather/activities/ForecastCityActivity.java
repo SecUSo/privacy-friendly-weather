@@ -49,10 +49,12 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         ViewUpdater.addSubscriber(this);
         ViewUpdater.addSubscriber(pagerAdapter);
 
-        //TODO possible slowdown when opening Activity
-        pagerAdapter.refreshSingleData(false, pagerAdapter.getCityIDForPos(0));  //only update tab 0 at start
+        // if Intent contains cityId use this city, otherwise go to previous position
+        cityId = getIntent().getIntExtra("cityId", pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
 
-        cityId = getIntent().getIntExtra("cityId", 0);
+        //TODO possible slowdown when opening Activity
+        pagerAdapter.refreshSingleData(false, cityId);  //only update current tab at start
+
         viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
     }
 
