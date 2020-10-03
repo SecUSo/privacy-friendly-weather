@@ -88,7 +88,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     }
 
     @Override
-    public CharSequence getPageTitle(int position) {
+    public CharSequence getPageTitle(int position) {             //TODO: Remove, no longer needed. City is shown on TAB, time is now shown in card details,  as there is more space
 //        GregorianCalendar calendar = new GregorianCalendar();
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 //        dateFormat.setCalendar(calendar);
@@ -99,7 +99,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         return cities.get(position).getCityName(); // + " (" + dateFormat.format(calendar.getTime()) + ")";
     }
 
-    //TODO: Remove time form ActionBar. It is now shown in card details, as there is more space
+    //TODO: Remove, no longer needed. City is shown on TAB, time is now shown in card details,  as there is more space
     public CharSequence getPageTitleForActionBar(int position) {
 
         int zoneseconds = 0;

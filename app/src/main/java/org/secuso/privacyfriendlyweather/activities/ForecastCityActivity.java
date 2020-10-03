@@ -76,7 +76,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
             @Override
             public void onPageSelected(int position) {
                 if (getSupportActionBar() != null) {
-                    getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(position));
+                    getSupportActionBar().setTitle(getApplicationContext().getString(R.string.app_name));
                     pagerAdapter.refreshSingleData(false, pagerAdapter.getCityIDForPos(position));
                 }
                 viewPager.setNextFocusRightId(position);
@@ -209,7 +209,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     protected void onPostResume() {
         super.onPostResume();
 
-        updatePageTitle();
+ //       updatePageTitle();  // TODO REMOVE, not needed anymore, Time shown in details and City is shown on TAB
     }
 
     @Override
@@ -217,7 +217,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }
-        updatePageTitle();
+        //       updatePageTitle();  // TODO REMOVE, not needed anymore, Time shown in details and City is shown on TAB
     }
 
     @Override
