@@ -79,7 +79,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                 }
             }
 
-            String rain60min="no data";
+            String rain60min="\u2614 60\u200amin:    no data";
             if (json.has("minutely")) {
                 rain60min="\u2614 60\u200amin:    ";
                 JSONArray listrain = json.getJSONArray("minutely");

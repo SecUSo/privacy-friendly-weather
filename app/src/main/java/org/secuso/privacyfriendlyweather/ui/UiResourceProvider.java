@@ -40,7 +40,11 @@ public class UiResourceProvider {
                     return R.mipmap.weather_icon_moon_with_scattered_clouds;
                 }
             case 40:
-                return R.mipmap.weather_icon_clouds_broken;
+                if (isDay) {
+                    return R.mipmap.weather_icon_sun_with_broken_clouds;
+                } else {
+                    return R.mipmap.weather_icon_moon_with_broken_clouds;
+                }
             case 45:
                 return R.mipmap.weather_icon_clouds_overcast;
             case 50:
