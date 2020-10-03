@@ -123,7 +123,7 @@ public class MainActivity extends BaseActivity {
     public void startFetchingService(int cityId) {
         // Start a background task to retrieve and store the weather data
         Intent intent = new Intent(this, UpdateDataService.class);
-        intent.setAction(UpdateDataService.UPDATE_ALL_ACTION);
+        intent.setAction(UpdateDataService.UPDATE_SINGLE_ACTION);  //changed to update single. Only selected city needs update, others will be updated as their tabs are selected
         intent.putExtra("cityId", cityId);
         enqueueWork(this, UpdateDataService.class, 0, intent);
     }
