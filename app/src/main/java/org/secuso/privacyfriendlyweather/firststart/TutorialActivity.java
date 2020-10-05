@@ -172,7 +172,7 @@ public class TutorialActivity extends AppCompatActivity {
             addCity();
         }
         startActivity(new Intent(TutorialActivity.this, ForecastCityActivity.class));
-        getWeatherData();
+        // getWeatherData(); //not needed, will be done for selected city when ForecastCityActivity is started. Otherwise it will be done twice
         finish();
     }
 
@@ -207,9 +207,11 @@ public class TutorialActivity extends AppCompatActivity {
                             selectedCity.getCityId(), selectedCity.getLongitude(),selectedCity.getLatitude(),
                             selectedCity.getCityName()
                     ));
+                    /*  TODO: Remove, not needed, will be done in ForecastCityActivity
                     Intent intent = new Intent(getApplicationContext(), UpdateDataService.class);
                     intent.setAction(UpdateDataService.UPDATE_FORECAST_ACTION);  //includes also current weather via one call API
                     enqueueWork(getApplicationContext(), UpdateDataService.class, 0, intent);
+                     */
                 }
 
                 return null;

@@ -44,12 +44,10 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     @Override
     protected void onResume() {
         super.onResume();
-
         ViewUpdater.addSubscriber(this);
         ViewUpdater.addSubscriber(pagerAdapter);
 
-        PFASQLiteHelper db = PFASQLiteHelper.getInstance(this);
-        if (!db.getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched
+        if (pagerAdapter.getCount()>0) {  //only if at least one city is watched
             // if Intent contains cityId use this city, otherwise go to previous position
             cityId = getIntent().getIntExtra("cityId", pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
             //TODO possible slowdown when opening Activity
@@ -64,11 +62,10 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         setContentView(R.layout.activity_forecast_city);
         overridePendingTransition(0, 0);
 
-        cityId = getIntent().getIntExtra("cityId", -1);
+        //cityId = getIntent().getIntExtra("cityId", -1); //done in onResume
 
         initResources();
-
-        viewPager.setAdapter(pagerAdapter);
+        //viewPager.setAdapter(pagerAdapter);  //not needed, done below
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
@@ -85,8 +82,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
             @Override
             public void onPageScrollStateChanged(int state) {}
         });
-        viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
-
+       // viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));  //not needed, done in onResume
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
 
@@ -101,7 +97,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
             noCityText.setVisibility(View.GONE);
             viewPager.setVisibility(View.VISIBLE);
             viewPager.setAdapter(pagerAdapter);
-            viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
+            //viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId)); //done in onResume
         }
     }
 
