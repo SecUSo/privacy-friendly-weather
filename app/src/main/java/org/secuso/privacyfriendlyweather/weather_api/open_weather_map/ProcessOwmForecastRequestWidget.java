@@ -16,7 +16,6 @@ import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
@@ -163,8 +162,6 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
 
         }
 
-
-        dbHelper.close();
 
         appWidgetManager.updateAppWidget(widgetId, views);
 

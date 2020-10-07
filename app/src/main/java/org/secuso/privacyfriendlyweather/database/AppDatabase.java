@@ -23,6 +23,8 @@ import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.migration.ContextAwareMigration;
+import org.secuso.privacyfriendlyweather.database.migration.Migration_2_3;
+import org.secuso.privacyfriendlyweather.database.migration.Migration_3_4;
 import org.secuso.privacyfriendlyweather.database.migration.Migration_4_5;
 import org.secuso.privacyfriendlyweather.files.FileReader;
 
@@ -55,7 +57,9 @@ public abstract class AppDatabase extends RoomDatabase {
      * @return an array of Migrations, this can not be empty
      */
     public static Migration[] getMigrations(Context context) {
-        Migration[] MIGRATIONS = new Migration[] {
+        Migration[] MIGRATIONS = new Migration[]{
+                new Migration_2_3(),
+                new Migration_3_4(),
                 new Migration_4_5(),
                 // Add new migrations here
         };

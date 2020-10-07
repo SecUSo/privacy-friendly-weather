@@ -34,9 +34,9 @@ public class Migration_4_5 extends ContextAwareMigration {
                 "country_code TEXT NOT NULL," +
                 "longitude REAL NOT NULL," +
                 "latitude REAL NOT NULL);");
-        database.execSQL("CREATE INDEX IF NOT EXISTS `index_CITIES_city_name_cities_id` ON CITIES (`city_name`, `cities_id`)");
 
         AppDatabase.fillCityDatabase(context, database);
+        database.execSQL("CREATE INDEX IF NOT EXISTS `index_CITIES_city_name_cities_id` ON CITIES (`city_name`, `cities_id`)");
 
         // City to watch
         database.execSQL("CREATE TABLE IF NOT EXISTS new_CITIES_TO_WATCH " +
@@ -49,8 +49,9 @@ public class Migration_4_5 extends ContextAwareMigration {
                 "`longitude` REAL, " +
                 "`latitude` REAL, " +
                 "FOREIGN KEY(`city_id`) REFERENCES `CITIES`(`cities_id`) ON UPDATE NO ACTION ON DELETE CASCADE );");
-        database.execSQL("INSERT INTO new_CITIES_TO_WATCH (cities_to_watch_id, city_id, rank) " +
-                "SELECT cities_to_watch_id, city_id, rank FROM CITIES_TO_WATCH");
+        database.execSQL("INSERT INTO new_CITIES_TO_WATCH (cities_to_watch_id, city_id, rank, cities_id, city_name, country_code, longitude, latitude) " +
+                "SELECT cities_to_watch_id, city_id, rank, cities_id, city_name, country_code, longitude, latitude " +
+                "FROM CITIES_TO_WATCH INNER JOIN CITIES ON CITIES_TO_WATCH.city_id = CITIES.cities_id");
         database.execSQL("DROP TABLE CITIES_TO_WATCH");
         database.execSQL("ALTER TABLE new_CITIES_TO_WATCH RENAME TO CITIES_TO_WATCH");
 
@@ -96,8 +97,9 @@ public class Migration_4_5 extends ContextAwareMigration {
                 "`longitude` REAL, " +
                 "`latitude` REAL, " +
                 "FOREIGN KEY(`city_id`) REFERENCES `CITIES`(`cities_id`) ON UPDATE NO ACTION ON DELETE CASCADE );");
-        database.execSQL("INSERT INTO new_FORECASTS (forecast_id, city_id, time_of_measurement, forecast_for, weather_id, temperature_current, humidity, pressure, precipitation, wind_speed, wind_direction)" +
-                "SELECT forecast_id, city_id, time_of_measurement, forecast_for, weather_id, temperature_current, humidity, pressure, precipitation, wind_speed, wind_direction FROM FORECASTS");
+        database.execSQL("INSERT INTO new_FORECASTS (forecast_id, city_id, time_of_measurement, forecast_for, weather_id, temperature_current, humidity, pressure, precipitation, wind_speed, wind_direction, cities_id, city_name, country_code, longitude, latitude)" +
+                "SELECT forecast_id, city_id, time_of_measurement, forecast_for, weather_id, temperature_current, humidity, pressure, precipitation, wind_speed, wind_direction, cities_id, city_name, country_code, longitude, latitude " +
+                "FROM FORECASTS INNER JOIN CITIES ON FORECASTS.city_id = CITIES.cities_id");
         database.execSQL("DROP TABLE FORECASTS");
         database.execSQL("ALTER TABLE new_FORECASTS RENAME TO FORECASTS");
     }
