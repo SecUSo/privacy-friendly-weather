@@ -189,6 +189,8 @@
     <string name="weather_category_thunderstorm">Thunderstorm</string>
     <string name="weather_category_snow">Snow</string>
     <string name="weather_category_mist">Mist</string>
+    <string name="weather_category_showerrain">Shower Rain</string>
+    <string name="weather_category_showersnow">Shower Snow</string>
 
     <!-- ###ERRORS###-->
     <string name="convert_to_json_error">

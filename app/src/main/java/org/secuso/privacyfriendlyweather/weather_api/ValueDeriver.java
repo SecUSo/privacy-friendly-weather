@@ -49,10 +49,14 @@ public class ValueDeriver {
                 return context.getResources().getString(R.string.weather_category_moderate_rain);
             case RAIN:
                 return context.getResources().getString(R.string.weather_category_rain);
+            case SHOWER_RAIN:
+                return context.getResources().getString(R.string.weather_category_showerrain);
             case THUNDERSTORM:
                 return context.getResources().getString(R.string.weather_category_thunderstorm);
             case SNOW:
                 return context.getResources().getString(R.string.weather_category_snow);
+            case SHOWER_SNOW:
+                return context.getResources().getString(R.string.weather_category_showersnow);
             case MIST:
                 return context.getResources().getString(R.string.weather_category_mist);
             default:

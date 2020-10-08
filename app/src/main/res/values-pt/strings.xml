@@ -65,6 +65,8 @@
     <string name="weather_category_moderate_rain">Chuva moderada</string>
     <string name="weather_category_snow">Neve</string>
     <string name="weather_category_thunderstorm">Trovoada</string>
+    <string name="weather_category_showerrain">Aguaceiro</string>
+    <string name="weather_category_showersnow">Nevão</string>
     <string name="about">Sobre</string>
     <string name="action_about">Sobre</string>
     <string name="activity_city_weather_iv_description">Uma imagem que corresponde a categoria de tempo</string>

@@ -214,5 +214,7 @@
     <string name="long_press_text">Long press to set as default city</string>
     <string name="swipe_to_delete">Swipe to delete</string>
     <string name="RainViewer">Rain Radar</string>
+    <string name="weather_category_showerrain">Shower Rain</string>
+    <string name="weather_category_showersnow">Shower Snow</string>
 
 </resources>
