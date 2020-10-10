@@ -355,14 +355,14 @@ public class OwmDataExtractor implements IDataExtractor {
             forecast.setWeatherID(conversion.convertWeatherCategory(jsonWeather.getString("id")));
 
             JSONObject jsonTemp = jsonData.getJSONObject("temp");
-            forecast.setTemperature((float) jsonTemp.getDouble("day"));
-            forecast.setMaxTemperature((float) jsonTemp.getDouble("max"));
-            forecast.setMinTemperature((float) jsonTemp.getDouble("min"));
-            forecast.setHumidity((float) jsonData.getDouble("humidity"));
-            forecast.setPressure((float) jsonData.getDouble("pressure"));
-            forecast.setWind_speed((float) jsonData.getDouble("wind_speed"));
-            forecast.setWind_direction((float) jsonData.getDouble("wind_deg"));
-            forecast.setUv_index((float) jsonData.getDouble("uvi"));
+            if (jsonTemp.has("day")) forecast.setTemperature((float) jsonTemp.getDouble("day"));
+            if (jsonTemp.has("max")) forecast.setMaxTemperature((float) jsonTemp.getDouble("max"));
+            if (jsonTemp.has("min")) forecast.setMinTemperature((float) jsonTemp.getDouble("min"));
+            if (jsonData.has("humidity")) forecast.setHumidity((float) jsonData.getDouble("humidity"));
+            if (jsonData.has("pressure")) forecast.setPressure((float) jsonData.getDouble("pressure"));
+            if (jsonData.has("wind_speed")) forecast.setWind_speed((float) jsonData.getDouble("wind_speed"));
+            if (jsonData.has("wind_deg")) forecast.setWind_direction((float) jsonData.getDouble("wind_deg"));
+            if (jsonData.has("uvi")) forecast.setUv_index((float) jsonData.getDouble("uvi"));
 
             if (jsonData.isNull("rain")) {
                 forecast.setPrecipitation(Forecast.NO_RAIN_VALUE);
