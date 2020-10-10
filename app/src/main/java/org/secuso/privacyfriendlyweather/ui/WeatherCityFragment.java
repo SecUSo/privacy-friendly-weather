@@ -40,6 +40,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
         if (recyclerView != null) {
             recyclerView.setAdapter(mAdapter);
             recyclerView.setFocusable(false);
+            recyclerView.setLayoutManager(getLayoutManager(getContext()));  //fixes problems with StaggeredGrid: After refreshing data only empty space shown below tab
         }
     }
 
