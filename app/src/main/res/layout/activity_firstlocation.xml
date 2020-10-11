@@ -50,6 +50,10 @@
             android:textCursorDrawable="@null"
             android:inputType="text" />
 
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="180dp"/>
+
     </LinearLayout>
 
 </RelativeLayout>
