@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -273,14 +275,25 @@ public class TutorialActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View view = layoutInflater.inflate(layouts[position], container, false);
+            final View view = layoutInflater.inflate(layouts[position], container, false);
 
             if (position == dots.length - 1) {
+                final WebView webview= (WebView) view.findViewById(R.id.webViewFirstLocation);
+                webview.getSettings().setJavaScriptEnabled(true);
+                webview.setBackgroundColor(0x00000000);
+                webview.setBackgroundResource(R.drawable.map_back);
                 autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTvAddFirstStart);
                 cityTextViewGenerator.generate(autoCompleteTextView, 100, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
                     @Override
                     public void accept(City city) {
                         selectedCity = city;
+                        if(selectedCity!=null) {
+                            //Hide keyboard to have more space
+                            final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                            //Show city on map
+                            webview.loadUrl("file:///android_asset/map.html?lat=" + selectedCity.getLatitude() + "&lon=" + selectedCity.getLongitude());
+                        }
                     }
                 }, new Runnable() {
                     @Override

@@ -68,6 +68,8 @@ public class AddLocationDialog extends DialogFragment {
         this.database = PFASQLiteHelper.getInstance(getActivity());
         final WebView webview= (WebView) rootView.findViewById(R.id.webViewAddLocation);
         webview.getSettings().setJavaScriptEnabled(true);
+        webview.setBackgroundColor(0x00000000);
+        webview.setBackgroundResource(R.drawable.map_back);
         cityTextViewGenerator = new AutoCompleteCityTextViewGenerator(getContext(), database);
         autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTvAddDialog);
         cityTextViewGenerator.generate(autoCompleteTextView, LIST_LIMIT, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {

@@ -41,7 +41,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     public static final int DETAILS = 1;
     public static final int WEEK = 2;
     public static final int DAY = 3;
-    public static final int SUN = 4;
+    public static final int SUN = 4; //TODO: Completely remove SunViewHolder. Or reuse e.g. for map. Sunrise/Sunset are in OverViewHolder now.
     public static final int ERROR = 5;
 
     public CityWeatherAdapter(CurrentWeatherData currentWeatherDataList, int[] dataSetTypes, Context context) {
@@ -494,11 +494,13 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     public class OverViewHolder extends ViewHolder {
         TextView temperature;
         ImageView weather;
+        TextView sun;
 
         OverViewHolder(View v) {
             super(v);
             this.temperature = v.findViewById(R.id.activity_city_weather_temperature);
             this.weather = v.findViewById(R.id.activity_city_weather_image_view);
+            this.sun=v.findViewById(R.id.activity_city_weather_sun);
         }
     }
 
@@ -539,14 +541,14 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         }
     }
 
-    public class SunViewHolder extends ViewHolder {
+    public class SunViewHolder extends ViewHolder { //TODO: Completely remove SunViewHolder. Or reuse e.g. for map. Sunrise/Sunset are in OverViewHolder now.
         TextView sunrise;
         TextView sunset;
 
         SunViewHolder(View v) {
             super(v);
-            this.sunrise = v.findViewById(R.id.activity_city_weather_tv_sunrise_value);
-            this.sunset = v.findViewById(R.id.activity_city_weather_tv_sunset_value);
+ /*           this.sunrise = v.findViewById(R.id.activity_city_weather_tv_sunrise_value);
+            this.sunset = v.findViewById(R.id.activity_city_weather_tv_sunset_value);*/
         }
     }
 
@@ -602,6 +604,15 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
+
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+            //correct for timezone differences
+            int zoneseconds = currentWeatherDataList.getTimeZoneSeconds();
+            Date riseTime = new Date((currentWeatherDataList.getTimeSunrise() + zoneseconds) * 1000L);
+            Date setTime = new Date((currentWeatherDataList.getTimeSunset() + zoneseconds) * 1000L);
+            holder.sun.setText("\u2600\u25b2 " + timeFormat.format(riseTime) + " \u25bc " + timeFormat.format(setTime));
+
             setImage(currentWeatherDataList.getWeatherID(), holder.weather, isDay);
 
             holder.temperature.setText(StringFormatUtils.formatTemperature(context, currentWeatherDataList.getTemperatureCurrent()));
@@ -640,7 +651,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.recyclerView.setAdapter(adapter);
             holder.recyclerView.setFocusable(false);
 
-        } else if (viewHolder.getItemViewType() == SUN) {
+   /*     } else if (viewHolder.getItemViewType() == SUN) { //TODO: Completely remove SunViewHolder. Or reuse e.g. for map. Sunrise/Sunset are in OverViewHolder now.
             SunViewHolder holder = (SunViewHolder) viewHolder;
 
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -651,7 +662,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             Date setTime = new Date((currentWeatherDataList.getTimeSunset() + zoneseconds) * 1000L);
 
             holder.sunrise.setText(timeFormat.format(riseTime));
-            holder.sunset.setText(timeFormat.format(setTime));
+            holder.sunset.setText(timeFormat.format(setTime));*/
         }
         //No update for error needed
     }
