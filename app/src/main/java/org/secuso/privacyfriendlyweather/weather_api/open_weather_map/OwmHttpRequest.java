@@ -102,7 +102,7 @@ public class OwmHttpRequest {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         return String.format(
-                "%sonecall?lat=%s&lon=%s&units=metric&exclude=hourly,alerts&appid=%s",
+                "%sonecall?lat=%s&lon=%s&units=metric&exclude=alerts&appid=%s",
                 BuildConfig.BASE_URL,
                 lat,
                 lon,

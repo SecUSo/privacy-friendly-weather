@@ -118,13 +118,23 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             default:
                 day = R.string.abbreviation_monday;
         }
+        if (courseOfDayList.size() == 40) {  // 5day/3h forecast
+            if (forecastTime.get(Calendar.HOUR_OF_DAY) >= 0 && forecastTime.get(Calendar.HOUR_OF_DAY) < 3) {
+                // In first entry per weekday show weekday instead of time
+                holder.time.setText(day);
+            } else {
+                //Time has to be the local time in the city!
+                holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
+            }
 
-        if (forecastTime.get(Calendar.HOUR_OF_DAY) > 0 && forecastTime.get(Calendar.HOUR_OF_DAY) <= 3) {
-            // In first entry per weekday show weekday instead of time
-            holder.time.setText(day);
         } else {
-            //Time has to be the local time in the city!
-            holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
+            if (forecastTime.get(Calendar.HOUR_OF_DAY) >= 0 && forecastTime.get(Calendar.HOUR_OF_DAY) < 1) {
+                // In first entry per weekday show weekday instead of time
+                holder.time.setText(day);
+            } else {
+                //Time has to be the local time in the city!
+                holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
+            }
         }
 
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather, isDay);

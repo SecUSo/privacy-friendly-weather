@@ -77,9 +77,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 // since we force our forecasts to be in the future and they are ordered.. we can assume
                 // the next entry to be to the full 3h mark after this time ..
                 // if we now add a total of 32 entries if should sum up to 96 hours
-                if (courseDayList.size() < 33) {
+
                     courseDayList.add(f);
-                }
+
             }
         }
         notifyDataSetChanged();

@@ -382,6 +382,59 @@ public class OwmDataExtractor implements IDataExtractor {
     }
 
     /**
+     * @see IDataExtractor#extractHourlyForecast(String)
+     */
+    @Override
+    public Forecast extractHourlyForecast(String data) {
+        try {
+
+            Forecast forecast = new Forecast();
+            JSONObject jsonData = new JSONObject(data);
+
+            forecast.setTimestamp(System.currentTimeMillis() / 1000);
+            forecast.setForecastTime(jsonData.getLong("dt") * 1000L);
+
+            IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
+
+            JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
+            JSONObject jsonWeather = new JSONObject(jsonWeatherArray.get(0).toString());
+            forecast.setWeatherID(conversion.convertWeatherCategory(jsonWeather.getString("id")));
+
+            if (jsonData.has("temp")) forecast.setTemperature((float) jsonData.getDouble("temp"));
+            if (jsonData.has("humidity")) forecast.setHumidity((float) jsonData.getDouble("humidity"));
+            if (jsonData.has("pressure")) forecast.setPressure((float) jsonData.getDouble("pressure"));
+            if (jsonData.has("wind_speed")) forecast.setWindSpeed((float) jsonData.getDouble("wind_speed"));
+            if (jsonData.has("wind_deg")) forecast.setWindDirection((float) jsonData.getDouble("wind_deg"));
+
+            // In case there was no rain in the past 3 hours, there is no "rain" field
+            if (jsonData.isNull("rain")) {
+                forecast.setRainVolume(Forecast.NO_RAIN_VALUE);
+            } else {
+                JSONObject jsonRain = jsonData.getJSONObject("rain");
+                if (jsonRain.isNull("1h")) {
+                    forecast.setRainVolume(Forecast.NO_RAIN_VALUE);
+                } else {
+                    forecast.setRainVolume((float) jsonRain.getDouble("1h"));
+                }
+            }
+            //add snow precipitation to rain
+            if (!jsonData.isNull("snow")) {
+                JSONObject jsonSnow = jsonData.getJSONObject("snow");
+                if (!jsonSnow.isNull("1h")) {
+                    forecast.setRainVolume(forecast.getRainValue() + (float) jsonSnow.getDouble("1h"));
+                }
+            }
+
+            return forecast;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    /**
      * @see IDataExtractor#extractRain60min(String, String, String, String, String)
      */
     @Override

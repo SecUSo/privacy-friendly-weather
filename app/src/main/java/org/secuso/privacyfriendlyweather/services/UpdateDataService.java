@@ -16,6 +16,7 @@ import org.secuso.privacyfriendlyweather.database.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.Forecast;
 import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecastWidget;
@@ -171,8 +172,12 @@ public class UpdateDataService extends JobIntentService {
 
         // only Update if a certain time has passed
         if (skipUpdateInterval || timestamp + updateInterval - systemTime <= 0) {
-            IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext());
-            forecastRequest.perform(cityId);
+            //if forecastChoice = 1 (3h) perform both else only one call API
+            int choice = Integer.parseInt(prefManager.getString("forecastChoice","1"));
+            if (choice==1) {
+                IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext());
+                forecastRequest.perform(cityId);
+            }
             IHttpRequestForOneCallAPI forecastOneCallRequest = new OwmHttpRequestForOneCallAPI(getApplicationContext());
             forecastOneCallRequest.perform(lat,lon);
         }
