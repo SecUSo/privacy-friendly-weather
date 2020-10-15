@@ -80,7 +80,8 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
             int cityId = json.getJSONObject("city").getInt("id");
 
             //delete forecasts older than 24 hours
-            dbHelper.forecastDao().deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
+            //dbHelper.forecastDao().deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
+            dbHelper.forecastDao().deleteForecastsByCityId(cityId);
 
             List<Forecast> forecasts = new ArrayList<>();
             // Continue with inserting new records
@@ -388,6 +389,9 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
                 case 40:
                     counts[3] += 1;
                     break;
+                case 45:
+                    counts[3] += 1;
+                    break;
                 case 50:
                     counts[4] += 1;
                     break;
@@ -395,6 +399,12 @@ public class ProcessOwmForecastRequestWidget implements IProcessHttpRequest {
                     counts[5] += 1;
                     break;
                 case 70:
+                    counts[6] += 1;
+                    break;
+                case 71:
+                    counts[6] += 1;
+                    break;
+                case 72:
                     counts[6] += 1;
                     break;
                 case 80:

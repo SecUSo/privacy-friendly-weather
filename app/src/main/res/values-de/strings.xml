@@ -75,6 +75,8 @@
     <string name="weather_category_scattered_clouds">Aufgelockerte Bewölkung</string>
     <string name="weather_category_broken_clouds">Aufgerissene Bewölkung</string>
     <string name="weather_category_overcast_clouds">Bedeckt</string>
+    <string name="weather_category_showerrain">Regenschauer</string>
+    <string name="weather_category_showersnow">Schneeschauer</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="settings_title_units">Maßeinheiten</string>
     <string name="settings_title_temperature">Temperaturen</string>
@@ -160,4 +162,8 @@
     <string name="activity_city_weather_tv_rain_volume">Regenvolumen:</string>
     <string name="long_press_text">Halten und ziehen Sie, um die Städte zu sortieren.</string>
     <string name="swipe_to_delete">Wischen Sie zum Löschen</string>
+    <string name="RainViewer">Regenradar</string>
+    <string name="settings_title_forecastChoice">Anzeigeoptionen</string>
+    <string name="settings_summary_forecastChoice">Wählen Sie zwischen 2 Tage / 1 h und 5 Tage / 3 h Vorhersage</string>
+    <string name="settings_forecastChoice">Vorhersage</string>
 </resources>

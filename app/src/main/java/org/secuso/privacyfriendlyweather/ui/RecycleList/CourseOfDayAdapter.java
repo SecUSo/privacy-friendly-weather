@@ -1,18 +1,18 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
@@ -119,13 +119,23 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             default:
                 day = R.string.abbreviation_monday;
         }
+        if (courseOfDayList.size() == 40) {  // 5day/3h forecast
+            if (forecastTime.get(Calendar.HOUR_OF_DAY) >= 0 && forecastTime.get(Calendar.HOUR_OF_DAY) < 3) {
+                // In first entry per weekday show weekday instead of time
+                holder.time.setText(day);
+            } else {
+                //Time has to be the local time in the city!
+                holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
+            }
 
-        if (forecastTime.get(Calendar.HOUR_OF_DAY) > 0 && forecastTime.get(Calendar.HOUR_OF_DAY) <= 3) {
-            // In first entry per weekday show weekday instead of time
-            holder.time.setText(day);
         } else {
-            //Time has to be the local time in the city!
-            holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
+            if (forecastTime.get(Calendar.HOUR_OF_DAY) >= 0 && forecastTime.get(Calendar.HOUR_OF_DAY) < 1) {
+                // In first entry per weekday show weekday instead of time
+                holder.time.setText(day);
+            } else {
+                //Time has to be the local time in the city!
+                holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
+            }
         }
 
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather, isDay);

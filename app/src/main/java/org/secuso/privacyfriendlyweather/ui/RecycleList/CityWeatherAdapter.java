@@ -1,8 +1,6 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +8,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 import org.secuso.privacyfriendlyweather.util.TimeUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.ViewHolder> {
     private static final String TAG = "Forecast_Adapter";
@@ -38,7 +42,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     public static final int DETAILS = 1;
     public static final int WEEK = 2;
     public static final int DAY = 3;
-    public static final int SUN = 4;
+    public static final int SUN = 4; //TODO: Completely remove SunViewHolder. Or reuse e.g. for map. Sunrise/Sunset are in OverViewHolder now.
     public static final int ERROR = 5;
 
     public CityWeatherAdapter(CurrentWeatherData currentWeatherDataList, int[] dataSetTypes, Context context) {
@@ -49,14 +53,19 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         AppDatabase database = AppDatabase.getInstance(context.getApplicationContext());
 
         List<Forecast> forecasts = database.forecastDao().getForecastsByCityId(currentWeatherDataList.getCity_id());
+        List<WeekForecast> weekforecasts = database.getWeekForecastsByCityId(currentWeatherDataList.getCity_id());
 
         updateForecastData(forecasts);
+        updateWeekForecastData(weekforecasts);
+
     }
 
     // function for 3-hour forecast list
     public void updateForecastData(List<Forecast> forecasts) {
         //Log.d("forecast", "in cityweatheradapter " + forecasts.get(0).getCity_id() + " " + forecasts.size() + " " + forecasts.get(0).getForecastTime());
-        forecastData = compressWeatherData(forecasts);
+
+        //Not needed here, data will be taken from updateWeekForecastData
+        //       forecastData = compressWeatherData(forecasts);
         courseDayList = new ArrayList<Forecast>();
 
         long threehoursago = System.currentTimeMillis() - (3 * 60 * 60 * 1000);
@@ -68,12 +77,146 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 // course of day list should show entries until the same time the next day is reached
                 // since we force our forecasts to be in the future and they are ordered.. we can assume
                 // the next entry to be to the full 3h mark after this time ..
-                // if we now add a total of 24 entries if should sum up to 72 hours
-                if (courseDayList.size() < 25) {
-                    courseDayList.add(f);
-                }
+                // if we now add a total of 32 entries if should sum up to 96 hours
+
+                courseDayList.add(f);
+
             }
         }
+        notifyDataSetChanged();
+    }
+
+    // function for week forecast list
+    public void updateWeekForecastData(List<WeekForecast> forecasts) {
+        if (forecasts.isEmpty()) {
+            Log.d("devtag", "######## forecastlist empty");
+            forecastData = new float[][]{new float[]{0}};
+            return;
+        }
+
+        int cityId = forecasts.get(0).getCity_id();
+
+        AppDatabase dbHelper = AppDatabase.getInstance(context.getApplicationContext());
+        int zonemilliseconds = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
+
+        //temp max 0, temp min 1, humidity 2, pressure 3, precipitation 4, wind 5, wind direction 6, uv_index 7, time 8, weather ID 9, number of FCs for day 10
+        float[] today = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> todayIDs = new LinkedList<>();
+        float[] tomorrow = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> tomorrowIDs = new LinkedList<>();
+        float[] in2days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in2daysIDs = new LinkedList<>();
+        float[] in3days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in3daysIDs = new LinkedList<>();
+        float[] in4days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in4daysIDs = new LinkedList<>();
+        float[] in5days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in5daysIDs = new LinkedList<>();
+        float[] in6days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in6daysIDs = new LinkedList<>();
+        float[] in7days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        LinkedList<Integer> in7daysIDs = new LinkedList<>();
+        float[] empty = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};  //last field is not displayed otherwise
+        LinkedList<Integer> emptyIDs = new LinkedList<>();
+
+        forecastData = new float[][]{today, tomorrow, in2days, in3days, in4days, in5days, in6days, in7days, empty};
+
+        today[0] = forecasts.get(0).getMaxTemperature();
+        today[1] = forecasts.get(0).getMinTemperature();
+        today[2] = forecasts.get(0).getHumidity();
+        today[3] = forecasts.get(0).getPressure();
+        today[4] = forecasts.get(0).getPrecipitation();
+        today[5] = forecasts.get(0).getWind_speed();
+        today[6] = forecasts.get(0).getWind_direction();
+        today[7] = forecasts.get(0).getUv_index();
+        today[8] = forecasts.get(0).getForecastTime() + zonemilliseconds;
+        today[9] = forecasts.get(0).getWeatherID();
+        today[10] = 1;
+
+        tomorrow[0] = forecasts.get(1).getMaxTemperature();
+        tomorrow[1] = forecasts.get(1).getMinTemperature();
+        tomorrow[2] = forecasts.get(1).getHumidity();
+        tomorrow[3] = forecasts.get(1).getPressure();
+        tomorrow[4] = forecasts.get(1).getPrecipitation();
+        tomorrow[5] = forecasts.get(1).getWind_speed();
+        tomorrow[6] = forecasts.get(1).getWind_direction();
+        tomorrow[7] = forecasts.get(1).getUv_index();
+        tomorrow[8] = forecasts.get(1).getForecastTime() + zonemilliseconds;
+        tomorrow[9] = forecasts.get(1).getWeatherID();
+        tomorrow[10] = 1;
+
+        in2days[0] = forecasts.get(2).getMaxTemperature();
+        in2days[1] = forecasts.get(2).getMinTemperature();
+        in2days[2] = forecasts.get(2).getHumidity();
+        in2days[3] = forecasts.get(2).getPressure();
+        in2days[4] = forecasts.get(2).getPrecipitation();
+        in2days[5] = forecasts.get(2).getWind_speed();
+        in2days[6] = forecasts.get(2).getWind_direction();
+        in2days[7] = forecasts.get(2).getUv_index();
+        in2days[8] = forecasts.get(2).getForecastTime() + zonemilliseconds;
+        in2days[9] = forecasts.get(2).getWeatherID();
+        in2days[10] = 1;
+
+        in3days[0] = forecasts.get(3).getMaxTemperature();
+        in3days[1] = forecasts.get(3).getMinTemperature();
+        in3days[2] = forecasts.get(3).getHumidity();
+        in3days[3] = forecasts.get(3).getPressure();
+        in3days[4] = forecasts.get(3).getPrecipitation();
+        in3days[5] = forecasts.get(3).getWind_speed();
+        in3days[6] = forecasts.get(3).getWind_direction();
+        in3days[7] = forecasts.get(3).getUv_index();
+        in3days[8] = forecasts.get(3).getForecastTime() + zonemilliseconds;
+        in3days[9] = forecasts.get(3).getWeatherID();
+        in3days[10] = 1;
+
+        in4days[0] = forecasts.get(4).getMaxTemperature();
+        in4days[1] = forecasts.get(4).getMinTemperature();
+        in4days[2] = forecasts.get(4).getHumidity();
+        in4days[3] = forecasts.get(4).getPressure();
+        in4days[4] = forecasts.get(4).getPrecipitation();
+        in4days[5] = forecasts.get(4).getWind_speed();
+        in4days[6] = forecasts.get(4).getWind_direction();
+        in4days[7] = forecasts.get(4).getUv_index();
+        in4days[8] = forecasts.get(4).getForecastTime() + zonemilliseconds;
+        in4days[9] = forecasts.get(4).getWeatherID();
+        in4days[10] = 1;
+
+        in5days[0] = forecasts.get(5).getMaxTemperature();
+        in5days[1] = forecasts.get(5).getMinTemperature();
+        in5days[2] = forecasts.get(5).getHumidity();
+        in5days[3] = forecasts.get(5).getPressure();
+        in5days[4] = forecasts.get(5).getPrecipitation();
+        in5days[5] = forecasts.get(5).getWind_speed();
+        in5days[6] = forecasts.get(5).getWind_direction();
+        in5days[7] = forecasts.get(5).getUv_index();
+        in5days[8] = forecasts.get(5).getForecastTime() + zonemilliseconds;
+        in5days[9] = forecasts.get(5).getWeatherID();
+        in5days[10] = 1;
+
+        in6days[0] = forecasts.get(6).getMaxTemperature();
+        in6days[1] = forecasts.get(6).getMinTemperature();
+        in6days[2] = forecasts.get(6).getHumidity();
+        in6days[3] = forecasts.get(6).getPressure();
+        in6days[4] = forecasts.get(6).getPrecipitation();
+        in6days[5] = forecasts.get(6).getWind_speed();
+        in6days[6] = forecasts.get(6).getWind_direction();
+        in6days[7] = forecasts.get(6).getUv_index();
+        in6days[8] = forecasts.get(6).getForecastTime() + zonemilliseconds;
+        in6days[9] = forecasts.get(6).getWeatherID();
+        in6days[10] = 1;
+
+        in7days[0] = forecasts.get(7).getMaxTemperature();
+        in7days[1] = forecasts.get(7).getMinTemperature();
+        in7days[2] = forecasts.get(7).getHumidity();
+        in7days[3] = forecasts.get(7).getPressure();
+        in7days[4] = forecasts.get(7).getPrecipitation();
+        in7days[7] = forecasts.get(7).getWind_speed();
+        in7days[6] = forecasts.get(7).getWind_direction();
+        in7days[7] = forecasts.get(7).getUv_index();
+        in7days[8] = forecasts.get(7).getForecastTime() + zonemilliseconds;
+        in7days[9] = forecasts.get(7).getWeatherID();
+        in7days[10] = 1;
+
         notifyDataSetChanged();
     }
 
@@ -285,6 +428,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 case 40:
                     counts[3] += 1;
                     break;
+                case 45:
+                    counts[3] += 1;
+                    break;
                 case 50:
                     counts[4] += 1;
                     break;
@@ -292,6 +438,12 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     counts[5] += 1;
                     break;
                 case 70:
+                    counts[6] += 1;
+                    break;
+                case 71:
+                    counts[6] += 1;
+                    break;
+                case 72:
                     counts[6] += 1;
                     break;
                 case 80:
@@ -325,11 +477,13 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     public class OverViewHolder extends ViewHolder {
         TextView temperature;
         ImageView weather;
+        TextView sun;
 
         OverViewHolder(View v) {
             super(v);
             this.temperature = v.findViewById(R.id.activity_city_weather_temperature);
             this.weather = v.findViewById(R.id.activity_city_weather_image_view);
+            this.sun = v.findViewById(R.id.activity_city_weather_sun);
         }
     }
 
@@ -337,12 +491,16 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView humidity;
         TextView pressure;
         TextView windspeed;
+        TextView rain60min;
+        TextView time;
 
         DetailViewHolder(View v) {
             super(v);
             this.humidity = v.findViewById(R.id.activity_city_weather_tv_humidity_value);
             this.pressure = v.findViewById(R.id.activity_city_weather_tv_pressure_value);
             this.windspeed = v.findViewById(R.id.activity_city_weather_tv_wind_speed_value);
+            this.rain60min = v.findViewById(R.id.activity_city_weather_tv_rain60min_value);
+            this.time = v.findViewById(R.id.activity_city_weather_title);
         }
     }
 
@@ -366,14 +524,14 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         }
     }
 
-    public class SunViewHolder extends ViewHolder {
+    public class SunViewHolder extends ViewHolder { //TODO: Completely remove SunViewHolder. Or reuse e.g. for map. Sunrise/Sunset are in OverViewHolder now.
         TextView sunrise;
         TextView sunset;
 
         SunViewHolder(View v) {
             super(v);
-            this.sunrise = v.findViewById(R.id.activity_city_weather_tv_sunrise_value);
-            this.sunset = v.findViewById(R.id.activity_city_weather_tv_sunset_value);
+ /*           this.sunrise = v.findViewById(R.id.activity_city_weather_tv_sunrise_value);
+            this.sunset = v.findViewById(R.id.activity_city_weather_tv_sunset_value);*/
         }
     }
 
@@ -429,6 +587,12 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         if (viewHolder.getItemViewType() == OVERVIEW) {
             OverViewHolder holder = (OverViewHolder) viewHolder;
+
+
+            int zoneseconds = currentWeatherDataList.getTimeZoneSeconds();
+            holder.sun.setText("\u2600\u25b2 " + TimeUtil.formatTimeSimple(zoneseconds, currentWeatherDataList.getTimeSunrise())
+                    + " \u25bc " + TimeUtil.formatTimeSimple(zoneseconds, currentWeatherDataList.getTimeSunset()));
+
             setImage(currentWeatherDataList.getWeatherID(), holder.weather, isDay);
 
             holder.temperature.setText(StringFormatUtils.formatTemperature(context, currentWeatherDataList.getTemperatureCurrent()));
@@ -436,17 +600,27 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         } else if (viewHolder.getItemViewType() == DETAILS) {
 
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
+
+            long time = currentWeatherDataList.getTimestamp();
+            int zoneseconds = currentWeatherDataList.getTimeZoneSeconds();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+            Date updateTime = new Date((time + zoneseconds) * 1000L);
+
+            holder.time.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_details_heading), dateFormat.format(updateTime)));
             holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), "%"));
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
             holder.windspeed.setText(StringFormatUtils.formatWindSpeed(context, currentWeatherDataList.getWindSpeed()) + " " + StringFormatUtils.formatWindDir(context, currentWeatherDataList.getWindDirection()));
+            holder.rain60min.setText(currentWeatherDataList.getRain60min());
 
         } else if (viewHolder.getItemViewType() == WEEK) {
 
             WeekViewHolder holder = (WeekViewHolder) viewHolder;
-            LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
             WeekWeatherAdapter adapter = new WeekWeatherAdapter(forecastData, context);
             holder.recyclerView.setAdapter(adapter);
+            holder.recyclerView.setFocusable(false);
 
         } else if (viewHolder.getItemViewType() == DAY) {
 
@@ -455,13 +629,14 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.recyclerView.setLayoutManager(layoutManager);
             CourseOfDayAdapter adapter = new CourseOfDayAdapter(courseDayList, context);
             holder.recyclerView.setAdapter(adapter);
+            holder.recyclerView.setFocusable(false);
 
-        } else if (viewHolder.getItemViewType() == SUN) {
+   /*     } else if (viewHolder.getItemViewType() == SUN) { //TODO: Completely remove SunViewHolder. Or reuse e.g. for map. Sunrise/Sunset are in OverViewHolder now.
             SunViewHolder holder = (SunViewHolder) viewHolder;
 
             int zoneseconds = currentWeatherDataList.getTimeZoneSeconds();
             holder.sunrise.setText(TimeUtil.formatTimeSimple(zoneseconds, currentWeatherDataList.getTimeSunrise()));
-            holder.sunset.setText(TimeUtil.formatTimeSimple(zoneseconds, currentWeatherDataList.getTimeSunset()));
+            holder.sunset.setText(TimeUtil.formatTimeSimple(zoneseconds, currentWeatherDataList.getTimeSunset()));*/
         }
         //No update for error needed
     }

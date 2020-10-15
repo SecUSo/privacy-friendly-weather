@@ -2,6 +2,7 @@ package org.secuso.privacyfriendlyweather.weather_api;
 
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
+import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 
 /**
@@ -26,6 +27,13 @@ public interface IDataExtractor {
     CurrentWeatherData extractCurrentWeatherData(String data);
 
     /**
+     * @param data The data that contains the information to instantiate a CurrentWeatherData
+     *             object. In the easiest case this is the (HTTP) response of the One Call API.
+     * @return Returns the extracted information as a CurrentWeatherData instance.
+     */
+    CurrentWeatherData extractCurrentWeatherDataOneCall(String data);
+
+    /**
      * Note that data shall contain information for instantiating <b>one</b> RadiusSearchItem
      * instance.
      *
@@ -40,6 +48,21 @@ public interface IDataExtractor {
      * @return Returns the extracted weather forecast information. In case some error occurs, null
      * will be returned.
      */
+    WeekForecast extractWeekForecast(String data);
+
+    /**
+     * @param data The data that contains the information to instantiate a Forecast object.
+     * @return Returns the extracted weather forecast information. In case some error occurs, null
+     * will be returned.
+     */
+
+    Forecast extractHourlyForecast(String data);
+
+    /**
+     * @param data The data that contains the information to instantiate a WeekForecast object.
+     * @return Returns the extracted weather forecast information. In case some error occurs, null
+     * will be returned.
+     */
     Forecast extractForecast(String data);
 
     /**
@@ -48,6 +71,12 @@ public interface IDataExtractor {
      * and the information could not be extracted.
      */
     int extractCityID(String data);
+
+    /**
+     * @param data0, data1, data2, data3, data4 contain the information to retrieve the rain for a minute within the next 60min.
+     * @return Returns a string with a rain drop in case of rain or a - in case of no rain
+     */
+    String extractRain60min(String data0, String data1, String data2, String data3, String data4);
 
     /**
      * @param data The data that contains the longitude and latitude to extract.

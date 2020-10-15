@@ -3,12 +3,8 @@ package org.secuso.privacyfriendlyweather.firststart;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,18 +12,23 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerator;
@@ -76,10 +77,10 @@ public class TutorialActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_tutorial);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnSkip = (Button) findViewById(R.id.btn_skip);
-        btnNext = (Button) findViewById(R.id.btn_next);
+        viewPager = findViewById(R.id.view_pager);
+        dotsLayout = findViewById(R.id.layoutDots);
+        btnSkip = findViewById(R.id.btn_skip);
+        btnNext = findViewById(R.id.btn_next);
 
 
         // layouts of all welcome sliders
@@ -173,7 +174,7 @@ public class TutorialActivity extends AppCompatActivity {
             addCity();
         }
         startActivity(new Intent(TutorialActivity.this, ForecastCityActivity.class));
-        getWeatherData();
+        // getWeatherData(); //not needed, will be done for selected city when ForecastCityActivity is started. Otherwise it will be done twice
         finish();
     }
 
@@ -200,13 +201,15 @@ public class TutorialActivity extends AppCompatActivity {
             database.cityToWatchDao().addCityToWatch(new CityToWatch(
                     0,
                     selectedCity.getCountryCode(),
-                    0,
-                    selectedCity.getCityId(),
+                    -1,
+                    selectedCity.getCityId(), selectedCity.getLongitude(), selectedCity.getLatitude(),
                     selectedCity.getCityName()
             ));
+            /*  TODO: Remove, not needed, will be done in ForecastCityActivity
             Intent intent = new Intent(getApplicationContext(), UpdateDataService.class);
-            intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
+            intent.setAction(UpdateDataService.UPDATE_FORECAST_ACTION);  //includes also current weather via one call API
             enqueueWork(getApplicationContext(), UpdateDataService.class, 0, intent);
+             */
         }
     }
 
@@ -264,14 +267,25 @@ public class TutorialActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View view = layoutInflater.inflate(layouts[position], container, false);
+            final View view = layoutInflater.inflate(layouts[position], container, false);
 
             if (position == dots.length - 1) {
-                autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTvAddFirstStart);
+                final WebView webview = view.findViewById(R.id.webViewFirstLocation);
+                webview.getSettings().setJavaScriptEnabled(true);
+                webview.setBackgroundColor(0x00000000);
+                webview.setBackgroundResource(R.drawable.map_back);
+                autoCompleteTextView = view.findViewById(R.id.autoCompleteTvAddFirstStart);
                 cityTextViewGenerator.generate(autoCompleteTextView, 100, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
                     @Override
                     public void accept(City city) {
                         selectedCity = city;
+                        if (selectedCity != null) {
+                            //Hide keyboard to have more space
+                            final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                            //Show city on map
+                            webview.loadUrl("file:///android_asset/map.html?lat=" + selectedCity.getLatitude() + "&lon=" + selectedCity.getLongitude());
+                        }
                     }
                 }, new Runnable() {
                     @Override

@@ -2,22 +2,22 @@ package org.secuso.privacyfriendlyweather.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
@@ -39,6 +39,8 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
 
         if (recyclerView != null) {
             recyclerView.setAdapter(mAdapter);
+            recyclerView.setFocusable(false);
+            recyclerView.setLayoutManager(getLayoutManager(getContext()));  //fixes problems with StaggeredGrid: After refreshing data only empty space shown below tab
         }
     }
 
@@ -117,6 +119,16 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
         if (forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
             if (mAdapter != null) {
                 mAdapter.updateForecastData(forecasts);
+            }
+        }
+        //TODO Update Titlebar Text
+    }
+
+    @Override
+    public void updateWeekForecasts(List<WeekForecast> forecasts) {
+        if (forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
+            if (mAdapter != null) {
+                mAdapter.updateWeekForecastData(forecasts);
             }
         }
         //TODO Update Titlebar Text

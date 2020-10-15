@@ -33,7 +33,7 @@ public class OwmHttpRequestForWidgetUpdate extends OwmHttpRequest implements IHt
     @Override
     public void perform(int cityId, int widgetId, int widgetType, RemoteViews views) {
         IHttpRequest httpRequest = new VolleyHttpRequest(context);
-        final String URL = getUrlForQueryingForecast(cityId);
+        final String URL = getUrlForQueryingForecast(context, cityId);
         httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmForecastRequestWidget(context, cityId, widgetId, widgetType, views));
     }
 }

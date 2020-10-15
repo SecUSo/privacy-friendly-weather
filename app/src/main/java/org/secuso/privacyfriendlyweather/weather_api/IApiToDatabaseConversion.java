@@ -22,7 +22,9 @@ public abstract class IApiToDatabaseConversion {
         LIGHT_RAIN(70),
         MODERATE_RAIN(71),
         RAIN(72),
+        SHOWER_RAIN(75),
         SNOW(80),
+        SHOWER_SNOW(85),
         THUNDERSTORM(90);
 
         private int numVal;
@@ -63,8 +65,12 @@ public abstract class IApiToDatabaseConversion {
                 return WeatherCategories.MODERATE_RAIN;
             case 72:
                 return WeatherCategories.RAIN;
+            case 75:
+                return WeatherCategories.SHOWER_RAIN;
             case 80:
                 return WeatherCategories.SNOW;
+            case 85:
+                return WeatherCategories.SHOWER_SNOW;
             case 90:
                 return WeatherCategories.THUNDERSTORM;
             default:

@@ -22,10 +22,14 @@ public class OwmToDatabaseConversion extends IApiToDatabaseConversion {
             return WeatherCategories.LIGHT_RAIN.getNumVal();
         } else if (value == 501) {
             return WeatherCategories.MODERATE_RAIN.getNumVal();
-        } else if (value >= 502 && value <= 599) {
+        } else if ((value >= 502 && value <= 519) || (value >= 523 && value <= 599)) {
             return WeatherCategories.RAIN.getNumVal();
-        } else if (value >= 600 && value <= 699) {
+        } else if (value >= 520 && value <= 522) {
+            return WeatherCategories.SHOWER_RAIN.getNumVal();
+        } else if ((value >= 600 && value <= 619) || (value >= 623 && value <= 699)) {
             return WeatherCategories.SNOW.getNumVal();
+        } else if (value >= 620 && value <= 622) {
+            return WeatherCategories.SHOWER_SNOW.getNumVal();
         } else if (value >= 700 && value <= 799) {
             return WeatherCategories.MIST.getNumVal();
         } else if (value == 800) {

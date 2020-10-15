@@ -64,6 +64,8 @@
     <string name="weather_category_moderate_rain">Pioggia moderata</string>
     <string name="weather_category_snow">Neve</string>
     <string name="weather_category_thunderstorm">Temporale</string>
+    <string name="weather_category_showerrain">Rovescio di pioggia</string>
+    <string name="weather_category_showersnow">Nevicata</string>
     <string name="about">Info</string>
     <string name="action_about">Info</string>
     <string name="activity_city_weather_iv_description">Immagine corrispondente alle previsioni</string>
@@ -159,4 +161,8 @@
     <string name="humidity">Umidità</string>
     <string name="activity_city_weather_tv_rain_volume">Volume pioggia:</string>
     <string name="activity_city_weather_tv_wind_direction">Direzione del vento:</string>
+    <string name="RainViewer">Rain Radar</string>
+    <string name="settings_title_forecastChoice">Display options</string>
+    <string name="settings_summary_forecastChoice">Select between 5 day / 3h and 2 day / 1h forecasts</string>
+    <string name="settings_forecastChoice">Forecast</string>
 </resources>
