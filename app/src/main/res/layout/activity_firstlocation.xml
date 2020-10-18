@@ -45,6 +45,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:maxLines="1"
+            android:hint=">"
+            android:textColorHint="@android:color/white"
             android:imeOptions="actionDone"
             android:textColor="@color/white"
             android:textCursorDrawable="@null"
