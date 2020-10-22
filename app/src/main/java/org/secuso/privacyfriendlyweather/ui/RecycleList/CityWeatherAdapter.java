@@ -12,9 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.db.chart.Tools;  //TODO: Add licence information Apache V2.0 to about information or somewhere else
+import com.db.chart.model.BarSet;
 import com.db.chart.model.ChartSet;
 import com.db.chart.model.LineSet;
 import com.db.chart.view.AxisController;
+import com.db.chart.view.BarChartView;
 import com.db.chart.view.LineChartView;
 
 import org.secuso.privacyfriendlyweather.R;
@@ -553,12 +555,12 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView sunrise;
         TextView sunset;
         LineChartView lineChartView;
-        LineChartView lineChartView2;
+        BarChartView barChartView;
 
         ChartViewHolder(View v) {
             super(v);
             this.lineChartView = v.findViewById(R.id.graph_temperature);
-            this.lineChartView2 = v.findViewById(R.id.graph_precipitation);
+            this.barChartView = v.findViewById(R.id.graph_precipitation);
         }
     }
 
@@ -683,10 +685,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
             LineSet datasetmax = new LineSet();
             LineSet datasetmin = new LineSet();
+            LineSet xaxis = new LineSet(); //create own x-axis as the x-axis of the chart crosses the y-axis numbers. Does not look good
 
-            LineSet precipitationDataset = new LineSet();
-            LineSet xaxis   = new LineSet();   //create own x-axis as the x-axis of the chart crosses the y-axis numbers. Does not look good
-
+            BarSet precipitationDataset = new BarSet();
 
             Calendar c = Calendar.getInstance();
             c.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -699,28 +700,20 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 float temp_min=weekforecasts.get(i).getMinTemperature();
                 float precip=weekforecasts.get(i).getPrecipitation();
 
-                //Only one point per day for temperature
-                datasetmax.addPoint(context.getResources().getString(StringFormatUtils.getDay(day)), prefManager.convertTemperatureFromCelsius(temp_max));
-                datasetmin.addPoint(context.getResources().getString(StringFormatUtils.getDay(day)), prefManager.convertTemperatureFromCelsius(temp_min));
+                if ((i == 0) || (i == (weekforecasts.size()-1 ))) {  // 1 bar at begin and end for alignment with temperature line chart (first day starts at noon, last ends at noon)
+                    precipitationDataset.addBar(context.getResources().getString(StringFormatUtils.getDay(day)), precip);
+                    //x-labels for precipitation dataset must be there and cannot be empty even though they are made invisible below. Otherwise alignment gets destroyed!
+                    datasetmax.addPoint(context.getResources().getString(StringFormatUtils.getDay(day)), prefManager.convertTemperatureFromCelsius(temp_max));
+                    datasetmin.addPoint(context.getResources().getString(StringFormatUtils.getDay(day)), prefManager.convertTemperatureFromCelsius(temp_min));
 
-                //Shape bar like line for precipitation
-                if(i == 0) {  //2 points with Label only at begin
-                    precipitationDataset.addPoint(context.getResources().getString(StringFormatUtils.getDay(day)), precip);
-                    xaxis.addPoint("",0);
-                    precipitationDataset.addPoint("",precip);
-                    xaxis.addPoint("",0);
-                } else if  (i == (weekforecasts.size()-1 )) {  //2 points with Label only at end
-                    precipitationDataset.addPoint("",precip);
-                    xaxis.addPoint("",0);
-                    precipitationDataset.addPoint(context.getResources().getString(StringFormatUtils.getDay(day)), precip);
-                    xaxis.addPoint("",0);
-                } else { // otherwise 3 points with Label only in the middle
-                    precipitationDataset.addPoint("",precip);
-                    xaxis.addPoint("",0);
-                    precipitationDataset.addPoint(context.getResources().getString(StringFormatUtils.getDay(day)), precip);
-                    xaxis.addPoint("",0);
-                    precipitationDataset.addPoint("",precip);
-                    xaxis.addPoint("",0);
+
+                } else { // 2 bars in the middle for alignment with temperature line chart
+
+                    precipitationDataset.addBar(context.getResources().getString(StringFormatUtils.getDay(day)), precip);
+                    precipitationDataset.addBar(context.getResources().getString(StringFormatUtils.getDay(day)), precip);
+
+                    datasetmax.addPoint(context.getResources().getString(StringFormatUtils.getDay(day)), prefManager.convertTemperatureFromCelsius(temp_max));
+                    datasetmin.addPoint(context.getResources().getString(StringFormatUtils.getDay(day)), prefManager.convertTemperatureFromCelsius(temp_min));
                 }
 
                 if (prefManager.convertTemperatureFromCelsius(temp_max)>tmax) tmax=prefManager.convertTemperatureFromCelsius(temp_max);
@@ -728,9 +721,19 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 if (precip>pmax) pmax=precip;
             }
 
+            tmax++;  //add some space above and below
+            tmin--;
+            int mid = Math.round((tmin + tmax) / 2);
+            int step = Math.max(1, (int) Math.ceil(Math.abs(tmax - tmin) / 4));  //step size for y-axis
+
+            for (int i=0 ; i< weekforecasts.size();i++) {
+                xaxis.addPoint("",mid-2*step);   //create x-axis at position of min y-axis value
+            }
+
             ArrayList<ChartSet> temperature = new ArrayList<>();
             temperature.add(datasetmax);
             temperature.add(datasetmin);
+            temperature.add(xaxis);
 
             datasetmax.setColor(context.getResources().getColor(R.color.red));
             datasetmax.setThickness(6);
@@ -742,29 +745,21 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             datasetmin.setSmooth(true);
             datasetmin.setFill(context.getResources().getColor(R.color.backgroundBlue)); //fill with background, so only range between curves is visible
 
-            ArrayList<ChartSet> precipitation = new ArrayList<>();
-            precipitation.add((precipitationDataset));
-            precipitation.add(xaxis);
-
-            precipitationDataset.setSmooth(false);
-            precipitationDataset.setThickness(2);
-            precipitationDataset.setColor(context.getResources().getColor(R.color.backgroundBlue));  //make curve itself invisible (0 mm precipitation should not be seen)
-            precipitationDataset.setFill(context.getResources().getColor(R.color.blue));  // precipitation > 0 is visible via fill
-
-            xaxis.setThickness(1);
+            xaxis.setThickness(3);
             xaxis.setColor(context.getResources().getColor(R.color.colorPrimaryDark));
 
-            tmax++;  //add some space above and below
-            tmin--;
-            int mid = Math.round((tmin + tmax) / 2);
-            int step = Math.max(1, (int) Math.ceil(Math.abs(tmax - tmin) / 4));
+            ArrayList<ChartSet> precipitation = new ArrayList<>();
+            precipitation.add((precipitationDataset));
+
+            precipitationDataset.setColor(context.getResources().getColor(R.color.blue));
+            precipitationDataset.setAlpha(0.8f);  // make precipitation bars transparent
 
             holder.lineChartView.addData(temperature);
             holder.lineChartView.setAxisBorderValues( mid-2*step, mid+2*step);
             holder.lineChartView.setStep(step);
             holder.lineChartView.setXAxis(false);
             holder.lineChartView.setYAxis(false);
-            holder.lineChartView.setYLabels(AxisController.LabelPosition.INSIDE);
+            holder.lineChartView.setYLabels(AxisController.LabelPosition.INSIDE);  //must be INSIDE! OUTSIDE will destroy alignment with precipitation bar chart
             holder.lineChartView.setLabelsColor(context.getResources().getColor(R.color.colorPrimaryDark));
             holder.lineChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDark));
             holder.lineChartView.setFontSize((int) Tools.fromDpToPx(17));
@@ -772,17 +767,18 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
             holder.lineChartView.show();
 
-            holder.lineChartView2.addData(precipitation);
-            holder.lineChartView2.setAxisBorderValues(0,(int) Math.max(10,pmax*2));  //scale down in case of high precipitation, limit to lower half of chart
-            holder.lineChartView2.setXAxis(false);
-            holder.lineChartView2.setYAxis(false);
-            holder.lineChartView2.setYLabels(AxisController.LabelPosition.NONE); //no labels for precipitation
-            holder.lineChartView2.setLabelsColor(context.getResources().getColor(R.color.colorPrimaryDark));
-            holder.lineChartView2.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDark));
-            holder.lineChartView2.setFontSize((int) Tools.fromDpToPx(17));
-            holder.lineChartView2.setBorderSpacing(Tools.fromDpToPx(30));
+            holder.barChartView.addData(precipitation);
+            holder.barChartView.setBarSpacing(0);
+            holder.barChartView.setAxisBorderValues(0,(int) Math.max(10,pmax*2));  //scale down in case of high precipitation, limit to lower half of chart
+            holder.barChartView.setXAxis(false);
+            holder.barChartView.setYAxis(false);
+            holder.barChartView.setYLabels(AxisController.LabelPosition.NONE); //no labels for precipitation
+            holder.barChartView.setLabelsColor(0);  //transparent color, make labels invisible
+            holder.barChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDark));
+            holder.barChartView.setFontSize((int) Tools.fromDpToPx(17));
+            holder.barChartView.setBorderSpacing(Tools.fromDpToPx(30));
 
-            holder.lineChartView2.show();
+            holder.barChartView.show();
         }
         //No update for error needed
     }
