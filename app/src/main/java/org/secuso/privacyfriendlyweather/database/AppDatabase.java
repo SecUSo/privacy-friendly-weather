@@ -18,14 +18,17 @@ import org.secuso.privacyfriendlyweather.database.dao.CityDao;
 import org.secuso.privacyfriendlyweather.database.dao.CityToWatchDao;
 import org.secuso.privacyfriendlyweather.database.dao.CurrentWeatherDao;
 import org.secuso.privacyfriendlyweather.database.dao.ForecastDao;
+import org.secuso.privacyfriendlyweather.database.dao.WeekForecastDao;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
+import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
 import org.secuso.privacyfriendlyweather.database.migration.ContextAwareMigration;
 import org.secuso.privacyfriendlyweather.database.migration.Migration_2_3;
 import org.secuso.privacyfriendlyweather.database.migration.Migration_3_4;
 import org.secuso.privacyfriendlyweather.database.migration.Migration_4_5;
+import org.secuso.privacyfriendlyweather.database.migration.Migration_5_6;
 import org.secuso.privacyfriendlyweather.files.FileReader;
 
 import java.io.IOException;
@@ -35,17 +38,20 @@ import java.util.List;
 /**
  * @author Christopher Beckmann
  */
-@Database(entities = {City.class, CityToWatch.class, CurrentWeatherData.class, Forecast.class}, version = AppDatabase.VERSION)
+@Database(entities = {City.class, CityToWatch.class, CurrentWeatherData.class, Forecast.class, WeekForecast.class}, version = AppDatabase.VERSION)
 public abstract class AppDatabase extends RoomDatabase {
     static final String DB_NAME = "PF_WEATHER_DB.db";
-    static final int VERSION = 5;
+    static final int VERSION = 6;
     static final String TAG = AppDatabase.class.getSimpleName();
 
     // DAOs
     public abstract CityDao cityDao();
     public abstract CityToWatchDao cityToWatchDao();
     public abstract CurrentWeatherDao currentWeatherDao();
+
     public abstract ForecastDao forecastDao();
+
+    public abstract WeekForecastDao weekForecastDao();
 
     // INSTANCE
     private static final Object databaseLock = new Object();
@@ -61,6 +67,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 new Migration_2_3(),
                 new Migration_3_4(),
                 new Migration_4_5(),
+                new Migration_5_6()
                 // Add new migrations here
         };
 

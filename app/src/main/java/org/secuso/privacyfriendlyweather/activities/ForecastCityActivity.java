@@ -163,7 +163,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         AppDatabase db = AppDatabase.getInstance(this);
         switch (id) {
             case R.id.menu_rainviewer:
-                if (!db.cityToWatchDao().getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
+                if (!db.cityToWatchDao().getAll().isEmpty()) {  //only if at least one city is watched, otherwise crash
                     Intent intent = new Intent(this, RainViewerActivity.class);
                     intent.putExtra("latitude", pagerAdapter.getLatForPos((viewPager.getCurrentItem())));
                     intent.putExtra("longitude", pagerAdapter.getLonForPos((viewPager.getCurrentItem())));
@@ -171,7 +171,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
                     break;
                 }
             case R.id.menu_refresh:
-                if (!db.cityToWatchDao().getAllCitiesToWatch().isEmpty()) {  //only if at least one city is watched, otherwise crash
+                if (!db.cityToWatchDao().getAll().isEmpty()) {  //only if at least one city is watched, otherwise crash
                     pagerAdapter.refreshSingleData(true, pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
 
                     RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);

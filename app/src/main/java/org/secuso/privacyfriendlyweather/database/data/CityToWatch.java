@@ -27,7 +27,8 @@ public class CityToWatch {
     public CityToWatch() {
     }
 
-    @Ignore public CityToWatch(int rank, String countryCode, int id, int cityId, String cityName) {
+    @Ignore
+    public CityToWatch(int rank, String countryCode, int id, int cityId, String cityName, float longitude, float latitude) {
         this.rank = rank;
         this.id = id;
         this.cityId = cityId;
@@ -35,6 +36,8 @@ public class CityToWatch {
         this.city.setCityName(cityName);
         this.city.setCityId(cityId);
         this.city.setCountryCode(countryCode);
+        this.city.setLongitude(longitude);
+        this.city.setLatitude(latitude);
     }
 
     public City getCity() {
@@ -83,6 +86,22 @@ public class CityToWatch {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    public float getLongitude() {
+        return this.city.getLongitude();
+    }
+
+    public float getLatitude() {
+        return this.city.getLatitude();
+    }
+
+    public void setLongitude(float lon) {
+        this.city.setLongitude(lon);
+    }
+
+    public void setLatitude(float lat) {
+        this.city.setLatitude(lat);
     }
 
 }

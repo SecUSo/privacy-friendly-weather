@@ -124,8 +124,10 @@ public class AddLocationDialog extends DialogFragment {
                 database.cityToWatchDao().getMaxRank() + 1,
                 selectedCity.getCountryCode(),
                 0,
-                selectedCity.getCityId(), selectedCity.getLongitude(), selectedCity.getLatitude(),
-                selectedCity.getCityName()
+                selectedCity.getCityId(),
+                selectedCity.getCityName(),
+                selectedCity.getLongitude(),
+                selectedCity.getLatitude()
         );
     }
 

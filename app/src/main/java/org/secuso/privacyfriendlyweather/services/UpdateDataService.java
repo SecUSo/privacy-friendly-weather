@@ -197,7 +197,7 @@ public class UpdateDataService extends JobIntentService {
         float lat = 0;
         float lon = 0;
         //get lat lon for cityID
-        List<CityToWatch> citiesToWatch = dbHelper.cityToWatchDao().getAllCitiesToWatch();
+        List<CityToWatch> citiesToWatch = dbHelper.cityToWatchDao().getAll();
         for (int i = 0; i < citiesToWatch.size(); i++) {
             CityToWatch city = citiesToWatch.get(i);
             if (city.getCityId() == cityId) {

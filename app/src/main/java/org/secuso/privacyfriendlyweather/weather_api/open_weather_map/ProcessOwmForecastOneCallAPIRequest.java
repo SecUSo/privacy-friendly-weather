@@ -69,7 +69,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
             int cityId = 0;
             //get CityID from lat/lon
             //Maybe a risk of rounding problems. Alternative: search closest citytowatch
-            List<CityToWatch> citiesToWatch = dbHelper.cityToWatchDao().getAllCitiesToWatch();
+            List<CityToWatch> citiesToWatch = dbHelper.cityToWatchDao().getAll();
             for (int i = 0; i < citiesToWatch.size(); i++) {
                 CityToWatch city = citiesToWatch.get(i);
                 //if lat/lon of json response very close to lat/lon in citytowatch
@@ -116,7 +116,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
 
             JSONArray listdaily = json.getJSONArray("daily");
 
-            dbHelper.deleteWeekForecastsByCityId(cityId);
+            dbHelper.weekForecastDao().deleteWeekForecastsByCityId(cityId);
             List<WeekForecast> weekforecasts = new ArrayList<>();
 
             for (int i = 0; i < listdaily.length(); i++) {
@@ -132,7 +132,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                 else {
                     forecast.setCity_id(cityId);
                     // add it to the database
-                    dbHelper.addWeekForecast(forecast);
+                    dbHelper.weekForecastDao().addWeekForecast(forecast);
                     weekforecasts.add(forecast);
                 }
             }
@@ -145,7 +145,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
             if (choice == 2) {
                 JSONArray listhourly = json.getJSONArray("hourly");
 
-                dbHelper.deleteForecastsByCityId(cityId);
+                dbHelper.forecastDao().deleteForecastsByCityId(cityId);
                 List<Forecast> hourlyforecasts = new ArrayList<>();
 
                 for (int i = 0; i < listhourly.length(); i++) {
@@ -161,7 +161,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                     else {
                         forecast.setCity_id(cityId);
                         // add it to the database
-                        dbHelper.addForecast(forecast);
+                        dbHelper.forecastDao().addForecast(forecast);
                         hourlyforecasts.add(forecast);
                     }
                 }

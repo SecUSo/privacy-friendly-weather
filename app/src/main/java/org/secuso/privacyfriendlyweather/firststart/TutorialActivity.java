@@ -202,8 +202,10 @@ public class TutorialActivity extends AppCompatActivity {
                     0,
                     selectedCity.getCountryCode(),
                     -1,
-                    selectedCity.getCityId(), selectedCity.getLongitude(), selectedCity.getLatitude(),
-                    selectedCity.getCityName()
+                    selectedCity.getCityId(),
+                    selectedCity.getCityName(),
+                    selectedCity.getLongitude(),
+                    selectedCity.getLatitude()
             ));
             /*  TODO: Remove, not needed, will be done in ForecastCityActivity
             Intent intent = new Intent(getApplicationContext(), UpdateDataService.class);

@@ -47,16 +47,18 @@ public class CurrentWeatherData {
     private long timeSunset;
     @ColumnInfo(name = "timezone_seconds")
     private int timeZoneSeconds;
-    @ColumnInfo(name = "rain_60_min")
-    private String Rain60min;
+    @ColumnInfo(name = "rain60min")
+    private String rain60min;
 
-    @Ignore private String city_name;
+    @Ignore
+    private String city_name;
 
     public CurrentWeatherData() {
         this.city_id = Integer.MIN_VALUE;
     }
 
-    @Ignore public CurrentWeatherData(int id, int city_id, long timestamp, int weatherID, float temperatureCurrent, float temperatureMin, float temperatureMax, float humidity, float pressure, float windSpeed, float windDirection, float cloudiness, long timeSunrise, long timeSunset, int timeZoneSeconds) {
+    @Ignore
+    public CurrentWeatherData(int id, int city_id, long timestamp, int weatherID, float temperatureCurrent, float temperatureMin, float temperatureMax, float humidity, float pressure, float windSpeed, float windDirection, float cloudiness, long timeSunrise, long timeSunset, int timeZoneSeconds) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
@@ -72,6 +74,7 @@ public class CurrentWeatherData {
         this.timeSunrise = timeSunrise;
         this.timeSunset = timeSunset;
         this.timeZoneSeconds = timeZoneSeconds;
+        this.rain60min = rain60min;
     }
 
     public int getId() {
@@ -203,10 +206,10 @@ public class CurrentWeatherData {
     }
 
     public String getRain60min() {
-        return Rain60min;
+        return rain60min;
     }
 
-    public void setRain60min(String Rain60min) {
-        this.Rain60min = Rain60min;
+    public void setRain60min(String rain60min) {
+        this.rain60min = rain60min;
     }
 }

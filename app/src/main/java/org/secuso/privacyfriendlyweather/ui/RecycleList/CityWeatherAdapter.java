@@ -53,7 +53,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         AppDatabase database = AppDatabase.getInstance(context.getApplicationContext());
 
         List<Forecast> forecasts = database.forecastDao().getForecastsByCityId(currentWeatherDataList.getCity_id());
-        List<WeekForecast> weekforecasts = database.getWeekForecastsByCityId(currentWeatherDataList.getCity_id());
+        List<WeekForecast> weekforecasts = database.weekForecastDao().getWeekForecastsByCityId(currentWeatherDataList.getCity_id());
 
         updateForecastData(forecasts);
         updateWeekForecastData(weekforecasts);
