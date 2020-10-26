@@ -22,21 +22,26 @@ public class Migration_5_6 extends ContextAwareMigration {
         // Cities
         database.execSQL("ALTER TABLE CURRENT_WEATHER ADD COLUMN rain60min TEXT;");
         database.execSQL("CREATE TABLE WEEKFORECASTS(" +
-                "forecast_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "city_id INTEGER, " +
+                "forecast_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "weather_id INTEGER NOT NULL," +
+                "city_id INTEGER NOT NULL, " +
+                "cities_id INTEGER, " +
+                "city_name TEXT, " +
+                "country_code TEXT, " +
+                "latitude REAL, " +
+                "longitude REAL, " +
                 "time_of_measurement INTEGER NOT NULL, " +
-                "forecastTime TEXT NOT NULL, " +
-                "weather_id INTEGER NOT NULL, " +
-                "temperature_current REAL, " +
-                "temperature_min REAL, " +
-                "temperature_max REAL, " +
-                "humidity REAL, " +
-                "pressure REAL, " +
-                "precipitation REAL, " +
-                "wind_speed REAL, " +
-                "wind_direction REAL, " +
-                "uv_index REAL, " +
-                "FOREIGN KEY (city_id) REFERENCES CITIES(cities_id)" +
+                "forecastTime INTEGER NOT NULL, " +
+                "temperature_current REAL NOT NULL, " +
+                "temperature_min REAL NOT NULL, " +
+                "temperature_max REAL NOT NULL, " +
+                "humidity REAL NOT NULL, " +
+                "pressure REAL NOT NULL, " +
+                "precipitation REAL NOT NULL, " +
+                "wind_speed REAL NOT NULL, " +
+                "wind_direction REAL NOT NULL, " +
+                "uv_index REAL NOT NULL, " +
+                "FOREIGN KEY(`city_id`) REFERENCES `CITIES`(`cities_id`) ON UPDATE NO ACTION ON DELETE CASCADE" +
                 ");"
         );
     }
