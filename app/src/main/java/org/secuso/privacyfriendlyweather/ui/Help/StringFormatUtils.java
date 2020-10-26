@@ -3,10 +3,12 @@ package org.secuso.privacyfriendlyweather.ui.Help;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
+import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -93,5 +95,35 @@ public final class StringFormatUtils {
         } else {
             return Character.toString((char) 0x2193); // North
         }
+    }
+
+    public static Integer getDay(int day) {
+
+        switch (day) {
+            case Calendar.MONDAY:
+                day = R.string.abbreviation_monday;
+                break;
+            case Calendar.TUESDAY:
+                day = R.string.abbreviation_tuesday;
+                break;
+            case Calendar.WEDNESDAY:
+                day = R.string.abbreviation_wednesday;
+                break;
+            case Calendar.THURSDAY:
+                day = R.string.abbreviation_thursday;
+                break;
+            case Calendar.FRIDAY:
+                day = R.string.abbreviation_friday;
+                break;
+            case Calendar.SATURDAY:
+                day = R.string.abbreviation_saturday;
+                break;
+            case Calendar.SUNDAY:
+                day = R.string.abbreviation_sunday;
+                break;
+            default:
+                day = R.string.abbreviation_monday;
+        }
+        return day;
     }
 }

@@ -58,32 +58,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         c.setTimeInMillis((long) dayValues[8]);
         int day = c.get(Calendar.DAY_OF_WEEK);
 
-        switch (day) {
-            case Calendar.MONDAY:
-                day = R.string.abbreviation_monday;
-                break;
-            case Calendar.TUESDAY:
-                day = R.string.abbreviation_tuesday;
-                break;
-            case Calendar.WEDNESDAY:
-                day = R.string.abbreviation_wednesday;
-                break;
-            case Calendar.THURSDAY:
-                day = R.string.abbreviation_thursday;
-                break;
-            case Calendar.FRIDAY:
-                day = R.string.abbreviation_friday;
-                break;
-            case Calendar.SATURDAY:
-                day = R.string.abbreviation_saturday;
-                break;
-            case Calendar.SUNDAY:
-                day = R.string.abbreviation_sunday;
-                break;
-            default:
-                day = R.string.abbreviation_monday;
-        }
-        holder.day.setText(day);
+        holder.day.setText(StringFormatUtils.getDay(day));
         holder.temperature_max.setText(String.format("%s\u200a%s", decimalFormat.format(prefManager.convertTemperatureFromCelsius(dayValues[0])), prefManager.getWeatherUnit()));
         holder.temperature_min.setText(String.format("%s\u200a%s", decimalFormat.format(prefManager.convertTemperatureFromCelsius(dayValues[1])), prefManager.getWeatherUnit()));
     }
