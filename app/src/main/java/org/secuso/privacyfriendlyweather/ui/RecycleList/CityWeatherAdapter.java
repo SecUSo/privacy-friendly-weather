@@ -60,27 +60,27 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     }
 
-    // function for 3-hour forecast list
+    // function for updating 3-hour or 1-hour forecast list
     public void updateForecastData(List<Forecast> forecasts) {
-        //Log.d("forecast", "in cityweatheradapter " + forecasts.get(0).getCity_id() + " " + forecasts.size() + " " + forecasts.get(0).getForecastTime());
 
-        //Not needed here, data will be taken from updateWeekForecastData
-        //       forecastData = compressWeatherData(forecasts);
         courseDayList = new ArrayList<Forecast>();
 
         long threehoursago = System.currentTimeMillis() - (3 * 60 * 60 * 1000);
+        long onehourago = System.currentTimeMillis() - (1 * 60 * 60 * 1000);
 
-        for (Forecast f : forecasts) {
-
-            // only add Forecasts that are in the future
-            if (f.getForecastTime() >= threehoursago) {
-                // course of day list should show entries until the same time the next day is reached
-                // since we force our forecasts to be in the future and they are ordered.. we can assume
-                // the next entry to be to the full 3h mark after this time ..
-                // if we now add a total of 32 entries if should sum up to 96 hours
-
-                courseDayList.add(f);
-
+        if (forecasts.size() == 48) {  //2day 1-hour forecast
+            for (Forecast f : forecasts) {
+                // only add Forecasts that are in the future
+                if (f.getForecastTime() >= onehourago) {
+                    courseDayList.add(f);
+                }
+            }
+        } else if (forecasts.size() == 40) {  //5day 3-hour forecast
+            for (Forecast f : forecasts) {
+                // only add Forecasts that are in the future
+                if (f.getForecastTime() >= threehoursago) {
+                    courseDayList.add(f);
+                }
             }
         }
         notifyDataSetChanged();
