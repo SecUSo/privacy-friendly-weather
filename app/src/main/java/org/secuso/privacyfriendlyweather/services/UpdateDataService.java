@@ -19,12 +19,10 @@ import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
-import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecastWidget;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForOneCallAPI;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForForecast;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForOneCallAPI;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForUpdatingCityList;
-import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForWidgetUpdate;
 import org.secuso.privacyfriendlyweather.widget.WeatherWidget;
 import org.secuso.privacyfriendlyweather.widget.WeatherWidgetFiveDayForecast;
 import org.secuso.privacyfriendlyweather.widget.WeatherWidgetThreeDayForecast;
@@ -125,8 +123,8 @@ public class UpdateDataService extends JobIntentService {
             }
 
             //Widget update code
-            IHttpRequestForForecastWidget forecastRequestWidget = new OwmHttpRequestForWidgetUpdate(getApplicationContext());
-            forecastRequestWidget.perform(cityId, widgetId, widgetType, views);
+            IHttpRequestForForecast forecastRequestWidget = new OwmHttpRequestForForecast(getApplicationContext());
+            forecastRequestWidget.perform(cityId);
 
         }
     }
