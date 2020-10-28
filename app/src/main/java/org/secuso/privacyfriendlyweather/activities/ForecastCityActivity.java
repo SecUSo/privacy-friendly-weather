@@ -1,9 +1,7 @@
 package org.secuso.privacyfriendlyweather.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -77,19 +75,10 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
 
             @Override
             public void onPageSelected(int position) {
-                //Update current tab if outside update interval, show animation
-                SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                AppDatabase database = AppDatabase.getInstance(getApplicationContext().getApplicationContext());
-                CurrentWeatherData currentWeather = database.currentWeatherDao().getCurrentWeatherByCityId(pagerAdapter.getCityIDForPos(position));
-
-                long timestamp = currentWeather.getTimestamp();
-                long systemTime = System.currentTimeMillis() / 1000;
-                long updateInterval = Long.parseLong(prefManager.getString("pref_updateInterval", "2")) * 60 * 60;
-
-                if (timestamp + updateInterval - systemTime <= 0) {
-                    startRefreshAnimation();
-                    pagerAdapter.refreshSingleData(false, pagerAdapter.getCityIDForPos(position));
-                }
+             /*   if (getSupportActionBar() != null) {  //no longer needed, TODO Remove
+                    getSupportActionBar().setTitle(getApplicationContext().getString(R.string.app_name));
+                }*/
+                pagerAdapter.refreshSingleData(false, pagerAdapter.getCityIDForPos(position));
                 viewPager.setNextFocusRightId(position);
             }
 
@@ -184,7 +173,33 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
             case R.id.menu_refresh:
                 if (!db.cityToWatchDao().getAll().isEmpty()) {  //only if at least one city is watched, otherwise crash
                     pagerAdapter.refreshSingleData(true, pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
-                    startRefreshAnimation();
+
+                    RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    rotate.setDuration(500);
+                    rotate.setRepeatCount(Animation.INFINITE);
+                    rotate.setInterpolator(new LinearInterpolator());
+                    rotate.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            refreshActionButton.getActionView().setActivated(false);
+                            refreshActionButton.getActionView().setEnabled(false);
+                            refreshActionButton.getActionView().setClickable(false);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            refreshActionButton.getActionView().setActivated(true);
+                            refreshActionButton.getActionView().setEnabled(true);
+                            refreshActionButton.getActionView().setClickable(true);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                        }
+                    });
+
+                    refreshActionButton.getActionView().startAnimation(rotate);
+                    break;
                 }
         }
 
@@ -217,37 +232,6 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     public void updateForecasts(List<Forecast> forecasts) {
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
-        }
-    }
-
-    public void startRefreshAnimation() {
-        {
-
-            RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            rotate.setDuration(500);
-            rotate.setRepeatCount(Animation.INFINITE);
-            rotate.setInterpolator(new LinearInterpolator());
-            rotate.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    refreshActionButton.getActionView().setActivated(false);
-                    refreshActionButton.getActionView().setEnabled(false);
-                    refreshActionButton.getActionView().setClickable(false);
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    refreshActionButton.getActionView().setActivated(true);
-                    refreshActionButton.getActionView().setEnabled(true);
-                    refreshActionButton.getActionView().setClickable(true);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
-
-            refreshActionButton.getActionView().startAnimation(rotate);
         }
     }
 }
