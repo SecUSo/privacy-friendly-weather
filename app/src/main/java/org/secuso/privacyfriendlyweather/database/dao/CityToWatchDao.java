@@ -18,7 +18,7 @@ public interface CityToWatchDao {
     @Query("SELECT * FROM CITIES_TO_WATCH")
     List<CityToWatch> getAll();
 
-    @Query("SELECT * FROM CITIES_TO_WATCH WHERE city_id IS :id")
+    @Query("SELECT * FROM CITIES_TO_WATCH WHERE city_id = :id")
     CityToWatch getCityToWatchById(int id);
 
     @Insert
