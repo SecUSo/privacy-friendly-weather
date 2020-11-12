@@ -3,21 +3,22 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
+import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
 import org.secuso.privacyfriendlyweather.widget.WeatherWidget;
-import org.secuso.privacyfriendlyweather.widget.WeatherWidgetFiveDayForecast;
-import org.secuso.privacyfriendlyweather.widget.WeatherWidgetThreeDayForecast;
 
 /**
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
@@ -73,37 +74,33 @@ public class ProcessOwmUpdateSingleCityRequest implements IProcessHttpRequest {
             }
 
             ViewUpdater.updateCurrentWeatherData(weatherData);
+            possiblyUpdateWidgets(cityId, weatherData);
         }
 
         // City was not found; sometimes this happens for OWM requests even though the city ID is
         // valid
-
-
-        //Update Widgets
-        AppWidgetManager awm = AppWidgetManager.getInstance(context);
-
-        int[] ids1 = awm.getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
-        int[] ids3 = awm.getAppWidgetIds(new ComponentName(context, WeatherWidgetThreeDayForecast.class));
-        int[] ids5 = awm.getAppWidgetIds(new ComponentName(context, WeatherWidgetFiveDayForecast.class));
-
-        Intent intent1 = new Intent(context, WeatherWidget.class);
-        Intent intent3 = new Intent(context, WeatherWidgetThreeDayForecast.class);
-        Intent intent5 = new Intent(context, WeatherWidgetFiveDayForecast.class);
-
-        intent1.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        intent3.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        intent5.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-
-        intent1.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids1);
-        intent3.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids3);
-        intent5.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids5);
-
-        context.sendBroadcast(intent1);
-        context.sendBroadcast(intent3);
-        context.sendBroadcast(intent5);
-
         // TODO: Error Handling
     }
+
+    private void possiblyUpdateWidgets(int cityID, CurrentWeatherData weatherData) {
+        //search for 1 Day widgets with same city ID
+        int[] ids1day = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
+        SharedPreferences prefs1 = context.getSharedPreferences(WeatherWidget.PREFS_NAME, 0);
+        for (int widgetID : ids1day) {
+            //check if city ID is same
+            if (cityID == prefs1.getInt(WeatherWidget.PREF_PREFIX_KEY + widgetID, -1)) {
+                //perform update for the widget
+                Log.d("debugtag", "found 1 day widget to update with data: " + cityID + " with widgetID " + widgetID);
+
+                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                City city = dbHelper.cityDao().getCityById(cityID);
+
+                WeatherWidget.updateView(context, appWidgetManager, views, widgetID, city, weatherData);
+            }
+        }
+    }
+
 
     /**
      * Shows an error that the data could not be retrieved.

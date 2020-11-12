@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import org.secuso.privacyfriendlyweather.R;
@@ -36,10 +37,13 @@ public class WeatherWidget extends AppWidgetProvider {
 
     public void updateAppWidget(Context context, final int appWidgetId) {
 
+        int cityID = context.getSharedPreferences(WeatherWidget.PREFS_NAME, 0).
+                getInt(WeatherWidget.PREF_PREFIX_KEY + appWidgetId, -1);
         Intent intent = new Intent(context, UpdateDataService.class);
-        intent.setAction(UpdateDataService.UPDATE_WIDGET_ACTION);
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        intent.putExtra("widget_type", 1);
+        Log.d("debugtag", "1day widget calls single update: " + cityID + " with widgetID " + appWidgetId);
+
+        intent.setAction(UpdateDataService.UPDATE_SINGLE_ACTION);
+        intent.putExtra("cityId", cityID);
         intent.putExtra(SKIP_UPDATE_INTERVAL, true);
         enqueueWork(context, UpdateDataService.class, 0, intent);
 

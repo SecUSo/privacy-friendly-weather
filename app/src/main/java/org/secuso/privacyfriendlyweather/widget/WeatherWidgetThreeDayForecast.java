@@ -33,11 +33,13 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
 
     public static void updateAppWidget(final Context context, final int appWidgetId) {
 
-        // Construct the RemoteViews object
+        int cityID = context.getSharedPreferences(WeatherWidgetThreeDayForecast.PREFS_NAME, 0).
+                getInt(WeatherWidget.PREF_PREFIX_KEY + appWidgetId, -1);
+
         Intent intent = new Intent(context, UpdateDataService.class);
-        intent.setAction(UpdateDataService.UPDATE_WIDGET_ACTION);
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        intent.putExtra("widget_type", 3);
+        intent.setAction(UpdateDataService.UPDATE_SINGLE_ACTION);
+
+        intent.putExtra("cityId", cityID);
         intent.putExtra(SKIP_UPDATE_INTERVAL, true);
         enqueueWork(context, UpdateDataService.class, 0, intent);
 
@@ -82,18 +84,18 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
         //select extra information to display from settings
         int extraInfo = prefManager.get3dayWidgetInfo1();
         if (extraInfo == 1) {
-            extra11 = String.format("%s ml   ", (int) data[0][7]);
-            extra12 = String.format("%s ml   ", (int) data[1][7]);
-            extra13 = String.format("%s ml   ", (int) data[2][7]);
+            extra11 = String.format("%s ml  ", (int) data[0][7]);
+            extra12 = String.format("%s ml  ", (int) data[1][7]);
+            extra13 = String.format("%s ml  ", (int) data[2][7]);
         } else if (extraInfo == 2) {
             //wind max & min
-            extra11 = String.format("%s | %sm/s   ", (int) data[0][4], (int) data[0][5]);
-            extra12 = String.format("%s | %sm/s   ", (int) data[1][4], (int) data[1][5]);
-            extra13 = String.format("%s | %sm/s   ", (int) data[2][4], (int) data[2][5]);
+            extra11 = String.format("%sm/s  ", (int) data[0][5]);
+            extra12 = String.format("%sm/s  ", (int) data[1][5]);
+            extra13 = String.format("%sm/s  ", (int) data[2][5]);
         } else {
-            extra11 = String.format("%s | %s%%   ", (int) data[0][2], (int) data[0][3]);
-            extra12 = String.format("%s | %s%%   ", (int) data[1][2], (int) data[1][3]);
-            extra13 = String.format("%s | %s%%   ", (int) data[2][2], (int) data[2][3]);
+            extra11 = String.format("%s%%rh ", (int) data[0][2]);
+            extra12 = String.format("%s%%rh ", (int) data[1][2]);
+            extra13 = String.format("%s%%rh ", (int) data[2][2]);
         }
 
         String extra21 = "";
@@ -107,13 +109,13 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
             extra23 = String.format("%s ml", (int) data[2][7]);
         } else if (extra2Info == 2) {
             //wind max & min
-            extra21 = String.format("%s | %sm/s", (int) data[0][4], (int) data[0][5]);
-            extra22 = String.format("%s | %sm/s", (int) data[1][4], (int) data[1][5]);
-            extra23 = String.format("%s | %sm/s", (int) data[2][4], (int) data[2][5]);
+            extra21 = String.format("%sm/s", (int) data[0][5]);
+            extra22 = String.format("%sm/s", (int) data[1][5]);
+            extra23 = String.format("%sm/s", (int) data[2][5]);
         } else {
-            extra21 = String.format("%s | %s%%", (int) data[0][2], (int) data[0][3]);
-            extra22 = String.format("%s | %s%%", (int) data[1][2], (int) data[1][3]);
-            extra23 = String.format("%s | %s%%", (int) data[2][2], (int) data[2][3]);
+            extra21 = String.format("%s%%rh", (int) data[0][2]);
+            extra22 = String.format("%s%%rh", (int) data[1][2]);
+            extra23 = String.format("%s%%rh", (int) data[2][2]);
         }
 
 

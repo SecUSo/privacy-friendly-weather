@@ -49,7 +49,7 @@ public class WeatherWidgetConfigureActivity extends Activity {
 
         //Task starts update Service with widget updates after insert is finished
         AddLocationWidgetTask addLocationWidgetTask = new AddLocationWidgetTask(getApplicationContext());
-        addLocationWidgetTask.execute(selectedCity, mAppWidgetId, 1);
+        addLocationWidgetTask.execute(selectedCity, mAppWidgetId);
 
         // When the button is clicked, store the string locally
         saveTitlePref(context, mAppWidgetId, selectedCity.getCityId());
