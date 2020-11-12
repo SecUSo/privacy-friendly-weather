@@ -133,7 +133,7 @@ public class SettingsActivity extends BaseActivity {
 
             bindPreferenceSummaryToValue(findPreference("API_key_value"));
 
-            final String defaultKeyString = getActivity().getString(R.string.settings__API_key_default);
+            final String defaultKeyString = getActivity().getString(R.string.settings_API_key_default);
 
             final Preference resetKeyPref = findPreference("API_key_reset");
             resetKeyPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

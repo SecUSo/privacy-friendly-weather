@@ -130,7 +130,7 @@
     <string name="next">Ulteriore</string>
     <string name="okay">Ok</string>
     <string name="reset">reset</string>
-    <string name="settings__API_key_default">No API Key provided</string>
+    <string name="settings_API_key_default">No API Key provided</string>
     <string name="settings_confirm_content_API_key_reset">Do you really want to reset to the default API key?</string>
     <string name="settings_confirm_title_API_key_reset">Reset API key</string>
     <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org.</string>

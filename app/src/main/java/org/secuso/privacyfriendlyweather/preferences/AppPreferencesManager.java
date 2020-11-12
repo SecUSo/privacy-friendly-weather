@@ -158,7 +158,7 @@ public class AppPreferencesManager {
 
     public String getOWMApiKey(Context context) {
         String prefValue = preferences.getString("API_key_value", BuildConfig.DEFAULT_API_KEY);
-        if (prefValue.equals(context.getString(R.string.settings__API_key_default))) {
+        if (prefValue.equals(context.getString(R.string.settings_API_key_default))) {
             return BuildConfig.DEFAULT_API_KEY;
         } else {
             return prefValue;

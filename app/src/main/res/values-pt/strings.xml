@@ -130,7 +130,7 @@
     <string name="next">Próximo</string>
     <string name="okay">Ok</string>
     <string name="reset">Redefinir</string>
-    <string name="settings__API_key_default">Nenhuma chave de API fornecida</string>
+    <string name="settings_API_key_default">Nenhuma chave de API fornecida</string>
     <string name="settings_confirm_content_API_key_reset">Deseja realmente redefinir a chave da API padrão?</string>
     <string name="settings_confirm_title_API_key_reset">Redefinir chave de API</string>
     <string name="settings_description_API">Privacy Friendly Weather recebe dados do serviço gratuito do openweathermap.org.</string>

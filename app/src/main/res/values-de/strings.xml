@@ -137,7 +137,7 @@
     <string name="card_error_content">Bitte versuchen Sie zu aktualisieren!</string>
     <string name="action_refresh">Aktualisieren</string>
     <string name="card_error_heading">Fehler beim Abrufen der Wetterdaten</string>
-    <string name="settings__API_key_default">Es wurde kein API Key bereitgestellt</string>
+    <string name="settings_API_key_default">Es wurde kein API Key bereitgestellt</string>
     <string name="settings_confirm_content_API_key_reset">Wirklich den standard API Key wiederherstellen?</string>
     <string name="settings_confirm_title_API_key_reset">API Key zurücksetzen</string>
     <string name="settings_description_API">Privacy Friendly Wetter erhält die Wetterdaten von dem freien Service openweathermap.org. Dieser Service ist auf 60 Anfragen pro Minute beschränkt. Sie könnten ihren eigenen API Key registrieren, um ihre eigenen 60 Anfragen pro Minute zu bekommen.</string>
