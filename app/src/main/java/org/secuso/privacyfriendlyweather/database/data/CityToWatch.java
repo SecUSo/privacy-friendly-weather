@@ -25,6 +25,7 @@ public class CityToWatch {
     @Embedded private City city;
 
     public CityToWatch() {
+        this.city = new City();
     }
 
     @Ignore
