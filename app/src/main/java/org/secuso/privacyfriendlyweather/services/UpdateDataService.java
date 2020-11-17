@@ -14,14 +14,11 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
-import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
-import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForCityList;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForOneCallAPI;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForForecast;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForOneCallAPI;
-import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForUpdatingCityList;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -79,8 +76,6 @@ public class UpdateDataService extends JobIntentService {
 
         if (intent != null) {
             if (UPDATE_ALL_ACTION.equals(intent.getAction())) handleUpdateAll(intent);
-            else if (UPDATE_CURRENT_WEATHER_ACTION.equals(intent.getAction()))   //should not be needed anymore due to use of One Call API
-                handleUpdateCurrentWeatherAction(intent);
             else if (UPDATE_FORECAST_ACTION.equals(intent.getAction()))
                 handleUpdateForecastAction(intent);
             else if (UPDATE_SINGLE_ACTION.equals(intent.getAction())) handleUpdateSingle(intent);
@@ -168,47 +163,5 @@ public class UpdateDataService extends JobIntentService {
             }
         }
         handleUpdateForecastAction(intent, cityId, lat, lon);
-    }
-
-    private void handleUpdateCurrentWeatherAction(Intent intent) {
-        boolean skipUpdateInterval = intent.getBooleanExtra(SKIP_UPDATE_INTERVAL, false);
-
-        long systemTime = System.currentTimeMillis() / 1000;
-        boolean shouldUpdate = false;
-
-        if (!skipUpdateInterval) {
-            long updateInterval = Long.parseLong(prefManager.getString("pref_updateInterval", "2")) * 60 * 60;
-
-            List<CityToWatch> citiesToWatch = dbHelper.cityToWatchDao().getAll();
-            // check timestamp of the current weather .. if one of them is out of date.. update them all at once
-            List<CurrentWeatherData> weather = dbHelper.currentWeatherDao().getAll();
-
-            for (CityToWatch city : citiesToWatch) {
-                int cityId = city.getCityId();
-                boolean foundId = false;
-                for (CurrentWeatherData w : weather) {
-                    if (w.getCity_id() == cityId) {
-
-                        foundId = true;
-
-                        long timestamp = w.getTimestamp();
-                        if (timestamp + updateInterval - systemTime <= 0) {
-                            shouldUpdate = true;
-                            break;
-                        }
-                    }
-                }
-                if (shouldUpdate || !foundId) {
-                    shouldUpdate = true;
-                    break;
-                }
-            }
-        }
-
-        if (skipUpdateInterval || shouldUpdate) {
-            IHttpRequestForCityList currentWeatherRequest = new OwmHttpRequestForUpdatingCityList(getApplicationContext());
-            List<CityToWatch> cityToWatches = dbHelper.cityToWatchDao().getAll();
-            currentWeatherRequest.perform(cityToWatches);
-        }
     }
 }
