@@ -202,8 +202,11 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     }
 
     public void addCityFromDB(int cityID) {
-        cities.add(cities.size(), database.cityToWatchDao().getCityToWatchById(cityID));
-        notifyDataSetChanged();
+        CityToWatch newCity = database.cityToWatchDao().getCityToWatchById(cityID);
+        if (newCity != null) {
+            cities.add(cities.size(), newCity);
+            notifyDataSetChanged();
+        }
     }
 
 
