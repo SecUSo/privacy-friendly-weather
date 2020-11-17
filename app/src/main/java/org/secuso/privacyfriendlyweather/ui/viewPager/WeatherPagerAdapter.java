@@ -181,6 +181,16 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         return 0;
     }
 
+    public boolean hasCityInside(int cityID) {
+        for (int i = 0; i < cities.size(); i++) {
+            CityToWatch city = cities.get(i);
+            if (city.getCityId() == cityID) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public float getLatForPos(int pos) {
         CityToWatch city = cities.get(pos);
         return city.getLatitude();
@@ -189,6 +199,11 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     public float getLonForPos(int pos) {
         CityToWatch city = cities.get(pos);
         return city.getLongitude();
+    }
+
+    public void addCityFromDB(int cityID) {
+        cities.add(cities.size(), database.cityToWatchDao().getCityToWatchById(cityID));
+        notifyDataSetChanged();
     }
 
 

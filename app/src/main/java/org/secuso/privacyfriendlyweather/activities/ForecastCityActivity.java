@@ -51,8 +51,15 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         ViewUpdater.addSubscriber(pagerAdapter);
 
         if (pagerAdapter.getCount() > 0) {  //only if at least one city is watched
-            // if Intent contains cityId use this city, otherwise go to previous position
-            cityId = getIntent().getIntExtra("cityId", pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
+            cityId = getIntent().getIntExtra("cityId", -1);
+            // if Intent contains no cityId go to previous position
+            if (cityId == -1) {
+                cityId = pagerAdapter.getCityIDForPos(viewPager.getCurrentItem());
+                //if city id was found in intent but not yet inside pageradapter (such as when added from widget)
+            } else if (!pagerAdapter.hasCityInside(cityId)) {
+                //manually add city
+                pagerAdapter.addCityFromDB(cityId);
+            }
             //TODO possible slowdown when opening Activity
             pagerAdapter.refreshSingleData(false, cityId);  //only update current tab at start
         }
