@@ -1,8 +1,7 @@
 package org.secuso.privacyfriendlyweather.database.migration;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
@@ -12,14 +11,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  * @author Noah Schlegel
  * @see ContextAwareMigration
  */
-public class Migration_3_4 extends ContextAwareMigration {
+public class Migration_3_4 extends Migration {
 
     public Migration_3_4() {
         super(3, 4);
     }
 
     @Override
-    public void migrate(@NonNull Context context, @NonNull SupportSQLiteDatabase database) {
+    public void migrate(@NonNull SupportSQLiteDatabase database) {
         // Cities
         database.execSQL("UPDATE CITIES_TO_WATCH SET rank=ROWID;");
     }

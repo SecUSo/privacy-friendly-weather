@@ -25,6 +25,7 @@ import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
 import org.secuso.privacyfriendlyweather.database.migration.ContextAwareMigration;
+import org.secuso.privacyfriendlyweather.database.migration.Migration_1_2;
 import org.secuso.privacyfriendlyweather.database.migration.Migration_2_3;
 import org.secuso.privacyfriendlyweather.database.migration.Migration_3_4;
 import org.secuso.privacyfriendlyweather.database.migration.Migration_4_5;
@@ -64,6 +65,7 @@ public abstract class AppDatabase extends RoomDatabase {
      */
     public static Migration[] getMigrations(Context context) {
         Migration[] MIGRATIONS = new Migration[]{
+                new Migration_1_2(),
                 new Migration_2_3(),
                 new Migration_3_4(),
                 new Migration_4_5(),
@@ -120,6 +122,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             fillCityDatabase(context, db);
                         }
 
+                        // TODO: DEBUG ONLY - REMOVE WHEN DONE
                         c = db.query("SELECT count(*) FROM CITIES");
                         if(c != null) {
                             if(c.moveToFirst()) {

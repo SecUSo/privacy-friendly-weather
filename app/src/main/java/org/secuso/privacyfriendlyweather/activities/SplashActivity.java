@@ -18,13 +18,13 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        AppDatabase database = AppDatabase.getInstance(this);
+        database.cityDao().getCityById(0);
 
         prefManager = new PrefManager(this);
         if (prefManager.isFirstTimeLaunch()) {  //First time go to TutorialActivity
             //TODO make DB call async
-            AppDatabase database = AppDatabase.getInstance(this);
-            database.cityDao().getCityById(0);
+
             Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
             SplashActivity.this.startActivity(mainIntent);
         } else { //otherwise directly start ForecastCityActivity
