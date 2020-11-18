@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,7 +86,9 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
             day = itemView.findViewById(R.id.week_forecast_day);
             weather = itemView.findViewById(R.id.week_forecast_weather);
             temperature_max = itemView.findViewById(R.id.week_forecast_temperature_max);
+            temperature_max.setTextColor(Color.RED);
             temperature_min = itemView.findViewById(R.id.week_forecast_temperature_min);
+            temperature_min.setTextColor(Color.BLUE);
             humidity = itemView.findViewById(R.id.week_forecast_humidity);
             wind_speed = itemView.findViewById(R.id.week_forecast_wind_speed);
             precipitation = itemView.findViewById(R.id.week_forecast_precipitation);
