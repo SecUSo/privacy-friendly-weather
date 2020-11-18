@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 import android.widget.AutoCompleteTextView;
 
 import org.secuso.privacyfriendlyweather.R;
@@ -117,12 +119,21 @@ public class WeatherWidgetThreeDayForecastConfigureActivity extends Activity {
         mAppWidgetText = (AutoCompleteTextView) findViewById(R.id.appwidget_text);
 
         database = AppDatabase.getInstance(this);
+        final WebView webview = (WebView) findViewById(R.id.webViewAddLocationWidget);
+        webview.getSettings().setJavaScriptEnabled(true);
         generator = new AutoCompleteCityTextViewGenerator(getApplicationContext(), database);
 
         generator.generate(mAppWidgetText, 100, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
             @Override
             public void accept(City city) {
                 selectedCity = city;
+                if (selectedCity != null) {
+                    //Hide keyboard to have more space
+                    final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(findViewById(android.R.id.content).getWindowToken(), 0);
+                    //Show city on map
+                    webview.loadUrl("file:///android_asset/map.html?lat=" + selectedCity.getLatitude() + "&lon=" + selectedCity.getLongitude());
+                }
             }
         }, new Runnable() {
             @Override
