@@ -166,4 +166,6 @@
     <string name="settings_title_forecastChoice">Anzeigeoptionen</string>
     <string name="settings_summary_forecastChoice">Wählen Sie zwischen 2 Tage / 1 h und 5 Tage / 3 h Vorhersage</string>
     <string name="settings_forecastChoice">Vorhersage</string>
+    <string name="widget_needs_city">Ein Widget benötigt %1$s noch. Bitte löschen Sie alle Widgets von %1$s zuvor.</string>
+    <string name="action_rainviewer">Regenansicht</string>
 </resources>
