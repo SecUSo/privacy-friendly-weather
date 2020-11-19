@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import org.secuso.privacyfriendlyweather.R;
 
@@ -26,5 +27,19 @@ public class RainViewerActivity extends AppCompatActivity {
         webView = findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/rainviewer.html?lat=" + latitude + "&lon=" + longitude);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (getSupportActionBar() == null) {
+            setSupportActionBar(toolbar);
+        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
