@@ -493,14 +493,26 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView windspeed;
         TextView rain60min;
         TextView time;
+        ImageView[] drops;
+        private final int[] imageIds = {R.id.activity_city_weather_rain_image1,
+                R.id.activity_city_weather_rain_image2, R.id.activity_city_weather_rain_image3,
+                R.id.activity_city_weather_rain_image4, R.id.activity_city_weather_rain_image5,
+                R.id.activity_city_weather_rain_image6, R.id.activity_city_weather_rain_image7,
+                R.id.activity_city_weather_rain_image8, R.id.activity_city_weather_rain_image9,
+                R.id.activity_city_weather_rain_image10, R.id.activity_city_weather_rain_image11,
+                R.id.activity_city_weather_rain_image12};
 
         DetailViewHolder(View v) {
             super(v);
             this.humidity = v.findViewById(R.id.activity_city_weather_tv_humidity_value);
             this.pressure = v.findViewById(R.id.activity_city_weather_tv_pressure_value);
             this.windspeed = v.findViewById(R.id.activity_city_weather_tv_wind_speed_value);
-            this.rain60min = v.findViewById(R.id.activity_city_weather_tv_rain60min_value);
+            this.rain60min = v.findViewById(R.id.activity_city_weather_tv_rain60min_text);
             this.time = v.findViewById(R.id.activity_city_weather_title);
+            drops = new ImageView[12];
+            for (int i = 0; i < 12; i++) {
+                drops[i] = v.findViewById(imageIds[i]);
+            }
         }
     }
 
@@ -611,7 +623,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), "%"));
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
             holder.windspeed.setText(StringFormatUtils.formatWindSpeed(context, currentWeatherDataList.getWindSpeed()) + " " + StringFormatUtils.formatWindDir(context, currentWeatherDataList.getWindDirection()));
-            holder.rain60min.setText(currentWeatherDataList.getRain60min());
+            setRainDrops(holder.drops, currentWeatherDataList.getRain60min());
 
         } else if (viewHolder.getItemViewType() == WEEK) {
 
@@ -639,6 +651,29 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.sunset.setText(TimeUtil.formatTimeSimple(zoneseconds, currentWeatherDataList.getTimeSunset()));*/
         }
         //No update for error needed
+    }
+
+    private void setRainDrops(ImageView[] drops, String rain60min) {
+        Log.d("raindrops", "raininfo null?" + (rain60min == null));
+        if (rain60min == null || rain60min == "no data") {
+            for (ImageView imview : drops) {
+                imview.setVisibility(View.INVISIBLE);
+            }
+        } else {
+            int i = 0;
+            for (ImageView view : drops) {
+                if (rain60min.charAt(i) == '0') {
+                    view.setImageResource(R.drawable.emptydrop);
+                } else if (rain60min.charAt(i) == '1') {
+                    view.setImageResource(R.drawable.halfdrop);
+                } else if (rain60min.charAt(i) == '2') {
+                    view.setImageResource(R.drawable.fulldrop);
+                }
+                view.setVisibility(View.VISIBLE);
+            }
+            i++;
+        }
+
     }
 
     public void setImage(int value, ImageView imageView, boolean isDay) {

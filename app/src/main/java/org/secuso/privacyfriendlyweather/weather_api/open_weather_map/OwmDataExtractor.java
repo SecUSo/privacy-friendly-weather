@@ -454,11 +454,11 @@ public class OwmDataExtractor implements IDataExtractor {
             JSONObject jsonData4 = new JSONObject(data4);
             double rain5min = jsonData0.getDouble("precipitation") + jsonData1.getDouble("precipitation") + jsonData2.getDouble("precipitation") + jsonData3.getDouble("precipitation") + jsonData4.getDouble("precipitation");
             if (rain5min == 0) {
-                rain = "\u25a1";
+                rain = "0";
             } else if (rain5min < 12.5) {  //light rain equals <2.5mm/h (12.5 = 5 x 2.5)
-                rain = "\u25a6";
+                rain = "1";
             } else {
-                rain = "\u25a0";
+                rain = "2";
             }
 
             return rain;

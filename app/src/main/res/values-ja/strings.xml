@@ -221,5 +221,6 @@
     <string name="settings_forecastChoice">Forecast</string>
     <string name="widget_needs_city">A widget still needs %1$s. Please delete all widgets for this city first.</string>
     <string name="action_rainviewer">レインビュー</string>
+    <string name="rain60min_text">"Next 60min: "</string>
 
 </resources>

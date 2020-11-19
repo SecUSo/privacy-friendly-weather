@@ -167,4 +167,5 @@
     <string name="settings_forecastChoice">Forecast</string>
     <string name="widget_needs_city">Um widget ainda precisa de %1$s. Por favor, elimine primeiro todos os widgets para esta cidade.</string>
     <string name="action_rainviewer">Vista de chuva</string>
+    <string name="rain60min_text">"Próximos 60min: "</string>
 </resources>

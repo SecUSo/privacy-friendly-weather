@@ -168,4 +168,5 @@
     <string name="settings_forecastChoice">Vorhersage</string>
     <string name="widget_needs_city">Ein Widget benötigt %1$s noch. Bitte löschen Sie alle Widgets von %1$s zuvor.</string>
     <string name="action_rainviewer">Regenansicht</string>
+    <string name="rain60min_text">"Nächste 60min: "</string>
 </resources>
