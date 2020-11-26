@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
@@ -33,6 +32,27 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
 
     private RecyclerView recyclerView;
 
+    public static WeatherCityFragment newInstance(CurrentWeatherData data, int[] mDataSetTypes) {
+        WeatherCityFragment WCfragment = new WeatherCityFragment();
+        Bundle args = new Bundle();
+        args.putInt("city_id", data.getCity_id());
+        args.putIntArray("dataSetTypes", mDataSetTypes);
+        args.putLong("timestamp", data.getTimestamp());
+        args.putInt("weatherID", data.getWeatherID());
+        args.putFloat("temperatureCurrent", data.getTemperatureCurrent());
+        args.putFloat("humidity", data.getHumidity());
+        args.putFloat("pressure", data.getPressure());
+        args.putFloat("windSpeed", data.getWindSpeed());
+        args.putFloat("windDirection", data.getWindDirection());
+        args.putFloat("cloudiness", data.getCloudiness());
+        args.putLong("timeSunrise", data.getTimeSunrise());
+        args.putLong("timeSunset", data.getTimeSunset());
+        args.putInt("timeZoneSeconds", data.getTimeZoneSeconds());
+        args.putString("rain60min", data.getRain60min());
+
+        WCfragment.setArguments(args);
+        return WCfragment;
+    }
 
     public void setAdapter(CityWeatherAdapter adapter) {
         mAdapter = adapter;
@@ -44,26 +64,6 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
         }
     }
 
-    public void loadData() {
-        CurrentWeatherData currentWeatherData = AppDatabase.getInstance(getContext()).currentWeatherDao().getCurrentWeatherByCityId(mCityId);
-
-        if(currentWeatherData == null) {
-            return;
-        }
-
-        if (currentWeatherData.getCity_id() == 0) {
-            currentWeatherData.setCity_id(mCityId);
-        }
-
-        mAdapter = new CityWeatherAdapter(currentWeatherData, mDataSetTypes, getContext());
-
-        ((Activity) getContext()).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                setAdapter(mAdapter);
-            }
-        });
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -90,8 +90,29 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
         mCityId = args.getInt("city_id");
         mDataSetTypes = args.getIntArray("dataSetTypes");
 
-        loadData();
+        CurrentWeatherData cwd = new CurrentWeatherData();
+        cwd.setCity_id(mCityId);
+        cwd.setCloudiness(args.getFloat("cloudiness"));
+        cwd.setHumidity(args.getFloat("humidity"));
+        cwd.setTimestamp(args.getLong("timestamp"));
+        cwd.setTemperatureCurrent(args.getFloat("temperatureCurrent"));
+        cwd.setWeatherID(args.getInt("weatherID"));
+        cwd.setPressure(args.getFloat("pressure"));
+        cwd.setRain60min(args.getString("rain60min"));
+        cwd.setTimeZoneSeconds(args.getInt("timeZoneSeconds"));
+        cwd.setTimeSunrise(args.getLong("timeSunrise"));
+        cwd.setTimeSunset(args.getLong("timeSunset"));
+        cwd.setWindDirection(args.getFloat("windDirection"));
+        cwd.setWindSpeed(args.getFloat("windSpeed"));
 
+        mAdapter = new CityWeatherAdapter(cwd, mDataSetTypes, getContext());
+
+        ((Activity) getContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setAdapter(mAdapter);
+            }
+        });
         return v;
     }
 
@@ -110,6 +131,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
     @Override
     public void processNewWeatherData(CurrentWeatherData data) {
         if (data.getCity_id() == mCityId) {
+            //why not on UI thread as in OnCreateView?
             setAdapter(new CityWeatherAdapter(data, mDataSetTypes, getContext()));
         }
     }

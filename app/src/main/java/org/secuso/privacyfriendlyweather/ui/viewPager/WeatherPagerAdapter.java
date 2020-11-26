@@ -2,9 +2,7 @@ package org.secuso.privacyfriendlyweather.ui.viewPager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
@@ -76,11 +74,14 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
 
     @Override
     public WeatherCityFragment getItem(int position) {
-        Bundle args = new Bundle();
-        args.putInt("city_id", cities.get(position).getCityId());
-        args.putIntArray("dataSetTypes", mDataSetTypes);
+        return WeatherCityFragment.newInstance(getDataForID(cities.get(position).getCityId()), mDataSetTypes);
+    }
 
-        return (WeatherCityFragment) Fragment.instantiate(mContext, WeatherCityFragment.class.getName(), args);
+    private CurrentWeatherData getDataForID(int cityID) {
+        for (CurrentWeatherData data : currentWeathers) {
+            if (data.getCity_id() == cityID) return data;
+        }
+        return null;
     }
 
     @Override
@@ -148,7 +149,9 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
 
     @Override
     public void processNewWeatherData(CurrentWeatherData data) {
-        lastUpdateTime = data.getTimestamp();
+        //TODO lastupdatetime might be used for more cities than it reflects
+        // (update could be for any city, still other cities dont get updated)
+        lastUpdateTime = System.currentTimeMillis() / 1000;
         int id = data.getCity_id();
         CurrentWeatherData old = findWeatherFromID(currentWeathers, id);
         if (old != null) currentWeathers.remove(old);

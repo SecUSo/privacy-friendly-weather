@@ -66,12 +66,9 @@ public class ProcessOwmUpdateSingleCityRequest implements IProcessHttpRequest {
         } else {
             weatherData.setCity_id(cityId);
 
-            CurrentWeatherData current = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(cityId);
-            if (current != null && current.getCity_id() == cityId) {
-                dbHelper.currentWeatherDao().updateCurrentWeather(weatherData);
-            } else {
-                dbHelper.currentWeatherDao().addCurrentWeather(weatherData);
-            }
+            dbHelper.currentWeatherDao().deleteCurrentWeatherByCityId(cityId);
+
+            dbHelper.currentWeatherDao().addCurrentWeather(weatherData);
 
             ViewUpdater.updateCurrentWeatherData(weatherData);
             possiblyUpdateWidgets(cityId, weatherData);
