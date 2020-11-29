@@ -57,7 +57,7 @@ public class RadiusSearchResultActivity extends AppCompatActivity {
         IApiToDatabaseConversion.WeatherCategories category;
         ValueDeriver deriver = new ValueDeriver(getApplicationContext());
 
-        DecimalFormat decimalFormatter = new DecimalFormat(".#");
+        DecimalFormat decimalFormatter = new DecimalFormat("0.0");
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
 
