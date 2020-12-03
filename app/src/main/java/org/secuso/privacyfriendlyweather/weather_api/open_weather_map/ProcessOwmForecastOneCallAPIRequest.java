@@ -112,12 +112,10 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                 weatherData.setCity_id(cityId);
                 weatherData.setRain60min(rain60min);
                 weatherData.setTimeZoneSeconds(json.getInt("timezone_offset"));
-                CurrentWeatherData current = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(cityId);
-                if (current != null && current.getCity_id() == cityId) {
-                    dbHelper.currentWeatherDao().updateCurrentWeather(weatherData);
-                } else {
-                    dbHelper.currentWeatherDao().addCurrentWeather(weatherData);
-                }
+
+                dbHelper.currentWeatherDao().deleteCurrentWeatherByCityId(cityId);
+
+                dbHelper.currentWeatherDao().addCurrentWeather(weatherData);
 
                 ViewUpdater.updateCurrentWeatherData(weatherData);
             }
