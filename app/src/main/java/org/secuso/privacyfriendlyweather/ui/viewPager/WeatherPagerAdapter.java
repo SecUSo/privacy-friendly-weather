@@ -74,7 +74,24 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
 
     @Override
     public WeatherCityFragment getItem(int position) {
-        return WeatherCityFragment.newInstance(getDataForID(cities.get(position).getCityId()), mDataSetTypes);
+        CurrentWeatherData cityWeather = getDataForID(cities.get(position).getCityId());
+        if (cityWeather == null) {
+            cityWeather = new CurrentWeatherData();
+            cityWeather.setCity_id(cities.get(position).getCityId());
+            cityWeather.setTimestamp(System.currentTimeMillis() / 1000);
+            cityWeather.setWeatherID(0);
+            cityWeather.setTemperatureCurrent(0);
+            cityWeather.setHumidity(0);
+            cityWeather.setPressure(0);
+            cityWeather.setWindSpeed(0);
+            cityWeather.setWindDirection(0);
+            cityWeather.setCloudiness(0);
+            cityWeather.setTimeSunrise(System.currentTimeMillis() / 1000);
+            cityWeather.setTimeSunset(System.currentTimeMillis() / 1000);
+            cityWeather.setTimeZoneSeconds(0);
+            cityWeather.setRain60min("000000000000");
+        }
+        return WeatherCityFragment.newInstance(cityWeather, mDataSetTypes);
     }
 
     private CurrentWeatherData getDataForID(int cityID) {
@@ -140,20 +157,13 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         enqueueWork(mContext, UpdateDataService.class, 0, intent);
     }
 
-    private CurrentWeatherData findWeatherFromID(List<CurrentWeatherData> currentWeathers, int ID) {
-        for (CurrentWeatherData weather : currentWeathers) {
-            if (weather.getCity_id() == ID) return weather;
-        }
-        return null;
-    }
-
     @Override
     public void processNewWeatherData(CurrentWeatherData data) {
         //TODO lastupdatetime might be used for more cities than it reflects
         // (update could be for any city, still other cities dont get updated)
         lastUpdateTime = System.currentTimeMillis() / 1000;
         int id = data.getCity_id();
-        CurrentWeatherData old = findWeatherFromID(currentWeathers, id);
+        CurrentWeatherData old = getDataForID(id);
         if (old != null) currentWeathers.remove(old);
         currentWeathers.add(data);
         notifyDataSetChanged();
