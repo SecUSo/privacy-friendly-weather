@@ -146,6 +146,7 @@ public class MainActivity extends BaseActivity {
 
     public void addCityToList(CityToWatch city) {
         cities.add(city);
+        startFetchingService(city.getCityId());
         adapter.notifyDataSetChanged();
     }
 
