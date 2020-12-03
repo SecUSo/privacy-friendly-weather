@@ -98,7 +98,6 @@ public class MainActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setFocusable(false);
 
-        //TODO Drag and drop
         callback = new SimpleItemTouchHelperCallback(adapter);
         touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
