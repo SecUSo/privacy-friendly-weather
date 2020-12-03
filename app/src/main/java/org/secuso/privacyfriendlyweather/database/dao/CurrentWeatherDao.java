@@ -24,10 +24,10 @@ public interface CurrentWeatherDao {
     @Insert
     void addCurrentWeather(CurrentWeatherData currentWeatherData);
 
-    @Query("SELECT * FROM CURRENT_WEATHER WHERE city_id = :cityId")
+    @Query("SELECT * FROM CURRENT_WEATHER WHERE city_id IS :cityId")
     CurrentWeatherData getCurrentWeatherByCityId(int cityId);
 
-    @Query("DELETE FROM CURRENT_WEATHER WHERE city_id = :cityId")
+    @Query("DELETE FROM CURRENT_WEATHER WHERE city_id IS :cityId")
     void deleteCurrentWeatherByCityId(int cityId);
 
 }
