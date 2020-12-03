@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.secuso.privacyfriendlyweather.BuildConfig;
 import org.secuso.privacyfriendlyweather.database.data.City;
+import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.secuso.privacyfriendlyweather.database.AppDatabase.DB_NAME;
 
@@ -100,14 +102,32 @@ public class DatabaseTest {
 
         // get recommendations
         List<City> possibleCities = appDatabase.cityDao().getCitiesWhereNameLike("Frankfurt", 10);
-        assertEquals(5 , possibleCities.size());
+        assertEquals(5, possibleCities.size());
 
         List<String> possibleCityNames = Arrays.asList("Frankfurt am Main", "Frankfurt (Oder)", "Frankfurt Main Flughafen", "Frankfurter Vorstadt");
 
-        for(City c : possibleCities) {
+        for (City c : possibleCities) {
             assertEquals("DE", c.getCountryCode());
             assertTrue(possibleCityNames.contains(c.getCityName()));
         }
+    }
+
+    @Test
+    public void currentWeatherInsertDeleteTest() {
+        int cityID = 833;
+
+        CurrentWeatherData cwd = new CurrentWeatherData();
+        cwd.setCity_id(cityID);
+
+        AppDatabase appDatabase = getMigratedRoomDatabase();
+
+        appDatabase.currentWeatherDao().addCurrentWeather(cwd);
+
+        assertNotNull(appDatabase.currentWeatherDao().getCurrentWeatherByCityId(cityID));
+
+        appDatabase.currentWeatherDao().deleteCurrentWeatherByCityId(cityID);
+
+        assertNull(appDatabase.currentWeatherDao().getCurrentWeatherByCityId(cityID));
     }
 
 }
