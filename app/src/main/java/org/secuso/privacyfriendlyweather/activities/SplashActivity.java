@@ -26,6 +26,11 @@ public class SplashActivity extends AppCompatActivity {
 
             Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
             SplashActivity.this.startActivity(mainIntent);
+        } else if (!prefManager.askedForOWMKey()) {
+            Intent keyIntent = new Intent(this, CreateKeyActivity.class);
+            keyIntent.putExtra("429", false);
+            this.startActivity(keyIntent);
+            prefManager.setAskedForOwmKey(true);
         } else { //otherwise directly start ForecastCityActivity
             Intent mainIntent = new Intent(SplashActivity.this, ForecastCityActivity.class);
             SplashActivity.this.startActivity(mainIntent);
