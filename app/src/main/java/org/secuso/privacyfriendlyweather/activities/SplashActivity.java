@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
-import org.secuso.privacyfriendlyweather.firststart.TutorialActivity;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 
 /**

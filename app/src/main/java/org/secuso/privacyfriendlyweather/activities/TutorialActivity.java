@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyweather.firststart;
+package org.secuso.privacyfriendlyweather.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +25,6 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
