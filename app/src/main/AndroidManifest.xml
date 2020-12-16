@@ -17,7 +17,9 @@
         <activity
             android:name=".activities.RainViewerActivity"
             android:label="@string/RainViewer" />
-
+        <activity
+            android:name=".activities.CreateKeyActivity"
+            android:label="OpenWeatherMap Key" />
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -83,7 +85,7 @@
 
         </activity>
         <activity
-            android:name=".firststart.TutorialActivity"
+            android:name=".activities.TutorialActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service

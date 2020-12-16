@@ -3,6 +3,7 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -16,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.activities.CreateKeyActivity;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
@@ -191,13 +193,21 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
      */
     @Override
     public void processFailScenario(final VolleyError error) {
-        Handler h = new Handler(this.context.getMainLooper());
-        h.post(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast), Toast.LENGTH_LONG).show();
-            }
-        });
+        if (error.networkResponse.statusCode == 429) {
+            //aufforderung lostreten
+            Intent intent = new Intent(context, CreateKeyActivity.class);
+            intent.putExtra("429", true);
+            context.startActivity(intent);
+        } else {
+            Handler h = new Handler(this.context.getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast), Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
     }
 
 

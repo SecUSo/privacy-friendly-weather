@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/add_key_layout"
+    android:background="@color/backgroundBlue"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/explanation_text_owm_key"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="50dp"
+        android:text="@string/explanation_owm_key"></TextView>
+
+
+    <TextView
+        android:paddingTop="20dp"
+        android:id="@+id/owm_link"
+        android:layout_width="match_parent"
+        android:autoLink="web"
+        android:paddingHorizontal="20dp"
+        android:layout_below="@id/explanation_text_owm_key"
+        android:layout_height="wrap_content"
+        android:text="@string/owm_key_link">
+
+    </TextView>
+
+    <TextView
+        android:paddingTop="20dp"
+        android:id="@+id/link_field_headline"
+        android:layout_width="match_parent"
+        android:autoLink="web"
+        android:paddingHorizontal="20dp"
+        android:layout_below="@id/owm_link"
+        android:layout_height="wrap_content"
+        android:text="Please insert your personal key here. You can always manage it in the settings.">
+
+    </TextView>
+
+    <EditText
+        android:hint=">"
+        android:paddingTop="20dp"
+        android:id="@+id/owm_key_field"
+        android:paddingHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/link_field_headline"></EditText>
+
+    <LinearLayout
+        android:layout_below="@id/owm_key_field"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/set_owm_key_button"
+            android:text="Set Key"></Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/abort_button"
+            android:layout_toRightOf="@id/set_owm_key_button"
+            android:text="Abort"></Button>
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:layout_centerInParent="true"
+        android:id="@+id/are_you_sure_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+
+</RelativeLayout>
