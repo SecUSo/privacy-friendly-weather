@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendlyweather.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,8 +17,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.ui.AreYouSureFragment;
 
+//TODO change text depending on intent, already got "429" true and false
 public class CreateKeyActivity extends AppCompatActivity {
 
     RelativeLayout layout;
@@ -97,6 +100,14 @@ public class CreateKeyActivity extends AppCompatActivity {
     }
 
     public void leave() {
-        super.onBackPressed();
+        PrefManager prefManager = new PrefManager(this);
+        prefManager.setAskedForOwmKey(true);
+        if (isTaskRoot()) {
+            Intent mainIntent = new Intent(getApplicationContext(), ForecastCityActivity.class);
+            startActivity(mainIntent);
+        } else {
+            super.onBackPressed();
+
+        }
     }
 }

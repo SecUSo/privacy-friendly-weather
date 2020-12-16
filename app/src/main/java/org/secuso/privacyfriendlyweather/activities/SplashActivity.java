@@ -30,7 +30,6 @@ public class SplashActivity extends AppCompatActivity {
             Intent keyIntent = new Intent(this, CreateKeyActivity.class);
             keyIntent.putExtra("429", false);
             this.startActivity(keyIntent);
-            prefManager.setAskedForOwmKey(true);
         } else { //otherwise directly start ForecastCityActivity
             Intent mainIntent = new Intent(SplashActivity.this, ForecastCityActivity.class);
             SplashActivity.this.startActivity(mainIntent);
