@@ -61,6 +61,7 @@
             android:textColor="@color/white"
             android:id="@+id/tutorial_owm_key_field"
             android:paddingHorizontal="40dp"
+            android:backgroundTint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
 

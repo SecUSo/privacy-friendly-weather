@@ -50,6 +50,7 @@
         android:textColor="@color/white"
         android:layout_width="match_parent"
         android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
         android:layout_height="wrap_content"
         android:layout_below="@id/link_field_headline"></EditText>
 
