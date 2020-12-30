@@ -23,6 +23,8 @@ import org.secuso.privacyfriendlyweather.ui.AreYouSureFragment;
 //TODO change text depending on intent, already got "429" true and false
 public class CreateKeyActivity extends AppCompatActivity {
 
+    public static boolean active = false;
+
     RelativeLayout layout;
     EditText personalKeyField;
     Button keyButton;
@@ -65,7 +67,7 @@ public class CreateKeyActivity extends AppCompatActivity {
         });
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (getSupportActionBar() == null) {
             setSupportActionBar(toolbar);
         }
@@ -109,5 +111,17 @@ public class CreateKeyActivity extends AppCompatActivity {
             super.onBackPressed();
 
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        active = false;
     }
 }

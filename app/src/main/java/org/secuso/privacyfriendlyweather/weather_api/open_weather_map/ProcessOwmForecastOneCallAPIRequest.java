@@ -195,10 +195,12 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
     public void processFailScenario(final VolleyError error) {
         if (error.networkResponse.statusCode == 429) {
             //aufforderung lostreten
-            Intent intent = new Intent(context, CreateKeyActivity.class);
-            intent.putExtra("429", true);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
+            if (!CreateKeyActivity.active) {
+                Intent intent = new Intent(context, CreateKeyActivity.class);
+                intent.putExtra("429", true);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
         } else {
             Handler h = new Handler(this.context.getMainLooper());
             h.post(new Runnable() {
