@@ -246,6 +246,10 @@
     <string name="explanation_owm_key">It appears that you don\'t use a <b>personal weather access key</b> yet. The connection limit of the public key has run out for the day. Please consider quickly registering on OpenWeatherMap, which will give you your own independent access key with 1000 own calls per day.</string>
     <string name="owm_key_link">You can register for free here with an e-mail adress: <b>https://home.openweathermap.org/users/sign_up</b></string>
     <string name="insert_correct_owm_key">Please insert a valid OWM API key. It should be 32 characters long.</string>
+    <string name="tutorial_key_link_heading"><a href="https://home.openweathermap.org/users/sign_up">OWM API Key</a></string>
+    <string name="tutorial_owm_key">Please consider creating an account on</string>
+    <string name="tutorial_owm_link"><a href="https://home.openweathermap.org/users/sign_up">OpenWeatherMaps (our data provider).</a></string>
+    <string name="tutorial_owm_2nd_half">With your personal key, the number of requests will not be shared with other users. Insert your personal key here.</string>
 
 
 </resources>

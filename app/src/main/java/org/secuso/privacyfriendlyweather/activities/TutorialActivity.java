@@ -88,6 +88,7 @@ public class TutorialActivity extends AppCompatActivity {
                 R.layout.tutorial_slide1,
                 R.layout.tutorial_slide2,
                 R.layout.tutorial_slide3,
+                R.layout.tutorial_slide4,
                 R.layout.activity_firstlocation};
 
         // adding bottom dots
@@ -104,7 +105,7 @@ public class TutorialActivity extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(3);
+                viewPager.setCurrentItem(layouts.length - 1);
                 //launchHomeScreen();
             }
         });

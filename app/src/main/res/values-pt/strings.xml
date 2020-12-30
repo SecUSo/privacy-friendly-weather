@@ -170,4 +170,7 @@
     <string name="rain60min_text">"Próximos 60min: "</string>
     <string name="explanation_owm_key">It appears that you don\'t use a personal weather access key yet. The connection limit of the public key has run out for the day. Please consider quickly registering on OpenWeatherMap, which will give you your own independent access key.</string>
     <string name="owm_key_link">You can register here with an e-mail adress: https://home.openweathermap.org/users/sign_up</string>
+    <string name="tutorial_owm_key">Please consider creating an account on OpenWeatherMaps (our data provider). With your personal key, the number of requests will not be shared with other users. Please insert your personal key here.</string>
+    <string name="tutorial_owm_link"><![CDATA["<a href=\"https://home.openweathermap.org/users/sign_up\">OpenWeatherMaps (our data provider).</a> "]]></string>
+    <string name="tutorial_owm_2nd_half">With your personal key, the number of requests will not be shared with other users. Insert your personal key here.</string>
 </resources>
