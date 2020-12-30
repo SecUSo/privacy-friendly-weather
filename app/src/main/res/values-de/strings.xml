@@ -140,10 +140,10 @@
     <string name="settings_API_key_default">Es wurde kein API Key bereitgestellt</string>
     <string name="settings_confirm_content_API_key_reset">Wirklich den standard API Key wiederherstellen?</string>
     <string name="settings_confirm_title_API_key_reset">API Key zurücksetzen</string>
-    <string name="settings_description_API">Privacy Friendly Wetter erhält die Wetterdaten von dem freien Service openweathermap.org. Dieser Service ist auf 60 Anfragen pro Minute beschränkt. Sie könnten ihren eigenen API Key registrieren, um ihre eigenen 60 Anfragen pro Minute zu bekommen.</string>
+    <string name="settings_description_API">Privacy Friendly Wetter erhält die Wetterdaten von dem freien Service openweathermap.org. Dieser Service ist auf 1000 Anfragen pro Tag beschränkt. Sie könnten ihren eigenen API Key registrieren, um ihre eigenen 1000 Anfragen pro Tag zu bekommen. Andernfalls werden die Anfragen zwischen allen Benutzern von Privacy Friendly Wetter geteilt.</string>
     <string name="settings_interval_summary">Setzen Sie das Interval der automatischen Updates</string>
     <string name="settings_intervals">Intervalle</string>
-    <string name="settings_title_API">API Key</string>
+    <string name="settings_title_API">API Schlüssel</string>
     <string name="settings_title_API_key">API Key eingeben</string>
     <string name="settings_title_API_key_reset">API Key zurücksetzen</string>
     <string name="settings_update_interval">Intervall der automatischen Updates</string>
@@ -169,9 +169,11 @@
     <string name="widget_needs_city">Ein Widget benötigt %1$s noch. Bitte löschen Sie alle Widgets von %1$s zuvor.</string>
     <string name="action_rainviewer">Regenansicht</string>
     <string name="rain60min_text">"Nächste 60min: "</string>
-    <string name="explanation_owm_key">It appears that you don\'t use a <b>personal weather access key</b> yet. The connection limit of the public key has run out for the day. Please consider quickly registering on OpenWeatherMap, which will give you your own independent access key.</string>
-    <string name="owm_key_link">You can register here with an e-mail adress: https://home.openweathermap.org/users/sign_up</string>
-    <string name="tutorial_owm_key">Please consider creating an account on OpenWeatherMaps (our data provider). With your personal key, the number of requests will not be shared with other users. Please insert your personal key here.</string>
-    <string name="tutorial_owm_link"><![CDATA["<a href=\"https://home.openweathermap.org/users/sign_up\">OpenWeatherMaps (our data provider).</a> "]]></string>
-    <string name="tutorial_owm_2nd_half">With your personal key, the number of requests will not be shared with other users. Insert your personal key here.</string>
+    <string name="explanation_owm_key">Anscheinend verwenden Sie noch keinen <b>persönlichen Wetter-Zugangsschlüssel</b>. Das Verbindungslimit des öffentlichen Schlüssels für diesen Tag ist erreicht. Bitte erwägen Sie, sich bei OpenWeatherMap zu registrieren, wodurch Sie Ihren eigenen unabhängigen Zugangsschlüssel erhalten.</string>
+    <string name="owm_key_link">Hier können Sie sich kostenlos mit einer E-Mail-Adresse registrieren: <b>https://home.openweathermap.org/users/sign_up</b></string>
+    <string name="tutorial_owm_key">Bitte erwägen Sie, ein Konto zu erstellen auf</string>
+    <string name="tutorial_owm_link"><a href="https://home.openweathermap.org/users/sign_up">OpenWeatherMaps (genutzter Wetterdienst).</a></string>
+    <string name="tutorial_owm_2nd_half">Mit Ihrem persönlichen Schlüssel wird die Anzahl der Anfragen nicht zwischen den Benutzern aufgeteilt. Geben Sie hier Ihren persönlichen Schlüssel ein.</string>
+    <string name="insert_correct_owm_key">Bitte geben Sie einen gültigen OWM-API-Schlüssel ein. Er sollte 32 Zeichen lang sein.</string>
+    <string name="tutorial_key_link_heading"><a href="https://home.openweathermap.org/users/sign_up">OWM API Schlüssel</a></string>
 </resources>

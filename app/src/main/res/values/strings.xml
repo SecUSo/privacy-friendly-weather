@@ -100,8 +100,7 @@
     <string name="settings_miles">Miles</string>
 
     <string name="settings_title_API">API Key</string>
-    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org.
-    This service is limited to 60 calls per minute. You could register your own API key for free to get your own 60 calls.</string>
+    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org. This service is limited to 1000 calls per day. You could register your own API key for free to get your own 1000 calls. Otherwise, calls are shared between all users of Privacy Friendly Weather.</string>
     <string name="settings_title_API_key">Enter API Key</string>
     <string name="settings_API_key_default">No API Key provided</string>
     <string name="settings_title_API_key_reset">Reset API Key</string>
@@ -249,7 +248,7 @@
     <string name="tutorial_key_link_heading"><a href="https://home.openweathermap.org/users/sign_up">OWM API Key</a></string>
     <string name="tutorial_owm_key">Please consider creating an account on</string>
     <string name="tutorial_owm_link"><a href="https://home.openweathermap.org/users/sign_up">OpenWeatherMaps (our data provider).</a></string>
-    <string name="tutorial_owm_2nd_half">With your personal key, the number of requests will not be shared with other users. Insert your personal key here.</string>
+    <string name="tutorial_owm_2nd_half">With your personal key, the number of requests will not be split between users. Insert your personal key here.</string>
 
 
 </resources>

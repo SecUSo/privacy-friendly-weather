@@ -163,7 +163,7 @@
     <string name="add_widget">Add widget</string>
     <string name="appwidget_text">PFA - Weather</string>
     <string name="card_day_heading">Course of the day</string>
-    <string name="card_error_content">card_error_content</string>
+    <string name="card_error_content">Please try to update!</string>
     <string name="action_refresh">Refresh</string>
     <string name="card_error_heading">Error fetching weather data</string>
     <string name="card_sun_heading">Sun</string>
@@ -185,7 +185,7 @@
     <string name="settings_API_key_default">No API Key provided</string>
     <string name="settings_confirm_content_API_key_reset">Do you really want to reset to the default API key?</string>
     <string name="settings_confirm_title_API_key_reset">Reset API key</string>
-    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org.</string>
+    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org. This service is limited to 1000 calls per day. You could register your own API key for free to get your own 1000 calls. Otherwise, calls are shared between all users of Privacy Friendly Weather.</string>
     <string name="settings_interval_summary">Set the interval of automatic updates</string>
     <string name="settings_intervals">Intervals</string>
     <string name="settings_title_API">API Key</string>
@@ -222,5 +222,12 @@
     <string name="widget_needs_city">A widget still needs %1$s. Please delete all widgets for this city first.</string>
     <string name="action_rainviewer">レインビュー</string>
     <string name="rain60min_text">"Next 60min: "</string>
+    <string name="explanation_owm_key">" appears that you don't use a <b>personal weather access key</b> yet. The connection limit of the public key has run out for the day. Please consider quickly registering on OpenWeatherMap, which will give you your own independent access key with 1000 own calls per day."</string>
+    <string name="owm_key_link">You can register for free here with an e-mail adress: <b>https://home.openweathermap.org/users/sign_up</b></string>
+    <string name="insert_correct_owm_key">Please insert a valid OWM API key. It should be 32 characters long.</string>
+    <string name="tutorial_key_link_heading"><a href="https://home.openweathermap.org/users/sign_up">OWM API Key</a></string>
+    <string name="tutorial_owm_link"><a href="https://home.openweathermap.org/users/sign_up">OpenWeatherMaps (our data provider).</a></string>
+    <string name="tutorial_owm_key">Please consider creating an account on</string>
+    <string name="tutorial_owm_2nd_half">With your personal key, the number of requests will not be split between users. Insert your personal key here.</string>
 
 </resources>
