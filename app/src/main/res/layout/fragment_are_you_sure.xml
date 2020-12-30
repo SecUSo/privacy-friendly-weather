@@ -11,6 +11,7 @@
         android:paddingVertical="10dp"
         android:paddingHorizontal="20dp"
         android:layout_above="@id/sure_buttons"
+        android:textColor="@color/white"
         android:text="Do you really want to continue with the shared API key? Weather requests are limited and will be shared with other users. With a personal key, you can update up to 1000 times a day."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></TextView>
