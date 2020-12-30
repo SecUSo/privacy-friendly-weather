@@ -175,5 +175,5 @@
     <string name="tutorial_owm_link"><a href="https://home.openweathermap.org/users/sign_up">OpenWeatherMaps (genutzter Wetterdienst).</a></string>
     <string name="tutorial_owm_2nd_half">Mit Ihrem persönlichen Schlüssel wird die Anzahl der Anfragen nicht zwischen den Benutzern aufgeteilt. Geben Sie hier Ihren persönlichen Schlüssel ein.</string>
     <string name="insert_correct_owm_key">Bitte geben Sie einen gültigen OWM-API-Schlüssel ein. Er sollte 32 Zeichen lang sein.</string>
-    <string name="tutorial_key_link_heading"><a href="https://home.openweathermap.org/users/sign_up">OWM API Schlüssel</a></string>
+    <string name="tutorial_key_link_heading">OWM API Schlüssel</string>
 </resources>

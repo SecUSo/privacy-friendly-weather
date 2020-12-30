@@ -174,5 +174,5 @@
     <string name="tutorial_owm_link"><a href="https://home.openweathermap.org/users/sign_up">OpenWeatherMaps (serviço meteorológico utilizado).</a></string>
     <string name="tutorial_owm_2nd_half">Com a sua chave pessoal, o número de pedidos não será dividido entre os utilizadores. Insira aqui a sua chave pessoal.</string>
     <string name="insert_correct_owm_key">Por favor insira uma chave OWM API válida. Deve ter 32 caracteres de comprimento.</string>
-    <string name="tutorial_key_link_heading"><a href="https://home.openweathermap.org/users/sign_up">OWM API chave</a></string>
+    <string name="tutorial_key_link_heading">OWM API chave</string>
 </resources>
