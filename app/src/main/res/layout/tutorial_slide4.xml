@@ -16,7 +16,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tutorial_key_link_heading"
-            android:autoLink="web"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
@@ -41,9 +40,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="@string/tutorial_owm_link"
-            android:autoLink="web" />
+            android:id="@+id/tutorial_owm_link"
+            android:text="@string/tutorial_owm_link" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,6 +53,16 @@
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_desc" />
+
+        <EditText
+            android:hint=">"
+            android:paddingTop="20dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:id="@+id/tutorial_owm_key_field"
+            android:paddingHorizontal="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></EditText>
 
     </LinearLayout>
 

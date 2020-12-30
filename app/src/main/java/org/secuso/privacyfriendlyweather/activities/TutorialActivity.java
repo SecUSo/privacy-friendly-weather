@@ -2,10 +2,13 @@ package org.secuso.privacyfriendlyweather.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -270,7 +274,20 @@ public class TutorialActivity extends AppCompatActivity {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             final View view = layoutInflater.inflate(layouts[position], container, false);
-
+            if (position == layouts.length - 2) {
+                TextView link = view.findViewById(R.id.tutorial_owm_link);
+                link.setMovementMethod(LinkMovementMethod.getInstance());
+                link.setLinkTextColor(Color.CYAN);
+                EditText keyInputField = view.findViewById(R.id.tutorial_owm_key_field);
+                keyInputField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if (!hasFocus) {
+                            insertOWMKey();
+                        }
+                    }
+                });
+            }
             if (position == dots.length - 1) {
                 final WebView webview = view.findViewById(R.id.webViewFirstLocation);
                 webview.getSettings().setJavaScriptEnabled(true);
@@ -309,6 +326,22 @@ public class TutorialActivity extends AppCompatActivity {
         @Override
         public boolean isViewFromObject(View view, Object obj) {
             return view == obj;
+        }
+
+        private boolean insertOWMKey() {
+            EditText keyInputField = findViewById(R.id.tutorial_owm_key_field);
+            String currentValue = keyInputField.getText().toString().replaceAll("[\\s\\u0085\\p{Z}]", "");
+            if (currentValue != null && currentValue.length() == 32) {
+
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("API_key_value", currentValue);
+                editor.commit();
+                return true;
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.insert_correct_owm_key, Toast.LENGTH_LONG).show();
+                return false;
+            }
         }
 
 
