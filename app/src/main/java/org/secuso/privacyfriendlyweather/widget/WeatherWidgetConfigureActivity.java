@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 import android.widget.AutoCompleteTextView;
 
 import org.secuso.privacyfriendlyweather.R;
@@ -49,7 +51,7 @@ public class WeatherWidgetConfigureActivity extends Activity {
 
         //Task starts update Service with widget updates after insert is finished
         AddLocationWidgetTask addLocationWidgetTask = new AddLocationWidgetTask(getApplicationContext());
-        addLocationWidgetTask.execute(selectedCity, mAppWidgetId, 1);
+        addLocationWidgetTask.execute(selectedCity, mAppWidgetId);
 
         // When the button is clicked, store the string locally
         saveTitlePref(context, mAppWidgetId, selectedCity.getCityId());
@@ -79,7 +81,7 @@ public class WeatherWidgetConfigureActivity extends Activity {
         return context.getString(R.string.appwidget_text);
     }
 
-    static void deleteTitlePref(Context context, int appWidgetId) {
+    public static void deleteTitlePref(Context context, int appWidgetId) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
         prefs.remove(PREF_PREFIX_KEY + appWidgetId);
         prefs.apply();
@@ -115,12 +117,21 @@ public class WeatherWidgetConfigureActivity extends Activity {
         mAppWidgetText = (AutoCompleteTextView) findViewById(R.id.appwidget_text);
 
         database = AppDatabase.getInstance(this);
+        final WebView webview = (WebView) findViewById(R.id.webViewAddLocationWidget);
+        webview.getSettings().setJavaScriptEnabled(true);
         generator = new AutoCompleteCityTextViewGenerator(getApplicationContext(), database);
 
         generator.generate(mAppWidgetText, 100, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
             @Override
             public void accept(City city) {
                 selectedCity = city;
+                if (selectedCity != null) {
+                    //Hide keyboard to have more space
+                    final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(findViewById(android.R.id.content).getWindowToken(), 0);
+                    //Show city on map
+                    webview.loadUrl("file:///android_asset/map.html?lat=" + selectedCity.getLatitude() + "&lon=" + selectedCity.getLongitude());
+                }
             }
         }, new Runnable() {
             @Override

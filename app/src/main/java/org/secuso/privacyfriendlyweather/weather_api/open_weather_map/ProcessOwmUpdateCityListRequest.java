@@ -15,7 +15,6 @@ import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
@@ -76,14 +75,11 @@ public class ProcessOwmUpdateCityListRequest implements IProcessHttpRequest {
                 else {
                     weatherData.setCity_id(cityId);
 
-                    CurrentWeatherData current = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(cityId);
-                    if (current != null && current.getCity_id() == cityId) {
-                        dbHelper.currentWeatherDao().updateCurrentWeather(weatherData);
-                    } else {
-                        dbHelper.currentWeatherDao().addCurrentWeather(weatherData);
-                    }
-                    ViewUpdater.updateCurrentWeatherData(weatherData);
+                    dbHelper.currentWeatherDao().deleteCurrentWeatherByCityId(cityId);
 
+                    dbHelper.currentWeatherDao().addCurrentWeather(weatherData);
+
+                    ViewUpdater.updateCurrentWeatherData(weatherData);
                 }
             }
 

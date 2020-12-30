@@ -40,7 +40,11 @@ public class UiResourceProvider {
                     return R.mipmap.weather_icon_moon_with_scattered_clouds;
                 }
             case 40:
-                return R.mipmap.weather_icon_clouds_broken;
+                if (isDay) {
+                    return R.mipmap.weather_icon_sun_with_broken_clouds;
+                } else {
+                    return R.mipmap.weather_icon_moon_with_broken_clouds;
+                }
             case 45:
                 return R.mipmap.weather_icon_clouds_overcast;
             case 50:
@@ -53,8 +57,20 @@ public class UiResourceProvider {
                 return R.mipmap.weather_icon_moderate_rain;
             case 72:
                 return R.mipmap.weather_icon_rain;
+            case 75:
+                if (isDay) {
+                    return R.mipmap.weather_icon_shower_rain_sun;
+                } else {
+                    return R.mipmap.weather_icon_shower_rain_moon;
+                }
             case 80:
                 return R.mipmap.weather_icon_snow;
+            case 85:
+                if (isDay) {
+                    return R.mipmap.weather_icon_shower_snow_sun;
+                } else {
+                    return R.mipmap.weather_icon_shower_snow_moon;
+                }
             case 90:
                 return R.mipmap.weather_icon_thunderstorm;
             default:
@@ -94,9 +110,9 @@ public class UiResourceProvider {
                 }
             case 40:
                 if (isDay) {
-                    return R.drawable.weather_image_broken_clouds;
+                    return R.drawable.weather_image_sun_with_broken_clouds;
                 } else {
-                    return R.drawable.weather_image_night_with_broken_clouds;
+                    return R.drawable.weather_image_moon_with_broken_clouds;
                 }
             case 45:
                 if (isDay) {
@@ -134,11 +150,23 @@ public class UiResourceProvider {
                 } else {
                     return R.drawable.weather_image_night_with_rain;
                 }
+            case 75:
+                if (isDay) {
+                    return R.drawable.weather_image_sun_with_shower_rain;
+                } else {
+                    return R.drawable.weather_image_moon_with_shower_rain;
+                }
             case 80:
                 if (isDay) {
                     return R.drawable.weather_image_snow;
                 } else {
                     return R.drawable.weather_image_night_snow;
+                }
+            case 85:
+                if (isDay) {
+                    return R.drawable.weather_image_sun_with_shower_snow;
+                } else {
+                    return R.drawable.weather_image_moon_with_shower_snow;
                 }
             case 90:
                 if (isDay) {

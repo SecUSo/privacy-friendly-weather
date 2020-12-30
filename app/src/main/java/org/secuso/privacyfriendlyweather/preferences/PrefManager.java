@@ -23,6 +23,7 @@ public class PrefManager {
     private static final String PREF_NAME = "weather-Preference";
 
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
+    private static final String ASKED_FOR_OWM_KEY = "AskedForOWMKey";
 
     public PrefManager(Context context) {
         this.context = context;
@@ -35,8 +36,16 @@ public class PrefManager {
         editor.commit();
     }
 
+    public void setAskedForOwmKey(boolean asked) {
+        editor.putBoolean(ASKED_FOR_OWM_KEY, asked);
+        editor.commit();
+    }
+
     public boolean isFirstTimeLaunch() {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
     }
 
+    public boolean askedForOWMKey() {
+        return pref.getBoolean(ASKED_FOR_OWM_KEY, false);
+    }
 }

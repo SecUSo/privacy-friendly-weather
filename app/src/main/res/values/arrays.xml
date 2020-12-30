@@ -46,6 +46,7 @@
         <item>@color/dot_light_screen</item>
         <item>@color/dot_light_screen</item>
         <item>@color/dot_light_screen</item>
+        <item>@color/dot_light_screen</item>
     </array>
 
     <array name="array_dot_inactive">
@@ -53,7 +54,17 @@
         <item>@color/dot_dark_screen</item>
         <item>@color/dot_dark_screen</item>
         <item>@color/dot_dark_screen</item>
+        <item>@color/dot_dark_screen</item>
     </array>
+
+    <string-array name="forecastChoiceArray">
+        <item>5 days / 3h</item>
+        <item>2 days / 1h</item>
+    </string-array>
+    <string-array name="forecastChoiceValues">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
     <string-array name="widgetChoiceArray">
         <item>@string/rain_volume</item>

@@ -18,7 +18,6 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmApiData;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -134,7 +133,7 @@ public class SettingsActivity extends BaseActivity {
 
             bindPreferenceSummaryToValue(findPreference("API_key_value"));
 
-            final String defaultKeyString = getActivity().getString(R.string.settings__API_key_default);
+            final String defaultKeyString = getActivity().getString(R.string.settings_API_key_default);
 
             final Preference resetKeyPref = findPreference("API_key_reset");
             resetKeyPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -149,7 +148,6 @@ public class SettingsActivity extends BaseActivity {
                                     EditTextPreference APIKeyValuePref = ((EditTextPreference) findPreference("API_key_value"));
                                     APIKeyValuePref.setText(defaultKeyString);
                                     APIKeyValuePref.setSummary(defaultKeyString);
-                                    OwmApiData.resetAPI_KEY();
                                 }
                             }).setNegativeButton(android.R.string.cancel, null).create().show();
 
@@ -163,17 +161,6 @@ public class SettingsActivity extends BaseActivity {
                 public boolean onPreferenceChange(Preference preference, Object newVal) {
 
                     String stringValue = newVal.toString();
-
-                    if (preference instanceof EditTextPreference) {
-                        if (preference.getKey().equals("API_key_value")) {
-                            if (stringValue.equals(defaultKeyString)) {
-                                OwmApiData.resetAPI_KEY();
-                            } else {
-                                OwmApiData.setAPI_KEY(stringValue);
-                            }
-                        }
-                    }
-
                     preference.setSummary(stringValue);
 
                     return true;

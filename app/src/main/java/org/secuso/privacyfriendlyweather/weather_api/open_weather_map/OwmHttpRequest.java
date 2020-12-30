@@ -1,8 +1,12 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
+import android.content.Context;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import org.secuso.privacyfriendlyweather.BuildConfig;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +37,14 @@ public class OwmHttpRequest {
      * @param groupID A list of comma-separated city IDs.
      * @return Returns the URL that can be used to query the weather for the given cities.
      */
-    protected String getUrlForQueryingGroupIDs(String groupID) {
+    protected String getUrlForQueryingGroupIDs(Context context, String groupID) {
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         return String.format(
                 "%sgroup?id=%s&units=metric&appid=%s",
-                OwmApiData.BASE_URL,
+                BuildConfig.BASE_URL,
                 groupID,
-                OwmApiData.getAPI_KEY()
+                prefManager.getOWMApiKey(context)
         );
     }
 
@@ -46,17 +52,20 @@ public class OwmHttpRequest {
      * Builds the URL for the OpenWeatherMap API that can be used to query the weather for a single
      * city.
      *
+     * @param context
      * @param cityId    The ID of the city to get the data for.
      * @param useMetric If set to true, temperature values will be in Celsius.
      * @return Returns the URL that can be used to query the weather for the given city.
      */
-    protected String getUrlForQueryingSingleCity(int cityId, boolean useMetric) {
+    protected String getUrlForQueryingSingleCity(Context context, int cityId, boolean useMetric) {
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         return String.format(
                 "%sweather?id=%s%s&appid=%s",
-                OwmApiData.BASE_URL,
+                BuildConfig.BASE_URL,
                 cityId,
                 (useMetric) ? "&units=metric" : "",
-                OwmApiData.getAPI_KEY()
+                prefManager.getOWMApiKey(context)
         );
     }
 
@@ -68,12 +77,35 @@ public class OwmHttpRequest {
      * @return Returns the URL that can be used to query weather forecasts for the given city using
      * OpenWeatherMap.
      */
-    protected String getUrlForQueryingForecast(int cityId) {
+    protected String getUrlForQueryingForecast(Context context, int cityId) {
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         return String.format(
                 "%sforecast?id=%s&units=metric&appid=%s",
-                OwmApiData.BASE_URL,
+                BuildConfig.BASE_URL,
                 cityId,
-                OwmApiData.getAPI_KEY()
+                prefManager.getOWMApiKey(context)
+        );
+    }
+
+    /**
+     * Builds the URL for the OpenWeatherMap API that can be used to query the weather forecast
+     * via One Call API.
+     *
+     * @param lat The latitude of the city to get the forecast data for.
+     * @param lon The longitude of the city to get the forecast data for.
+     * @return Returns the URL that can be used to query weather forecasts for the given city using
+     * OpenWeatherMap.
+     */
+    protected String getUrlForQueryingOneCallAPI(Context context, float lat, float lon) {
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
+        return String.format(
+                "%sonecall?lat=%s&lon=%s&units=metric&exclude=alerts&appid=%s",
+                BuildConfig.BASE_URL,
+                lat,
+                lon,
+                prefManager.getOWMApiKey(context)
         );
     }
 
@@ -88,16 +120,18 @@ public class OwmHttpRequest {
      * @return Returns the URL for the OpenWeatherMap API to retrieve the weather data of cities
      * within the specified bounding box.
      */
-    public String getUrlForQueryingRadiusSearch(double[] boundingBox, int mapZoom) {
+    public String getUrlForQueryingRadiusSearch(Context context, double[] boundingBox, int mapZoom) {
+        AppPreferencesManager prefManager =
+                new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         return String.format(
                 "%sbox/city?bbox=%s,%s,%s,%s,%s&cluster=yes&appid=%s",
-                OwmApiData.BASE_URL,
+                BuildConfig.BASE_URL,
                 boundingBox[0],
                 boundingBox[1],
                 boundingBox[2],
                 boundingBox[3],
                 mapZoom,
-                OwmApiData.getAPI_KEY()
+                prefManager.getOWMApiKey(context)
         );
     }
 

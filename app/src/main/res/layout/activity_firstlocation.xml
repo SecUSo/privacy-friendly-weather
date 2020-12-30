@@ -7,8 +7,9 @@
     tools:showIn="@layout/activity_firstlocation">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
         android:gravity="center_horizontal"
@@ -45,10 +46,21 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:maxLines="1"
+            android:hint=">"
+            android:textColorHint="@android:color/white"
             android:imeOptions="actionDone"
             android:textColor="@color/white"
             android:textCursorDrawable="@null"
             android:inputType="text" />
+
+        <WebView
+            android:id="@+id/webViewFirstLocation"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="80dp" />
 
     </LinearLayout>
 

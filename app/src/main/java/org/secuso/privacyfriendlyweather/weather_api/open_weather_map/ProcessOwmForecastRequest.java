@@ -36,12 +36,13 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
     private Context context;
     private AppDatabase dbHelper;
 
+
     /**
      * Constructor.
      *
      * @param context The context of the HTTP request.
      */
-    public ProcessOwmForecastRequest(Context context) {
+    ProcessOwmForecastRequest(Context context) {
         this.context = context;
         this.dbHelper = AppDatabase.getInstance(context);
     }
@@ -61,7 +62,8 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
             int cityId = json.getJSONObject("city").getInt("id");
 
             //delete forecasts older than 24 hours
-            dbHelper.forecastDao().deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
+            //dbHelper.forecastDao().deleteOldForecastsByCityId(cityId, System.currentTimeMillis());
+            dbHelper.forecastDao().deleteForecastsByCityId(cityId);
 
             List<Forecast> forecasts = new ArrayList<>();
             // Continue with inserting new records
@@ -85,12 +87,11 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
             /*
             //make current weather another Forecast because the data can be used
             CurrentWeatherData weatherData = dbHelper.getCurrentWeatherByCityId(cityId);
-            Forecast current = new Forecast(0, cityId, weatherData.getTimestamp()*1000L,
+            Forecast current = new Forecast(0, weatherData.getCity_id(), weatherData.getTimestamp()*1000L,
                     weatherData.getTimestamp()*1000L, weatherData.getWeatherID(), weatherData.getTemperatureCurrent(),
                     weatherData.getHumidity(), weatherData.getPressure(), weatherData.getWindSpeed(),
                     weatherData.getWindDirection(), 0);
             forecasts.add(0,current);
-            Log.d("forecast", "timestamp!: "+weatherData.getTimestamp());
             dbHelper.addForecast(current);
             */
 
@@ -100,6 +101,7 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Shows an error that the data could not be retrieved.
@@ -116,5 +118,6 @@ public class ProcessOwmForecastRequest implements IProcessHttpRequest {
             }
         });
     }
+
 
 }

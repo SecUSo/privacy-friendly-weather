@@ -30,7 +30,7 @@ public class OwmHttpRequestForRadiusSearch extends OwmHttpRequest implements IHt
     public void perform(int cityId, int edgeLength, int resultCount) {
         // First, retrieve the city from OWM to have the latitude and longitude for the city
         IHttpRequest httpRequest = new VolleyHttpRequest(context);
-        final String URL = getUrlForQueryingSingleCity(cityId, false);
+        final String URL = getUrlForQueryingSingleCity(context, cityId, false);
         httpRequest.make(URL, HttpRequestType.GET, new ProcessRadiusSearchRequest(context, edgeLength, resultCount));
     }
 
@@ -67,7 +67,7 @@ public class OwmHttpRequestForRadiusSearch extends OwmHttpRequest implements IHt
         public void perform() {
             // In the second step the actual weather data are fetched and processed
             IHttpRequest httpRequest = new VolleyHttpRequest(context);
-            final String URL = getUrlForQueryingRadiusSearch(boundingBox, mapZoom);
+            final String URL = getUrlForQueryingRadiusSearch(context, boundingBox, mapZoom);
             httpRequest.make(
                     URL,
                     HttpRequestType.GET,

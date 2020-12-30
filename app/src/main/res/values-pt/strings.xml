@@ -65,6 +65,8 @@
     <string name="weather_category_moderate_rain">Chuva moderada</string>
     <string name="weather_category_snow">Neve</string>
     <string name="weather_category_thunderstorm">Trovoada</string>
+    <string name="weather_category_showerrain">Aguaceiro</string>
+    <string name="weather_category_showersnow">Nevão</string>
     <string name="about">Sobre</string>
     <string name="action_about">Sobre</string>
     <string name="activity_city_weather_iv_description">Uma imagem que corresponde a categoria de tempo</string>
@@ -109,7 +111,7 @@
     <string name="add_widget">Adicionar widget</string>
     <string name="appwidget_text">PFA - Tempo</string>
     <string name="card_day_heading">Curso do dia</string>
-    <string name="card_error_content">conteúdo_errado_do_cartão</string>
+    <string name="card_error_content">Por favor, tente actualizar!</string>
     <string name="action_refresh">Actualizar</string>
     <string name="card_error_heading">Erro ao obter dados meteorológicos</string>
     <string name="card_sun_heading">Sol</string>
@@ -128,10 +130,10 @@
     <string name="next">Próximo</string>
     <string name="okay">Ok</string>
     <string name="reset">Redefinir</string>
-    <string name="settings__API_key_default">Nenhuma chave de API fornecida</string>
+    <string name="settings_API_key_default">Nenhuma chave de API fornecida</string>
     <string name="settings_confirm_content_API_key_reset">Deseja realmente redefinir a chave da API padrão?</string>
     <string name="settings_confirm_title_API_key_reset">Redefinir chave de API</string>
-    <string name="settings_description_API">Privacy Friendly Weather recebe dados do serviço gratuito do openweathermap.org.</string>
+    <string name="settings_description_API">O Privacy Friendly Weather recebe dados meteorológicos do serviço gratuito openweathermap.org. Este serviço é limitado a 1000 pedidos por dia. Pode registar a sua própria chave API para obter os seus próprios 1000 pedidos por dia. Caso contrário, os pedidos são partilhados entre todos os utilizadores do Privacy Friendly Weather.</string>
     <string name="settings_interval_summary">Defina o intervalo de atualizações automáticas</string>
     <string name="settings_intervals">Intervalos</string>
     <string name="settings_title_API">Chave API</string>
@@ -159,4 +161,18 @@
     <string name="humidity">Humidade</string>
     <string name="activity_city_weather_tv_rain_volume">Volume de chuva:</string>
     <string name="activity_city_weather_tv_wind_direction">Direcção do vento:</string>
+    <string name="RainViewer">Rain Radar</string>
+    <string name="settings_title_forecastChoice">Opções de visualização</string>
+    <string name="settings_summary_forecastChoice">Seleccionar entre 5 dias / 3h e 2 dias / 1h previsões</string>
+    <string name="settings_forecastChoice">Previsão</string>
+    <string name="widget_needs_city">Um widget ainda precisa de %1$s. Por favor, elimine primeiro todos os widgets para esta cidade.</string>
+    <string name="action_rainviewer">Vista de chuva</string>
+    <string name="rain60min_text">"Próximos 60min: "</string>
+    <string name="explanation_owm_key">Parece que ainda não está a usar uma <b>chave de acesso ao tempo pessoal</b>. Atingiu o limite de ligação da chave pública para este dia. Por favor, considere registar-se no OpenWeatherMap, que lhe dará a sua própria chave de acesso independente.</string>
+    <string name="owm_key_link">Pode registar-se aqui gratuitamente com um endereço de e-mail: <b>https://home.openweathermap.org/users/sign_up</b>.</string>
+    <string name="tutorial_owm_key">Por favor, considere a criação de uma conta em</string>
+    <string name="tutorial_owm_link"><a href="https://home.openweathermap.org/users/sign_up">OpenWeatherMaps (serviço meteorológico utilizado).</a></string>
+    <string name="tutorial_owm_2nd_half">Com a sua chave pessoal, o número de pedidos não será dividido entre os utilizadores. Insira aqui a sua chave pessoal.</string>
+    <string name="insert_correct_owm_key">Por favor insira uma chave OWM API válida. Deve ter 32 caracteres de comprimento.</string>
+    <string name="tutorial_key_link_heading">OWM API chave</string>
 </resources>

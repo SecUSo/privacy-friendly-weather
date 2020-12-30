@@ -33,10 +33,12 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
 
     public void updateAppWidget(Context context, int appWidgetId) {
 
+        int cityID = context.getSharedPreferences(WeatherWidgetFiveDayForecast.PREFS_NAME, 0).
+                getInt(WeatherWidget.PREF_PREFIX_KEY + appWidgetId, -1);
         Intent intent = new Intent(context, UpdateDataService.class);
-        intent.setAction(UpdateDataService.UPDATE_WIDGET_ACTION);
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        intent.putExtra("widget_type", 5);
+        intent.setAction(UpdateDataService.UPDATE_SINGLE_ACTION);
+
+        intent.putExtra("cityId", cityID);
         intent.putExtra(SKIP_UPDATE_INTERVAL, true);
         enqueueWork(context, UpdateDataService.class, 0, intent);
 
@@ -102,19 +104,19 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
             extra3 = String.format("%s ml", (int) data[2][7]);
             extra4 = String.format("%s ml", (int) data[3][7]);
             extra5 = String.format("%s ml", (int) data[4][7]);
-        } else if (extraInfo==2){
+        } else if (extraInfo==2) {
             //wind max & min
-            extra1 = String.format("%s | %sm/s", (int) data[0][4], (int) data[0][5]);
-            extra2 = String.format("%s | %sm/s", (int) data[1][4], (int) data[1][5]);
-            extra3 = String.format("%s | %sm/s", (int) data[2][4], (int) data[2][5]);
-            extra4 = String.format("%s | %sm/s", (int) data[3][4], (int) data[3][5]);
-            extra5 = String.format("%s | %sm/s", (int) data[4][4], (int) data[4][5]);
+            extra1 = String.format("%sm/s", (int) data[0][5]);
+            extra2 = String.format("%sm/s", (int) data[1][5]);
+            extra3 = String.format("%sm/s", (int) data[2][5]);
+            extra4 = String.format("%sm/s", (int) data[3][5]);
+            extra5 = String.format("%sm/s", (int) data[4][5]);
         } else {
-            extra1 = String.format("%s | %s%%", (int) data[0][2], (int) data[0][3]);
-            extra2 = String.format("%s | %s%%", (int) data[1][2], (int) data[1][3]);
-            extra3 = String.format("%s | %s%%", (int) data[2][2], (int) data[2][3]);
-            extra4 = String.format("%s | %s%%", (int) data[3][2], (int) data[3][3]);
-            extra5 = String.format("%s | %s%%", (int) data[4][2], (int) data[4][3]);
+            extra1 = String.format("%s%%rh", (int) data[0][2]);
+            extra2 = String.format("%s%%rh", (int) data[1][2]);
+            extra3 = String.format("%s%%rh", (int) data[2][2]);
+            extra4 = String.format("%s%%rh", (int) data[3][2]);
+            extra5 = String.format("%s%%rh", (int) data[4][2]);
         }
 
 
@@ -168,7 +170,7 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
     public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
         for (int appWidgetId : appWidgetIds) {
-            WeatherWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
+            WeatherWidgetFiveDayForecastConfigureActivity.deleteTitlePref(context, appWidgetId);
         }
     }
 

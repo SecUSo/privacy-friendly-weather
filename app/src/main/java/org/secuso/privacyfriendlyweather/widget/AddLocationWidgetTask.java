@@ -33,21 +33,21 @@ public class AddLocationWidgetTask extends AsyncTask<Object, Void, Object[]> {
             newCity.setCityId(selectedCity.getCityId());
             newCity.setRank(database.cityToWatchDao().getMaxRank() + 1);
             newCity.setCityName(selectedCity.getCityName());
+            newCity.setLongitude(selectedCity.getLongitude());
+            newCity.setLatitude(selectedCity.getLatitude());
             database.cityToWatchDao().addCityToWatch(newCity);
         }
-        database.close();
         return params;
     }
 
     @Override
     protected void onPostExecute(Object... params) {
         super.onPostExecute(params);
-        int ID = (int) params[1];
-        int type = (int) params[2];
+        int cityID = ((City) params[0]).getCityId();
         Intent intent = new Intent(context, UpdateDataService.class);
-        intent.setAction(UpdateDataService.UPDATE_CURRENT_WEATHER_ACTION);
+        intent.setAction(UpdateDataService.UPDATE_SINGLE_ACTION);
         intent.putExtra(SKIP_UPDATE_INTERVAL, true);
-        intent.putExtra("widget_type", type);
+        intent.putExtra("cityId", cityID);
         enqueueWork(context, UpdateDataService.class, 0, intent);
 
     }

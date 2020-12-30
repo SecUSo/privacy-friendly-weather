@@ -1,19 +1,17 @@
 package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
-import android.widget.RemoteViews;
 
 import org.secuso.privacyfriendlyweather.http.HttpRequestType;
 import org.secuso.privacyfriendlyweather.http.IHttpRequest;
 import org.secuso.privacyfriendlyweather.http.VolleyHttpRequest;
-import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
-import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecastWidget;
+import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForOneCallAPI;
 
 /**
  * This class provides the functionality for making and processing HTTP requests to the
  * OpenWeatherMap to retrieve the latest weather data for all stored cities.
  */
-public class OwmHttpRequestForWidgetUpdate extends OwmHttpRequest implements IHttpRequestForForecastWidget {
+public class OwmHttpRequestForOneCallAPI extends OwmHttpRequest implements IHttpRequestForOneCallAPI {
 
     /**
      * Member variables.
@@ -23,17 +21,16 @@ public class OwmHttpRequestForWidgetUpdate extends OwmHttpRequest implements IHt
     /**
      * @param context The context to use.
      */
-    public OwmHttpRequestForWidgetUpdate(Context context) {
+    public OwmHttpRequestForOneCallAPI(Context context) {
         this.context = context;
     }
 
-    /**
-     * @see IHttpRequestForForecast#perform(int)
-     */
+
     @Override
-    public void perform(int cityId, int widgetId, int widgetType, RemoteViews views) {
+    public void perform(float lat, float lon) {
         IHttpRequest httpRequest = new VolleyHttpRequest(context);
-        final String URL = getUrlForQueryingForecast(cityId);
-        httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmForecastRequestWidget(context, cityId, widgetId, widgetType, views));
+        final String URL = getUrlForQueryingOneCallAPI(context, lat, lon);
+        //       Log.d("OneCallURL",URL);
+        httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmForecastOneCallAPIRequest(context));
     }
 }

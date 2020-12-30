@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
+import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
 import org.secuso.privacyfriendlyweather.radius_search.RadiusSearchItem;
 import org.secuso.privacyfriendlyweather.weather_api.IApiToDatabaseConversion;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
@@ -135,13 +136,77 @@ public class OwmDataExtractor implements IDataExtractor {
             JSONObject jsonClouds = jsonData.getJSONObject("clouds");
             weatherData.setCloudiness((float) jsonClouds.getDouble("all"));
 
-            if (jsonData.has("sys")) {
-                JSONObject jsonSunRiseSet = jsonData.getJSONObject("sys");
-                weatherData.setTimeSunrise(jsonSunRiseSet.getLong("sunrise"));
-                weatherData.setTimeSunset(jsonSunRiseSet.getLong("sunset"));
-                weatherData.setTimeZoneSeconds(jsonSunRiseSet.getInt("timezone"));
+            if (jsonData.has("cod")) {     //update for single city, field cod only available there
+                if (jsonData.has("sys")) {
+                    JSONObject jsonSunRiseSet = jsonData.getJSONObject("sys");
+                    weatherData.setTimeSunrise(jsonSunRiseSet.getLong("sunrise"));
+                    weatherData.setTimeSunset(jsonSunRiseSet.getLong("sunset"));
+                }
+                weatherData.setTimeZoneSeconds(jsonData.getInt("timezone"));  //timezone is not part of sys for single city
+            } else {                          //update for group of cities
+                if (jsonData.has("sys")) {
+                    JSONObject jsonSunRiseSet = jsonData.getJSONObject("sys");
+                    weatherData.setTimeSunrise(jsonSunRiseSet.getLong("sunrise"));
+                    weatherData.setTimeSunset(jsonSunRiseSet.getLong("sunset"));
+                    weatherData.setTimeZoneSeconds(jsonSunRiseSet.getInt("timezone"));  //timezone part of sys
+                }
             }
 
+            return weatherData;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * @param data The data that contains the information to instantiate a CurrentWeatherData
+     *             object.
+     *             If data for a single city were requested, the response string can be
+     *             passed as an argument.
+     *             If data for multiple cities were requested, make sure to pass only one item
+     *             of the response list at a time!
+     * @return Returns an instance of CurrentWeatherData of the information could be extracted
+     * successfully or null in case there was some error while parsing the response (which is not
+     * too good because that means that the response of OpenWeatherMap was not well-formed).
+     */
+    @Override
+    public CurrentWeatherData extractCurrentWeatherDataOneCall(String data) {
+        try {
+            JSONObject jsonData = new JSONObject(data);
+            CurrentWeatherData weatherData = new CurrentWeatherData();
+
+            /*
+            private int id;
+            -private int city_id;
+            -private long timestamp;
+            -private int weatherID;
+            -private float temperatureCurrent;
+            -private float temperatureMin;  //not available
+            -private float temperatureMax;  //not available
+            -private float humidity;
+            -private float pressure;
+            -private float windSpeed;
+            -private float windDirection;
+            -private float cloudiness;
+            -private long timeSunrise;
+            -private long timeSunset;
+             */
+            weatherData.setTimestamp(jsonData.getLong("dt"));
+            IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
+            JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
+            JSONObject jsonWeather = new JSONObject(jsonWeatherArray.get(0).toString());
+            weatherData.setWeatherID(conversion.convertWeatherCategory(jsonWeather.getString("id")));
+            weatherData.setTemperatureCurrent((float) jsonData.getDouble("temp"));
+            weatherData.setTemperatureMin((float) jsonData.getDouble("temp")); //data not available
+            weatherData.setTemperatureMax((float) jsonData.getDouble("temp")); //data not available
+            weatherData.setHumidity((float) jsonData.getDouble("humidity"));
+            weatherData.setPressure((float) jsonData.getDouble("pressure"));
+            weatherData.setWindSpeed((float) jsonData.getDouble("wind_speed"));
+            weatherData.setWindDirection((float) jsonData.getDouble("wind_deg"));
+            weatherData.setCloudiness((float) jsonData.getDouble("clouds"));
+            weatherData.setTimeSunrise(jsonData.getLong("sunrise"));
+            weatherData.setTimeSunset(jsonData.getLong("sunset"));
             return weatherData;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -268,6 +333,141 @@ public class OwmDataExtractor implements IDataExtractor {
         }
         return null;
     }
+
+    /**
+     * @see IDataExtractor#extractWeekForecast(String)
+     */
+    @Override
+    public WeekForecast extractWeekForecast(String data) {
+        try {
+
+            WeekForecast forecast = new WeekForecast();
+            JSONObject jsonData = new JSONObject(data);
+
+            forecast.setTimestamp(System.currentTimeMillis() / 1000);
+            forecast.setForecastTime(jsonData.getLong("dt") * 1000L);
+
+            IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
+            JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
+            JSONObject jsonWeather = new JSONObject(jsonWeatherArray.get(0).toString());
+            forecast.setWeatherID(conversion.convertWeatherCategory(jsonWeather.getString("id")));
+
+            JSONObject jsonTemp = jsonData.getJSONObject("temp");
+            if (jsonTemp.has("day")) forecast.setTemperature((float) jsonTemp.getDouble("day"));
+            if (jsonTemp.has("max")) forecast.setMaxTemperature((float) jsonTemp.getDouble("max"));
+            if (jsonTemp.has("min")) forecast.setMinTemperature((float) jsonTemp.getDouble("min"));
+            if (jsonData.has("humidity"))
+                forecast.setHumidity((float) jsonData.getDouble("humidity"));
+            if (jsonData.has("pressure"))
+                forecast.setPressure((float) jsonData.getDouble("pressure"));
+            if (jsonData.has("wind_speed"))
+                forecast.setWind_speed((float) jsonData.getDouble("wind_speed"));
+            if (jsonData.has("wind_deg"))
+                forecast.setWind_direction((float) jsonData.getDouble("wind_deg"));
+            if (jsonData.has("uvi")) forecast.setUv_index((float) jsonData.getDouble("uvi"));
+
+            if (jsonData.isNull("rain")) {
+                forecast.setPrecipitation(Forecast.NO_RAIN_VALUE);
+            } else {
+                forecast.setPrecipitation((float) jsonData.getDouble("rain"));
+            }
+            //add snow precipitation to rain
+            if (!jsonData.isNull("snow")) {
+                forecast.setPrecipitation(forecast.getPrecipitation() + (float) jsonData.getDouble("snow"));
+            }
+
+            return forecast;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * @see IDataExtractor#extractHourlyForecast(String)
+     */
+    @Override
+    public Forecast extractHourlyForecast(String data) {
+        try {
+
+            Forecast forecast = new Forecast();
+            JSONObject jsonData = new JSONObject(data);
+
+            forecast.setTimestamp(System.currentTimeMillis() / 1000);
+            forecast.setForecastTime(jsonData.getLong("dt") * 1000L);
+
+            IApiToDatabaseConversion conversion = new OwmToDatabaseConversion();
+
+            JSONArray jsonWeatherArray = jsonData.getJSONArray("weather");
+            JSONObject jsonWeather = new JSONObject(jsonWeatherArray.get(0).toString());
+            forecast.setWeatherID(conversion.convertWeatherCategory(jsonWeather.getString("id")));
+
+            if (jsonData.has("temp")) forecast.setTemperature((float) jsonData.getDouble("temp"));
+            if (jsonData.has("humidity"))
+                forecast.setHumidity((float) jsonData.getDouble("humidity"));
+            if (jsonData.has("pressure"))
+                forecast.setPressure((float) jsonData.getDouble("pressure"));
+            if (jsonData.has("wind_speed"))
+                forecast.setWindSpeed((float) jsonData.getDouble("wind_speed"));
+            if (jsonData.has("wind_deg"))
+                forecast.setWindDirection((float) jsonData.getDouble("wind_deg"));
+
+            // In case there was no rain in the past 3 hours, there is no "rain" field
+            if (jsonData.isNull("rain")) {
+                forecast.setRainValue(Forecast.NO_RAIN_VALUE);
+            } else {
+                JSONObject jsonRain = jsonData.getJSONObject("rain");
+                if (jsonRain.isNull("1h")) {
+                    forecast.setRainValue(Forecast.NO_RAIN_VALUE);
+                } else {
+                    forecast.setRainValue((float) jsonRain.getDouble("1h"));
+                }
+            }
+            //add snow precipitation to rain
+            if (!jsonData.isNull("snow")) {
+                JSONObject jsonSnow = jsonData.getJSONObject("snow");
+                if (!jsonSnow.isNull("1h")) {
+                    forecast.setRainValue(forecast.getRainValue() + (float) jsonSnow.getDouble("1h"));
+                }
+            }
+
+            return forecast;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /**
+     * @see IDataExtractor#extractRain60min(String, String, String, String, String)
+     */
+    @Override
+    public String extractRain60min(String data0, String data1, String data2, String data3, String data4) {
+        try {
+
+            String rain = "";
+            JSONObject jsonData0 = new JSONObject(data0);
+            JSONObject jsonData1 = new JSONObject(data1);
+            JSONObject jsonData2 = new JSONObject(data2);
+            JSONObject jsonData3 = new JSONObject(data3);
+            JSONObject jsonData4 = new JSONObject(data4);
+            double rain5min = jsonData0.getDouble("precipitation") + jsonData1.getDouble("precipitation") + jsonData2.getDouble("precipitation") + jsonData3.getDouble("precipitation") + jsonData4.getDouble("precipitation");
+            if (rain5min == 0) {
+                rain = "0";
+            } else if (rain5min < 12.5) {  //light rain equals <2.5mm/h (12.5 = 5 x 2.5)
+                rain = "1";
+            } else {
+                rain = "2";
+            }
+
+            return rain;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     /**
      * @param data The data that contains the information to retrieve the ID of the city.

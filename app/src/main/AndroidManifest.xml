@@ -12,6 +12,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
+        <activity
+            android:name=".activities.RainViewerActivity"
+            android:label="@string/RainViewer" />
+        <activity
+            android:name=".activities.CreateKeyActivity"
+            android:label="OpenWeatherMap Key" />
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -23,7 +31,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:launchMode="singleTop"
-            android:label="@string/app_name"
+            android:label="@string/action_manage"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".activities.ForecastCityActivity" />
         <activity
@@ -77,7 +85,7 @@
 
         </activity>
         <activity
-            android:name=".firststart.TutorialActivity"
+            android:name=".activities.TutorialActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service

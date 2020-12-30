@@ -2,7 +2,6 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 
 import android.content.Context;
 
-import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.http.HttpRequestType;
 import org.secuso.privacyfriendlyweather.http.IHttpRequest;
@@ -19,18 +18,12 @@ import java.util.List;
 public class OwmHttpRequestAddCity extends OwmHttpRequest implements IHttpRequestForCityList {
 
     private Context context;
-    private AppDatabase dbHelper;
-    private boolean storePersistently;
 
     /**
-     * @param context           The application context.
-     * @param dbHelper          The database helper to use.
-     * @param storePersistently Indicates whether to store the requested city permanently.
+     * @param context The application context.
      */
-    public OwmHttpRequestAddCity(Context context, AppDatabase dbHelper, boolean storePersistently) {
+    public OwmHttpRequestAddCity(Context context) {
         this.context = context;
-        this.dbHelper = dbHelper;
-        this.storePersistently = storePersistently;
     }
 
     /**
@@ -39,7 +32,7 @@ public class OwmHttpRequestAddCity extends OwmHttpRequest implements IHttpReques
     @Override
     public void perform(List<CityToWatch> cities) {
         IHttpRequest httpRequest = new VolleyHttpRequest(context);
-        final String URL = getUrlForQueryingSingleCity(cities.get(0).getCityId(), true);
+        final String URL = getUrlForQueryingSingleCity(context, cities.get(0).getCityId(), true);
         httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmAddCityRequest(context));
     }
 

@@ -2,22 +2,21 @@ package org.secuso.privacyfriendlyweather.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import org.secuso.privacyfriendlyweather.R;
-import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
@@ -33,35 +32,38 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
 
     private RecyclerView recyclerView;
 
+    public static WeatherCityFragment newInstance(CurrentWeatherData data, int[] mDataSetTypes) {
+        WeatherCityFragment WCfragment = new WeatherCityFragment();
+        Bundle args = new Bundle();
+        args.putInt("city_id", data.getCity_id());
+        args.putIntArray("dataSetTypes", mDataSetTypes);
+        args.putLong("timestamp", data.getTimestamp());
+        args.putInt("weatherID", data.getWeatherID());
+        args.putFloat("temperatureCurrent", data.getTemperatureCurrent());
+        args.putFloat("humidity", data.getHumidity());
+        args.putFloat("pressure", data.getPressure());
+        args.putFloat("windSpeed", data.getWindSpeed());
+        args.putFloat("windDirection", data.getWindDirection());
+        args.putFloat("cloudiness", data.getCloudiness());
+        args.putLong("timeSunrise", data.getTimeSunrise());
+        args.putLong("timeSunset", data.getTimeSunset());
+        args.putInt("timeZoneSeconds", data.getTimeZoneSeconds());
+        args.putString("rain60min", data.getRain60min());
+
+        WCfragment.setArguments(args);
+        return WCfragment;
+    }
 
     public void setAdapter(CityWeatherAdapter adapter) {
         mAdapter = adapter;
 
         if (recyclerView != null) {
             recyclerView.setAdapter(mAdapter);
+            recyclerView.setFocusable(false);
+            recyclerView.setLayoutManager(getLayoutManager(getContext()));  //fixes problems with StaggeredGrid: After refreshing data only empty space shown below tab
         }
     }
 
-    public void loadData() {
-        CurrentWeatherData currentWeatherData = AppDatabase.getInstance(getContext()).currentWeatherDao().getCurrentWeatherByCityId(mCityId);
-
-        if(currentWeatherData == null) {
-            return;
-        }
-
-        if (currentWeatherData.getCity_id() == 0) {
-            currentWeatherData.setCity_id(mCityId);
-        }
-
-        mAdapter = new CityWeatherAdapter(currentWeatherData, mDataSetTypes, getContext());
-
-        ((Activity) getContext()).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                setAdapter(mAdapter);
-            }
-        });
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -88,8 +90,29 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
         mCityId = args.getInt("city_id");
         mDataSetTypes = args.getIntArray("dataSetTypes");
 
-        loadData();
+        CurrentWeatherData cwd = new CurrentWeatherData();
+        cwd.setCity_id(mCityId);
+        cwd.setCloudiness(args.getFloat("cloudiness"));
+        cwd.setHumidity(args.getFloat("humidity"));
+        cwd.setTimestamp(args.getLong("timestamp"));
+        cwd.setTemperatureCurrent(args.getFloat("temperatureCurrent"));
+        cwd.setWeatherID(args.getInt("weatherID"));
+        cwd.setPressure(args.getFloat("pressure"));
+        cwd.setRain60min(args.getString("rain60min"));
+        cwd.setTimeZoneSeconds(args.getInt("timeZoneSeconds"));
+        cwd.setTimeSunrise(args.getLong("timeSunrise"));
+        cwd.setTimeSunset(args.getLong("timeSunset"));
+        cwd.setWindDirection(args.getFloat("windDirection"));
+        cwd.setWindSpeed(args.getFloat("windSpeed"));
 
+        mAdapter = new CityWeatherAdapter(cwd, mDataSetTypes, getContext());
+
+        ((Activity) getContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setAdapter(mAdapter);
+            }
+        });
         return v;
     }
 
@@ -108,6 +131,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
     @Override
     public void processNewWeatherData(CurrentWeatherData data) {
         if (data.getCity_id() == mCityId) {
+            //why not on UI thread as in OnCreateView?
             setAdapter(new CityWeatherAdapter(data, mDataSetTypes, getContext()));
         }
     }
@@ -117,6 +141,16 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
         if (forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
             if (mAdapter != null) {
                 mAdapter.updateForecastData(forecasts);
+            }
+        }
+        //TODO Update Titlebar Text
+    }
+
+    @Override
+    public void updateWeekForecasts(List<WeekForecast> forecasts) {
+        if (forecasts != null && forecasts.size() > 0 && forecasts.get(0).getCity_id() == mCityId) {
+            if (mAdapter != null) {
+                mAdapter.updateWeekForecastData(forecasts);
             }
         }
         //TODO Update Titlebar Text

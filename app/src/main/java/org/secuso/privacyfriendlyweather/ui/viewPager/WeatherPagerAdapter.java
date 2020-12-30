@@ -2,8 +2,7 @@ package org.secuso.privacyfriendlyweather.ui.viewPager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import androidx.fragment.app.Fragment;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
@@ -12,7 +11,7 @@ import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.WeatherCityFragment;
@@ -75,11 +74,31 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
 
     @Override
     public WeatherCityFragment getItem(int position) {
-        Bundle args = new Bundle();
-        args.putInt("city_id", cities.get(position).getCityId());
-        args.putIntArray("dataSetTypes", mDataSetTypes);
+        CurrentWeatherData cityWeather = getDataForID(cities.get(position).getCityId());
+        if (cityWeather == null) {
+            cityWeather = new CurrentWeatherData();
+            cityWeather.setCity_id(cities.get(position).getCityId());
+            cityWeather.setTimestamp(System.currentTimeMillis() / 1000);
+            cityWeather.setWeatherID(0);
+            cityWeather.setTemperatureCurrent(0);
+            cityWeather.setHumidity(0);
+            cityWeather.setPressure(0);
+            cityWeather.setWindSpeed(0);
+            cityWeather.setWindDirection(0);
+            cityWeather.setCloudiness(0);
+            cityWeather.setTimeSunrise(System.currentTimeMillis() / 1000);
+            cityWeather.setTimeSunset(System.currentTimeMillis() / 1000);
+            cityWeather.setTimeZoneSeconds(0);
+            cityWeather.setRain60min("000000000000");
+        }
+        return WeatherCityFragment.newInstance(cityWeather, mDataSetTypes);
+    }
 
-        return (WeatherCityFragment) Fragment.instantiate(mContext, WeatherCityFragment.class.getName(), args);
+    private CurrentWeatherData getDataForID(int cityID) {
+        for (CurrentWeatherData data : currentWeathers) {
+            if (data.getCity_id() == cityID) return data;
+        }
+        return null;
     }
 
     @Override
@@ -88,7 +107,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     }
 
     @Override
-    public CharSequence getPageTitle(int position) {
+    public CharSequence getPageTitle(int position) {             //TODO: Remove, no longer needed. City is shown on TAB, time is now shown in card details,  as there is more space
 //        GregorianCalendar calendar = new GregorianCalendar();
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 //        dateFormat.setCalendar(calendar);
@@ -99,6 +118,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         return cities.get(position).getCityName(); // + " (" + dateFormat.format(calendar.getTime()) + ")";
     }
 
+    //TODO: Remove, no longer needed. City is shown on TAB, time is now shown in card details,  as there is more space
     public CharSequence getPageTitleForActionBar(int position) {
 
         int zoneseconds = 0;
@@ -129,18 +149,21 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         enqueueWork(mContext, UpdateDataService.class, 0, intent);
     }
 
-    private CurrentWeatherData findWeatherFromID(List<CurrentWeatherData> currentWeathers, int ID) {
-        for (CurrentWeatherData weather : currentWeathers) {
-            if (weather.getCity_id() == ID) return weather;
-        }
-        return null;
+    public void refreshSingleData(Boolean asap, int cityId) {
+        Intent intent = new Intent(mContext, UpdateDataService.class);
+        intent.setAction(UpdateDataService.UPDATE_SINGLE_ACTION);
+        intent.putExtra(SKIP_UPDATE_INTERVAL, asap);
+        intent.putExtra("cityId", cityId);
+        enqueueWork(mContext, UpdateDataService.class, 0, intent);
     }
 
     @Override
     public void processNewWeatherData(CurrentWeatherData data) {
-        lastUpdateTime = data.getTimestamp();
+        //TODO lastupdatetime might be used for more cities than it reflects
+        // (update could be for any city, still other cities dont get updated)
+        lastUpdateTime = System.currentTimeMillis() / 1000;
         int id = data.getCity_id();
-        CurrentWeatherData old = findWeatherFromID(currentWeathers, id);
+        CurrentWeatherData old = getDataForID(id);
         if (old != null) currentWeathers.remove(old);
         currentWeathers.add(data);
         notifyDataSetChanged();
@@ -149,6 +172,16 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     @Override
     public void updateForecasts(List<Forecast> forecasts) {
         //empty because Fragments are subscribers themselves
+    }
+
+    @Override
+    public void updateWeekForecasts(List<WeekForecast> forecasts) {
+        //empty because Fragments are subscribers themselves
+    }
+
+    public int getCityIDForPos(int pos) {
+        CityToWatch city = cities.get(pos);
+        return city.getCityId();
     }
 
     public int getPosForCityID(int cityID) {
@@ -160,4 +193,34 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         }
         return 0;
     }
+
+    public boolean hasCityInside(int cityID) {
+        for (int i = 0; i < cities.size(); i++) {
+            CityToWatch city = cities.get(i);
+            if (city.getCityId() == cityID) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public float getLatForPos(int pos) {
+        CityToWatch city = cities.get(pos);
+        return city.getLatitude();
+    }
+
+    public float getLonForPos(int pos) {
+        CityToWatch city = cities.get(pos);
+        return city.getLongitude();
+    }
+
+    public void addCityFromDB(int cityID) {
+        CityToWatch newCity = database.cityToWatchDao().getCityToWatchById(cityID);
+        if (newCity != null) {
+            cities.add(cities.size(), newCity);
+            notifyDataSetChanged();
+        }
+    }
+
+
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    android:background="@color/colorAccent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp"
+        android:layout_above="@id/sure_buttons"
+        android:textColor="@color/white"
+        android:text="Do you really want to continue with the shared API key? Weather requests are limited and will be shared with other users. With a personal key, you can update up to 1000 times a day."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></TextView>
+
+    <LinearLayout
+        android:id="@+id/sure_buttons"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="use shared"
+            android:id="@+id/button_abort_personal_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></Button>
+
+        <Button
+            android:text="use personal"
+            android:id="@+id/button_return_to_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Button>
+    </LinearLayout>
+
+
+</RelativeLayout>

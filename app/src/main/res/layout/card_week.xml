@@ -16,10 +16,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
+            android:text="@string/card_week_heading"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            android:text="@string/card_week_heading" />
+            android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
@@ -30,8 +30,8 @@
             android:id="@+id/recycler_view_week"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
-
+            android:layout_margin="10dp"
+            android:orientation="horizontal" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

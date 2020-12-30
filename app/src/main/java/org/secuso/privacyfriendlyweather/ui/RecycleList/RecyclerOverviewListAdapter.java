@@ -1,19 +1,27 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
+import org.secuso.privacyfriendlyweather.widget.WeatherWidget;
+import org.secuso.privacyfriendlyweather.widget.WeatherWidgetFiveDayForecast;
+import org.secuso.privacyfriendlyweather.widget.WeatherWidgetThreeDayForecast;
 
 import java.util.Collections;
 import java.util.List;
@@ -115,10 +123,14 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
 
         CityToWatch city = cityList.get(position);
 
-        database.cityToWatchDao().deleteCityToWatch(city);
-
-        cities.remove(position);
-        notifyItemRemoved(position);
+        if (isWidgetPresent(city.getCityId())) {
+            Toast.makeText(context, context.getString(R.string.widget_needs_city, city.getCityName()), Toast.LENGTH_LONG).show();
+            notifyDataSetChanged();
+        } else {
+            database.cityToWatchDao().deleteCityToWatch(city);
+            cities.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
     /**
@@ -174,4 +186,34 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     }
 
 
+    private boolean isWidgetPresent(int cityID) {
+        //search for 1 Day widgets with same city ID
+        int[] ids1day = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
+        SharedPreferences prefs1 = context.getSharedPreferences(WeatherWidget.PREFS_NAME, 0);
+        for (int widgetID : ids1day) {
+            //check if city ID is same
+            if (cityID == prefs1.getInt(WeatherWidget.PREF_PREFIX_KEY + widgetID, -1)) {
+                return true;
+            }
+        }
+
+        int[] ids3day = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidgetThreeDayForecast.class));
+        SharedPreferences prefs3 = context.getSharedPreferences(WeatherWidgetThreeDayForecast.PREFS_NAME, 0);
+        for (int widgetID : ids3day) {
+            //check if city ID is same
+            if (cityID == prefs3.getInt(WeatherWidget.PREF_PREFIX_KEY + widgetID, -1)) {
+                return true;
+            }
+        }
+
+        int[] ids5day = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidgetFiveDayForecast.class));
+        SharedPreferences prefs5 = context.getSharedPreferences(WeatherWidgetFiveDayForecast.PREFS_NAME, 0);
+        for (int widgetID : ids5day) {
+            //check if city ID is same
+            if (cityID == prefs5.getInt(WeatherWidget.PREF_PREFIX_KEY + widgetID, -1)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

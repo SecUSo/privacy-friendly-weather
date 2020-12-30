@@ -1,18 +1,18 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
@@ -67,8 +67,6 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         AppDatabase dbHelper = AppDatabase.getInstance(context);
         CurrentWeatherData currentWeather = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(courseOfDayList.get(position).getCity_id());
 
-        // Show day icons between 4am and 8pm.
-        // Would be better to use actual sunset and sunrise time, but did not know how to do this, These are not available in forecast database.
         Calendar forecastTime = Calendar.getInstance();
         forecastTime.setTimeZone(TimeZone.getTimeZone("GMT"));
         forecastTime.setTimeInMillis(courseOfDayList.get(position).getLocalForecastTime(context));
@@ -85,12 +83,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         sunRiseTime.setTimeInMillis(currentWeather.getTimeSunrise() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
         sunRiseTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
 
-        //Log.d("devtag", position + " " + forecastTime.getTime());
-
         boolean isDay = forecastTime.after(sunRiseTime) && forecastTime.before(sunSetTime);
-        //Log.d("devtag", sunRiseTime.getTime() + " " + sunSetTime.getTime() + " " + sunRiseTime.get(Calendar.HOUR_OF_DAY) + " " + forecastTime.get(Calendar.HOUR_OF_DAY) + " " + sunSetTime.get(Calendar.HOUR_OF_DAY) + " " + isDay);
-
-        //boolean isDay = c.get(Calendar.HOUR_OF_DAY) >= 4 && c.get(Calendar.HOUR_OF_DAY) <= 20;
 
         int day = forecastTime.get(Calendar.DAY_OF_WEEK);
 
@@ -119,12 +112,25 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             default:
                 day = R.string.abbreviation_monday;
         }
-
-        if (forecastTime.get(Calendar.HOUR_OF_DAY) > 0 && forecastTime.get(Calendar.HOUR_OF_DAY) <= 3) {
-            // In first entry per weekday show weekday instead of time
-            holder.time.setText(day);
-        } else {
-            //Time has to be the local time in the city!
+        if (courseOfDayList.size() > 1) {  //if there are at least 2 entries check time difference between first 2 entries
+            if (courseOfDayList.get(1).getForecastTime() - courseOfDayList.get(0).getForecastTime() == 3600000) { // 1h difference = 2day/1h forecast
+                if (forecastTime.get(Calendar.HOUR_OF_DAY) >= 0 && forecastTime.get(Calendar.HOUR_OF_DAY) < 1) { //show weekday for entry in first hour
+                    // In first entry per weekday show weekday instead of time
+                    holder.time.setText(day);
+                } else {
+                    //Time has to be the local time in the city!
+                    holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
+                }
+            } else if (courseOfDayList.get(1).getForecastTime() - courseOfDayList.get(0).getForecastTime() == 10800000) { // 3h difference = 5day/3h forecast
+                if (forecastTime.get(Calendar.HOUR_OF_DAY) >= 0 && forecastTime.get(Calendar.HOUR_OF_DAY) < 3) { //show weekday for entry in first 3 hours
+                    // In first entry per weekday show weekday instead of time
+                    holder.time.setText(day);
+                } else {
+                    //Time has to be the local time in the city!
+                    holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
+                }
+            }
+        } else {  // if there is just 1 entry left show time
             holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
         }
 

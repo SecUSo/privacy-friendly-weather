@@ -3,12 +3,15 @@ package org.secuso.privacyfriendlyweather.dialogs;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
@@ -64,13 +67,23 @@ public class AddLocationDialog extends DialogFragment {
         builder.setTitle(getActivity().getString(R.string.dialog_add_label));
 
         this.database = AppDatabase.getInstance(getActivity());
-
+        final WebView webview = rootView.findViewById(R.id.webViewAddLocation);
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.setBackgroundColor(0x00000000);
+        webview.setBackgroundResource(R.drawable.map_back);
         cityTextViewGenerator = new AutoCompleteCityTextViewGenerator(getContext(), database);
-        autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTvAddDialog);
+        autoCompleteTextView = rootView.findViewById(R.id.autoCompleteTvAddDialog);
         cityTextViewGenerator.generate(autoCompleteTextView, LIST_LIMIT, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
             @Override
             public void accept(City city) {
                 selectedCity = city;
+                if (selectedCity != null) {
+                    //Hide keyboard to have more space
+                    final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
+                    //Show city on map
+                    webview.loadUrl("file:///android_asset/map.html?lat=" + selectedCity.getLatitude() + "&lon=" + selectedCity.getLongitude());
+                }
             }
         }, new Runnable() {
             @Override
@@ -112,7 +125,9 @@ public class AddLocationDialog extends DialogFragment {
                 selectedCity.getCountryCode(),
                 0,
                 selectedCity.getCityId(),
-                selectedCity.getCityName()
+                selectedCity.getCityName(),
+                selectedCity.getLongitude(),
+                selectedCity.getLatitude()
         );
     }
 

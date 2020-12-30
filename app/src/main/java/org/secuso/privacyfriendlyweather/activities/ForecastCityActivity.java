@@ -2,8 +2,6 @@ package org.secuso.privacyfriendlyweather.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.tabs.TabLayout;
-import androidx.viewpager.widget.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,11 +10,15 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
+
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
-import org.secuso.privacyfriendlyweather.database.PFASQLiteHelper;
+import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.ui.viewPager.WeatherPagerAdapter;
@@ -27,6 +29,8 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     private WeatherPagerAdapter pagerAdapter;
 
     private MenuItem refreshActionButton;
+    private MenuItem rainviewerButton;
+
     private int cityId = -1;
     private ViewPager viewPager;
     private TextView noCityText;
@@ -46,10 +50,19 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         ViewUpdater.addSubscriber(this);
         ViewUpdater.addSubscriber(pagerAdapter);
 
-        //TODO possible slowdown when opening Activity
-        pagerAdapter.refreshData(false);
-
-        cityId = getIntent().getIntExtra("cityId", 0);
+        if (pagerAdapter.getCount() > 0) {  //only if at least one city is watched
+            cityId = getIntent().getIntExtra("cityId", -1);
+            // if Intent contains no cityId go to previous position
+            if (cityId == -1) {
+                cityId = pagerAdapter.getCityIDForPos(viewPager.getCurrentItem());
+                //if city id was found in intent but not yet inside pageradapter (such as when added from widget)
+            } else if (!pagerAdapter.hasCityInside(cityId)) {
+                //manually add city
+                pagerAdapter.addCityFromDB(cityId);
+            }
+            //TODO possible slowdown when opening Activity
+            pagerAdapter.refreshSingleData(false, cityId);  //only update current tab at start
+        }
         viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
     }
 
@@ -59,28 +72,27 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         setContentView(R.layout.activity_forecast_city);
         overridePendingTransition(0, 0);
 
-        cityId = getIntent().getIntExtra("cityId", -1);
+        //cityId = getIntent().getIntExtra("cityId", -1); //done in onResume
 
         initResources();
-
-        viewPager.setAdapter(pagerAdapter);
+        //viewPager.setAdapter(pagerAdapter);  //not needed, done below
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
             @Override
             public void onPageSelected(int position) {
-                if (getSupportActionBar() != null) {
-                    getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(position));
-                }
+             /*   if (getSupportActionBar() != null) {  //no longer needed, TODO Remove
+                    getSupportActionBar().setTitle(getApplicationContext().getString(R.string.app_name));
+                }*/
+                pagerAdapter.refreshSingleData(false, pagerAdapter.getCityIDForPos(position));
                 viewPager.setNextFocusRightId(position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {}
         });
-        viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
-
+        // viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));  //not needed, done in onResume
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
 
@@ -95,7 +107,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
             noCityText.setVisibility(View.GONE);
             viewPager.setVisibility(View.VISIBLE);
             viewPager.setAdapter(pagerAdapter);
-            viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId));
+            //viewPager.setCurrentItem(pagerAdapter.getPosForCityID(cityId)); //done in onResume
         }
     }
 
@@ -137,6 +149,14 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
                 m.performIdentifierAction(refreshActionButton.getItemId(), 0);
             }
         });
+        rainviewerButton = menu.findItem(R.id.menu_rainviewer);
+        rainviewerButton.setActionView(R.layout.menu_rainviewer_view);
+        rainviewerButton.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                m.performIdentifierAction(rainviewerButton.getItemId(), 0);
+            }
+        });
 
         return true;
     }
@@ -147,37 +167,47 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        AppDatabase db = AppDatabase.getInstance(this);
         switch (id) {
+            case R.id.menu_rainviewer:
+                if (!db.cityToWatchDao().getAll().isEmpty()) {  //only if at least one city is watched, otherwise crash
+                    Intent intent = new Intent(this, RainViewerActivity.class);
+                    intent.putExtra("latitude", pagerAdapter.getLatForPos((viewPager.getCurrentItem())));
+                    intent.putExtra("longitude", pagerAdapter.getLonForPos((viewPager.getCurrentItem())));
+                    startActivity(intent);
+                    break;
+                }
             case R.id.menu_refresh:
+                if (!db.cityToWatchDao().getAll().isEmpty()) {  //only if at least one city is watched, otherwise crash
+                    pagerAdapter.refreshSingleData(true, pagerAdapter.getCityIDForPos(viewPager.getCurrentItem()));
 
-                pagerAdapter.refreshData(true);
+                    RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    rotate.setDuration(500);
+                    rotate.setRepeatCount(Animation.INFINITE);
+                    rotate.setInterpolator(new LinearInterpolator());
+                    rotate.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            refreshActionButton.getActionView().setActivated(false);
+                            refreshActionButton.getActionView().setEnabled(false);
+                            refreshActionButton.getActionView().setClickable(false);
+                        }
 
-                RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                rotate.setDuration(500);
-                rotate.setRepeatCount(Animation.INFINITE);
-                rotate.setInterpolator(new LinearInterpolator());
-                rotate.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        refreshActionButton.getActionView().setActivated(false);
-                        refreshActionButton.getActionView().setEnabled(false);
-                        refreshActionButton.getActionView().setClickable(false);
-                    }
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            refreshActionButton.getActionView().setActivated(true);
+                            refreshActionButton.getActionView().setEnabled(true);
+                            refreshActionButton.getActionView().setClickable(true);
+                        }
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        refreshActionButton.getActionView().setActivated(true);
-                        refreshActionButton.getActionView().setEnabled(true);
-                        refreshActionButton.getActionView().setClickable(true);
-                    }
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                        }
+                    });
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {}
-                });
-
-                refreshActionButton.getActionView().startAnimation(rotate);
-                break;
+                    refreshActionButton.getActionView().startAnimation(rotate);
+                    break;
+                }
         }
 
         return super.onOptionsItemSelected(item);
@@ -187,7 +217,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     protected void onPostResume() {
         super.onPostResume();
 
-        updatePageTitle();
+        //       updatePageTitle();  // TODO REMOVE, not needed anymore, Time shown in details and City is shown on TAB
     }
 
     @Override
@@ -195,7 +225,14 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
         }
-        updatePageTitle();
+        //       updatePageTitle();  // TODO REMOVE, not needed anymore, Time shown in details and City is shown on TAB
+    }
+
+    @Override
+    public void updateWeekForecasts(List<WeekForecast> forecasts) {
+        if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
+            refreshActionButton.getActionView().clearAnimation();
+        }
     }
 
     @Override

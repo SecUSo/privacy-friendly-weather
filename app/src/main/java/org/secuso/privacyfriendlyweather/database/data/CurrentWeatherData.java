@@ -11,34 +11,54 @@ import androidx.room.PrimaryKey;
  */
 @Entity(tableName = "CURRENT_WEATHER", foreignKeys = {
         @ForeignKey(entity = City.class,
-        parentColumns = {"cities_id"},
-        childColumns = {"city_id"},
-        onDelete = ForeignKey.CASCADE)})
+                parentColumns = {"cities_id"},
+                childColumns = {"city_id"},
+                onDelete = ForeignKey.CASCADE)})
 public class CurrentWeatherData {
 
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "current_weather_id") private int id;
-    @ColumnInfo(name = "city_id") private int city_id;
-    @ColumnInfo(name = "time_of_measurement") private long timestamp;
-    @ColumnInfo(name = "weather_id") private int weatherID;
-    @ColumnInfo(name = "temperature_current") private float temperatureCurrent;
-    @ColumnInfo(name = "temperature_min") private float temperatureMin;
-    @ColumnInfo(name = "temperature_max") private float temperatureMax;
-    @ColumnInfo(name = "humidity") private float humidity;
-    @ColumnInfo(name = "pressure") private float pressure;
-    @ColumnInfo(name = "wind_speed") private float windSpeed;
-    @ColumnInfo(name = "wind_direction") private float windDirection;
-    @ColumnInfo(name = "cloudiness") private float cloudiness;
-    @ColumnInfo(name = "time_sunrise") private long timeSunrise;
-    @ColumnInfo(name = "time_sunset") private long timeSunset;
-    @ColumnInfo(name = "timezone_seconds") private int timeZoneSeconds;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "current_weather_id")
+    private int id;
+    @ColumnInfo(name = "city_id")
+    private int city_id;
+    @ColumnInfo(name = "time_of_measurement")
+    private long timestamp;
+    @ColumnInfo(name = "weather_id")
+    private int weatherID;
+    @ColumnInfo(name = "temperature_current")
+    private float temperatureCurrent;
+    @ColumnInfo(name = "temperature_min")
+    private float temperatureMin;//TODO: Remove, not available in one call api
+    @ColumnInfo(name = "temperature_max")
+    private float temperatureMax;//TODO: Remove, not available in one call api
+    @ColumnInfo(name = "humidity")
+    private float humidity;
+    @ColumnInfo(name = "pressure")
+    private float pressure;
+    @ColumnInfo(name = "wind_speed")
+    private float windSpeed;
+    @ColumnInfo(name = "wind_direction")
+    private float windDirection;
+    @ColumnInfo(name = "cloudiness")
+    private float cloudiness;
+    @ColumnInfo(name = "time_sunrise")
+    private long timeSunrise;
+    @ColumnInfo(name = "time_sunset")
+    private long timeSunset;
+    @ColumnInfo(name = "timezone_seconds")
+    private int timeZoneSeconds;
+    @ColumnInfo(name = "rain60min")
+    private String rain60min;
 
-    @Ignore private String city_name;
+    @Ignore
+    private String city_name;
 
     public CurrentWeatherData() {
         this.city_id = Integer.MIN_VALUE;
     }
 
-    @Ignore public CurrentWeatherData(int id, int city_id, long timestamp, int weatherID, float temperatureCurrent, float temperatureMin, float temperatureMax, float humidity, float pressure, float windSpeed, float windDirection, float cloudiness, long timeSunrise, long timeSunset, int timeZoneSeconds) {
+    @Ignore
+    public CurrentWeatherData(int id, int city_id, long timestamp, int weatherID, float temperatureCurrent, float temperatureMin, float temperatureMax, float humidity, float pressure, float windSpeed, float windDirection, float cloudiness, long timeSunrise, long timeSunset, int timeZoneSeconds) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
@@ -54,6 +74,7 @@ public class CurrentWeatherData {
         this.timeSunrise = timeSunrise;
         this.timeSunset = timeSunset;
         this.timeZoneSeconds = timeZoneSeconds;
+        this.rain60min = rain60min;
     }
 
     public int getId() {
@@ -182,5 +203,13 @@ public class CurrentWeatherData {
 
     public void setTimeZoneSeconds(int timeZoneSeconds) {
         this.timeZoneSeconds = timeZoneSeconds;
+    }
+
+    public String getRain60min() {
+        return rain60min;
+    }
+
+    public void setRain60min(String rain60min) {
+        this.rain60min = rain60min;
     }
 }
