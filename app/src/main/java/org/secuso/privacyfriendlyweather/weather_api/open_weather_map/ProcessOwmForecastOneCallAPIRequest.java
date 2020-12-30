@@ -197,6 +197,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
             //aufforderung lostreten
             Intent intent = new Intent(context, CreateKeyActivity.class);
             intent.putExtra("429", true);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {
             Handler h = new Handler(this.context.getMainLooper());
