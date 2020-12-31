@@ -2,10 +2,13 @@ package org.secuso.privacyfriendlyweather.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.secuso.privacyfriendlyweather.BuildConfig;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 
 /**
@@ -21,15 +24,19 @@ public class SplashActivity extends AppCompatActivity {
         database.cityDao().getCityById(0);
 
         prefManager = new PrefManager(this);
+        AppPreferencesManager prefManager2 = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
         if (prefManager.isFirstTimeLaunch()) {  //First time go to TutorialActivity
             //TODO make DB call async
 
             Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
             SplashActivity.this.startActivity(mainIntent);
-        } else if (!prefManager.askedForOWMKey()) {
+        } else if (!prefManager.askedForOWMKey() &&
+                prefManager2.getOWMApiKey(this).equals(BuildConfig.DEFAULT_API_KEY)) {
+
             Intent keyIntent = new Intent(this, CreateKeyActivity.class);
             keyIntent.putExtra("429", false);
             this.startActivity(keyIntent);
+
         } else { //otherwise directly start ForecastCityActivity
             Intent mainIntent = new Intent(SplashActivity.this, ForecastCityActivity.class);
             SplashActivity.this.startActivity(mainIntent);
