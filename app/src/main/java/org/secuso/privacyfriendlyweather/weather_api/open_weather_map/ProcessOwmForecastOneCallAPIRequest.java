@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.secuso.privacyfriendlyweather.BuildConfig;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.CreateKeyActivity;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
@@ -24,6 +25,7 @@ import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
@@ -195,7 +197,11 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
     public void processFailScenario(final VolleyError error) {
         if (error.networkResponse.statusCode == 429) {
             //aufforderung lostreten
-            if (!CreateKeyActivity.active) {
+            AppPreferencesManager prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
+            if (!CreateKeyActivity.active &&
+                    //don't show if user has own key installed
+                    //TODO test
+                    prefManager.getOWMApiKey(context).equals(BuildConfig.DEFAULT_API_KEY)) {
                 Intent intent = new Intent(context, CreateKeyActivity.class);
                 intent.putExtra("429", true);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
