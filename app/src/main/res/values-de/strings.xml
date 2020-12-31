@@ -176,4 +176,10 @@
     <string name="tutorial_owm_2nd_half">Mit Ihrem persönlichen Schlüssel wird die Anzahl der Anfragen nicht zwischen den Benutzern aufgeteilt. Geben Sie hier Ihren persönlichen Schlüssel ein.</string>
     <string name="insert_correct_owm_key">Bitte geben Sie einen gültigen OWM-API-Schlüssel ein. Er sollte 32 Zeichen lang sein.</string>
     <string name="tutorial_key_link_heading">OWM API Schlüssel</string>
+    <string name="set_key">Schlüssel einstellen</string>
+    <string name="abort">Abbrechen</string>
+    <string name="please_insert_your_personal_key_here_you_can_always_manage_it_in_the_settings">Bitte geben Sie hier Ihren persönlichen Schlüssel ein. Sie können ihn jederzeit in den Einstellungen verwalten.</string>
+    <string name="do_you_really_want_to_continue_with_the_shared_api_key_weather_requests_are_limited_and_will_be_shared_with_other_users_with_a_personal_key_you_can_update_up_to_1000_times_a_day">Möchten Sie wirklich mit dem gemeinsamen API-Schlüssel fortfahren? Wetteranfragen sind begrenzt und werden mit anderen Benutzern geteilt. Mit einem persönlichen Schlüssel können Sie bis zu 1000 Mal pro Tag aktualisieren.</string>
+    <string name="use_shared">Gemeinsamen Schlüssel benutzen</string>
+    <string name="use_personal">Persönlichen Schlüssel verwenden</string>
 </resources>

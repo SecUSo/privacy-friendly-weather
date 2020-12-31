@@ -229,5 +229,11 @@
     <string name="tutorial_owm_link"><a href="https://home.openweathermap.org/users/sign_up">OpenWeatherMaps (our data provider).</a></string>
     <string name="tutorial_owm_key">Please consider creating an account on</string>
     <string name="tutorial_owm_2nd_half">With your personal key, the number of requests will not be split between users. Insert your personal key here.</string>
+    <string name="set_key">Set Key</string>
+    <string name="abort">Abort</string>
+    <string name="please_insert_your_personal_key_here_you_can_always_manage_it_in_the_settings">Please insert your personal key here. You can always manage it in the settings.</string>
+    <string name="do_you_really_want_to_continue_with_the_shared_api_key_weather_requests_are_limited_and_will_be_shared_with_other_users_with_a_personal_key_you_can_update_up_to_1000_times_a_day">Do you really want to continue with the shared API key? Weather requests are limited and will be shared with other users. With a personal key, you can update up to 1000 times a day.</string>
+    <string name="use_shared">use shared</string>
+    <string name="use_personal">use personal</string>
 
 </resources>

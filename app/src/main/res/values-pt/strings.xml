@@ -175,4 +175,10 @@
     <string name="tutorial_owm_2nd_half">Com a sua chave pessoal, o número de pedidos não será dividido entre os utilizadores. Insira aqui a sua chave pessoal.</string>
     <string name="insert_correct_owm_key">Por favor insira uma chave OWM API válida. Deve ter 32 caracteres de comprimento.</string>
     <string name="tutorial_key_link_heading">OWM API chave</string>
+    <string name="set_key">Definir chave</string>
+    <string name="abort">Abortar</string>
+    <string name="please_insert_your_personal_key_here_you_can_always_manage_it_in_the_settings">Por favor introduza aqui a sua chave pessoal. Pode geri-lo em qualquer altura nas definições.</string>
+    <string name="do_you_really_want_to_continue_with_the_shared_api_key_weather_requests_are_limited_and_will_be_shared_with_other_users_with_a_personal_key_you_can_update_up_to_1000_times_a_day">Quer mesmo continuar com a chave API partilhada? Os pedidos meteorológicos são limitados e partilhados com outros utilizadores. Com uma chave pessoal, pode actualizar até 1000 vezes por dia.</string>
+    <string name="use_shared">utilizar chave partilhada</string>
+    <string name="use_personal">utilizar chave pessoal</string>
 </resources>

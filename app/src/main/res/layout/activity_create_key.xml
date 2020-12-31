@@ -38,7 +38,7 @@
         android:paddingHorizontal="20dp"
         android:layout_below="@id/owm_link"
         android:layout_height="wrap_content"
-        android:text="Please insert your personal key here. You can always manage it in the settings.">
+        android:text="@string/please_insert_your_personal_key_here_you_can_always_manage_it_in_the_settings">
 
     </TextView>
 
@@ -64,14 +64,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/set_owm_key_button"
-            android:text="Set Key"></Button>
+            android:text="@string/set_key"></Button>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/abort_button"
             android:layout_toRightOf="@id/set_owm_key_button"
-            android:text="Abort"></Button>
+            android:text="@string/abort"></Button>
     </LinearLayout>
 
 
