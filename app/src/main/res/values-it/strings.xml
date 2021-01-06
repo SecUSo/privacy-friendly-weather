@@ -181,4 +181,5 @@
     <string name="do_you_really_want_to_continue_with_the_shared_api_key_weather_requests_are_limited_and_will_be_shared_with_other_users_with_a_personal_key_you_can_update_up_to_1000_times_a_day">Volete davvero continuare con la chiave API condivisa? Le richieste meteorologiche sono limitate e condivise con altri utenti. Con una chiave personale, è possibile aggiornare fino a 1000 volte al giorno.</string>
     <string name="use_shared">usa chiave condivisa</string>
     <string name="use_personal">usa la chiave personale</string>
+    <string name="explanation_owm_key_on_start">Sembra che non si stia ancora utilizzando un <b>chiave di accesso personale alle previsioni del tempo</b>. Lo consigliamo perché il recupero dei dati per la chiave pubblica è limitato. Si prega di considerare la possibilità di registrarsi con OpenWeatherMap, che vi darà la vostra chiave di accesso indipendente.</string>
 </resources>

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -40,6 +41,11 @@ public class CreateKeyActivity extends AppCompatActivity {
         personalKeyField = findViewById(R.id.owm_key_field);
         keyButton = findViewById(R.id.set_owm_key_button);
         abortButton = findViewById(R.id.abort_button);
+        TextView introText = findViewById(R.id.explanation_text_owm_key);
+        boolean limitReached = getIntent().getBooleanExtra("429", false);
+        if (!limitReached) {
+            introText.setText(R.string.explanation_owm_key_on_start);
+        }
 
         keyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,5 +129,11 @@ public class CreateKeyActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         active = false;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 }

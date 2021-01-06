@@ -182,4 +182,5 @@
     <string name="do_you_really_want_to_continue_with_the_shared_api_key_weather_requests_are_limited_and_will_be_shared_with_other_users_with_a_personal_key_you_can_update_up_to_1000_times_a_day">Möchten Sie wirklich mit dem gemeinsamen API-Schlüssel fortfahren? Wetteranfragen sind begrenzt und werden mit anderen Benutzern geteilt. Mit einem persönlichen Schlüssel können Sie bis zu 1000 Mal pro Tag aktualisieren.</string>
     <string name="use_shared">Gemeinsamen Schlüssel benutzen</string>
     <string name="use_personal">Persönlichen Schlüssel verwenden</string>
+    <string name="explanation_owm_key_on_start">Anscheinend verwenden Sie noch keinen <b>persönlichen Wetter-Zugangsschlüssel</b>. Wir empfehlen dies, da die Datenabrufe für den öffentlichen Schlüssel begrenzt sind. Bitte erwägen Sie, sich bei OpenWeatherMap zu registrieren, wodurch Sie Ihren eigenen unabhängigen Zugangsschlüssel erhalten.</string>
 </resources>
