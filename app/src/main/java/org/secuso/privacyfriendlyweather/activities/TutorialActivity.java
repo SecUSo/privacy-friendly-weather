@@ -338,10 +338,11 @@ public class TutorialActivity extends AppCompatActivity {
                 editor.putString("API_key_value", currentValue);
                 editor.commit();
                 return true;
-            } else {
+            } else if (currentValue.length() > 0) {
                 Toast.makeText(getApplicationContext(), R.string.insert_correct_owm_key, Toast.LENGTH_LONG).show();
                 return false;
             }
+            return false;
         }
 
 
