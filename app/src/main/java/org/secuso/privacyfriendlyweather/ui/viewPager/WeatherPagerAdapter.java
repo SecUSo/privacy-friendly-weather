@@ -26,11 +26,11 @@ import java.util.TimeZone;
 
 import static androidx.core.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
+import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.CHART;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DAY;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.DETAILS;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.ERROR;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.OVERVIEW;
-import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.SUN;
 import static org.secuso.privacyfriendlyweather.ui.RecycleList.CityWeatherAdapter.WEEK;
 
 /**
@@ -48,7 +48,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     private List<CityToWatch> cities;
     private List<CurrentWeatherData> currentWeathers;
 
-    private static int[] mDataSetTypes = {OVERVIEW, DETAILS, DAY, WEEK, SUN}; //TODO Make dynamic from Settings
+    private static int[] mDataSetTypes = {OVERVIEW, DETAILS, DAY, WEEK, CHART}; //TODO Make dynamic from Settings
     private static int[] errorDataSetTypes = {ERROR};
 
     public WeatherPagerAdapter(Context context, FragmentManager supportFragmentManager) {
