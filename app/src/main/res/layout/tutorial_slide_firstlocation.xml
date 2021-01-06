@@ -4,16 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    tools:showIn="@layout/activity_firstlocation">
+    tools:showIn="@layout/tutorial_slide_firstlocation">
 
     <LinearLayout
-        android:paddingTop="30dp"
+        android:paddingTop="50dp"
+        android:id="@+id/firstlocation_linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="WebViewLayout">
 
         <TextView
             android:layout_width="wrap_content"

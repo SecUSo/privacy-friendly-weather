@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -93,7 +94,7 @@ public class TutorialActivity extends AppCompatActivity {
                 R.layout.tutorial_slide2,
                 R.layout.tutorial_slide3,
                 R.layout.tutorial_slide4,
-                R.layout.activity_firstlocation};
+                R.layout.tutorial_slide_firstlocation};
 
         // adding bottom dots
         addBottomDots(0);
@@ -293,6 +294,15 @@ public class TutorialActivity extends AppCompatActivity {
                 webview.getSettings().setJavaScriptEnabled(true);
                 webview.setBackgroundColor(0x00000000);
                 webview.setBackgroundResource(R.drawable.map_back);
+                //the below is to fix the webview layout if it is loaded to slow (fix for webview in layout with wrap_content height)
+                final LinearLayout ll = view.findViewById(R.id.firstlocation_linear_layout);
+                webview.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public void onPageFinished(WebView view, String url) {
+                        super.onPageFinished(view, url);
+                        ll.requestLayout();
+                    }
+                });
                 autoCompleteTextView = view.findViewById(R.id.autoCompleteTvAddFirstStart);
                 cityTextViewGenerator.generate(autoCompleteTextView, 100, EditorInfo.IME_ACTION_DONE, new MyConsumer<City>() {
                     @Override
