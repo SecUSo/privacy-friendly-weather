@@ -2,9 +2,10 @@ package org.secuso.privacyfriendlyweather.activities;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
@@ -57,7 +58,7 @@ public class RadiusSearchResultActivity extends AppCompatActivity {
         IApiToDatabaseConversion.WeatherCategories category;
         ValueDeriver deriver = new ValueDeriver(getApplicationContext());
 
-        DecimalFormat decimalFormatter = new DecimalFormat(".#");
+        DecimalFormat decimalFormatter = new DecimalFormat("0.0");
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
 
