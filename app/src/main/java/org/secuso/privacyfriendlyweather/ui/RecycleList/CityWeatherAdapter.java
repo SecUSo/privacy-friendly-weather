@@ -539,11 +539,13 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     public class DayViewHolder extends ViewHolder {
         RecyclerView recyclerView;
+        TextView recyclerViewHeader;
 
         DayViewHolder(View v) {
             super(v);
             recyclerView = v.findViewById(R.id.recycler_view_course_day);
             recyclerView.setHasFixedSize(true);
+            recyclerViewHeader = v.findViewById(R.id.recycler_view_header);
         }
     }
 
@@ -651,7 +653,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             DayViewHolder holder = (DayViewHolder) viewHolder;
             LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             holder.recyclerView.setLayoutManager(layoutManager);
-            CourseOfDayAdapter adapter = new CourseOfDayAdapter(courseDayList, context);
+            CourseOfDayAdapter adapter = new CourseOfDayAdapter(courseDayList, context, holder.recyclerViewHeader, holder.recyclerView);
             holder.recyclerView.setAdapter(adapter);
             holder.recyclerView.setFocusable(false);
 

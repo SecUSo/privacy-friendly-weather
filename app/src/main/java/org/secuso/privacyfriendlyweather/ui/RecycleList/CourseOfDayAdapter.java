@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.secuso.privacyfriendlyweather.R;
@@ -30,29 +31,15 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
     //TODO Add datatype to list
     private List<Forecast> courseOfDayList;
     private Context context;
+    private TextView recyclerViewHeader;
+    private RecyclerView recyclerView;
 
-    CourseOfDayAdapter(List<Forecast> courseOfDayList, Context context) {
+    CourseOfDayAdapter(List<Forecast> courseOfDayList, Context context, TextView recyclerViewHeader, RecyclerView recyclerView) {
         this.context = context;
         this.courseOfDayList = courseOfDayList;
+        this.recyclerViewHeader = recyclerViewHeader;
+        this.recyclerView = recyclerView;
 
-        /*if(courseOfDayList.size() == 0) {
-            Forecast forecast = new Forecast(1, 1, System.currentTimeMillis(), null, 20, 10, 90, 1001);
-            Forecast forecast2 = new Forecast(1, 1, System.currentTimeMillis(), null, 10, 26, 86, 1001);
-            Forecast forecast3 = new Forecast(1, 1, System.currentTimeMillis(), null, 30, 3, 90, 1001);
-            Forecast forecast4 = new Forecast(1, 1, System.currentTimeMillis(), null, 40, 33, 86, 1001);
-            Forecast forecast5 = new Forecast(1, 1, System.currentTimeMillis(), null, 50, 43, 90, 1001);
-            Forecast forecast6 = new Forecast(1, 1, System.currentTimeMillis(), null, 60, 1, 86, 1001);
-            Forecast forecast7 = new Forecast(1, 1, System.currentTimeMillis(), null, 70, -6, 90, 1001);
-            Forecast forecast8 = new Forecast(1, 1, System.currentTimeMillis(), null, 80, -10, 86, 1001);
-            courseOfDayList.add(forecast);
-            courseOfDayList.add(forecast2);
-            courseOfDayList.add(forecast3);
-            courseOfDayList.add(forecast4);
-            courseOfDayList.add(forecast5);
-            courseOfDayList.add(forecast6);
-            courseOfDayList.add(forecast7);
-            courseOfDayList.add(forecast8);
-        }*/
 
     }
 
@@ -72,46 +59,29 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         forecastTime.setTimeInMillis(courseOfDayList.get(position).getLocalForecastTime(context));
         //Log.d("devtag","localForecastTime: "+forecastTime.getTime());
 
-        Calendar sunSetTime = Calendar.getInstance();
-        sunSetTime.setTimeZone(TimeZone.getTimeZone("GMT"));
-        sunSetTime.setTimeInMillis(currentWeather.getTimeSunset() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
-        sunSetTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
+        boolean isDay = true;
+        if (currentWeather != null) {
+            Calendar sunSetTime = Calendar.getInstance();
+            sunSetTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+            sunSetTime.setTimeInMillis(currentWeather.getTimeSunset() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
+            sunSetTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
 
 
-        Calendar sunRiseTime = Calendar.getInstance();
-        sunRiseTime.setTimeZone(TimeZone.getTimeZone("GMT"));
-        sunRiseTime.setTimeInMillis(currentWeather.getTimeSunrise() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
-        sunRiseTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
+            Calendar sunRiseTime = Calendar.getInstance();
+            sunRiseTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+            sunRiseTime.setTimeInMillis(currentWeather.getTimeSunrise() * 1000 + currentWeather.getTimeZoneSeconds() * 1000);
+            sunRiseTime.set(Calendar.DAY_OF_YEAR, forecastTime.get(Calendar.DAY_OF_YEAR));
 
-        boolean isDay = forecastTime.after(sunRiseTime) && forecastTime.before(sunSetTime);
+            isDay = forecastTime.after(sunRiseTime) && forecastTime.before(sunSetTime);
+        }
 
         int day = forecastTime.get(Calendar.DAY_OF_WEEK);
 
-        switch (day) {
-            case Calendar.MONDAY:
-                day = R.string.abbreviation_monday;
-                break;
-            case Calendar.TUESDAY:
-                day = R.string.abbreviation_tuesday;
-                break;
-            case Calendar.WEDNESDAY:
-                day = R.string.abbreviation_wednesday;
-                break;
-            case Calendar.THURSDAY:
-                day = R.string.abbreviation_thursday;
-                break;
-            case Calendar.FRIDAY:
-                day = R.string.abbreviation_friday;
-                break;
-            case Calendar.SATURDAY:
-                day = R.string.abbreviation_saturday;
-                break;
-            case Calendar.SUNDAY:
-                day = R.string.abbreviation_sunday;
-                break;
-            default:
-                day = R.string.abbreviation_monday;
-        }
+        day = StringFormatUtils.getDay(day);
+
+
+        //TODO: Remove this part and only use updateRecyclerViewHeader to show day in header? Or keep both and show day also in first entry per day?
+        // In first entry per weekday show weekday instead of time
         if (courseOfDayList.size() > 1) {  //if there are at least 2 entries check time difference between first 2 entries
             if (courseOfDayList.get(1).getForecastTime() - courseOfDayList.get(0).getForecastTime() == 3600000) { // 1h difference = 2day/1h forecast
                 if (forecastTime.get(Calendar.HOUR_OF_DAY) >= 0 && forecastTime.get(Calendar.HOUR_OF_DAY) < 1) { //show weekday for entry in first hour
@@ -134,6 +104,8 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             holder.time.setText(StringFormatUtils.formatTimeWithoutZone(courseOfDayList.get(position).getLocalForecastTime(context)));
         }
 
+        updateRecyclerViewHeader();  //update header according to date in first visible item on the left
+
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather, isDay);
         holder.humidity.setText(StringFormatUtils.formatInt(courseOfDayList.get(position).getHumidity(), "%rh"));
         holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseOfDayList.get(position).getTemperature()));
@@ -145,6 +117,22 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         else
             holder.precipitation.setText(StringFormatUtils.formatDecimal(courseOfDayList.get(position).getRainValue(), "mm"));
     }
+
+    //update header according to date in first visible item on the left of recyclerview
+    private void updateRecyclerViewHeader() {
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        LinearLayoutManager llm = (LinearLayoutManager) manager;
+        int visiblePosition = llm.findFirstVisibleItemPosition();
+        if (visiblePosition > -1) {
+            Calendar HeaderTime = Calendar.getInstance();
+            HeaderTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+            HeaderTime.setTimeInMillis(courseOfDayList.get(visiblePosition).getLocalForecastTime(context));
+            int headerday = HeaderTime.get(Calendar.DAY_OF_WEEK);
+            headerday = StringFormatUtils.getDay(headerday);
+            recyclerViewHeader.setText(context.getResources().getString(R.string.card_day_heading) + " " + context.getResources().getString(headerday));
+        }
+    }
+
 
     @Override
     public int getItemCount() {
