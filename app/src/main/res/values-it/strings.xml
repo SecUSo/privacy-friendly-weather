@@ -182,4 +182,5 @@
     <string name="use_shared">usa chiave condivisa</string>
     <string name="use_personal">usa la chiave personale</string>
     <string name="explanation_owm_key_on_start">Sembra che non si stia ancora utilizzando un <b>chiave di accesso personale alle previsioni del tempo</b>. Lo consigliamo perché il recupero dei dati per la chiave pubblica è limitato. Si prega di considerare la possibilità di registrarsi con OpenWeatherMap, che vi darà la vostra chiave di accesso indipendente.</string>
+    <string name="no_forecast_warning">Non ci sono previsioni disponibili, i tempi potrebbero essere sbagliati.</string>
 </resources>

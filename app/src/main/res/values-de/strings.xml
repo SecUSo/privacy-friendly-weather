@@ -183,4 +183,5 @@
     <string name="use_shared">Gemeinsamen Schlüssel benutzen</string>
     <string name="use_personal">Persönlichen Schlüssel verwenden</string>
     <string name="explanation_owm_key_on_start">Anscheinend verwenden Sie noch keinen <b>persönlichen Wetter-Zugangsschlüssel</b>. Wir empfehlen dies, da die Datenabrufe für den öffentlichen Schlüssel begrenzt sind. Bitte erwägen Sie, sich bei OpenWeatherMap zu registrieren, wodurch Sie Ihren eigenen unabhängigen Zugangsschlüssel erhalten.</string>
+    <string name="no_forecast_warning">Keine Vorhersage verfügbar, Zeiten können falsch sein.</string>
 </resources>

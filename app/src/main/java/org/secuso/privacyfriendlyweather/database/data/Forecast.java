@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.database.data;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
@@ -9,6 +10,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 
 /**
@@ -92,7 +94,13 @@ public class Forecast {
      */
     public long getLocalForecastTime(Context context) {
         AppDatabase dbhelper = AppDatabase.getInstance(context);
-        int timezoneseconds = dbhelper.currentWeatherDao().getCurrentWeatherByCityId(city_id).getTimeZoneSeconds();
+        CurrentWeatherData data = dbhelper.currentWeatherDao().getCurrentWeatherByCityId(city_id);
+        int timezoneseconds = 0;
+        if (data != null) {
+            timezoneseconds = data.getTimeZoneSeconds();
+        } else {
+            Toast.makeText(context, R.string.no_forecast_warning, Toast.LENGTH_SHORT).show();
+        }
         return forecastTime + timezoneseconds * 1000L;
     }
 
