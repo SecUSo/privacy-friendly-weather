@@ -157,7 +157,7 @@ public class AppPreferencesManager {
     }
 
     public boolean usingPersonalKey(Context context) {
-        String prefValue = preferences.getString("API_key_value", BuildConfig.DEFAULT_API_KEY1);
+        String prefValue = preferences.getString("API_key_value", context.getString(R.string.settings_API_key_default));
         return !prefValue.equals(context.getString(R.string.settings_API_key_default));
     }
 
