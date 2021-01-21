@@ -183,5 +183,5 @@
     <string name="use_personal">utilizar chave pessoal</string>
     <string name="explanation_owm_key_on_start">Parece que ainda não está a usar uma <b>chave de acesso ao tempo pessoal</b>. Recomendamos isto porque as recuperações de dados para a chave pública são limitadas. Por favor, considere registar-se no OpenWeatherMap, que lhe dará a sua própria chave de acesso independente.</string>
     <string name="no_forecast_warning">Não há previsão disponível, os tempos podem estar errados.</string>
-    <string name="one_call_limit">Sorry, only 10 OneCallAPI calls with the shared key per day.</string>
+    <string name="one_call_limit">Infelizmente, apenas 10 pedidos OneCallAPI com a chave partilhada por dia possível.</string>
 </resources>

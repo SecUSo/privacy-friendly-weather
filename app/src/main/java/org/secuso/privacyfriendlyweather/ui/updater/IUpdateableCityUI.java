@@ -15,4 +15,6 @@ public interface IUpdateableCityUI {
     void updateForecasts(List<Forecast> forecasts);
 
     void updateWeekForecasts(List<WeekForecast> forecasts);
+
+    void abortUpdate();
 }

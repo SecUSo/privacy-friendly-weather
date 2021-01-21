@@ -41,4 +41,10 @@ public class ViewUpdater {
             sub.updateForecasts(forecasts);
         }
     }
+
+    public static void abortUpdate() {
+        for (IUpdateableCityUI sub : subscribers) {
+            sub.abortUpdate();
+        }
+    }
 }

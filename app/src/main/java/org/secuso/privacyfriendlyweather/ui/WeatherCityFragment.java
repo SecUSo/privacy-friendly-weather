@@ -155,4 +155,9 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
         }
         //TODO Update Titlebar Text
     }
+
+    @Override
+    public void abortUpdate() {
+        //empty because doesn't need to change something if update is aborted
+    }
 }

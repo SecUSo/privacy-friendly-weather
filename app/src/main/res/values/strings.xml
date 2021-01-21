@@ -257,7 +257,7 @@
     <string name="use_shared">use shared</string>
     <string name="use_personal">use personal</string>
     <string name="no_forecast_warning">No forecast available, times might be wrong.</string>
-    <string name="one_call_limit">Sorry, only 10 OneCallAPI calls with the shared key per day.</string>
+    <string name="one_call_limit">Unfortunately, only 10 OneCallAPI requests with the shared key are possible per day.</string>
 
 
 </resources>

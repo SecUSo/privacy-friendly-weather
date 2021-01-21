@@ -17,6 +17,7 @@ import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
+import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForForecast;
 import org.secuso.privacyfriendlyweather.weather_api.IHttpRequestForOneCallAPI;
 import org.secuso.privacyfriendlyweather.weather_api.open_weather_map.OwmHttpRequestForForecast;
@@ -168,8 +169,15 @@ public class UpdateDataService extends JobIntentService {
             return true;
             // if 10 calls in the last 24 hours used
         } else {
+            Handler h = new Handler(getApplicationContext().getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), getApplicationContext().getResources().getString(R.string.one_call_limit), Toast.LENGTH_SHORT).show();
+                }
+            });
+            ViewUpdater.abortUpdate();
             return false;
-            //TODO visualize Toast and stop refreshbutton animation
         }
     }
 

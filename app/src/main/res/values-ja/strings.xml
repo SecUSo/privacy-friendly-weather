@@ -237,6 +237,6 @@
     <string name="use_personal">use personal</string>
     <string name="explanation_owm_key_on_start">It appears that you don\'t use a <b>personal weather access key</b> yet. We recommend using one, as there is a limit for publicly accessible calls. Please consider quickly registering on OpenWeatherMap, which will give you your own independent access key with 1000 own calls per day.</string>
     <string name="no_forecast_warning">No forecast available, times might be wrong.</string>
-    <string name="one_call_limit">Sorry, only 10 OneCallAPI calls with the shared key per day.</string>
+    <string name="one_call_limit">Unfortunately, only 10 OneCallAPI requests with the shared key are possible per day.</string>
 
 </resources>

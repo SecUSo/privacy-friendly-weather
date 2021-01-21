@@ -236,6 +236,13 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     }
 
     @Override
+    public void abortUpdate() {
+        if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
+            refreshActionButton.getActionView().clearAnimation();
+        }
+    }
+
+    @Override
     public void updateForecasts(List<Forecast> forecasts) {
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
             refreshActionButton.getActionView().clearAnimation();
