@@ -151,10 +151,10 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
             possiblyUpdateWidgets(cityId, weekforecasts, weatherData);
 
 
-            //Use hourly data only if forecastChoice 2 (1h) is active
+            //Use hourly data only if forecastChoice 1 (1h) is active
             SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
             int choice = Integer.parseInt(prefManager.getString("forecastChoice", "1"));
-            if (choice == 2) {
+            if (choice == 1) {
                 JSONArray listhourly = json.getJSONArray("hourly");
 
                 dbHelper.forecastDao().deleteForecastsByCityId(cityId);
@@ -211,7 +211,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
             h.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast) + "OneCallAPI", Toast.LENGTH_LONG).show();
                 }
             });
         }

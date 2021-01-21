@@ -133,7 +133,7 @@ public class UpdateDataService extends JobIntentService {
         if (skipUpdateInterval || timestamp + updateInterval - systemTime <= 0) {
             //if forecastChoice = 1 (3h) perform both else only one call API
             int choice = Integer.parseInt(prefManager.getString("forecastChoice", "1"));
-            if (choice == 1) {
+            if (choice == 2) {
                 IHttpRequestForForecast forecastRequest = new OwmHttpRequestForForecast(getApplicationContext());
                 forecastRequest.perform(cityId);
             }
