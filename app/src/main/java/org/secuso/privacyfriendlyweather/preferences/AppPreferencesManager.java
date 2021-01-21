@@ -156,12 +156,37 @@ public class AppPreferencesManager {
         return Integer.parseInt(preferences.getString("widgetChoice3", "2"));
     }
 
+    public boolean usingPersonalKey(Context context) {
+        String prefValue = preferences.getString("API_key_value", BuildConfig.DEFAULT_API_KEY1);
+        return !prefValue.equals(context.getString(R.string.settings_API_key_default));
+    }
+
     public String getOWMApiKey(Context context) {
-        String prefValue = preferences.getString("API_key_value", BuildConfig.DEFAULT_API_KEY);
-        if (prefValue.equals(context.getString(R.string.settings_API_key_default))) {
-            return BuildConfig.DEFAULT_API_KEY;
-        } else {
+        String prefValue = preferences.getString("API_key_value", BuildConfig.DEFAULT_API_KEY1);
+        if (!prefValue.equals(context.getString(R.string.settings_API_key_default))) {
             return prefValue;
+        } else {
+            int keyIndex = preferences.getInt("last_used_key", 1);
+            SharedPreferences.Editor editor = preferences.edit();
+            switch (keyIndex) {
+                case 1:
+                    editor.putInt("last_used_key", 2);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY2;
+                case 2:
+                    editor.putInt("last_used_key", 3);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY3;
+                case 3:
+                    editor.putInt("last_used_key", 4);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY4;
+                default:
+                    editor.putInt("last_used_key", 1);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY1;
+            }
         }
+
     }
 }

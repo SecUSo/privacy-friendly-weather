@@ -3,7 +3,6 @@ package org.secuso.privacyfriendlyweather.weather_api.open_weather_map;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
-import org.secuso.privacyfriendlyweather.BuildConfig;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.http.HttpRequestType;
 import org.secuso.privacyfriendlyweather.http.IHttpRequest;
@@ -36,8 +35,7 @@ public class OwmHttpRequestForUpdatingCityList extends OwmHttpRequest implements
         IHttpRequest httpRequest = new VolleyHttpRequest(context);
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
-        String API_KEY = prefManager.getOWMApiKey(context);
-        if (API_KEY.equals(BuildConfig.DEFAULT_API_KEY)) {        //user without own API_KEY -> use group call to reduece number of API calls
+        if (!prefManager.usingPersonalKey(context)) {        //user without own API_KEY -> use group call to reduce number of API calls
             final String URL = getUrlForQueryingGroupIDs(context, joinCityIDs(cities));
             httpRequest.make(URL, HttpRequestType.GET, new ProcessOwmUpdateCityListRequest(context));
         } else {                                                  //user with own API_KEY -> allow download via single calls, resulting in more calls

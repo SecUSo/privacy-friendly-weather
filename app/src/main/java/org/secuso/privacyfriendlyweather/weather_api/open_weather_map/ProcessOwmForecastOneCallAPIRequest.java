@@ -16,7 +16,6 @@ import com.android.volley.VolleyError;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.secuso.privacyfriendlyweather.BuildConfig;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.CreateKeyActivity;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
@@ -201,7 +200,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
             if (!CreateKeyActivity.active &&
                     //don't show if user has own key installed
                     //TODO test
-                    prefManager.getOWMApiKey(context).equals(BuildConfig.DEFAULT_API_KEY)) {
+                    !prefManager.usingPersonalKey(context)) {
                 Intent intent = new Intent(context, CreateKeyActivity.class);
                 intent.putExtra("429", true);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

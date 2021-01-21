@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.secuso.privacyfriendlyweather.BuildConfig;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.preferences.PrefManager;
@@ -30,9 +29,7 @@ public class SplashActivity extends AppCompatActivity {
 
             Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
             SplashActivity.this.startActivity(mainIntent);
-        } else if (!prefManager.askedForOWMKey() &&
-                prefManager2.getOWMApiKey(this).equals(BuildConfig.DEFAULT_API_KEY)) {
-
+        } else if (!prefManager.askedForOWMKey() && !prefManager2.usingPersonalKey(this)) {
             Intent keyIntent = new Intent(this, CreateKeyActivity.class);
             keyIntent.putExtra("429", false);
             this.startActivity(keyIntent);
