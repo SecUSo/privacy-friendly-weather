@@ -35,6 +35,8 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     private ViewPager viewPager;
     private TextView noCityText;
 
+    public static boolean stopTurning = false;
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -216,6 +218,10 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     @Override
     protected void onPostResume() {
         super.onPostResume();
+        if (stopTurning) {
+            abortUpdate();
+            stopTurning = false;
+        }
 
         //       updatePageTitle();  // TODO REMOVE, not needed anymore, Time shown in details and City is shown on TAB
     }

@@ -110,6 +110,7 @@ public class CreateKeyActivity extends AppCompatActivity {
     public void leave() {
         PrefManager prefManager = new PrefManager(this);
         prefManager.setAskedForOwmKey(true);
+        ForecastCityActivity.stopTurning = true;
         if (isTaskRoot()) {
             Intent mainIntent = new Intent(getApplicationContext(), ForecastCityActivity.class);
             startActivity(mainIntent);
