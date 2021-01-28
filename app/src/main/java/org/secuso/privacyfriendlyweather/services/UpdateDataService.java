@@ -149,6 +149,7 @@ public class UpdateDataService extends JobIntentService {
     private boolean oneCallAllowed(Context context) {
         AppPreferencesManager appPreferences = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         if (appPreferences.usingPersonalKey(context)) {
+            Log.d("oneCallAllowed", "personalKey");
             return true;
         }
         //if shared key is used, execute limiting code
@@ -156,16 +157,20 @@ public class UpdateDataService extends JobIntentService {
         int currentCalls = prefManager.getInt("shared_calls_used", 0);
         if (currentCalls == 0) {
             editor.putLong("shared_calls_count_start", System.currentTimeMillis());
+            Log.d("oneCallAllowed", "no calls yet");
+
         }
         if (currentCalls < 10) {
             editor.putInt("shared_calls_used", currentCalls + 1);
             editor.commit();
+            Log.d("oneCallAllowed", "under 10 calls" + currentCalls);
             return true;
             // if calls reached but day since first call elapsed
         } else if (prefManager.getLong("shared_calls_count_start", 0) + 86400000 < System.currentTimeMillis()) {
-            prefManager.edit().putInt("shared_calls_used", 1);
-            prefManager.edit().putLong("shared_calls_count_start", System.currentTimeMillis());
-            prefManager.edit().commit();
+            editor.putInt("shared_calls_used", 1);
+            editor.putLong("shared_calls_count_start", System.currentTimeMillis());
+            editor.commit();
+            Log.d("oneCallAllowed", "day passed");
             return true;
             // if 10 calls in the last 24 hours used
         } else {
@@ -177,6 +182,8 @@ public class UpdateDataService extends JobIntentService {
                 }
             });
             ViewUpdater.abortUpdate();
+            Log.d("oneCallAllowed", "too many calls");
+
             return false;
         }
     }
