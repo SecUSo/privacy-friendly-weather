@@ -12,10 +12,16 @@ android {
         versionCode 10
         versionName "2.4.1"
 
-        buildConfigField "String", "DEFAULT_API_KEY1", "\"50467debf1b33d338498afad4977e9b0\""
-        buildConfigField "String", "DEFAULT_API_KEY2", "\"6ccdf4e2ad55192ed32a70845410868d\""
-        buildConfigField "String", "DEFAULT_API_KEY3", "\"3fb239a5397459ff57d21c5cc1ca1536\""
-        buildConfigField "String", "DEFAULT_API_KEY4", "\"c3c0ab1b2cb3a322573bdb4f9d3ea6ed\""
+        buildConfigField "String", "DEFAULT_API_KEY1", "\"cf591ca34ede65243c96df755c670f4f\""
+        buildConfigField "String", "DEFAULT_API_KEY2", "\"c7fe92edc0f22f1dcff934a8c97f41a3\""
+        buildConfigField "String", "DEFAULT_API_KEY3", "\"db7241ad27e214a2ed8b2bfd077a489f\""
+        buildConfigField "String", "DEFAULT_API_KEY4", "\"f3eb6986f26729bbbef697f4276d0715\""
+        buildConfigField "String", "DEFAULT_API_KEY5", "\"689205da30f858adcfa4456c1cb11887\""
+        buildConfigField "String", "DEFAULT_API_KEY6", "\"0494ad5990313615961e7f52cd60d9c2\""
+        buildConfigField "String", "DEFAULT_API_KEY7", "\"eebec1d11bdaee73923af0796dcba301\""
+        buildConfigField "String", "DEFAULT_API_KEY8", "\"6ccdf4e2ad55192ed32a70845410868d\""
+        buildConfigField "String", "DEFAULT_API_KEY9", "\"e876eb56ca28eb0acc3aeadacc4f1c55\""
+        buildConfigField "String", "DEFAULT_API_KEY10", "\"a7487362846fddda9e950ca1a8356271\""
 
         buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/data/2.5/\""
 

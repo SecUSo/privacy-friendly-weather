@@ -181,6 +181,30 @@ public class AppPreferencesManager {
                     editor.putInt("last_used_key", 4);
                     editor.commit();
                     return BuildConfig.DEFAULT_API_KEY4;
+                case 4:
+                    editor.putInt("last_used_key", 5);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY5;
+                case 5:
+                    editor.putInt("last_used_key", 6);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY6;
+                case 6:
+                    editor.putInt("last_used_key", 7);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY7;
+                case 7:
+                    editor.putInt("last_used_key", 8);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY8;
+                case 8:
+                    editor.putInt("last_used_key", 9);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY9;
+                case 9:
+                    editor.putInt("last_used_key", 10);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY10;
                 default:
                     editor.putInt("last_used_key", 1);
                     editor.commit();
