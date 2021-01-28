@@ -48,7 +48,7 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
     public static void updateView(Context context, AppWidgetManager appWidgetManager, RemoteViews views, int appWidgetId, float[][] data, City city) {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
-        DecimalFormat decimalFormat = new DecimalFormat("#.0");
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
         dayFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
