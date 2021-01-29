@@ -162,8 +162,9 @@ public class AppPreferencesManager {
     }
 
     public String getOWMApiKey(Context context) {
-        String prefValue = preferences.getString("API_key_value", BuildConfig.DEFAULT_API_KEY1);
-        if (!prefValue.equals(context.getString(R.string.settings_API_key_default))) {
+        String noKeyString = context.getString(R.string.settings_API_key_default);
+        String prefValue = preferences.getString("API_key_value", noKeyString);
+        if (!prefValue.equals(noKeyString)) {
             return prefValue;
         } else {
             int keyIndex = preferences.getInt("last_used_key", 1);
