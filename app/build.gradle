@@ -19,7 +19,7 @@ android {
         buildConfigField "String", "DEFAULT_API_KEY5", "\"689205da30f858adcfa4456c1cb11887\""
         buildConfigField "String", "DEFAULT_API_KEY6", "\"0494ad5990313615961e7f52cd60d9c2\""
         buildConfigField "String", "DEFAULT_API_KEY7", "\"eebec1d11bdaee73923af0796dcba301\""
-        buildConfigField "String", "DEFAULT_API_KEY8", "\"6ccdf4e2ad55192ed32a70845410868d\""
+        buildConfigField "String", "DEFAULT_API_KEY8", "\"b90cb9a38e642034482449d128ee6717\""
         buildConfigField "String", "DEFAULT_API_KEY9", "\"e876eb56ca28eb0acc3aeadacc4f1c55\""
         buildConfigField "String", "DEFAULT_API_KEY10", "\"a7487362846fddda9e950ca1a8356271\""
 
