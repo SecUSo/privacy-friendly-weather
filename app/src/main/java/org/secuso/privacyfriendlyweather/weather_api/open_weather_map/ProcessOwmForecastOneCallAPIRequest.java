@@ -206,16 +206,24 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
+        } else if (error.networkResponse.statusCode == 401) {
+            Handler h = new Handler(this.context.getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context, context.getResources().getString(R.string.api_key_not_accepted), Toast.LENGTH_LONG).show();
+                }
+            });
         } else {
             Handler h = new Handler(this.context.getMainLooper());
             h.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast) + "OneCallAPI", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast) + " OneCallAPI", Toast.LENGTH_LONG).show();
                 }
             });
         }
-
+        ViewUpdater.abortUpdate();
     }
 
 

@@ -258,6 +258,7 @@
     <string name="use_personal">use personal</string>
     <string name="no_forecast_warning">No forecast available, times might be wrong.</string>
     <string name="one_call_limit">Unfortunately, only 10 OneCallAPI requests with the shared key are possible per day.</string>
+    <string name="api_key_not_accepted">The API key was not accepted. If you newly created it, it could take a couple of minutes to hours to register.</string>
 
 
 </resources>
