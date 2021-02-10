@@ -186,4 +186,5 @@
     <string name="no_forecast_warning">Keine Vorhersage verfügbar, Zeiten können falsch sein.</string>
     <string name="one_call_limit">Leider nur 10 OneCallAPI-Anfragen mit dem gemeinsamen Schlüssel pro Tag möglich.</string>
     <string name="api_key_not_accepted">Der API-Schlüssel wurde nicht aktzeptiert. Neu erzeugte Schlüssel können einige Minuten bis Stunden zum Aktivieren brauchen.</string>
+    <string name="no_rain_data">Keine Regendaten verfügbar</string>
 </resources>

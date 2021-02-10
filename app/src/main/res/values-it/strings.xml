@@ -185,4 +185,5 @@
     <string name="no_forecast_warning">Non ci sono previsioni disponibili, i tempi potrebbero essere sbagliati.</string>
     <string name="one_call_limit">Purtroppo sono possibili solo 10 richieste OneCallAPI con la chiave condivisa al giorno.</string>
     <string name="api_key_not_accepted">La chiave API non è stata accettata. Se l\'hai appena creata, potrebbero volerci da un paio di minuti a delle ore per registrarsi.</string>
+    <string name="no_rain_data">Nessun dato sulla pioggia</string>
 </resources>

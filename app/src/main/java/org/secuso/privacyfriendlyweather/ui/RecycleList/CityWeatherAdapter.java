@@ -637,7 +637,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), "%"));
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
             holder.windspeed.setText(StringFormatUtils.formatWindSpeed(context, currentWeatherDataList.getWindSpeed()) + " " + StringFormatUtils.formatWindDir(context, currentWeatherDataList.getWindDirection()));
-            setRainDrops(holder.drops, currentWeatherDataList.getRain60min());
+            setRainDrops(holder.drops, holder.rain60min, currentWeatherDataList.getRain60min());
 
         } else if (viewHolder.getItemViewType() == WEEK) {
 
@@ -776,12 +776,13 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         //No update for error needed
     }
 
-    private void setRainDrops(ImageView[] drops, String rain60min) {
-        Log.d("raindrops", "raininfo null?" + (rain60min == null));
-        if (rain60min == null || rain60min == "no data") {
+    private void setRainDrops(ImageView[] drops, TextView rainText, String rain60min) {
+        Log.d("raindrops", "raininfo " + "\"" + rain60min + "\"");
+        if (rain60min == null || rain60min.equals("no data")) {
             for (ImageView imview : drops) {
                 imview.setVisibility(View.INVISIBLE);
             }
+            rainText.setText(R.string.no_rain_data);
         } else {
             int i = 0;
             for (ImageView view : drops) {
@@ -793,8 +794,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     view.setImageResource(R.drawable.fulldrop);
                 }
                 view.setVisibility(View.VISIBLE);
+                i++;
             }
-            i++;
         }
 
     }
