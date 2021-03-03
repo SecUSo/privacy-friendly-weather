@@ -15,7 +15,10 @@ public class AppPreferencesManager {
      * Constants
      */
     public static final String PREFERENCES_NAME = "org.secuso.privacyfriendlyweather.preferences";
-    private static final String PREFERENCES_IS_FIRST_START = "is_first_app_start";
+    public static final String OLD_PREF_NAME = "weather-Preference";
+
+    private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
+    private static final String ASKED_FOR_OWM_KEY = "AskedForOWMKey";
 
     /**
      * Member variables
@@ -31,21 +34,25 @@ public class AppPreferencesManager {
         this.preferences = preferences;
     }
 
-    private void setFirstAppStartToFalse() {
+
+    public void setFirstTimeLaunch(boolean isFirstTime) {
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(PREFERENCES_IS_FIRST_START, false);
-        editor.apply();
+        editor.putBoolean(IS_FIRST_TIME_LAUNCH, isFirstTime);
+        editor.commit();
     }
 
-    /**
-     * @return Returns true if the app is started for the very first time else false.
-     */
-    public boolean isFirstAppStart() {
-        boolean isFirstStart = preferences.getBoolean(PREFERENCES_IS_FIRST_START, true);
-        if (isFirstStart) {
-            setFirstAppStartToFalse();
-        }
-        return isFirstStart;
+    public void setAskedForOwmKey(boolean asked) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(ASKED_FOR_OWM_KEY, asked);
+        editor.commit();
+    }
+
+    public boolean isFirstTimeLaunch() {
+        return preferences.getBoolean(IS_FIRST_TIME_LAUNCH, true);
+    }
+
+    public boolean askedForOWMKey() {
+        return preferences.getBoolean(ASKED_FOR_OWM_KEY, false);
     }
 
     /**

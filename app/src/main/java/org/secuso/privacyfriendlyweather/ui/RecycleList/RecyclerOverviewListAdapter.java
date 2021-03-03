@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
-import org.secuso.privacyfriendlyweather.preferences.PrefManager;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.widget.WeatherWidget;
 import org.secuso.privacyfriendlyweather.widget.WeatherWidgetFiveDayForecast;
 import org.secuso.privacyfriendlyweather.widget.WeatherWidgetThreeDayForecast;
@@ -39,7 +40,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
      */
     private Context context;
     private static List<CityToWatch> cities;
-    PrefManager prefManager;
+    AppPreferencesManager prefManager;
     AppDatabase database;
 
 
@@ -49,7 +50,7 @@ public class RecyclerOverviewListAdapter extends RecyclerView.Adapter<ItemViewHo
     public RecyclerOverviewListAdapter(Context context, List<CityToWatch> cities) {
         this.context = context;
         RecyclerOverviewListAdapter.cities = cities;
-        prefManager = new PrefManager(context);
+        prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         database = AppDatabase.getInstance(context);
     }
 

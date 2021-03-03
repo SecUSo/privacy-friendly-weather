@@ -8,28 +8,33 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
-import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 
 /**
  * Created by yonjuni on 24.10.16.
  */
 
 public class SplashActivity extends AppCompatActivity {
-    private PrefManager prefManager;
+    private AppPreferencesManager prefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppDatabase database = AppDatabase.getInstance(this);
         database.cityDao().getCityById(0);
+        AppPreferencesManager prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
 
-        prefManager = new PrefManager(this);
-        AppPreferencesManager prefManager2 = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
+        if (prefManager.isFirstTimeLaunch()) {  //check if firsttimelaunch because of pref manager switch
+            AppPreferencesManager oldPrefManager = new AppPreferencesManager(this.getSharedPreferences(AppPreferencesManager.OLD_PREF_NAME, 0));
+
+            prefManager.setFirstTimeLaunch(oldPrefManager.isFirstTimeLaunch());
+            prefManager.setAskedForOwmKey(oldPrefManager.askedForOWMKey());
+        }
+
         if (prefManager.isFirstTimeLaunch()) {  //First time go to TutorialActivity
             //TODO make DB call async
 
             Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
             SplashActivity.this.startActivity(mainIntent);
-        } else if (!prefManager.askedForOWMKey() && !prefManager2.usingPersonalKey(this)) {
+        } else if (!prefManager.askedForOWMKey() && !prefManager.usingPersonalKey(this)) {
             Intent keyIntent = new Intent(this, CreateKeyActivity.class);
             keyIntent.putExtra("429", false);
             this.startActivity(keyIntent);

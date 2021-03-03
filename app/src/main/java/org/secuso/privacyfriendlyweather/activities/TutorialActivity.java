@@ -33,7 +33,7 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
-import org.secuso.privacyfriendlyweather.preferences.PrefManager;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.util.AutoCompleteCityTextViewGenerator;
 import org.secuso.privacyfriendlyweather.ui.util.MyConsumer;
@@ -55,7 +55,7 @@ public class TutorialActivity extends AppCompatActivity {
     private TextView[] dots;
     private int[] layouts;
     private Button btnSkip, btnNext;
-    private PrefManager prefManager;
+    private AppPreferencesManager prefManager;
 
     AppDatabase database;
     private AutoCompleteTextView autoCompleteTextView;
@@ -67,7 +67,7 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Checking for first time launch - before calling setContentView()
-        prefManager = new PrefManager(this);
+        prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
 
         if (!prefManager.isFirstTimeLaunch()) {
             launchHomeScreen();

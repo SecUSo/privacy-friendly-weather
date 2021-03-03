@@ -2,6 +2,7 @@ package org.secuso.privacyfriendlyweather.ui.viewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -12,7 +13,7 @@ import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
-import org.secuso.privacyfriendlyweather.preferences.PrefManager;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.WeatherCityFragment;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
@@ -42,7 +43,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     private Context mContext;
 
     private AppDatabase database;
-    PrefManager prefManager;
+    AppPreferencesManager prefManager;
     long lastUpdateTime;
 
     private List<CityToWatch> cities;
@@ -54,7 +55,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     public WeatherPagerAdapter(Context context, FragmentManager supportFragmentManager) {
         super(supportFragmentManager);
         this.mContext = context;
-        this.prefManager = new PrefManager(context);
+        this.prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
         this.database = AppDatabase.getInstance(context);
         this.currentWeathers = database.currentWeatherDao().getAll();
         this.cities = database.cityToWatchDao().getAll();

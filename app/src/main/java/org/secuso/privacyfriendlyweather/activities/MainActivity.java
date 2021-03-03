@@ -17,7 +17,6 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
 import org.secuso.privacyfriendlyweather.dialogs.AddLocationDialog;
-import org.secuso.privacyfriendlyweather.preferences.PrefManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerItemClickListener;
 import org.secuso.privacyfriendlyweather.ui.RecycleList.RecyclerOverviewListAdapter;
@@ -35,7 +34,6 @@ public class MainActivity extends BaseActivity {
 
     private final String DEBUG_TAG = "main_activity_debug";
     private AppDatabase database;
-    PrefManager prefManager;
     private ItemTouchHelper.Callback callback;
     private ItemTouchHelper touchHelper;
     RecyclerOverviewListAdapter adapter;
@@ -65,8 +63,6 @@ public class MainActivity extends BaseActivity {
             Toast toast = Toast.makeText(getBaseContext(), "No cities in DB", Toast.LENGTH_SHORT);
             toast.show();
         }
-
-        prefManager = new PrefManager(this);
 
         RecyclerView recyclerView = findViewById(R.id.list_view_cities);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
