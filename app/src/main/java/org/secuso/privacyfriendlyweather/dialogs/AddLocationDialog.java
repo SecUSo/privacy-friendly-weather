@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,14 +105,16 @@ public class AddLocationDialog extends DialogFragment {
     }
 
     private void performDone() {
+        CityToWatch newCity = convertCityToWatched();
         if (selectedCity == null) {
             Toast.makeText(activity, R.string.dialog_add_no_city_found, Toast.LENGTH_SHORT).show();
             return;
         }
         if (database != null && !database.cityToWatchDao().isCityWatched(selectedCity.getCityId())) {
-            addCity();
+            //insert id is needed immediately if city is ranked or deleted after insert
+            newCity.setId((int) database.cityToWatchDao().addCityToWatch(newCity));
         }
-        ((MainActivity) activity).addCityToList(convertCityToWatched());
+        ((MainActivity) activity).addCityToList(newCity);
         dismiss();
     }
 
@@ -129,16 +130,5 @@ public class AddLocationDialog extends DialogFragment {
                 selectedCity.getLongitude(),
                 selectedCity.getLatitude()
         );
-    }
-
-    //TODO setRank
-    public void addCity() {
-        new AsyncTask<CityToWatch, Void, Void>() {
-            @Override
-            protected Void doInBackground(CityToWatch... params) {
-                database.cityToWatchDao().addCityToWatch(params[0]);
-                return null;
-            }
-        }.doInBackground(convertCityToWatched());
     }
 }
