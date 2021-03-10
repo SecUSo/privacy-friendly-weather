@@ -41,7 +41,7 @@ import java.util.List;
  */
 @Database(entities = {City.class, CityToWatch.class, CurrentWeatherData.class, Forecast.class, WeekForecast.class}, version = AppDatabase.VERSION)
 public abstract class AppDatabase extends RoomDatabase {
-    static final String DB_NAME = "PF_WEATHER_DB.db";
+    public static final String DB_NAME = "PF_WEATHER_DB.db";
     static final int VERSION = 6;
     static final String TAG = AppDatabase.class.getSimpleName();
 
