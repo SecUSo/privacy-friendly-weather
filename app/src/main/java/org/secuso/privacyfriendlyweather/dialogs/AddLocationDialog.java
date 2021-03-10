@@ -113,8 +113,10 @@ public class AddLocationDialog extends DialogFragment {
         if (database != null && !database.cityToWatchDao().isCityWatched(selectedCity.getCityId())) {
             //insert id is needed immediately if city is ranked or deleted after insert
             newCity.setId((int) database.cityToWatchDao().addCityToWatch(newCity));
+            //only add city to list when city was added to db
+            ((MainActivity) activity).addCityToList(newCity);
         }
-        ((MainActivity) activity).addCityToList(newCity);
+
         dismiss();
     }
 
