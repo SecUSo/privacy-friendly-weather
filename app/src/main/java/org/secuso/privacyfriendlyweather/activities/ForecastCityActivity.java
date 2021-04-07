@@ -229,7 +229,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     @Override
     public void processNewWeatherData(CurrentWeatherData data) {
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
-            refreshActionButton.getActionView().clearAnimation();
+            clearAnimation(refreshActionButton.getActionView());
         }
         //       updatePageTitle();  // TODO REMOVE, not needed anymore, Time shown in details and City is shown on TAB
     }
@@ -237,22 +237,32 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     @Override
     public void updateWeekForecasts(List<WeekForecast> forecasts) {
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
-            refreshActionButton.getActionView().clearAnimation();
+            clearAnimation(refreshActionButton.getActionView());
         }
     }
 
     @Override
     public void abortUpdate() {
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
-            refreshActionButton.getActionView().clearAnimation();
+            clearAnimation(refreshActionButton.getActionView());
         }
     }
 
     @Override
     public void updateForecasts(List<Forecast> forecasts) {
         if (refreshActionButton != null && refreshActionButton.getActionView() != null) {
-            refreshActionButton.getActionView().clearAnimation();
+            clearAnimation(refreshActionButton.getActionView());
         }
+    }
+
+
+    private void clearAnimation(final View actionView) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                actionView.clearAnimation();
+            }
+        });
     }
 }
 
