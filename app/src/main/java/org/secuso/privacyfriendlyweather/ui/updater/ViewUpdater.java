@@ -25,7 +25,8 @@ public class ViewUpdater {
     }
 
     public static void updateCurrentWeatherData(CurrentWeatherData data) {
-        for (IUpdateableCityUI sub : subscribers) {
+        ArrayList<IUpdateableCityUI> subcopy = new ArrayList<>(subscribers);
+        for (IUpdateableCityUI sub : subcopy) {
             sub.processNewWeatherData(data);
         }
     }
