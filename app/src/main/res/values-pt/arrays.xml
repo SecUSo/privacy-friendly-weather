@@ -37,4 +37,9 @@
         <item>2</item>
     </string-array>
 
+    <string name="settings_kilometers_per_hour">Quilómetros por hora</string>
+    <string name="settings_meters_per_second">Metros por segundo</string>
+    <string name="settings_miles_per_hour">Milhas por hora</string>
+    <string name="settings_feet_per_second">Pés por segundo</string>
+    <string name="settings_knots">Nós</string>
 </resources>

@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
@@ -105,11 +107,12 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         }
 
         updateRecyclerViewHeader();  //update header according to date in first visible item on the left
+        AppPreferencesManager prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this.context));
 
         setIcon(courseOfDayList.get(position).getWeatherID(), holder.weather, isDay);
         holder.humidity.setText(StringFormatUtils.formatInt(courseOfDayList.get(position).getHumidity(), "%rh"));
         holder.temperature.setText(StringFormatUtils.formatTemperature(context, courseOfDayList.get(position).getTemperature()));
-        holder.wind_speed.setText(StringFormatUtils.formatWindSpeed(context, courseOfDayList.get(position).getWindSpeed()));
+        holder.wind_speed.setText(prefManager.convertToCurrentSpeedUnit(courseOfDayList.get(position).getWindSpeed()));
         holder.wind_direction.setText(StringFormatUtils.formatWindDir(context, courseOfDayList.get(position).getWindDirection()));
 
         if (courseOfDayList.get(position).getRainValue() == 0)

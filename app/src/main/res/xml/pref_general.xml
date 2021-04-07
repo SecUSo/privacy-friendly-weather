@@ -16,6 +16,13 @@
             android:key="distanceUnit"
             android:summary="@string/settings_summary_distance"
             android:title="@string/settings_title_distance" />
+        <ListPreference
+            android:defaultValue="6"
+            android:entries="@array/speedUnitsArray"
+            android:entryValues="@array/speedUnitsValues"
+            android:key="speedUnit"
+            android:summary="@string/settings_summary_speed"
+            android:title="@string/settings_title_speed" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_title_forecastChoice">

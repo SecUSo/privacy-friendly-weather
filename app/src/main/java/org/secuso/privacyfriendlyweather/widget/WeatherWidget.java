@@ -69,7 +69,7 @@ public class WeatherWidget extends AppWidgetProvider {
         Date setTime = new Date((weatherData.getTimeSunset() + zoneseconds) * 1000L);
         String sunSet = timeFormat.format(setTime);
 
-        String windSpeed = String.format("%s m/s", weatherData.getWindSpeed());
+        String windSpeed = prefManager.convertToCurrentSpeedUnit(weatherData.getWindSpeed());
 
         views.setTextViewText(R.id.widget_city_weather_temperature, temperature);
         views.setTextViewText(R.id.widget_city_weather_humidity, String.format("%s %%", (int) weatherData.getHumidity()));

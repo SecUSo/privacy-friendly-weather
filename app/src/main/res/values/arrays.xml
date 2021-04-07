@@ -19,6 +19,23 @@
         <item>2</item>
     </string-array>
 
+    <string-array name="speedUnitsValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string-array name="speedUnitsArray">
+        <item>@string/settings_kilometers_per_hour</item>
+        <item>@string/settings_meters_per_second</item>
+        <item>@string/settings_miles_per_hour</item>
+        <item>@string/settings_feet_per_second</item>
+        <item>@string/settings_knots</item>
+        <item>@string/settings_beaufort</item>
+    </string-array>
+
     <string-array name="refreshIntervalArray">
         <item>@string/settings_interval_one</item>
         <item>@string/settings_interval_two</item>
@@ -76,4 +93,11 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+
+    <string name="settings_kilometers_per_hour">Kilometers per hour</string>
+    <string name="settings_meters_per_second">Meters per second</string>
+    <string name="settings_miles_per_hour">Miles per hour</string>
+    <string name="settings_feet_per_second">Feet per second</string>
+    <string name="settings_knots">Knots</string>
+    <string name="settings_beaufort" translatable="false">Beaufort</string>
 </resources>

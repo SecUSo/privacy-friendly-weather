@@ -52,7 +52,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         holder.humidity.setText(StringFormatUtils.formatInt(dayValues[2], "%rh"));
         holder.precipitation.setText(StringFormatUtils.formatDecimal(dayValues[4], "mm"));
         holder.uv_index.setText(String.format("UV %s", StringFormatUtils.formatInt(Math.round(dayValues[7]))));
-        holder.wind_speed.setText(StringFormatUtils.formatWindSpeed(context, dayValues[5]));
+        holder.wind_speed.setText(prefManager.convertToCurrentSpeedUnit(dayValues[5]));
 
         Calendar c = Calendar.getInstance();
         c.setTimeZone(TimeZone.getTimeZone("GMT"));

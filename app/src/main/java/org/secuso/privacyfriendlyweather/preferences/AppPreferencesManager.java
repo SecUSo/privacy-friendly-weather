@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import org.secuso.privacyfriendlyweather.BuildConfig;
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 
 /**
  * This class provides access and methods for relevant preferences.
@@ -151,7 +152,45 @@ public class AppPreferencesManager {
         }
     }
 
-    public int get5dayWidgetInfo(){
+    /**
+     * @return Returns speed unit abbreviations
+     */
+    public String getSpeedUnit() {
+        int prefValue = Integer.parseInt(preferences.getString("speedUnit", "6"));
+        if (prefValue == 1) {
+            return "km/h";
+        } else if (prefValue == 2) {
+            return "m/s";
+        } else if (prefValue == 3) {
+            return "mph";
+        } else if (prefValue == 4) {
+            return "ft/s";
+        } else if (prefValue == 5) {
+            return "kn";
+        } else {
+            return "Bft";
+        }
+    }
+
+    public String convertToCurrentSpeedUnit(float speedInMetersPerSecond) {
+        int prefValue = Integer.parseInt(preferences.getString("speedUnit", "6"));
+        if (prefValue == 1) {
+            return StringFormatUtils.formatDecimal(speedInMetersPerSecond * 3.6f, "km/h");
+        } else if (prefValue == 2) {
+            return StringFormatUtils.formatDecimal(speedInMetersPerSecond, "m/s");
+        } else if (prefValue == 3) {
+            return StringFormatUtils.formatDecimal(speedInMetersPerSecond * 2.23694f, "mph");
+        } else if (prefValue == 4) {
+            return StringFormatUtils.formatDecimal(speedInMetersPerSecond * 3.28084f, "ft/s");
+        } else if (prefValue == 5) {
+            return StringFormatUtils.formatDecimal(speedInMetersPerSecond * 1.94384f, "kn");
+        } else {
+            return StringFormatUtils.formatWindToBeaufort(speedInMetersPerSecond);
+        }
+    }
+
+
+    public int get5dayWidgetInfo() {
         return Integer.parseInt(preferences.getString("widgetChoice1", "1"));
     }
 

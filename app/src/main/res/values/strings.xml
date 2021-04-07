@@ -260,6 +260,8 @@
     <string name="one_call_limit">Unfortunately, only 10 OneCallAPI requests with the shared key are possible per day.</string>
     <string name="api_key_not_accepted">The API key was not accepted. If you newly created it, it could take a couple of minutes to hours to register.</string>
     <string name="no_rain_data">No rain data available</string>
+    <string name="settings_title_speed">Speeds</string>
+    <string name="settings_summary_speed">Set the unit to use for displaying speeds</string>
 
 
 </resources>

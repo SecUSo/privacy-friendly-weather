@@ -44,7 +44,7 @@ public final class StringFormatUtils {
         return df.format(time);
     }
 
-    public static String formatWindSpeed(Context context, float wind_speed) {
+    public static String formatWindToBeaufort(float wind_speed) {
         if (wind_speed < 0.3) {
             return formatInt(0, "Bft"); // Calm
         } else if (wind_speed < 1.5) {

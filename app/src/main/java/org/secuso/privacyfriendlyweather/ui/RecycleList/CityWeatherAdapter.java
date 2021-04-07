@@ -624,6 +624,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.temperature.setText(StringFormatUtils.formatTemperature(context, currentWeatherDataList.getTemperatureCurrent()));
 
         } else if (viewHolder.getItemViewType() == DETAILS) {
+            AppPreferencesManager prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this.context));
 
             DetailViewHolder holder = (DetailViewHolder) viewHolder;
 
@@ -636,7 +637,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.time.setText(String.format("%s (%s)", context.getResources().getString(R.string.card_details_heading), dateFormat.format(updateTime)));
             holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), "%"));
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
-            holder.windspeed.setText(StringFormatUtils.formatWindSpeed(context, currentWeatherDataList.getWindSpeed()) + " " + StringFormatUtils.formatWindDir(context, currentWeatherDataList.getWindDirection()));
+            holder.windspeed.setText(prefManager.convertToCurrentSpeedUnit(currentWeatherDataList.getWindSpeed()) + " " + StringFormatUtils.formatWindDir(context, currentWeatherDataList.getWindDirection()));
             setRainDrops(holder.drops, holder.rain60min, currentWeatherDataList.getRain60min());
 
         } else if (viewHolder.getItemViewType() == WEEK) {
