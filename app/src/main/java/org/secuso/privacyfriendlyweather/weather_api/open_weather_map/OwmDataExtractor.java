@@ -455,11 +455,16 @@ public class OwmDataExtractor implements IDataExtractor {
             double rain5min = jsonData0.getDouble("precipitation") + jsonData1.getDouble("precipitation") + jsonData2.getDouble("precipitation") + jsonData3.getDouble("precipitation") + jsonData4.getDouble("precipitation");
             if (rain5min == 0) {
                 rain = "0";
-            } else if (rain5min < 12.5) {  //light rain equals <2.5mm/h (12.5 = 5 x 2.5)
+            } else if (rain5min < 0.2083) {  //light rain equals <2.5mm/h (2.5/12= 0.2083)
                 rain = "1";
-            } else {
+            } else if (rain5min < 0.8333) { //moderate rain equals 2.5<x<10mm/h
                 rain = "2";
+            } else if (rain5min < 4.1667) { //heavy rain between 10 and 50mm/h
+                rain = "3";
+            } else {
+                rain = "4";
             }
+
 
             return rain;
         } catch (JSONException e) {

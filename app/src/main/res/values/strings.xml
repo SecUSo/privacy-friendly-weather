@@ -262,6 +262,7 @@
     <string name="no_rain_data">No rain data available</string>
     <string name="settings_title_speed">Speeds</string>
     <string name="settings_summary_speed">Set the unit to use for displaying speeds</string>
+    <string name="rain60min_text2">9:05</string>
 
 
 </resources>

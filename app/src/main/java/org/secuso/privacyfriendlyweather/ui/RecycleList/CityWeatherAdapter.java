@@ -505,6 +505,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView rain60min;
         TextView time;
         ImageView[] drops;
+        TextView rainStartTime;
+        TextView rainEndTime;
         private final int[] imageIds = {R.id.activity_city_weather_rain_image1,
                 R.id.activity_city_weather_rain_image2, R.id.activity_city_weather_rain_image3,
                 R.id.activity_city_weather_rain_image4, R.id.activity_city_weather_rain_image5,
@@ -520,6 +522,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             this.windspeed = v.findViewById(R.id.activity_city_weather_tv_wind_speed_value);
             this.rain60min = v.findViewById(R.id.activity_city_weather_tv_rain60min_text);
             this.time = v.findViewById(R.id.activity_city_weather_title);
+            this.rainStartTime = v.findViewById(R.id.activity_city_weather_tv_rain60min_text);
+            this.rainEndTime = v.findViewById(R.id.activity_city_weather_tv_rain60min_text2);
             drops = new ImageView[12];
             for (int i = 0; i < 12; i++) {
                 drops[i] = v.findViewById(imageIds[i]);
@@ -639,6 +643,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
             holder.windspeed.setText(prefManager.convertToCurrentSpeedUnit(currentWeatherDataList.getWindSpeed()) + " " + StringFormatUtils.formatWindDir(context, currentWeatherDataList.getWindDirection()));
             setRainDrops(holder.drops, holder.rain60min, currentWeatherDataList.getRain60min());
+            holder.rainStartTime.setText(String.format("%s", dateFormat.format(updateTime)));
+            updateTime.setTime(updateTime.getTime() + 3600000);
+            holder.rainEndTime.setText(String.format("%s", dateFormat.format(updateTime)));
 
         } else if (viewHolder.getItemViewType() == WEEK) {
 
@@ -790,9 +797,13 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                 if (rain60min.charAt(i) == '0') {
                     view.setImageResource(R.drawable.emptydrop);
                 } else if (rain60min.charAt(i) == '1') {
-                    view.setImageResource(R.drawable.halfdrop);
+                    view.setImageResource(R.drawable.quarterdrop);
                 } else if (rain60min.charAt(i) == '2') {
+                    view.setImageResource(R.drawable.halfdrop);
+                } else if (rain60min.charAt(i) == '3') {
                     view.setImageResource(R.drawable.fulldrop);
+                } else if (rain60min.charAt(i) == '4') {
+                    view.setImageResource(R.drawable.violentdrop);
                 }
                 view.setVisibility(View.VISIBLE);
                 i++;
