@@ -73,6 +73,10 @@ public class AppPreferencesManager {
         }
     }
 
+    public boolean is3hourForecastSet() {
+        return 2 == Integer.parseInt(preferences.getString("forecastChoice", "1"));
+    }
+
     /**
      * This method converts a given distance value into the unit that was set in the preferences.
      *

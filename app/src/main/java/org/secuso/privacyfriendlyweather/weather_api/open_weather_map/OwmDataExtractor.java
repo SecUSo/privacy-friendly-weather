@@ -376,6 +376,10 @@ public class OwmDataExtractor implements IDataExtractor {
                 forecast.setPrecipitation(forecast.getPrecipitation() + (float) jsonData.getDouble("snow"));
             }
 
+            if (!jsonData.isNull("pop")) {
+                forecast.setRain_probability((float) jsonData.getDouble("pop") * 100);
+            }
+
             return forecast;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -429,6 +433,11 @@ public class OwmDataExtractor implements IDataExtractor {
                 if (!jsonSnow.isNull("1h")) {
                     forecast.setRainValue(forecast.getRainValue() + (float) jsonSnow.getDouble("1h"));
                 }
+            }
+
+            //add rain probability
+            if (!jsonData.isNull("pop")) {
+                forecast.setRainProbability((float) jsonData.getDouble("pop") * 100);
             }
 
             return forecast;

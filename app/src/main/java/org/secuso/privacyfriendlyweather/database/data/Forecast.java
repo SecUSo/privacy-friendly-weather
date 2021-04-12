@@ -35,13 +35,18 @@ public class Forecast {
     @ColumnInfo(name = "pressure") private float pressure;
     @ColumnInfo(name = "wind_speed") private float windSpeed;
     @ColumnInfo(name = "wind_direction") private float windDirection;
-    @ColumnInfo(name = "precipitation") private float rainValue;
-    @Embedded private City city;
+    @ColumnInfo(name = "precipitation")
+    private float rainValue;
+    @ColumnInfo(name = "rain_probability")
+    private float rainProbability;
+    @Embedded
+    private City city;
 
     public Forecast() { }
 
-    @Ignore public Forecast(int id, int city_id, long timestamp, long forecastFor, int weatherID, float temperature, float humidity,
-                    float pressure, float windSpeed, float windDirection, float rainValue) {
+    @Ignore
+    public Forecast(int id, int city_id, long timestamp, long forecastFor, int weatherID, float temperature, float humidity,
+                    float pressure, float windSpeed, float windDirection, float rainValue, float rainProbability) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
@@ -53,6 +58,7 @@ public class Forecast {
         this.windSpeed = windSpeed;
         this.windDirection = windDirection;
         this.rainValue = rainValue;
+        this.rainProbability = rainProbability;
     }
 
     public float getWindDirection() {
@@ -204,6 +210,14 @@ public class Forecast {
 
     public void setRainValue(float RainValue) {
         rainValue = RainValue;
+    }
+
+    public float getRainProbability() {
+        return rainProbability;
+    }
+
+    public void setRainProbability(float rainProbability) {
+        this.rainProbability = rainProbability;
     }
 
     public City getCity() {

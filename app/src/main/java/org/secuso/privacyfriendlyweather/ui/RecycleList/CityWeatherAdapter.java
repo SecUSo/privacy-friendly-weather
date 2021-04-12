@@ -110,24 +110,24 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         AppDatabase dbHelper = AppDatabase.getInstance(context.getApplicationContext());
         int zonemilliseconds = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
 
-        //temp max 0, temp min 1, humidity 2, pressure 3, precipitation 4, wind 5, wind direction 6, uv_index 7, time 8, weather ID 9, number of FCs for day 10
-        float[] today = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        //temp max 0, temp min 1, humidity 2, pressure 3, precipitation 4, wind 5, wind direction 6, uv_index 7, time 8, weather ID 9, number of FCs for day 10, rain probability 11
+        float[] today = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         LinkedList<Integer> todayIDs = new LinkedList<>();
-        float[] tomorrow = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        float[] tomorrow = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         LinkedList<Integer> tomorrowIDs = new LinkedList<>();
-        float[] in2days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        float[] in2days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         LinkedList<Integer> in2daysIDs = new LinkedList<>();
-        float[] in3days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        float[] in3days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         LinkedList<Integer> in3daysIDs = new LinkedList<>();
-        float[] in4days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        float[] in4days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         LinkedList<Integer> in4daysIDs = new LinkedList<>();
-        float[] in5days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        float[] in5days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         LinkedList<Integer> in5daysIDs = new LinkedList<>();
-        float[] in6days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        float[] in6days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         LinkedList<Integer> in6daysIDs = new LinkedList<>();
-        float[] in7days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        float[] in7days = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         LinkedList<Integer> in7daysIDs = new LinkedList<>();
-        float[] empty = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};  //last field is not displayed otherwise
+        float[] empty = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};  //last field is not displayed otherwise
         LinkedList<Integer> emptyIDs = new LinkedList<>();
 
         forecastData = new float[][]{today, tomorrow, in2days, in3days, in4days, in5days, in6days, in7days, empty};
@@ -143,6 +143,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         today[8] = forecasts.get(0).getForecastTime() + zonemilliseconds;
         today[9] = forecasts.get(0).getWeatherID();
         today[10] = 1;
+        today[11] = forecasts.get(0).getRain_probability();
 
         tomorrow[0] = forecasts.get(1).getMaxTemperature();
         tomorrow[1] = forecasts.get(1).getMinTemperature();
@@ -155,6 +156,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         tomorrow[8] = forecasts.get(1).getForecastTime() + zonemilliseconds;
         tomorrow[9] = forecasts.get(1).getWeatherID();
         tomorrow[10] = 1;
+        tomorrow[11] = forecasts.get(1).getRain_probability();
+
 
         in2days[0] = forecasts.get(2).getMaxTemperature();
         in2days[1] = forecasts.get(2).getMinTemperature();
@@ -167,6 +170,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         in2days[8] = forecasts.get(2).getForecastTime() + zonemilliseconds;
         in2days[9] = forecasts.get(2).getWeatherID();
         in2days[10] = 1;
+        in2days[11] = forecasts.get(2).getRain_probability();
+
 
         in3days[0] = forecasts.get(3).getMaxTemperature();
         in3days[1] = forecasts.get(3).getMinTemperature();
@@ -179,6 +184,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         in3days[8] = forecasts.get(3).getForecastTime() + zonemilliseconds;
         in3days[9] = forecasts.get(3).getWeatherID();
         in3days[10] = 1;
+        in3days[11] = forecasts.get(3).getRain_probability();
+
 
         in4days[0] = forecasts.get(4).getMaxTemperature();
         in4days[1] = forecasts.get(4).getMinTemperature();
@@ -191,6 +198,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         in4days[8] = forecasts.get(4).getForecastTime() + zonemilliseconds;
         in4days[9] = forecasts.get(4).getWeatherID();
         in4days[10] = 1;
+        in4days[11] = forecasts.get(4).getRain_probability();
+
 
         in5days[0] = forecasts.get(5).getMaxTemperature();
         in5days[1] = forecasts.get(5).getMinTemperature();
@@ -203,6 +212,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         in5days[8] = forecasts.get(5).getForecastTime() + zonemilliseconds;
         in5days[9] = forecasts.get(5).getWeatherID();
         in5days[10] = 1;
+        in5days[11] = forecasts.get(5).getRain_probability();
+
 
         in6days[0] = forecasts.get(6).getMaxTemperature();
         in6days[1] = forecasts.get(6).getMinTemperature();
@@ -215,6 +226,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         in6days[8] = forecasts.get(6).getForecastTime() + zonemilliseconds;
         in6days[9] = forecasts.get(6).getWeatherID();
         in6days[10] = 1;
+        in6days[11] = forecasts.get(6).getRain_probability();
+
 
         in7days[0] = forecasts.get(7).getMaxTemperature();
         in7days[1] = forecasts.get(7).getMinTemperature();
@@ -227,6 +240,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         in7days[8] = forecasts.get(7).getForecastTime() + zonemilliseconds;
         in7days[9] = forecasts.get(7).getWeatherID();
         in7days[10] = 1;
+        in7days[11] = forecasts.get(7).getRain_probability();
+
 
         notifyDataSetChanged();
     }

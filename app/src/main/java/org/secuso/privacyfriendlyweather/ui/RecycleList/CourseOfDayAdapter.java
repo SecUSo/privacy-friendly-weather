@@ -115,6 +115,13 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         holder.wind_speed.setText(prefManager.convertToCurrentSpeedUnit(courseOfDayList.get(position).getWindSpeed()));
         holder.wind_direction.setText(StringFormatUtils.formatWindDir(context, courseOfDayList.get(position).getWindDirection()));
 
+        if (prefManager.is3hourForecastSet()) {
+            holder.rain_probability.setVisibility(View.GONE);
+        } else {
+            holder.rain_probability.setText(StringFormatUtils.formatInt(courseOfDayList.get(position).getRainProbability(), "%\uD83D\uDCA7"));
+            holder.rain_probability.setVisibility(View.VISIBLE);
+        }
+
         if (courseOfDayList.get(position).getRainValue() == 0)
             holder.precipitation.setText("-");
         else
@@ -148,6 +155,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         TextView temperature;
         TextView humidity;
         TextView precipitation;
+        TextView rain_probability;
         TextView wind_speed;
         TextView wind_direction;
 
@@ -159,6 +167,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
             temperature = itemView.findViewById(R.id.course_of_day_temperature);
             humidity = itemView.findViewById(R.id.course_of_day_humidity);
             precipitation = itemView.findViewById(R.id.course_of_day_precipitation);
+            rain_probability = itemView.findViewById(R.id.course_of_day_rain_probability);
             wind_speed = itemView.findViewById(R.id.course_of_day_wind_speed);
             wind_direction = itemView.findViewById(R.id.course_of_day_wind_direction);
 

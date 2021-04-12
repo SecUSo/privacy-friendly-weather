@@ -30,6 +30,7 @@ import org.secuso.privacyfriendlyweather.database.migration.Migration_2_3;
 import org.secuso.privacyfriendlyweather.database.migration.Migration_3_4;
 import org.secuso.privacyfriendlyweather.database.migration.Migration_4_5;
 import org.secuso.privacyfriendlyweather.database.migration.Migration_5_6;
+import org.secuso.privacyfriendlyweather.database.migration.Migration_6_7;
 import org.secuso.privacyfriendlyweather.files.FileReader;
 
 import java.io.IOException;
@@ -42,7 +43,7 @@ import java.util.List;
 @Database(entities = {City.class, CityToWatch.class, CurrentWeatherData.class, Forecast.class, WeekForecast.class}, version = AppDatabase.VERSION)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DB_NAME = "PF_WEATHER_DB.db";
-    static final int VERSION = 6;
+    static final int VERSION = 7;
     static final String TAG = AppDatabase.class.getSimpleName();
 
     // DAOs
@@ -69,7 +70,8 @@ public abstract class AppDatabase extends RoomDatabase {
                 new Migration_2_3(),
                 new Migration_3_4(),
                 new Migration_4_5(),
-                new Migration_5_6()
+                new Migration_5_6(),
+                new Migration_6_7()
                 // Add new migrations here
         };
 

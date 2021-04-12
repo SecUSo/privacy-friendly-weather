@@ -51,6 +51,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         setIcon((int) dayValues[9], holder.weather);
         holder.humidity.setText(StringFormatUtils.formatInt(dayValues[2], "%rh"));
         holder.precipitation.setText(StringFormatUtils.formatDecimal(dayValues[4], "mm"));
+        holder.rain_probability.setText(StringFormatUtils.formatInt(dayValues[11], "%\uD83D\uDCA7"));
         holder.uv_index.setText(String.format("UV %s", StringFormatUtils.formatInt(Math.round(dayValues[7]))));
         holder.wind_speed.setText(prefManager.convertToCurrentSpeedUnit(dayValues[5]));
 
@@ -78,6 +79,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         TextView humidity;
         TextView wind_speed;
         TextView precipitation;
+        TextView rain_probability;
         TextView uv_index;
 
         WeekForecastViewHolder(View itemView) {
@@ -92,6 +94,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
             humidity = itemView.findViewById(R.id.week_forecast_humidity);
             wind_speed = itemView.findViewById(R.id.week_forecast_wind_speed);
             precipitation = itemView.findViewById(R.id.week_forecast_precipitation);
+            rain_probability = itemView.findViewById(R.id.week_forecast_rain_probability);
             uv_index = itemView.findViewById(R.id.week_forecast_uv_index);
         }
     }

@@ -45,6 +45,8 @@ public class WeekForecast {
     private float pressure;
     @ColumnInfo(name = "precipitation")
     private float precipitation;
+    @ColumnInfo(name = "rain_probability")
+    private float rain_probability;
     @ColumnInfo(name = "wind_speed")
     private float wind_speed;
     @ColumnInfo(name = "wind_direction")
@@ -58,7 +60,7 @@ public class WeekForecast {
     }
 
     @Ignore
-    public WeekForecast(int id, int city_id, long timestamp, long forecastTime, int weatherID, float temperature, float temperature_min, float temperature_max, float humidity, float pressure, float precipitation, float wind_speed, float wind_direction, float uv_index) {
+    public WeekForecast(int id, int city_id, long timestamp, long forecastTime, int weatherID, float temperature, float temperature_min, float temperature_max, float humidity, float pressure, float precipitation, float wind_speed, float wind_direction, float uv_index, float rain_probability) {
         this.id = id;
         this.city_id = city_id;
         this.timestamp = timestamp;
@@ -73,6 +75,7 @@ public class WeekForecast {
         this.wind_speed = wind_speed;
         this.wind_direction = wind_direction;
         this.uv_index = uv_index;
+        this.rain_probability = rain_probability;
     }
 
 
@@ -268,5 +271,11 @@ public class WeekForecast {
         this.city = city;
     }
 
+    public float getRain_probability() {
+        return rain_probability;
+    }
 
+    public void setRain_probability(float rain_probability) {
+        this.rain_probability = rain_probability;
+    }
 }
