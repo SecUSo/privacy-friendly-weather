@@ -27,147 +27,152 @@
             android:layout_height="1dp"
             android:background="@color/white" />
 
-
-        <GridLayout
-            android:id="@+id/activity_city_weather_rain_grid"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
+        <HorizontalScrollView
             android:layout_marginLeft="10dp"
-            android:layout_gravity="left"
-            android:layout_marginTop="5dp"
-            android:columnCount="14"
-            android:orientation="vertical">
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:fillViewport="true"
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_rain60min_text"
+            <GridLayout
+                android:id="@+id/activity_city_weather_rain_grid"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_row="0"
-                android:text="@string/rain60min_text"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image1"
-                android:layout_width="18dp"
                 android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="1"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
 
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image2"
-                android:layout_width="18dp"
-                android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="2"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:columnCount="14"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image3"
-                android:layout_width="18dp"
-                android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="3"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_rain60min_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:text="@string/rain60min_text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimaryDark" />
 
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image4"
-                android:layout_width="18dp"
-                android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="4"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image1"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
 
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image5"
-                android:layout_width="18dp"
-                android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="5"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image2"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="2"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
 
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image6"
-                android:layout_width="18dp"
-                android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="6"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image3"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="3"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
 
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image7"
-                android:layout_width="18dp"
-                android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="7"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image4"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="4"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
 
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image8"
-                android:layout_width="18dp"
-                android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="8"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image5"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="5"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
 
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image9"
-                android:layout_width="18dp"
-                android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="9"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image6"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="6"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
 
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image10"
-                android:layout_width="18dp"
-                android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="10"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image7"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="7"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
 
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image11"
-                android:layout_width="18dp"
-                android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="11"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image8"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="8"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
 
-            <ImageView
-                android:id="@+id/activity_city_weather_rain_image12"
-                android:layout_width="18dp"
-                android:layout_height="25dp"
-                android:layout_row="0"
-                android:layout_column="12"
-                android:scaleType="centerInside"
-                android:src="@drawable/emptydrop" />
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image9"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="9"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
 
-            <TextView
-                android:id="@+id/activity_city_weather_tv_rain60min_text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="13"
-                android:layout_row="0"
-                android:text="@string/rain60min_text2"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimaryDark" />
-        </GridLayout>
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image10"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="10"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
 
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image11"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="11"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
 
+                <ImageView
+                    android:id="@+id/activity_city_weather_rain_image12"
+                    android:layout_width="18dp"
+                    android:layout_height="25dp"
+                    android:layout_row="0"
+                    android:layout_column="12"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emptydrop" />
+
+                <TextView
+                    android:id="@+id/activity_city_weather_tv_rain60min_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="13"
+                    android:layout_row="0"
+                    android:text="@string/rain60min_text2"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimaryDark" />
+            </GridLayout>
+        </HorizontalScrollView>
         <GridLayout
             android:id="@+id/activity_city_weather_content_layout"
             android:layout_width="wrap_content"
