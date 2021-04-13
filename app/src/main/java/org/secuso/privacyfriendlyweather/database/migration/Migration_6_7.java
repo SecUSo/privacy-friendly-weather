@@ -19,7 +19,7 @@ public class Migration_6_7 extends Migration {
     @Override
     public void migrate(@NonNull SupportSQLiteDatabase database) {
         // Cities
-        database.execSQL("ALTER TABLE FORECASTS ADD COLUMN rain_probability REAL DEFAULT 0;");
-        database.execSQL("ALTER TABLE WEEKFORECASTS ADD COLUMN rain_probability REAL DEFAULT 0;");
+        database.execSQL("ALTER TABLE FORECASTS ADD COLUMN rain_probability REAL NOT NULL DEFAULT 0;");
+        database.execSQL("ALTER TABLE WEEKFORECASTS ADD COLUMN rain_probability REAL NOT NULL DEFAULT 0;");
     }
 }
