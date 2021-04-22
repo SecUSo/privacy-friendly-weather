@@ -84,9 +84,9 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
         //select extra information to display from settings
         int extraInfo = prefManager.get3dayWidgetInfo1();
         if (extraInfo == 1) {
-            extra11 = String.format("%s ml  ", (int) data[0][7]);
-            extra12 = String.format("%s ml  ", (int) data[1][7]);
-            extra13 = String.format("%s ml  ", (int) data[2][7]);
+            extra11 = String.format("%s mm  ", (int) data[0][7]);
+            extra12 = String.format("%s mm  ", (int) data[1][7]);
+            extra13 = String.format("%s mm  ", (int) data[2][7]);
         } else if (extraInfo == 2) {
             //wind max & min
             extra11 = prefManager.convertToCurrentSpeedUnit(data[0][5]);
@@ -104,9 +104,9 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
         //select extra information to display from settings
         int extra2Info = prefManager.get3dayWidgetInfo2();
         if (extra2Info == 1) {
-            extra21 = String.format("%s ml", (int) data[0][7]);
-            extra22 = String.format("%s ml", (int) data[1][7]);
-            extra23 = String.format("%s ml", (int) data[2][7]);
+            extra21 = String.format("%s mm", (int) data[0][7]);
+            extra22 = String.format("%s mm", (int) data[1][7]);
+            extra23 = String.format("%s mm", (int) data[2][7]);
         } else if (extra2Info == 2) {
             //wind max & min
             extra21 = String.format("%sm/s", (int) data[0][5]);
