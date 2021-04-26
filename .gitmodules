@@ -1,3 +1,4 @@
 [submodule "libs"]
 	path = libs
 	url = https://github.com/SecUSo/privacy-friendly-backup-api.git
+	branch = master
