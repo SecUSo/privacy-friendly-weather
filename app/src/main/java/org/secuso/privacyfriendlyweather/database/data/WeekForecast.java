@@ -12,9 +12,11 @@ import androidx.room.RoomWarnings;
 
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 
-//WeekForecasts have their own primary key | Parents (cities) are never changed (unless in a large migration event) and child tables are small -> index not necessary
+//WeekForecasts have their own primary key
+// Parents (cities) are never changed (unless in a large migration event) and child tables are small -> index not necessary
+//Dropped index not a problem, table is small anyway and integrated cities from parent table are few as well
 @SuppressWarnings({RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED,
-        RoomWarnings.MISSING_INDEX_ON_FOREIGN_KEY_CHILD})
+        RoomWarnings.MISSING_INDEX_ON_FOREIGN_KEY_CHILD, RoomWarnings.INDEX_FROM_EMBEDDED_FIELD_IS_DROPPED})
 
 /**
  * This class is the database model for the Weekforecasts table.
