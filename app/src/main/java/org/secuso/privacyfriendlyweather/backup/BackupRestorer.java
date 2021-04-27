@@ -67,6 +67,7 @@ public class BackupRestorer implements IBackupRestorer {
                 case "widgetChoice1":
                 case "widgetChoice2":
                 case "widgetChoice3":
+                case "widgetChoice4":
                 case "distanceUnit":
                 case "temperatureUnit":
                 case "API_key_value":

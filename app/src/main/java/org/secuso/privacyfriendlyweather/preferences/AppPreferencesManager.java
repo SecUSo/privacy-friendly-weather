@@ -193,6 +193,9 @@ public class AppPreferencesManager {
         }
     }
 
+    public int get1dayWidgetInfo() {
+        return Integer.parseInt(preferences.getString("widgetChoice4", "1"));
+    }
 
     public int get5dayWidgetInfo() {
         return Integer.parseInt(preferences.getString("widgetChoice1", "1"));
@@ -264,4 +267,6 @@ public class AppPreferencesManager {
         }
 
     }
+
+
 }

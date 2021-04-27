@@ -263,6 +263,13 @@
     <string name="settings_title_speed">Speeds</string>
     <string name="settings_summary_speed">Set the unit to use for displaying speeds</string>
     <string name="rain60min_text2">9:05</string>
+    <string name="onedaywidgetchoice">Set the additional value for the one day forecast widget.</string>
+    <string name="onedaywidget">1-day widget</string>
+    <string name="_6_am">6 am</string>
+    <string name="_10am">10 am</string>
+    <string name="_2pm">2 pm</string>
+    <string name="_6pm">6 pm</string>
+    <string name="_10pm">10 pm</string>
 
 
 </resources>

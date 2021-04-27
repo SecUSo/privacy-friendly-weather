@@ -30,11 +30,14 @@ import org.secuso.privacyfriendlyweather.weather_api.IDataExtractor;
 import org.secuso.privacyfriendlyweather.weather_api.IProcessHttpRequest;
 import org.secuso.privacyfriendlyweather.widget.WeatherWidget;
 import org.secuso.privacyfriendlyweather.widget.WeatherWidgetFiveDayForecast;
+import org.secuso.privacyfriendlyweather.widget.WeatherWidgetOneDayForecast;
 import org.secuso.privacyfriendlyweather.widget.WeatherWidgetThreeDayForecast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * This class processes the HTTP requests that are made to the OpenWeatherMap API requesting the
@@ -148,39 +151,36 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
             }
 
             ViewUpdater.updateWeekForecasts(weekforecasts);
-            possiblyUpdateWidgets(cityId, weekforecasts, weatherData);
 
 
-            //Use hourly data only if forecastChoice 1 (1h) is active
-            SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-            int choice = Integer.parseInt(prefManager.getString("forecastChoice", "1"));
-            if (choice == 1) {
-                JSONArray listhourly = json.getJSONArray("hourly");
 
-                dbHelper.forecastDao().deleteForecastsByCityId(cityId);
-                List<Forecast> hourlyforecasts = new ArrayList<>();
+            JSONArray listhourly = json.getJSONArray("hourly");
 
-                for (int i = 0; i < listhourly.length(); i++) {
-                    String currentItem = listhourly.get(i).toString();
-                    Forecast forecast = extractor.extractHourlyForecast(currentItem);
-                    // Data were not well-formed, abort
-                    if (forecast == null) {
-                        final String ERROR_MSG = context.getResources().getString(R.string.convert_to_json_error);
-                        Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    // Could retrieve all data, so proceed
-                    else {
-                        forecast.setCity_id(cityId);
-                        // add it to the database
-                        dbHelper.forecastDao().addForecast(forecast);
-                        hourlyforecasts.add(forecast);
-                    }
+            dbHelper.forecastDao().deleteForecastsByCityId(cityId);
+            List<Forecast> hourlyforecasts = new ArrayList<>();
+
+            for (int i = 0; i < listhourly.length(); i++) {
+                String currentItem = listhourly.get(i).toString();
+                Forecast forecast = extractor.extractHourlyForecast(currentItem);
+                // Data were not well-formed, abort
+                if (forecast == null) {
+                    final String ERROR_MSG = context.getResources().getString(R.string.convert_to_json_error);
+                    Toast.makeText(context, ERROR_MSG, Toast.LENGTH_LONG).show();
+                    return;
                 }
-
-                ViewUpdater.updateForecasts(hourlyforecasts);
-
+                // Could retrieve all data, so proceed
+                else {
+                    forecast.setCity_id(cityId);
+                    // add it to the database
+                    dbHelper.forecastDao().addForecast(forecast);
+                    hourlyforecasts.add(forecast);
+                }
             }
+
+            ViewUpdater.updateForecasts(hourlyforecasts);
+
+            possiblyUpdateWidgets(cityId, weekforecasts, weatherData, hourlyforecasts);
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -227,7 +227,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
     }
 
 
-    private void possiblyUpdateWidgets(int cityID, List<WeekForecast> weeklyForecasts, CurrentWeatherData currentWeather) {
+    private void possiblyUpdateWidgets(int cityID, List<WeekForecast> weeklyForecasts, CurrentWeatherData currentWeather, List<Forecast> hourlyforecasts) {
         //search for 1 Day widgets with same city ID
         int[] ids1day = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
         SharedPreferences prefs1 = context.getSharedPreferences(WeatherWidget.PREFS_NAME, 0);
@@ -238,7 +238,20 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                 Log.d("debugtag", "found 1 day widget to update with data: " + cityID + " with widgetID " + widgetID);
 
                 RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
-                updateWidget(widgetID, cityID, views, 1, weeklyForecasts, currentWeather);
+                updateWidget(widgetID, cityID, views, 1, weeklyForecasts, currentWeather, hourlyforecasts);
+            }
+        }
+
+        int[] ids1dayForecast = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherWidgetOneDayForecast.class));
+        SharedPreferences prefs1f = context.getSharedPreferences(WeatherWidgetOneDayForecast.PREFS_NAME, 0);
+        for (int widgetID : ids1dayForecast) {
+            //check if city ID is same
+            if (cityID == prefs1f.getInt(WeatherWidget.PREF_PREFIX_KEY + widgetID, -1)) {
+                //perform update for the widget
+                Log.d("debugtag", "found 1 day forecast widget to update with data: " + cityID + " with widgetID " + widgetID);
+
+                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_1day_widget);
+                updateWidget(widgetID, cityID, views, 2, weeklyForecasts, currentWeather, hourlyforecasts);
             }
         }
 
@@ -251,7 +264,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                 Log.d("debugtag", "found 3 day widget to update with data: " + cityID + " with widgetID " + widgetID);
 
                 RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_3day_widget);
-                updateWidget(widgetID, cityID, views, 3, weeklyForecasts, currentWeather);
+                updateWidget(widgetID, cityID, views, 3, weeklyForecasts, currentWeather, hourlyforecasts);
             }
         }
 
@@ -264,14 +277,14 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                 Log.d("debugtag", "found 5 day widget to update with data: " + cityID + " with widgetID " + widgetID);
 
                 RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_5day_widget);
-                updateWidget(widgetID, cityID, views, 5, weeklyForecasts, currentWeather);
+                updateWidget(widgetID, cityID, views, 5, weeklyForecasts, currentWeather, hourlyforecasts);
             }
         }
 
     }
 
 
-    private void updateWidget(int widgetId, int cityId, RemoteViews views, int widgetType, List<WeekForecast> weekForecasts, CurrentWeatherData weatherData) {
+    private void updateWidget(int widgetId, int cityId, RemoteViews views, int widgetType, List<WeekForecast> weekForecasts, CurrentWeatherData weatherData, List<Forecast> hourlyforecasts) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
         City city = dbHelper.cityDao().getCityById(cityId);
@@ -280,7 +293,11 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
         if (widgetType == 1) {
             WeatherWidget.updateView(context, appWidgetManager, views, widgetId, city, weatherData);
 
-        } else {
+        } else if(widgetType == 2) {
+            float[][] dayData = shapeOneDayData(hourlyforecasts);
+            WeatherWidgetOneDayForecast.updateView(context, appWidgetManager, views, widgetId, dayData, city, hourlyforecasts.get(0).getTimestamp()+weatherData.getTimeZoneSeconds()*1000L);
+
+        } else{
             float[][] data = shapeWeekForecastForWidgets(weekForecasts);
 
             if (widgetType == 3) {
@@ -293,6 +310,67 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
 
         appWidgetManager.updateAppWidget(widgetId, views);
 
+    }
+
+    private float[][] shapeOneDayData(List<Forecast> hourlyforecasts) {
+        //time, temperature, humidity, wind, precipitation, weatherID
+        float[] data6am = {0, 0, 0, 0, 0, 0};
+        float[] data10am = {0, 0, 0, 0, 0, 0};
+        float[] data2pm = {0, 0, 0, 0, 0, 0};
+        float[] data6pm = {0, 0, 0, 0, 0, 0};
+        float[] data10pm = {0, 0, 0, 0, 0, 0};
+
+        int cityId = hourlyforecasts.get(0).getCity_id();
+        int zonemilliseconds = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(cityId).getTimeZoneSeconds() * 1000;
+
+        int i = 0;
+        for (Forecast forecast : hourlyforecasts){
+            ++i;
+            if(i>23) break;
+
+            Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            c.setTimeInMillis(forecast.getLocalForecastTime(context));
+            switch (c.get(Calendar.HOUR_OF_DAY)){
+                case 6:
+                    data6am[0] = forecast.getLocalForecastTime(context);
+                    data6am[1] = forecast.getTemperature();
+                    data6am[2] = forecast.getHumidity();
+                    data6am[3] = forecast.getWindSpeed();
+                    data6am[4] = forecast.getRainValue();
+                    data6am[5] = forecast.getWeatherID();
+                case 10:
+                    data10am[0] = forecast.getLocalForecastTime(context);
+                    data10am[1] = forecast.getTemperature();
+                    data10am[2] = forecast.getHumidity();
+                    data10am[3] = forecast.getWindSpeed();
+                    data10am[4] = forecast.getRainValue();
+                    data10am[5] = forecast.getWeatherID();
+                case 14:
+                    data2pm[0] = forecast.getLocalForecastTime(context);
+                    data2pm[1] = forecast.getTemperature();
+                    data2pm[2] = forecast.getHumidity();
+                    data2pm[3] = forecast.getWindSpeed();
+                    data2pm[4] = forecast.getRainValue();
+                    data2pm[5] = forecast.getWeatherID();
+                case 18:
+                    data6pm[0] = forecast.getLocalForecastTime(context);
+                    data6pm[1] = forecast.getTemperature();
+                    data6pm[2] = forecast.getHumidity();
+                    data6pm[3] = forecast.getWindSpeed();
+                    data6pm[4] = forecast.getRainValue();
+                    data6pm[5] = forecast.getWeatherID();
+                case 22:
+                    data10pm[0] = forecast.getLocalForecastTime(context);
+                    data10pm[1] = forecast.getTemperature();
+                    data10pm[2] = forecast.getHumidity();
+                    data10pm[3] = forecast.getWindSpeed();
+                    data10pm[4] = forecast.getRainValue();
+                    data10pm[5] = forecast.getWeatherID();
+                default:
+                    continue;
+            }
+        }
+        return new float[][]{data6am, data10am, data2pm, data6pm, data10pm};
     }
 
     // function for week forecast list

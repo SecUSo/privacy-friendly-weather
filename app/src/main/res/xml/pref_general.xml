@@ -69,6 +69,14 @@
             android:key="widgetChoice3"
             android:summary="@string/threedaywidgetchoice_two"
             android:title="@string/threedaywidget_second" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/widgetChoiceArray"
+            android:entryValues="@array/widgetChoiceValues"
+            android:key="widgetChoice4"
+            android:summary="@string/onedaywidgetchoice"
+            android:title="@string/onedaywidget" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_title_API">
