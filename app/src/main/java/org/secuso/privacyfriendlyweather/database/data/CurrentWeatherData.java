@@ -5,6 +5,12 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.RoomWarnings;
+
+
+//CurrentWeathers have their own primary key | Parents (cities) are never changed (unless in a large migration event) and child tables are small -> index not necessary
+@SuppressWarnings({RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED,
+        RoomWarnings.MISSING_INDEX_ON_FOREIGN_KEY_CHILD})
 
 /**
  * This class represents the database model for current weather data of cities.
