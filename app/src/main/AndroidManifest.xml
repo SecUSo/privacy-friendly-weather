@@ -115,6 +115,14 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/weather_widget_5day_info" />
         </receiver>
+        <receiver android:name=".widget.WeatherWidgetOneDayForecast">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/weather_widget_1day_info" />
+        </receiver>
 
         <activity android:name=".widget.WeatherWidgetConfigureActivity">
             <intent-filter>
@@ -127,6 +135,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".widget.WeatherWidgetFiveDayForecastConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".widget.WeatherWidgetOneDayForecastConfigureActivity">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
