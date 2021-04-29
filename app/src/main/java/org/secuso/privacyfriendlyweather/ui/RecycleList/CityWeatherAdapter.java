@@ -20,6 +20,7 @@ import com.db.chart.view.AxisController;
 import com.db.chart.view.BarChartView;
 import com.db.chart.view.LineChartView;
 
+import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
@@ -517,7 +518,6 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         TextView humidity;
         TextView pressure;
         TextView windspeed;
-        TextView rain60min;
         TextView time;
         ImageView[] drops;
         TextView rainStartTime;
@@ -535,7 +535,6 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             this.humidity = v.findViewById(R.id.activity_city_weather_tv_humidity_value);
             this.pressure = v.findViewById(R.id.activity_city_weather_tv_pressure_value);
             this.windspeed = v.findViewById(R.id.activity_city_weather_tv_wind_speed_value);
-            this.rain60min = v.findViewById(R.id.activity_city_weather_tv_rain60min_text);
             this.time = v.findViewById(R.id.activity_city_weather_title);
             this.rainStartTime = v.findViewById(R.id.activity_city_weather_tv_rain60min_text);
             this.rainEndTime = v.findViewById(R.id.activity_city_weather_tv_rain60min_text2);
@@ -586,8 +585,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         }
     }
 
+    @NotNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ViewHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int viewType) {
         View v;
         if (viewType == OVERVIEW) {
             v = LayoutInflater.from(viewGroup.getContext())
@@ -657,10 +657,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.humidity.setText(StringFormatUtils.formatInt(currentWeatherDataList.getHumidity(), "%"));
             holder.pressure.setText(StringFormatUtils.formatDecimal(currentWeatherDataList.getPressure(), " hPa"));
             holder.windspeed.setText(prefManager.convertToCurrentSpeedUnit(currentWeatherDataList.getWindSpeed()) + " " + StringFormatUtils.formatWindDir(context, currentWeatherDataList.getWindDirection()));
-            setRainDrops(holder.drops, holder.rain60min, currentWeatherDataList.getRain60min());
-            holder.rainStartTime.setText(String.format("%s", dateFormat.format(updateTime)));
-            updateTime.setTime(updateTime.getTime() + 3600000);
-            holder.rainEndTime.setText(String.format("%s", dateFormat.format(updateTime)));
+            Date rainEndTime = new Date(updateTime.getTime()+ 3600000);
+            setRainDrops(holder.drops, holder.rainStartTime, holder.rainEndTime, String.format("%s", dateFormat.format(updateTime)), String.format("%s", dateFormat.format(rainEndTime)), currentWeatherDataList.getRain60min());
 
         } else if (viewHolder.getItemViewType() == WEEK) {
 
@@ -799,14 +797,20 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         //No update for error needed
     }
 
-    private void setRainDrops(ImageView[] drops, TextView rainText, String rain60min) {
+    private void setRainDrops(ImageView[] drops, TextView rainStartTime, TextView rainEndTime, String startText, String endText, String rain60min) {
         Log.d("raindrops", "raininfo " + "\"" + rain60min + "\"");
         if (rain60min == null || rain60min.equals("no data")) {
             for (ImageView imview : drops) {
-                imview.setVisibility(View.INVISIBLE);
+                imview.setVisibility(View.GONE);
             }
-            rainText.setText(R.string.no_rain_data);
+            rainStartTime.setText(R.string.no_rain_data);
+            rainEndTime.setVisibility(View.GONE);
         } else {
+
+            rainStartTime.setText(startText);
+            rainEndTime.setText(endText);
+            rainEndTime.setVisibility(View.VISIBLE);
+
             int i = 0;
             for (ImageView view : drops) {
                 if (rain60min.charAt(i) == '0') {
