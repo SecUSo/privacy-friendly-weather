@@ -14,6 +14,7 @@ import org.secuso.privacyfriendlybackup.api.pfa.IBackupCreator;
 
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import kotlin.Pair;
@@ -28,7 +29,7 @@ public class BackupCreator implements IBackupCreator {
         // depending on the size of the application - this could take a bit
 
         Log.d("PFA BackupCreator", "createBackup() started");
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, UTF_8);
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, Charset.forName("UTF-8"));
         JsonWriter writer = new JsonWriter(outputStreamWriter);
         writer.setIndent("");
 
