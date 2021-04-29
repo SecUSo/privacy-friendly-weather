@@ -37,5 +37,11 @@
         <item>2</item>
     </string-array>
 
+    <string name="settings_kilometers_per_hour">Kilometers per hour</string>
+    <string name="settings_meters_per_second">Meters per second</string>
+    <string name="settings_miles_per_hour">Miles per hour</string>
+    <string name="settings_feet_per_second">Feet per second</string>
+    <string name="settings_knots">Knots</string>
+
 
 </resources>
