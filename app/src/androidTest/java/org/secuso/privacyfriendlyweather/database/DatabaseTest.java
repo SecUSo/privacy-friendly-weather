@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.room.Room;
 import androidx.room.testing.MigrationTestHelper;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -58,7 +59,7 @@ public class DatabaseTest {
         return database;
     }
 
-    /*
+
     @Test
     public void testMigration4_5() throws IOException {
         PFASQLiteHelper dbHandler = new PFASQLiteHelper(testContext, "PF_WEATHER_DB_4.db", appContext.getApplicationInfo().dataDir + "/databases", null, 4);
@@ -68,9 +69,9 @@ public class DatabaseTest {
         dbHandler.close();
 
         // migration
-        testHelper.runMigrationsAndValidate("PF_WEATHER_DB_4.db", 6, true, AppDatabase.getMigrations(appContext));
+        testHelper.runMigrationsAndValidate("PF_WEATHER_DB_4.db", 5, true, AppDatabase.getMigrations(appContext));
     }
-     */
+
 
     @Test
     public void testMigration4_6() throws IOException {
@@ -81,17 +82,23 @@ public class DatabaseTest {
         dbHandler.close();
 
         // migration
-        testHelper.runMigrationsAndValidate("PF_WEATHER_DB_4.db", 6, true, AppDatabase.getMigrations(appContext));
+        SupportSQLiteDatabase database = testHelper.runMigrationsAndValidate("PF_WEATHER_DB_4.db", 6, true, AppDatabase.getMigrations(appContext));
 
-        AppDatabase appDatabase = Room.databaseBuilder(appContext, AppDatabase.class, "PF_WEATHER_DB_4.db").build();
+        //AppDatabase appDatabase = Room.databaseBuilder(appContext, AppDatabase.class, "PF_WEATHER_DB_4.db").build();
+
+
+        assertNotNull(database.query("SELECT  * FROM CITIES_TO_WATCH"));
+        assertNotNull(database.query("SELECT  * FROM FORECASTS"));
+        assertNotNull(database.query("SELECT  * FROM CURRENT_WEATHER"));
+        assertEquals(209579, database.query("SELECT  * FROM CITIES").getCount()); // make sure all the cities are written correctly
+
         // close the database and release any stream resources when the test finishes
-        testHelper.closeWhenFinished(appDatabase);
+        testHelper.closeWhenFinished(database);
 
-        assertNotNull(appDatabase.cityToWatchDao().getAll());
-        assertNotNull(appDatabase.forecastDao().getAll());
-        assertNotNull(appDatabase.currentWeatherDao().getAll());
-        assertEquals(209579, appDatabase.cityDao().count()); // make sure all the cities are written correctly
     }
+
+
+
 
     @Test
     public void testRecommendationsTest() {

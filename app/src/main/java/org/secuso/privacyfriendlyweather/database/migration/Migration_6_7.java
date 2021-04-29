@@ -5,10 +5,9 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
- * Migration from version 2 to 3. It adds 3 columns to the forecasts table.
+ * Migration from version 6 to 7. It adds the rain_probability columns to the (week)forecasts tables.
  *
  * @author Noah Schlegel
- * @see ContextAwareMigration
  */
 public class Migration_6_7 extends Migration {
 
