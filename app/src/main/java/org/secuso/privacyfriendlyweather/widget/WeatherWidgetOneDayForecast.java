@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import org.secuso.privacyfriendlyweather.R;
@@ -15,6 +16,7 @@ import org.secuso.privacyfriendlyweather.activities.ForecastCityActivity;
 import org.secuso.privacyfriendlyweather.database.data.City;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.services.UpdateDataService;
+import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 import org.secuso.privacyfriendlyweather.ui.UiResourceProvider;
 
 import java.text.DecimalFormat;
@@ -48,6 +50,8 @@ public class WeatherWidgetOneDayForecast extends AppWidgetProvider {
         AppPreferencesManager prefManager =
                 new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()));
         DecimalFormat decimalFormat = new DecimalFormat("#");
+        DecimalFormat decimal1Format = new DecimalFormat("0.0");
+
 
         //forecastList = DayForecastFilter.filter(forecastList, 5);
         if (data.length < 5) return;
@@ -86,11 +90,11 @@ public class WeatherWidgetOneDayForecast extends AppWidgetProvider {
         //select extra information to display from settings
         int extraInfo = prefManager.get1dayWidgetInfo();
         if (extraInfo==1){
-            extra1 = String.format("%s\u200amm", (int) data[0][4]);
-            extra2 = String.format("%s\u200amm", (int) data[1][4]);
-            extra3 = String.format("%s\u200amm", (int) data[2][4]);
-            extra4 = String.format("%s\u200amm", (int) data[3][4]);
-            extra5 = String.format("%s\u200amm", (int) data[4][4]);
+            extra1 = String.format("%smm",decimal1Format.format(data[0][4]));
+            extra2 = String.format("%smm", decimal1Format.format(data[1][4]));
+            extra3 = String.format("%smm", decimal1Format.format(data[2][4]));
+            extra4 = String.format("%smm", decimal1Format.format(data[3][4]));
+            extra5 = String.format("%smm", decimal1Format.format(data[4][4]));
         } else if (extraInfo==2) {
             //wind max & min
             extra1 = prefManager.convertToCurrentSpeedUnit(data[0][3]);
@@ -107,7 +111,8 @@ public class WeatherWidgetOneDayForecast extends AppWidgetProvider {
         }
 
 
-        views.setTextViewText(R.id.widget_city_name, city.getCityName());
+        views.setTextViewText(R.id.widget_city_name, city.getCityName()+" "+ StringFormatUtils.formatTimeWithoutZone(timestamp));
+        Log.d("widgetOne timestamp",timestamp+"");
 
         views.setTextViewText(R.id.widget_city_weather_1day_temp1, temperature1);
         views.setTextViewText(R.id.widget_city_weather_1day_temp2, temperature2);

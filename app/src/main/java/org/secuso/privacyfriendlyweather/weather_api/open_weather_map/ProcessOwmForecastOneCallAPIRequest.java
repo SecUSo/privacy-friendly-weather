@@ -295,7 +295,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
 
         } else if(widgetType == 2) {
             float[][] dayData = shapeOneDayData(hourlyforecasts);
-            WeatherWidgetOneDayForecast.updateView(context, appWidgetManager, views, widgetId, dayData, city, hourlyforecasts.get(0).getTimestamp()+weatherData.getTimeZoneSeconds()*1000L);
+            WeatherWidgetOneDayForecast.updateView(context, appWidgetManager, views, widgetId, dayData, city, (hourlyforecasts.get(0).getTimestamp()+weatherData.getTimeZoneSeconds())*1000L);
 
         } else{
             float[][] data = shapeWeekForecastForWidgets(weekForecasts);
@@ -326,7 +326,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
         int i = 0;
         for (Forecast forecast : hourlyforecasts){
             ++i;
-            if(i>23) break;
+            if(i>24) break;
 
             Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             c.setTimeInMillis(forecast.getLocalForecastTime(context));
@@ -338,6 +338,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                     data6am[3] = forecast.getWindSpeed();
                     data6am[4] = forecast.getRainValue();
                     data6am[5] = forecast.getWeatherID();
+                    break;
                 case 10:
                     data10am[0] = forecast.getLocalForecastTime(context);
                     data10am[1] = forecast.getTemperature();
@@ -345,6 +346,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                     data10am[3] = forecast.getWindSpeed();
                     data10am[4] = forecast.getRainValue();
                     data10am[5] = forecast.getWeatherID();
+                    break;
                 case 14:
                     data2pm[0] = forecast.getLocalForecastTime(context);
                     data2pm[1] = forecast.getTemperature();
@@ -352,6 +354,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                     data2pm[3] = forecast.getWindSpeed();
                     data2pm[4] = forecast.getRainValue();
                     data2pm[5] = forecast.getWeatherID();
+                    break;
                 case 18:
                     data6pm[0] = forecast.getLocalForecastTime(context);
                     data6pm[1] = forecast.getTemperature();
@@ -359,6 +362,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                     data6pm[3] = forecast.getWindSpeed();
                     data6pm[4] = forecast.getRainValue();
                     data6pm[5] = forecast.getWeatherID();
+                    break;
                 case 22:
                     data10pm[0] = forecast.getLocalForecastTime(context);
                     data10pm[1] = forecast.getTemperature();
@@ -366,6 +370,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                     data10pm[3] = forecast.getWindSpeed();
                     data10pm[4] = forecast.getRainValue();
                     data10pm[5] = forecast.getWeatherID();
+                    break;
                 default:
             }
         }

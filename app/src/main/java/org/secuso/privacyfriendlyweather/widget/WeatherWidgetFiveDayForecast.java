@@ -24,6 +24,8 @@ import java.util.TimeZone;
 import static androidx.core.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
+
+
 /**
  * Implementation of App Widget functionality.
  * App Widget Configuration implemented in {@link WeatherWidgetConfigureActivity WeatherWidgetConfigureActivity}
@@ -50,6 +52,7 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         DecimalFormat decimalFormat = new DecimalFormat("#");
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
         dayFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        DecimalFormat decimal1Format = new DecimalFormat("0.0");
 
         //forecastList = DayForecastFilter.filter(forecastList, 5);
         if (data.length < 5) return;
@@ -61,31 +64,31 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         String day5 = dayFormat.format((long) data[4][8]);
 
         String temperature1 = String.format(
-                "%s | %s%s",
+                "%s\u200a|\u200a%s%s",
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[0][0])),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[0][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature2 = String.format(
-                "%s | %s%s",
+                "%s\u200a|\u200a%s%s",
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[1][0])),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[1][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature3 = String.format(
-                "%s | %s%s",
+                "%s\u200a|\u200a%s%s",
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[2][0])),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[2][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature4 = String.format(
-                "%s | %s%s",
+                "%s\u200a|\u200a%s%s",
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[3][0])),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[3][1])),
                 prefManager.getWeatherUnit()
         );
         String temperature5 = String.format(
-                "%s | %s%s",
+                "%s\u200a|\u200a%s%s",
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[4][0])),
                 decimalFormat.format(prefManager.convertTemperatureFromCelsius(data[4][1])),
                 prefManager.getWeatherUnit()
@@ -99,11 +102,11 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         //select extra information to display from settings
         int extraInfo = prefManager.get5dayWidgetInfo();
         if (extraInfo==1){
-            extra1 = String.format("%s mm", (int) data[0][7]);
-            extra2 = String.format("%s mm", (int) data[1][7]);
-            extra3 = String.format("%s mm", (int) data[2][7]);
-            extra4 = String.format("%s mm", (int) data[3][7]);
-            extra5 = String.format("%s mm", (int) data[4][7]);
+            extra1 = String.format("%s\u200amm", decimal1Format.format(data[0][7]));
+            extra2 = String.format("%s\u200amm", decimal1Format.format(data[1][7]));
+            extra3 = String.format("%s\u200amm", decimal1Format.format( data[2][7]));
+            extra4 = String.format("%s\u200amm", decimal1Format.format(data[3][7]));
+            extra5 = String.format("%s\u200amm", decimal1Format.format(data[4][7]));
         } else if (extraInfo==2) {
             //wind max & min
             extra1 = prefManager.convertToCurrentSpeedUnit(data[0][5]);
@@ -112,11 +115,11 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
             extra4 = prefManager.convertToCurrentSpeedUnit(data[3][5]);
             extra5 = prefManager.convertToCurrentSpeedUnit(data[4][5]);
         } else {
-            extra1 = String.format("%s%%rh", (int) data[0][2]);
-            extra2 = String.format("%s%%rh", (int) data[1][2]);
-            extra3 = String.format("%s%%rh", (int) data[2][2]);
-            extra4 = String.format("%s%%rh", (int) data[3][2]);
-            extra5 = String.format("%s%%rh", (int) data[4][2]);
+            extra1 = String.format("%s\u200a%%rh", (int) data[0][2]);
+            extra2 = String.format("%s\u200a%%rh", (int) data[1][2]);
+            extra3 = String.format("%s\u200a%%rh", (int) data[2][2]);
+            extra4 = String.format("%s\u200a%%rh", (int) data[3][2]);
+            extra5 = String.format("%s\u200a%%rh", (int) data[4][2]);
         }
 
 
