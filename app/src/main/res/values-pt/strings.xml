@@ -188,4 +188,11 @@
     <string name="no_rain_data">Sem dados de chuva</string>
     <string name="settings_title_speed">Velocidades</string>
     <string name="settings_summary_speed">A medida utilizada para medir das velocidades.</string>
+    <string name="onedaywidgetchoice">Definir a informação adicional para widgets de dia.</string>
+    <string name="onedaywidget">De dia widget</string>
+    <string name="_6_am">6 horas</string>
+    <string name="_10am">10 horas</string>
+    <string name="_2pm">14 horas</string>
+    <string name="_6pm">18 horas</string>
+    <string name="_10pm">22 horas</string>
 </resources>

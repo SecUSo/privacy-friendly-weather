@@ -242,12 +242,12 @@
     <string name="no_rain_data">No rain data available</string>
     <string name="settings_title_speed">Speeds</string>
     <string name="settings_summary_speed">Set the unit to use for displaying speeds</string>
-    <string name="onedaywidgetchoice">Set the additional value for the one day forecast widget.</string>
     <string name="onedaywidget">Course of day widget</string>
     <string name="_6_am">6 am</string>
     <string name="_10am">10 am</string>
     <string name="_2pm">2 pm</string>
     <string name="_6pm">6 pm</string>
     <string name="_10pm">10 pm</string>
+    <string name="onedaywidgetchoice">Set the additional value for the one day forecast widget.</string>
 
 </resources>

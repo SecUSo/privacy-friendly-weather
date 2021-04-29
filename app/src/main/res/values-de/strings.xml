@@ -189,4 +189,11 @@
     <string name="no_rain_data">Keine Regendaten verfügbar</string>
     <string name="settings_title_speed">Geschwindigkeiten</string>
     <string name="settings_summary_speed">Die Einheit, die zur Anzeige von Geschwindigkeiten verwendet wird.</string>
+    <string name="onedaywidgetchoice">Einstellung für die Zusatzinformation auf Tagesverlauf Widgets.</string>
+    <string name="onedaywidget">Tagesverlauf Widget</string>
+    <string name="_6_am">6 Uhr</string>
+    <string name="_10am">10 Uhr</string>
+    <string name="_2pm">14 Uhr</string>
+    <string name="_6pm">18 Uhr</string>
+    <string name="_10pm">22 Uhr</string>
 </resources>

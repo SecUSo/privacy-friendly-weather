@@ -188,4 +188,11 @@
     <string name="no_rain_data">Nessun dato sulla pioggia</string>
     <string name="settings_title_speed">Velocità</string>
     <string name="settings_summary_speed">Unità di misura della velocità.</string>
+    <string name="onedaywidgetchoice">Impostare le informazioni aggiuntive per i widget di giorno.</string>
+    <string name="onedaywidget">Di giorno widget</string>
+    <string name="_6_am">06:00</string>
+    <string name="_10am">10:00</string>
+    <string name="_2pm">14:00</string>
+    <string name="_6pm">18:00</string>
+    <string name="_10pm">22:00</string>
 </resources>

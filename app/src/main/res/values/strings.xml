@@ -244,7 +244,7 @@
     <string name="rain60min_text">"Next 60min: "</string>
     <string name="explanation_owm_key">It appears that you don\'t use a <b>personal weather access key</b> yet. The connection limit of the public key has run out for the day. Please consider quickly registering on OpenWeatherMap, which will give you your own independent access key with 1000 own calls per day.</string>
     <string name="explanation_owm_key_on_start">It appears that you don\'t use a <b>personal weather access key</b> yet. We recommend using one, as there is a limit for publicly accessible calls. Please consider quickly registering on OpenWeatherMap, which will give you your own independent access key with 1000 own calls per day.</string>
-    <string name="owm_key_link">You can register for free here with an e-mail adress: <b>https://home.openweathermap.org/users/sign_up</b></string>
+    <string name="owm_key_link">You can register for free here with an e-mail address: <b>https://home.openweathermap.org/users/sign_up</b></string>
     <string name="insert_correct_owm_key">Please insert a valid OWM API key. It should be 32 characters long.</string>
     <string name="tutorial_key_link_heading">OWM API Key</string>
     <string name="tutorial_owm_key">Please consider creating an account on</string>
@@ -262,9 +262,9 @@
     <string name="no_rain_data">No rain data available</string>
     <string name="settings_title_speed">Speeds</string>
     <string name="settings_summary_speed">Set the unit to use for displaying speeds</string>
-    <string name="rain60min_text2">9:05</string>
+    <string name="rain60min_text2" translatable="false">9:05</string>
     <string name="onedaywidgetchoice">Set the additional value for the one day forecast widget.</string>
-    <string name="onedaywidget">1-day widget</string>
+    <string name="onedaywidget">Course of day widget</string>
     <string name="_6_am">6 am</string>
     <string name="_10am">10 am</string>
     <string name="_2pm">2 pm</string>
