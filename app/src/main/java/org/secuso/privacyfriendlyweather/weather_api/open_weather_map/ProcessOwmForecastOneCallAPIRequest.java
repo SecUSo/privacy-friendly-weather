@@ -367,7 +367,6 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                     data10pm[4] = forecast.getRainValue();
                     data10pm[5] = forecast.getWeatherID();
                 default:
-                    continue;
             }
         }
         return new float[][]{data6am, data10am, data2pm, data6pm, data10pm};

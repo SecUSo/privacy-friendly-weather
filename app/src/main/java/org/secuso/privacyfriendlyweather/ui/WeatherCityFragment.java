@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
@@ -66,7 +67,7 @@ public class WeatherCityFragment extends Fragment implements IUpdateableCityUI {
 
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NotNull Context context) {
         super.onAttach(context);
 
         ViewUpdater.addSubscriber(this);

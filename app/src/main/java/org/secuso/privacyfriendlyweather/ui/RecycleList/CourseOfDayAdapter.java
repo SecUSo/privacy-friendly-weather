@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
@@ -45,6 +46,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
 
     }
 
+    @NotNull
     @Override
     public CourseOfDayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_course_of_day, parent, false);
@@ -52,7 +54,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
     }
 
     @Override
-    public void onBindViewHolder(CourseOfDayViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull CourseOfDayViewHolder holder, int position) {
         AppDatabase dbHelper = AppDatabase.getInstance(context);
         CurrentWeatherData currentWeather = dbHelper.currentWeatherDao().getCurrentWeatherByCityId(courseOfDayList.get(position).getCity_id());
 

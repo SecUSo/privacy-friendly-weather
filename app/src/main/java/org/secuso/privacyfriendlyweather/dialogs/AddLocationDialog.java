@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 
+import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.activities.MainActivity;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
@@ -46,12 +47,13 @@ public class AddLocationDialog extends DialogFragment {
     final int LIST_LIMIT = 100;
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NotNull Activity activity) {
         super.onAttach(activity);
         this.activity = activity;
     }
 
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 

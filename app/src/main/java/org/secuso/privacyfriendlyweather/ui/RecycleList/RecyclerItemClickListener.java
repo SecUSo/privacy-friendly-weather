@@ -6,6 +6,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Provides the functionality to detect (long) touch events on RecyclerView items.
  * The code has been taken from
@@ -56,7 +58,7 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
     }
 
     @Override
-    public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) {
+    public void onTouchEvent(@NotNull RecyclerView view, @NotNull MotionEvent motionEvent) {
 
     }
 

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.core.app.JobIntentService;
 
+import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
@@ -65,7 +66,7 @@ public class UpdateDataService extends JobIntentService {
      *
      */
     @Override
-    protected void onHandleWork(Intent intent) {
+    protected void onHandleWork(@NotNull Intent intent) {
         if (!isOnline()) {
             Handler h = new Handler(getApplicationContext().getMainLooper());
             h.post(new Runnable() {
@@ -192,7 +193,7 @@ public class UpdateDataService extends JobIntentService {
     private boolean isOnline() {
         try {
             InetAddress inetAddress = InetAddress.getByName("api.openweathermap.org");
-            return !inetAddress.equals("");
+            return !inetAddress.toString().equals("");
         } catch (IOException | IllegalArgumentException e) {
             return false;
         }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
@@ -34,6 +35,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
         this.forecastData = forecastData;
     }
 
+    @NotNull
     @Override
     public WeekForecastViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_week_forecast, parent, false);
@@ -100,7 +102,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NotNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 

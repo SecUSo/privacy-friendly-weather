@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CityToWatch;
@@ -73,6 +74,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
         }
     }
 
+    @NotNull
     @Override
     public WeatherCityFragment getItem(int position) {
         CurrentWeatherData cityWeather = getDataForID(cities.get(position).getCityId());
@@ -161,7 +163,7 @@ public class WeatherPagerAdapter extends FragmentStatePagerAdapter implements IU
     @Override
     public void processNewWeatherData(CurrentWeatherData data) {
         //TODO lastupdatetime might be used for more cities than it reflects
-        // (update could be for any city, still other cities dont get updated)
+        // (update could be for any city, still other cities don't get updated)
         lastUpdateTime = System.currentTimeMillis() / 1000;
         int id = data.getCity_id();
         CurrentWeatherData old = getDataForID(id);

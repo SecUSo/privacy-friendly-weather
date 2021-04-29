@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlyweather.R;
 
 /**
@@ -24,7 +25,7 @@ public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDrawOver(@NotNull Canvas c, RecyclerView parent, @NotNull RecyclerView.State state) {
         int left = parent.getPaddingLeft();
         int right = parent.getWidth() - parent.getPaddingRight();
 

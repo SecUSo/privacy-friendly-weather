@@ -3,6 +3,8 @@ package org.secuso.privacyfriendlyweather.ui.RecycleList;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * To use the ItemTouchHelper we need to create an ItemTouchHelper.Callback which this class is.
  * For the most part it has been taken from
@@ -45,7 +47,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
      * Sets the swipe flags for start and end.
      */
     @Override
-    public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+    public int getMovementFlags(@NotNull RecyclerView recyclerView, @NotNull RecyclerView.ViewHolder viewHolder) {
         int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
         int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
         return makeMovementFlags(dragFlags, swipeFlags);
@@ -55,7 +57,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
      * @see androidx.recyclerview.widget.ItemTouchHelper.Callback#onMove(RecyclerView, RecyclerView.ViewHolder, RecyclerView.ViewHolder)
      */
     @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+    public boolean onMove(@NotNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
         adapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
         return true;
     }

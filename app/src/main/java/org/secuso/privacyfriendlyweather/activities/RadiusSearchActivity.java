@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
@@ -170,9 +172,9 @@ public class RadiusSearchActivity extends BaseActivity {
     private void enableOkButton(Boolean enabled) {
         btnSearch.setEnabled(enabled);
         if (enabled) {
-            btnSearch.setBackground(getResources().getDrawable(R.drawable.button_fullwidth));
+            btnSearch.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.button_fullwidth, null));
         } else {
-            btnSearch.setBackground(getResources().getDrawable(R.drawable.button_disabled));
+            btnSearch.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.button_disabled, null));
         }
     }
 

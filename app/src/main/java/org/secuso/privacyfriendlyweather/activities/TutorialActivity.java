@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.City;
@@ -270,8 +271,9 @@ public class TutorialActivity extends AppCompatActivity {
         public MyViewPagerAdapter() {
         }
 
+        @NotNull
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(@NotNull ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             final View view = layoutInflater.inflate(layouts[position], container, false);
@@ -334,7 +336,7 @@ public class TutorialActivity extends AppCompatActivity {
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object obj) {
+        public boolean isViewFromObject(@NotNull View view, @NotNull Object obj) {
             return view == obj;
         }
 
@@ -357,7 +359,7 @@ public class TutorialActivity extends AppCompatActivity {
 
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(ViewGroup container, int position, @NotNull Object object) {
             View view = (View) object;
             container.removeView(view);
         }
