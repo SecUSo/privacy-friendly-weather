@@ -1,5 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <PreferenceCategory android:title="@string/settings_title_units">
         <ListPreference
             android:defaultValue="1"
@@ -26,6 +27,13 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_title_forecastChoice">
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/themeChoiceArray"
+            android:entryValues="@array/themeChoiceValues"
+            android:key="themeChoice"
+            android:summary="@string/theme_setting_summary"
+            android:title="@string/theme_setting_title" />
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/forecastChoiceArray"

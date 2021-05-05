@@ -3,6 +3,8 @@ package org.secuso.privacyfriendlyweather.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import org.secuso.privacyfriendlyweather.BuildConfig;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
@@ -153,6 +155,27 @@ public class AppPreferencesManager {
             return "km";
         } else {
             return "mi";
+        }
+    }
+
+    public void setThemeChoice(int i) {
+        int choice;
+        if (i == 0) {
+            choice = Integer.parseInt(preferences.getString("themeChoice", "1"));
+        } else {
+            choice = i;
+        }
+
+        switch (choice) {
+            case 1:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+            case 2:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case 3:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
         }
     }
 

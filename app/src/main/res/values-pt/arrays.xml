@@ -37,9 +37,23 @@
         <item>2</item>
     </string-array>
 
+    <string-array name="themeChoiceArray">
+        <item>@string/settings_theme_phone</item>
+        <item>@string/settings_theme_dark</item>
+        <item>@string/settings_theme_light</item>
+    </string-array>
+    <string-array name="themeChoiceValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
     <string name="settings_kilometers_per_hour">Quilómetros por hora</string>
     <string name="settings_meters_per_second">Metros por segundo</string>
     <string name="settings_miles_per_hour">Milhas por hora</string>
     <string name="settings_feet_per_second">Pés por segundo</string>
     <string name="settings_knots">Nós</string>
+    <string name="settings_theme_phone">Use phone setting</string>
+    <string name="settings_theme_light">View this app in light theme only</string>
+    <string name="settings_theme_dark">View this app in dark theme only</string>
 </resources>

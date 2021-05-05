@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import org.secuso.privacyfriendlyweather.R;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -56,6 +57,7 @@ public class SettingsActivity extends BaseActivity {
                 // simple string representation.
                 preference.setSummary(stringValue);
             }
+
             return true;
         }
     };
@@ -97,6 +99,7 @@ public class SettingsActivity extends BaseActivity {
                         .getString(preference.getKey(), ""));
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +135,16 @@ public class SettingsActivity extends BaseActivity {
             addPreferencesFromResource(R.xml.pref_general);
 
             bindPreferenceSummaryToValue(findPreference("API_key_value"));
+
+            findPreference("themeChoice").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    AppPreferencesManager prefManager
+                            = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(getActivity()));
+                    prefManager.setThemeChoice(Integer.valueOf((String) newValue));
+                    return true;
+                }
+            });
 
             final String defaultKeyString = getActivity().getString(R.string.settings_API_key_default);
 

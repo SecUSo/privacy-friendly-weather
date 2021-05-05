@@ -18,9 +18,12 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         AppDatabase database = AppDatabase.getInstance(this);
         database.cityDao().getCityById(0);
         AppPreferencesManager prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
+        prefManager.setThemeChoice(0);
 
         if (prefManager.isFirstTimeLaunch()) {  //check if firsttimelaunch because of pref manager switch
             AppPreferencesManager oldPrefManager = new AppPreferencesManager(this.getSharedPreferences(AppPreferencesManager.OLD_PREF_NAME, 0));
