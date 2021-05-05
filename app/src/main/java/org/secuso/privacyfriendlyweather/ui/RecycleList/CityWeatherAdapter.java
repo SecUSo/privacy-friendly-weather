@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -751,15 +752,13 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             datasetmax.setColor(context.getResources().getColor(R.color.red));
             datasetmax.setThickness(6);
             datasetmax.setSmooth(true);
-            datasetmax.setFill(context.getResources().getColor(R.color.middlegrey));
 
             datasetmin.setColor(context.getResources().getColor(R.color.lightblue));
             datasetmin.setThickness(6);
             datasetmin.setSmooth(true);
-            datasetmin.setFill(context.getResources().getColor(R.color.backgroundBlue)); //fill with background, so only range between curves is visible
+
 
             xaxis.setThickness(3);
-            xaxis.setColor(context.getResources().getColor(R.color.colorPrimaryDark));
 
             ArrayList<ChartSet> precipitation = new ArrayList<>();
             precipitation.add((precipitationDataset));
@@ -774,12 +773,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.lineChartView.setXAxis(false);
             holder.lineChartView.setYAxis(false);
             holder.lineChartView.setYLabels(AxisController.LabelPosition.INSIDE);  //must be INSIDE! OUTSIDE will destroy alignment with precipitation bar chart
-            holder.lineChartView.setLabelsColor(context.getResources().getColor(R.color.colorPrimaryDark));
-            holder.lineChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDark));
-            holder.lineChartView.setFontSize((int) Tools.fromDpToPx(17));
-            holder.lineChartView.setBorderSpacing(Tools.fromDpToPx(30));
 
-            holder.lineChartView.show();
 
             holder.barChartView.addData(precipitation);
             holder.barChartView.setBarSpacing(0);
@@ -788,10 +782,38 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
             holder.barChartView.setYAxis(false);
             holder.barChartView.setYLabels(AxisController.LabelPosition.NONE); //no labels for precipitation
             holder.barChartView.setLabelsColor(0);  //transparent color, make labels invisible
-            holder.barChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDark));
+
+            int currentNightMode = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            switch (currentNightMode) {
+                case Configuration.UI_MODE_NIGHT_NO:
+                    datasetmax.setFill(context.getResources().getColor(R.color.middlegrey));
+
+                    datasetmin.setFill(context.getResources().getColor(R.color.cardBackgroundLightTheme)); //fill with background, so only range between curves is visible
+                    xaxis.setColor(context.getResources().getColor(R.color.colorPrimaryDarkLightTheme));
+                    holder.lineChartView.setLabelsColor(context.getResources().getColor(R.color.colorPrimaryDarkLightTheme));
+                    holder.lineChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDarkLightTheme));
+                    holder.barChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDarkLightTheme));
+
+                    break;
+                case Configuration.UI_MODE_NIGHT_YES:
+                    datasetmax.setFill(context.getResources().getColor(R.color.darkgrey));
+
+                    datasetmin.setFill(context.getResources().getColor(R.color.cardBackgroundDarkTheme)); //fill with background, so only range between curves is visible
+                    xaxis.setColor(context.getResources().getColor(R.color.colorPrimaryDarkDarkTheme));
+                    holder.lineChartView.setLabelsColor(context.getResources().getColor(R.color.colorPrimaryDarkDarkTheme));
+                    holder.lineChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDarkDarkTheme));
+                    holder.barChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDarkDarkTheme));
+
+                    break;
+            }
+
+            holder.lineChartView.setFontSize((int) Tools.fromDpToPx(17));
+            holder.lineChartView.setBorderSpacing(Tools.fromDpToPx(30));
+            holder.lineChartView.show();
+
+
             holder.barChartView.setFontSize((int) Tools.fromDpToPx(17));
             holder.barChartView.setBorderSpacing(Tools.fromDpToPx(30));
-
             holder.barChartView.show();
         }
         //No update for error needed

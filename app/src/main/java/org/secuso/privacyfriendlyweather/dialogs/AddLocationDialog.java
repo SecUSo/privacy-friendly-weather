@@ -5,7 +5,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -15,6 +18,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
+
+import com.google.android.material.color.MaterialColors;
 
 import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlyweather.R;
@@ -92,8 +97,14 @@ public class AddLocationDialog extends DialogFragment {
                 performDone();
             }
         });
+        int textColor = MaterialColors.getColor(getContext(), R.attr.textColor, Color.GRAY);
 
-        builder.setPositiveButton(getActivity().getString(R.string.dialog_add_add_button), new DialogInterface.OnClickListener() {
+        SpannableString positiveText = new SpannableString(getActivity().getString(R.string.dialog_add_add_button));
+        positiveText.setSpan(new ForegroundColorSpan(textColor), 0, positiveText.length(), 0);
+        SpannableString negativeText = new SpannableString(getActivity().getString(R.string.dialog_add_close_button));
+        negativeText.setSpan(new ForegroundColorSpan(textColor), 0, negativeText.length(), 0);
+
+        builder.setPositiveButton(positiveText, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -101,7 +112,8 @@ public class AddLocationDialog extends DialogFragment {
             }
         });
 
-        builder.setNegativeButton(getActivity().getString(R.string.dialog_add_close_button), null);
+        builder.setNegativeButton(negativeText, null);
+
 
         return builder.create();
     }

@@ -1,6 +1,7 @@
 package org.secuso.privacyfriendlyweather.ui.RecycleList;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -90,14 +91,24 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
             day = itemView.findViewById(R.id.week_forecast_day);
             weather = itemView.findViewById(R.id.week_forecast_weather);
             temperature_max = itemView.findViewById(R.id.week_forecast_temperature_max);
-            temperature_max.setTextColor(Color.rgb(179, 0, 0));
             temperature_min = itemView.findViewById(R.id.week_forecast_temperature_min);
-            temperature_min.setTextColor(Color.rgb(0, 0, 200));
             humidity = itemView.findViewById(R.id.week_forecast_humidity);
             wind_speed = itemView.findViewById(R.id.week_forecast_wind_speed);
             precipitation = itemView.findViewById(R.id.week_forecast_precipitation);
             rain_probability = itemView.findViewById(R.id.week_forecast_rain_probability);
             uv_index = itemView.findViewById(R.id.week_forecast_uv_index);
+
+            int currentNightMode = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            switch (currentNightMode) {
+                case Configuration.UI_MODE_NIGHT_NO:
+                    temperature_max.setTextColor(Color.rgb(179, 0, 0));
+                    temperature_min.setTextColor(Color.rgb(0, 0, 200));
+                    break;
+                case Configuration.UI_MODE_NIGHT_YES:
+                    temperature_max.setTextColor(Color.rgb(250, 20, 0));
+                    temperature_min.setTextColor(Color.rgb(0, 100, 250));
+                    break;
+            }
         }
     }
 
