@@ -2,16 +2,18 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryLightTheme</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkLightTheme</item>
-        <item name="colorAccent">@color/colorAccentLightTheme</item>
-        <item name="gray">@color/middlegrey</item>
-        <item name="cardBackgroundColor">@color/cardBackgroundLightTheme</item>
-        <item name="activityBackgroundColor">@color/white</item>
-        <item name="headingTextColor">@color/colorPrimaryLightTheme</item>
-        <item name="inverseTextColor">@color/white</item>
-        <item name="circleColor">@color/transorange</item>
-        <item name="textColor">@color/colorPrimaryDarkLightTheme</item>
+        <item name="colorPrimary">@color/colorPrimaryDarkTheme</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkDarkTheme</item>
+        <item name="colorAccent">@color/colorAccentDarkTheme</item>
+        <item name="gray">@color/darkgrey</item>
+        <item name="cardBackgroundColor">@color/cardBackgroundDarkTheme</item>
+        <item name="headingTextColor">@color/white</item>
+        <item name="activityBackgroundColor">@color/black</item>
+        <item name="inverseTextColor">@color/colorPrimaryDarkDarkTheme</item>
+        <item name="circleColor">@color/transparent</item>
+        <item name="textColor">@color/colorPrimaryDarkDarkTheme</item>
+
+
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#024265</color>
-    <color name="colorPrimaryDark">#024265</color>
-    <color name="colorAccent">#0274b2</color>
-    <color name="transparent">#00000000</color>
+    <color name="colorPrimaryLightTheme">#024265</color>
+    <color name="colorPrimaryDarkLightTheme">#024265</color>
+    <color name="colorAccentLightTheme">#0274b2</color>
+    <color name="colorPrimaryDarkTheme">#002D45</color>
+    <color name="colorPrimaryDarkDarkTheme">#D0EEFF</color>
+    <color name="colorAccentDarkTheme">#004D77</color>
+    <color name="cardBackgroundLightTheme">#37AAFF</color>
+    <color name="cardBackgroundDarkTheme">#00192C</color>
     <color name="middlegrey">#A8A8A8</color>
     <color name="white">#ffffff</color>
-    <color name="yellow">#f6d126</color>
     <color name="black">#000000</color>
     <color name="red">#d01530</color>
+    <color name="darkred">#B30000</color>
+    <color name="lowtempblue">#0000C8</color>
     <color name="blue">#2024ff</color>
     <color name="lightblue">#1382d4</color>
-    <color name="middleblue">#8aa5ce</color>
-    <color name="backgroundBlue">#6fb1e2</color>
-    <color name="ic_launcher_background">#3680BB</color>
+    <color name="ic_launcher_background">#2BA1FF</color>
     <color name="cyan">#00FFFF</color>
+    <color name="transorange">#80D67800</color>
+    <color name="transparent">#00000000</color>
+    <color name="yellow">#f6d126</color>
+    <color name="middleblue">#8aa5ce</color>
 </resources>
 

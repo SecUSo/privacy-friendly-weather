@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppTheme">
+        <attr name="colorPrimaryDark" format="color" />
+        <attr name="colorPrimary" format="color" />
+        <attr name="activityBackgroundColor" format="color" />
+        <attr name="headingTextColor" format="color" />
+        <attr name="cardBackgroundColor" format="color" />
+        <attr name="colorAccent" format="color" />
+        <attr name="gray" format="color" />
+        <attr name="inverseTextColor" format="color" />
+        <attr name="circleColor" format="color" />
+        <attr name="textColor" format="color" />
+
+    </declare-styleable>
+</resources>
