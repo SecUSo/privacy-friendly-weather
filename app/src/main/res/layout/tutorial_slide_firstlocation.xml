@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="?attr/colorAccent"
     tools:showIn="@layout/tutorial_slide_firstlocation">
 
     <LinearLayout
@@ -46,12 +46,12 @@
             android:id="@+id/autoCompleteTvAddFirstStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="?attr/activityBackgroundColor"
             android:maxLines="1"
             android:hint=">"
             android:textColorHint="@android:color/white"
             android:imeOptions="actionDone"
-            android:textColor="@color/white"
+            android:textColor="?attr/inverseTextColor"
             android:textCursorDrawable="@null"
             android:inputType="text" />
 

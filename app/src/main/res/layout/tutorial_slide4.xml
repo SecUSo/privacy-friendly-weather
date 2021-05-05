@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:background="?attr/colorAccent">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -57,11 +57,11 @@
         <EditText
             android:hint=">"
             android:paddingTop="20dp"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
+            android:textColorHint="?attr/inverseTextColor"
+            android:textColor="?attr/inverseTextColor"
             android:id="@+id/tutorial_owm_key_field"
             android:paddingHorizontal="40dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="?attr/activityBackgroundColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
 

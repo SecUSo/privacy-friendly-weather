@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/backgroundBlue">
+        android:background="?attr/cardBackgroundColor">
 
         <TextView
             android:layout_width="match_parent"
@@ -19,13 +19,13 @@
             android:gravity="center"
             android:text="@string/card_day_heading"
             android:textAllCaps="true"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="?attr/colorPrimaryDark"
             android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/white" />
+            android:background="?attr/activityBackgroundColor" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_course_day"

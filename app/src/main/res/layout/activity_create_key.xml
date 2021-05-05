@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/add_key_layout"
-    android:background="@color/colorAccent"
+    android:background="?attr/colorAccent"
     android:layout_height="match_parent">
 
     <TextView
@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
-        android:textColor="@color/white"
+        android:textColor="?attr/inverseTextColor"
         android:paddingTop="50dp"
         android:text="@string/explanation_owm_key"></TextView>
 
@@ -22,7 +22,7 @@
         android:textColorLink="@color/cyan"
         android:autoLink="web"
         android:paddingHorizontal="20dp"
-        android:textColor="@color/white"
+        android:textColor="?attr/inverseTextColor"
         android:layout_below="@id/explanation_text_owm_key"
         android:layout_height="wrap_content"
         android:text="@string/owm_key_link">
@@ -33,7 +33,7 @@
         android:paddingTop="20dp"
         android:id="@+id/link_field_headline"
         android:layout_width="match_parent"
-        android:textColor="@color/white"
+        android:textColor="?attr/inverseTextColor"
         android:autoLink="web"
         android:paddingHorizontal="20dp"
         android:layout_below="@id/owm_link"
@@ -47,10 +47,10 @@
         android:paddingTop="20dp"
         android:id="@+id/owm_key_field"
         android:paddingHorizontal="20dp"
-        android:textColor="@color/white"
+        android:textColor="?attr/inverseTextColor"
         android:layout_width="match_parent"
-        android:textColorHint="@color/white"
-        android:backgroundTint="@color/white"
+        android:textColorHint="?attr/inverseTextColor"
+        android:backgroundTint="?attr/activityBackgroundColor"
         android:layout_height="wrap_content"
         android:layout_below="@id/link_field_headline"></EditText>
 

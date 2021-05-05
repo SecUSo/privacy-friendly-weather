@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 
-    android:background="@color/colorAccent"
+    android:background="?attr/colorAccent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,7 +11,7 @@
         android:paddingVertical="10dp"
         android:paddingHorizontal="20dp"
         android:layout_above="@id/sure_buttons"
-        android:textColor="@color/white"
+        android:textColor="?attr/inverseTextColor"
         android:text="@string/do_you_really_want_to_continue_with_the_shared_api_key_weather_requests_are_limited_and_will_be_shared_with_other_users_with_a_personal_key_you_can_update_up_to_1000_times_a_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></TextView>

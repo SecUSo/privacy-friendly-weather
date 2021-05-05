@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/backgroundBlue">
+        android:background="?attr/cardBackgroundColor">
 
         <TextView
             android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:gravity="center"
             android:text="CHART"
             android:textAllCaps="true"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="?attr/colorPrimaryDark"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -30,14 +30,14 @@
                 android:id="@+id/spacer"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white" />
+                android:background="?attr/activityBackgroundColor" />
 
             <com.db.chart.view.LineChartView
                 android:id="@+id/graph_temperature"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@+id/spacer"
-                android:background="@color/backgroundBlue"
+                android:background="?attr/cardBackgroundColor"
                 chart:chart_axisBorderSpacing="8dp" />
 
             <com.db.chart.view.BarChartView

@@ -4,5 +4,5 @@
     <size
         android:height="50dp"
         android:width="50dp" />
-    <solid android:color="@color/cardview_dark_background" />
+    <solid android:color="?attr/circleColor" />
 </shape>

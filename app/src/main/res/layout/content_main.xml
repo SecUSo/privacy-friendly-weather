@@ -25,6 +25,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_view_cities"
+        android:background="?attr/activityBackgroundColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

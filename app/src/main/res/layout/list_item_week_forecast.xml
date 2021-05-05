@@ -13,7 +13,7 @@
         android:layout_marginBottom="5dp"
         android:layout_gravity="center"
         android:text="Monday:"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?attr/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
@@ -29,7 +29,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:text="xy°C"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?attr/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -39,7 +39,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:text="xy°C"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?attr/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -49,7 +49,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:text="xy %rh"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?attr/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -59,7 +59,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:text="xy mm"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?attr/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -69,7 +69,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:text="xy %"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?attr/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -79,7 +79,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:text="10 Bft"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?attr/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -89,7 +89,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:text="uv xy"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?attr/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>
