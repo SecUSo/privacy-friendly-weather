@@ -176,8 +176,11 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
                     hourlyforecasts.add(forecast);
                 }
             }
-
-            ViewUpdater.updateForecasts(hourlyforecasts);
+            SharedPreferences prefManager = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            int choice = Integer.parseInt(prefManager.getString("forecastChoice", "1"));
+            if (choice == 1) {
+                ViewUpdater.updateForecasts(hourlyforecasts);
+            }
 
             possiblyUpdateWidgets(cityId, weekforecasts, weatherData, hourlyforecasts);
 
