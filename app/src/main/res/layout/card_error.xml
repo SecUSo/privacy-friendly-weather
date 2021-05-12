@@ -17,7 +17,7 @@
             android:layout_margin="10dp"
             android:gravity="center"
             android:textAllCaps="true"
-            android:textColor="?attr/colorPrimaryDark"
+            android:textColor="?attr/textColor"
             android:textStyle="bold"
             android:text="@string/card_error_heading" />
 
@@ -43,7 +43,7 @@
                 android:layout_row="1"
                 android:text="@string/card_error_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="?attr/colorPrimaryDark" />
+                android:textColor="?attr/textColor" />
         </GridLayout>
     </LinearLayout>
 

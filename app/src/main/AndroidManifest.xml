@@ -124,22 +124,33 @@
                 android:resource="@xml/weather_widget_1day_info" />
         </receiver>
 
-        <activity android:name=".widget.WeatherWidgetConfigureActivity">
+
+        <activity
+            android:name=".widget.WeatherWidgetConfigureActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
-        <activity android:name=".widget.WeatherWidgetThreeDayForecastConfigureActivity">
+        <activity
+            android:name=".widget.WeatherWidgetThreeDayForecastConfigureActivity"
+            android:theme="@style/AppTheme">
+
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
-        <activity android:name=".widget.WeatherWidgetFiveDayForecastConfigureActivity">
+        <activity
+            android:name=".widget.WeatherWidgetFiveDayForecastConfigureActivity"
+            android:theme="@style/AppTheme">
+
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
-        <activity android:name=".widget.WeatherWidgetOneDayForecastConfigureActivity">
+        <activity
+            android:name=".widget.WeatherWidgetOneDayForecastConfigureActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>

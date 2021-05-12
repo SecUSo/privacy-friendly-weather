@@ -18,7 +18,7 @@
             android:gravity="center"
             android:text="@string/card_week_heading"
             android:textAllCaps="true"
-            android:textColor="?attr/colorPrimaryDark"
+            android:textColor="?attr/textColor"
             android:textStyle="bold" />
 
         <View

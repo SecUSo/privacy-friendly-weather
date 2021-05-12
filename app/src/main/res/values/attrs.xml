@@ -10,6 +10,7 @@
         <attr name="gray" format="color" />
         <attr name="inverseTextColor" format="color" />
         <attr name="circleColor" format="color" />
+        <attr name="rectangleColor" format="color" />
         <attr name="textColor" format="color" />
 
     </declare-styleable>

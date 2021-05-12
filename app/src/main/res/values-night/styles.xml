@@ -9,9 +9,10 @@
         <item name="cardBackgroundColor">@color/cardBackgroundDarkTheme</item>
         <item name="headingTextColor">@color/white</item>
         <item name="activityBackgroundColor">@color/black</item>
-        <item name="inverseTextColor">@color/colorPrimaryDarkDarkTheme</item>
+        <item name="inverseTextColor">@color/textColorDarkTheme</item>
         <item name="circleColor">@color/transparent</item>
-        <item name="textColor">@color/colorPrimaryDarkDarkTheme</item>
+        <item name="rectangleColor">@color/textColorDarkTheme</item>
+        <item name="textColor">@color/textColorDarkTheme</item>
 
 
     </style>
@@ -30,4 +31,8 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AutocompleteTheme">
+        <item name="android:background">@color/darkgrey</item>
+        <item name="android:textColor">@color/textColorDarkTheme</item>
+    </style>
 </resources>

@@ -11,7 +11,8 @@
         <item name="headingTextColor">@color/colorPrimaryLightTheme</item>
         <item name="inverseTextColor">@color/white</item>
         <item name="circleColor">@color/transorange</item>
-        <item name="textColor">@color/colorPrimaryDarkLightTheme</item>
+        <item name="rectangleColor">@color/transparent</item>
+        <item name="textColor">@color/textColorLightTheme</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -27,5 +28,11 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AutocompleteTheme">
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/textColorLightTheme</item>
+    </style>
+
 
 </resources>

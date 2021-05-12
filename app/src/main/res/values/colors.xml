@@ -4,7 +4,9 @@
     <color name="colorPrimaryDarkLightTheme">#024265</color>
     <color name="colorAccentLightTheme">#0274b2</color>
     <color name="colorPrimaryDarkTheme">#002D45</color>
-    <color name="colorPrimaryDarkDarkTheme">#D0EEFF</color>
+    <color name="colorPrimaryDarkDarkTheme">#001D2E</color>
+    <color name="textColorDarkTheme">#D0EEFF</color>
+    <color name="textColorLightTheme">#024265</color>
     <color name="colorAccentDarkTheme">#004D77</color>
     <color name="cardBackgroundLightTheme">#37AAFF</color>
     <color name="cardBackgroundDarkTheme">#00192C</color>

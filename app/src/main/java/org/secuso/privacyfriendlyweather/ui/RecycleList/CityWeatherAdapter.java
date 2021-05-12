@@ -789,20 +789,20 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     datasetmax.setFill(context.getResources().getColor(R.color.middlegrey));
 
                     datasetmin.setFill(context.getResources().getColor(R.color.cardBackgroundLightTheme)); //fill with background, so only range between curves is visible
-                    xaxis.setColor(context.getResources().getColor(R.color.colorPrimaryDarkLightTheme));
-                    holder.lineChartView.setLabelsColor(context.getResources().getColor(R.color.colorPrimaryDarkLightTheme));
-                    holder.lineChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDarkLightTheme));
-                    holder.barChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDarkLightTheme));
+                    xaxis.setColor(context.getResources().getColor(R.color.textColorLightTheme));
+                    holder.lineChartView.setLabelsColor(context.getResources().getColor(R.color.textColorLightTheme));
+                    holder.lineChartView.setAxisColor(context.getResources().getColor(R.color.textColorLightTheme));
+                    holder.barChartView.setAxisColor(context.getResources().getColor(R.color.textColorLightTheme));
 
                     break;
                 case Configuration.UI_MODE_NIGHT_YES:
                     datasetmax.setFill(context.getResources().getColor(R.color.darkgrey));
 
                     datasetmin.setFill(context.getResources().getColor(R.color.cardBackgroundDarkTheme)); //fill with background, so only range between curves is visible
-                    xaxis.setColor(context.getResources().getColor(R.color.colorPrimaryDarkDarkTheme));
-                    holder.lineChartView.setLabelsColor(context.getResources().getColor(R.color.colorPrimaryDarkDarkTheme));
-                    holder.lineChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDarkDarkTheme));
-                    holder.barChartView.setAxisColor(context.getResources().getColor(R.color.colorPrimaryDarkDarkTheme));
+                    xaxis.setColor(context.getResources().getColor(R.color.textColorDarkTheme));
+                    holder.lineChartView.setLabelsColor(context.getResources().getColor(R.color.textColorDarkTheme));
+                    holder.lineChartView.setAxisColor(context.getResources().getColor(R.color.textColorDarkTheme));
+                    holder.barChartView.setAxisColor(context.getResources().getColor(R.color.textColorDarkTheme));
 
                     break;
             }
@@ -847,6 +847,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     view.setImageResource(R.drawable.violentdrop);
                 }
                 view.setVisibility(View.VISIBLE);
+                view.setBackgroundResource(R.drawable.backgroundrectangle_drops);
                 i++;
             }
         }

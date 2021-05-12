@@ -14,7 +14,7 @@
         android:layout_marginBottom="5dp"
         android:text="14:42"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?attr/colorPrimaryDark" />
+        android:textColor="?attr/textColor" />
 
     <ImageView
         android:id="@+id/course_of_day_weather"
@@ -30,7 +30,7 @@
         android:layout_marginBottom="5dp"
         android:text="xy°C"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?attr/colorPrimaryDark" />
+        android:textColor="?attr/textColor" />
 
     <TextView
         android:id="@+id/course_of_day_humidity"
@@ -40,7 +40,7 @@
         android:layout_marginBottom="5dp"
         android:text="xy %"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?attr/colorPrimaryDark" />
+        android:textColor="?attr/textColor" />
 
     <TextView
         android:id="@+id/course_of_day_precipitation"
@@ -50,7 +50,7 @@
         android:layout_marginBottom="5dp"
         android:text="xy mm"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?attr/colorPrimaryDark" />
+        android:textColor="?attr/textColor" />
 
     <TextView
         android:id="@+id/course_of_day_rain_probability"
@@ -60,7 +60,7 @@
         android:layout_marginBottom="5dp"
         android:text="xy %"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?attr/colorPrimaryDark" />
+        android:textColor="?attr/textColor" />
 
     <TextView
         android:id="@+id/course_of_day_wind_speed"
@@ -70,7 +70,7 @@
         android:layout_marginBottom="5dp"
         android:text="xy Bft"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?attr/colorPrimaryDark" />
+        android:textColor="?attr/textColor" />
 
     <TextView
         android:id="@+id/course_of_day_wind_direction"
@@ -80,5 +80,5 @@
         android:layout_marginBottom="5dp"
         android:text="x"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="?attr/colorPrimaryDark" />
+        android:textColor="?attr/textColor" />
 </LinearLayout>
