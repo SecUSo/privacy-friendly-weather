@@ -184,7 +184,7 @@
     <string name="use_personal">Persönlichen Schlüssel verwenden</string>
     <string name="explanation_owm_key_on_start">Anscheinend verwenden Sie noch keinen <b>persönlichen Wetter-Zugangsschlüssel</b>. Wir empfehlen dies, da die Datenabrufe für den öffentlichen Schlüssel begrenzt sind. Bitte erwägen Sie, sich bei OpenWeatherMap zu registrieren, wodurch Sie Ihren eigenen unabhängigen Zugangsschlüssel erhalten.</string>
     <string name="no_forecast_warning">Keine Vorhersage verfügbar, Zeiten können falsch sein.</string>
-    <string name="one_call_limit">Leider nur 10 OneCallAPI-Anfragen mit dem gemeinsamen Schlüssel pro Tag möglich.</string>
+    <string name="one_call_limit">Leider nur 20 OneCallAPI-Anfragen mit dem gemeinsamen Schlüssel pro Tag möglich.</string>
     <string name="api_key_not_accepted">Der API-Schlüssel wurde nicht aktzeptiert. Neu erzeugte Schlüssel können einige Minuten bis Stunden zum Aktivieren brauchen.</string>
     <string name="no_rain_data">Keine Regendaten verfügbar</string>
     <string name="settings_title_speed">Geschwindigkeiten</string>

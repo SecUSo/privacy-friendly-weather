@@ -282,6 +282,46 @@ public class AppPreferencesManager {
                     editor.putInt("last_used_key", 10);
                     editor.commit();
                     return BuildConfig.DEFAULT_API_KEY10;
+                case 10:
+                    editor.putInt("last_used_key", 11);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY11;
+                case 11:
+                    editor.putInt("last_used_key", 12);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY12;
+                case 12:
+                    editor.putInt("last_used_key", 13);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY13;
+                case 13:
+                    editor.putInt("last_used_key", 14);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY14;
+                case 14:
+                    editor.putInt("last_used_key", 15);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY15;
+                case 15:
+                    editor.putInt("last_used_key", 16);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY16;
+                case 16:
+                    editor.putInt("last_used_key", 17);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY17;
+                case 17:
+                    editor.putInt("last_used_key", 18);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY18;
+                case 18:
+                    editor.putInt("last_used_key", 19);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY19;
+                case 19:
+                    editor.putInt("last_used_key", 20);
+                    editor.commit();
+                    return BuildConfig.DEFAULT_API_KEY20;
                 default:
                     editor.putInt("last_used_key", 1);
                     editor.commit();

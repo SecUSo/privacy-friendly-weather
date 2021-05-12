@@ -161,10 +161,10 @@ public class UpdateDataService extends JobIntentService {
             Log.d("oneCallAllowed", "no calls yet");
 
         }
-        if (currentCalls < 10) {
+        if (currentCalls < 20) {
             editor.putInt("shared_calls_used", currentCalls + 1);
             editor.commit();
-            Log.d("oneCallAllowed", "under 10 calls" + currentCalls);
+            Log.d("oneCallAllowed", "under 20 calls" + currentCalls);
             return true;
             // if calls reached but day since first call elapsed
         } else if (prefManager.getLong("shared_calls_count_start", 0) + 86400000 < System.currentTimeMillis()) {
