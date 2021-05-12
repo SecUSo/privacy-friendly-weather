@@ -195,4 +195,6 @@
     <string name="_2pm">14:00</string>
     <string name="_6pm">18:00</string>
     <string name="_10pm">22:00</string>
+    <string name="theme_setting_title">Tema</string>
+    <string name="theme_setting_summary">Scegli il tuo tema preferito</string>
 </resources>

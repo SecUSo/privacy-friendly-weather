@@ -249,5 +249,7 @@
     <string name="_6pm">6 pm</string>
     <string name="_10pm">10 pm</string>
     <string name="onedaywidgetchoice">Set the additional value for the one day forecast widget.</string>
+    <string name="theme_setting_summary">Select your thematic preference</string>
+    <string name="theme_setting_title">Theme</string>
 
 </resources>

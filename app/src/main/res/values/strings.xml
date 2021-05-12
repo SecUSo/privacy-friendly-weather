@@ -270,6 +270,8 @@
     <string name="_2pm">2 pm</string>
     <string name="_6pm">6 pm</string>
     <string name="_10pm">10 pm</string>
+    <string name="theme_setting_summary">Choose your favorite theme</string>
+    <string name="theme_setting_title">Theme</string>
 
 
 </resources>

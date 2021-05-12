@@ -195,4 +195,6 @@
     <string name="_2pm">14 horas</string>
     <string name="_6pm">18 horas</string>
     <string name="_10pm">22 horas</string>
+    <string name="theme_setting_summary">Escolha o seu tema preferido</string>
+    <string name="theme_setting_title">Tema</string>
 </resources>
