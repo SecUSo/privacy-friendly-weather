@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textColor="?attr/textColor"
+                android:textColor="?attr/inverseTextColor"
                 android:background="@drawable/button_disabled"
                 android:text="@string/radius_search_btn_search"
                 android:enabled="false" />
