@@ -61,10 +61,12 @@
                     android:layout_row="0"
                     android:layout_column="1"
                     android:scaleType="centerInside"
+                    android:background="?rectanglebackground"
                     android:src="@drawable/emptydrop" />
 
                 <ImageView
                     android:id="@+id/activity_city_weather_rain_image2"
+                    android:background="?rectanglebackground"
                     android:layout_width="18dp"
                     android:layout_height="25dp"
                     android:layout_row="0"
@@ -74,6 +76,7 @@
 
                 <ImageView
                     android:id="@+id/activity_city_weather_rain_image3"
+                    android:background="?rectanglebackground"
                     android:layout_width="18dp"
                     android:layout_height="25dp"
                     android:layout_row="0"
@@ -83,6 +86,7 @@
 
                 <ImageView
                     android:id="@+id/activity_city_weather_rain_image4"
+                    android:background="?rectanglebackground"
                     android:layout_width="18dp"
                     android:layout_height="25dp"
                     android:layout_row="0"
@@ -92,6 +96,7 @@
 
                 <ImageView
                     android:id="@+id/activity_city_weather_rain_image5"
+                    android:background="?rectanglebackground"
                     android:layout_width="18dp"
                     android:layout_height="25dp"
                     android:layout_row="0"
@@ -101,6 +106,7 @@
 
                 <ImageView
                     android:id="@+id/activity_city_weather_rain_image6"
+                    android:background="?rectanglebackground"
                     android:layout_width="18dp"
                     android:layout_height="25dp"
                     android:layout_row="0"
@@ -110,6 +116,7 @@
 
                 <ImageView
                     android:id="@+id/activity_city_weather_rain_image7"
+                    android:background="?rectanglebackground"
                     android:layout_width="18dp"
                     android:layout_height="25dp"
                     android:layout_row="0"
@@ -119,6 +126,7 @@
 
                 <ImageView
                     android:id="@+id/activity_city_weather_rain_image8"
+                    android:background="?rectanglebackground"
                     android:layout_width="18dp"
                     android:layout_height="25dp"
                     android:layout_row="0"
@@ -128,6 +136,7 @@
 
                 <ImageView
                     android:id="@+id/activity_city_weather_rain_image9"
+                    android:background="?rectanglebackground"
                     android:layout_width="18dp"
                     android:layout_height="25dp"
                     android:layout_row="0"
@@ -137,6 +146,7 @@
 
                 <ImageView
                     android:id="@+id/activity_city_weather_rain_image10"
+                    android:background="?rectanglebackground"
                     android:layout_width="18dp"
                     android:layout_height="25dp"
                     android:layout_row="0"
@@ -146,6 +156,7 @@
 
                 <ImageView
                     android:id="@+id/activity_city_weather_rain_image11"
+                    android:background="?rectanglebackground"
                     android:layout_width="18dp"
                     android:layout_height="25dp"
                     android:layout_row="0"
@@ -155,6 +166,7 @@
 
                 <ImageView
                     android:id="@+id/activity_city_weather_rain_image12"
+                    android:background="?rectanglebackground"
                     android:layout_width="18dp"
                     android:layout_height="25dp"
                     android:layout_row="0"

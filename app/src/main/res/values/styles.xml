@@ -13,6 +13,9 @@
         <item name="circleColor">@color/transorange</item>
         <item name="rectangleColor">@color/transparent</item>
         <item name="textColor">@color/textColorLightTheme</item>
+
+        <item name="circlebackground">@drawable/backgroundcircle_icons_day</item>
+        <item name="rectanglebackground">@drawable/backgroundrectangle_drops_day</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

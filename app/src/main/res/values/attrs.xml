@@ -14,4 +14,6 @@
         <attr name="textColor" format="color" />
 
     </declare-styleable>
+    <attr name="circlebackground" format="reference" />
+    <attr name="rectanglebackground" format="reference" />
 </resources>

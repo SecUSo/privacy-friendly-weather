@@ -14,7 +14,8 @@
         <item name="rectangleColor">@color/textColorDarkTheme</item>
         <item name="textColor">@color/textColorDarkTheme</item>
 
-
+        <item name="circlebackground">@drawable/backgroundcircle_icons_night</item>
+        <item name="rectanglebackground">@drawable/backgroundrectangle_drops_night</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
