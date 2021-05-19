@@ -1,7 +1,7 @@
-Mit Privacy Friendly Wetter kann das Wetter von Orten eingesehen werden.
+Mit Privacy Friendly Wetter kann das Wetter von Orten eingesehen werden. Die App wird von der Forschungsgruppe SECUSO am Karlsruher Institut für Technologie entwickelt. Weitere Informationen finden Sie unter https://secuso.org/pfa.
 
-Die Daten beinhalteten das aktuelle Wetter sowie eine 5 Tage / 3 Stunden Wetter-Vorschau. Die Wetterdaten umfassen u.a. Temperatur, eine Kurzbeschreibung der aktuellen Wetterbedingung sowie Luftfeuchtigkeit. Orte können entweder dauerhaft hinzugefügt werden und werden angezeigt, bis sie manuell entfernt werden oder nicht-permanent. Dies bedeutet, dass der Ort und die Wetterdaten entfernt werden, wenn die Wetteransicht zu diesem Ort geschlossen wird.
-Außerdem bietet Privacy Friendly Wetter eine Umkreissuche. Mit dieser können die Orte um einen gegebenen Ort gefunden werden, an denen das Wetter zur Zeit am schönsten ist. Der Suchumkreis kann vom Nutzer spezifiziert werden. Temperaturen können in Celsius oder Fahrenheit und Entfernungen in Kilometer oder Meilen angezeigt werden.
+Die Daten beinhalteten das aktuelle Wetter sowie eine Stunden-/Tages-Wetter-Vorschau. Die Wetterdaten umfassen u.a. Temperatur, eine Kurzbeschreibung der aktuellen Wetterbedingung sowie Luftfeuchtigkeit, Wind und Regeninformationen. Die App unterstützt Nachtmodus und 4 verschiedene Widgets für Informationen zum aktuellen oder den kommenden Tagen.
+Außerdem bietet Privacy Friendly Wetter eine Umkreissuche. Mit dieser können die Orte um einen gegebenen Ort gefunden werden, an denen das Wetter zur Zeit am schönsten ist. Der Suchumkreis kann vom Nutzer spezifiziert werden. Temperaturen können in Celsius oder Fahrenheit und Entfernungen in Kilometer oder Meilen angezeigt werden. Ebenso einstellbar sind die Windeinheiten.
 
 Alle Wetterdaten werden von OpenWeatherMap bereitstellt, indem die freie API von OpenWeatherMap (http://openweathermap.com/api) verwendet wird. Im Vergleich zu kostenpflichtigen Diensten hat diese eine Beschränkung von 60 Anfragen pro Minute. Des weiteren werden Anfragen über die freie API über HTTP verarbeitet und sind deshalb nicht verschlüsselt. Wir betrachten dies jedoch nicht als Problem, da keinerlei persönliche Daten verschickt oder empfangen werden.
 
@@ -15,5 +15,3 @@ Suchen eines Ortes mit dem schönsten Wetter in einem bestimmten Umkreis
 
 3. Keine störende Werbung
 Viele andere kostenlose Apps im Google Play Store blenden störende Werbung ein, die unter anderem auch die Akkulaufzeit verkürzt und Datenvolumen verbrauchen kann.
-
-Die App gehört zur Gruppe der Privacy Friendly Apps, die von der Forschungsgruppe SECUSO am Karlsruher Institut für Technologie entwickelt werden. Mehr Informationen unter: https://secuso.org/pfa
