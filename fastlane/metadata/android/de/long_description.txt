@@ -1,0 +1,19 @@
+Mit Privacy Friendly Wetter kann das Wetter von Orten eingesehen werden.
+
+Die Daten beinhalteten das aktuelle Wetter sowie eine 5 Tage / 3 Stunden Wetter-Vorschau. Die Wetterdaten umfassen u.a. Temperatur, eine Kurzbeschreibung der aktuellen Wetterbedingung sowie Luftfeuchtigkeit. Orte können entweder dauerhaft hinzugefügt werden und werden angezeigt, bis sie manuell entfernt werden oder nicht-permanent. Dies bedeutet, dass der Ort und die Wetterdaten entfernt werden, wenn die Wetteransicht zu diesem Ort geschlossen wird.
+Außerdem bietet Privacy Friendly Wetter eine Umkreissuche. Mit dieser können die Orte um einen gegebenen Ort gefunden werden, an denen das Wetter zur Zeit am schönsten ist. Der Suchumkreis kann vom Nutzer spezifiziert werden. Temperaturen können in Celsius oder Fahrenheit und Entfernungen in Kilometer oder Meilen angezeigt werden.
+
+Alle Wetterdaten werden von OpenWeatherMap bereitstellt, indem die freie API von OpenWeatherMap (http://openweathermap.com/api) verwendet wird. Im Vergleich zu kostenpflichtigen Diensten hat diese eine Beschränkung von 60 Anfragen pro Minute. Des weiteren werden Anfragen über die freie API über HTTP verarbeitet und sind deshalb nicht verschlüsselt. Wir betrachten dies jedoch nicht als Problem, da keinerlei persönliche Daten verschickt oder empfangen werden.
+
+Was unterscheidet die App von anderen, ähnlichen Wetter Apps?
+
+1. Minimale Berechtigungen
+Privacy Friendly Wetter benötigt nur ein Minimum an Berechtigungen, nämlich nur die INTERNET-Berechtigung. Diese ist nötig, um HTTP-Anfragen an entfernte Server zu stellen, um Wetterdaten zu erhalten.
+
+2. Umkreissuche
+Suchen eines Ortes mit dem schönsten Wetter in einem bestimmten Umkreis
+
+3. Keine störende Werbung
+Viele andere kostenlose Apps im Google Play Store blenden störende Werbung ein, die unter anderem auch die Akkulaufzeit verkürzt und Datenvolumen verbrauchen kann.
+
+Die App gehört zur Gruppe der Privacy Friendly Apps, die von der Forschungsgruppe SECUSO am Karlsruher Institut für Technologie entwickelt werden. Mehr Informationen unter: https://secuso.org/pfa
