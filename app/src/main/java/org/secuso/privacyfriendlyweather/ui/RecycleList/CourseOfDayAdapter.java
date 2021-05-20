@@ -178,6 +178,8 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
 
     public void setIcon(int value, ImageView imageView, boolean isDay) {
         imageView.setImageResource(UiResourceProvider.getIconResourceForWeatherCategory(value, isDay));
+        int attributeResourceId = context.getTheme().obtainStyledAttributes(R.style.AppTheme, new int[]{R.attr.circlebackground}).getResourceId(0, 0);
+        imageView.setBackgroundResource(attributeResourceId);
     }
 }
 

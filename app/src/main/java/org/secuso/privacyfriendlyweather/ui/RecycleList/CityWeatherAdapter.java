@@ -847,6 +847,8 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     view.setImageResource(R.drawable.violentdrop);
                 }
                 view.setVisibility(View.VISIBLE);
+                int attributeResourceId = context.getTheme().obtainStyledAttributes(R.style.AppTheme, new int[]{R.attr.rectanglebackground}).getResourceId(0, 0);
+                view.setBackgroundResource(attributeResourceId);
                 i++;
             }
         }
