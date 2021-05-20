@@ -110,7 +110,7 @@ public class DatabaseTest {
         CurrentWeatherData cwd = new CurrentWeatherData();
         cwd.setCity_id(cityID);
 
-        AppDatabase appDatabase = getMigratedRoomDatabase();
+        AppDatabase appDatabase = AppDatabase.getInstance(appContext);
 
         appDatabase.currentWeatherDao().addCurrentWeather(cwd);
 
@@ -119,6 +119,8 @@ public class DatabaseTest {
         appDatabase.currentWeatherDao().deleteCurrentWeatherByCityId(cityID);
 
         assertNull(appDatabase.currentWeatherDao().getCurrentWeatherByCityId(cityID));
+
+        testHelper.closeWhenFinished(appDatabase);
     }
 
 }

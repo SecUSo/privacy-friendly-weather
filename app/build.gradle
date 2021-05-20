@@ -9,8 +9,8 @@ android {
         applicationId "org.secuso.privacyfriendlyweather"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 12
-        versionName "3.0"
+        versionCode 13
+        versionName "3.0.1"
 
         buildConfigField "String", "DEFAULT_API_KEY1", "\"cf591ca34ede65243c96df755c670f4f\""
         buildConfigField "String", "DEFAULT_API_KEY2", "\"c7fe92edc0f22f1dcff934a8c97f41a3\""
