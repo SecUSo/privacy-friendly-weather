@@ -197,7 +197,16 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
      */
     @Override
     public void processFailScenario(final VolleyError error) {
-        if (error.networkResponse.statusCode == 429) {
+        ViewUpdater.abortUpdate();
+        if (error == null || error.networkResponse == null) {
+            Handler h = new Handler(this.context.getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast), Toast.LENGTH_LONG).show();
+                }
+            });
+        } else if (error.networkResponse.statusCode == 429) {
             //aufforderung lostreten
             AppPreferencesManager prefManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context));
             if (!CreateKeyActivity.active &&
@@ -222,11 +231,11 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
             h.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast) + " OneCallAPI", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast), Toast.LENGTH_LONG).show();
                 }
             });
         }
-        ViewUpdater.abortUpdate();
+
     }
 
 
