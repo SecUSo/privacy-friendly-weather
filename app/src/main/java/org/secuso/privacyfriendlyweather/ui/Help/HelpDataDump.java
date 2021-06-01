@@ -42,6 +42,10 @@ public class HelpDataDump {
         List<String> permissions = new ArrayList<String>();
         permissions.add(context.getResources().getString(R.string.help_permission_internet_heading));
         permissions.add(context.getResources().getString(R.string.help_permission_internet_description));
+        permissions.add(context.getResources().getString(R.string.help_permission_wakelock_heading));
+        permissions.add(context.getResources().getString(R.string.help_permission_wakelock_description));
+        permissions.add(context.getResources().getString(R.string.help_permission_bindservice_heading));
+        permissions.add(context.getResources().getString(R.string.help_permission_bindservice_description));
         expandableListDetail.put(context.getResources().getString(R.string.help_permissions_heading), permissions);
 
         return expandableListDetail;

@@ -122,7 +122,7 @@
     <string name="error_fetch_forecast">Errore durante l\'aggiornamento delle previsioni, riprovare!</string>
     <string name="error_no_internet">Il vostro apparecchio non è collegato a Internet</string>
     <string name="error_radius_search">Errore durante la ricerca del raggio, riprovare!</string>
-    <string name="help_privacy_answer">Privacy Friendly Weather utilizza solo l\'autorizzazione \"Internet\" per il recupero dei dati meteo. Inoltre non include alcun meccanismo di tracciamento o pubblicità.</string>
+    <string name="help_privacy_answer">Privacy Friendly Weather utilizza il permesso \"Internet\\ per recuperare i dati meteo. Inoltre non include alcun meccanismo di tracciamento o pubblicità. I due permessi per legare i lavori di servizio e mantenere il telefono sveglio sono necessari per la gestione dei dati in background dell\'app.</string>
     <string name="help_whatis">Che cos\'è la Privacy Friendly Weather?</string>
     <string name="help_whatis_answer">Privacy Friendly Weather è un\'applicazione per controllare il meteo e le previsioni meteo attuali per le vostre località.</string>
     <string name="help_where_from">Da dove provengono le informazioni meteorologiche?</string>
@@ -197,4 +197,8 @@
     <string name="_10pm">22:00</string>
     <string name="theme_setting_title">Tema</string>
     <string name="theme_setting_summary">Scegli il tuo tema preferito</string>
+    <string name="help_permission_wakelock_heading">Autorizzazione: Tenere il telefono sveglio</string>
+    <string name="help_permission_bindservice_heading">Autorizzazione: Legare al servizio di lavoro</string>
+    <string name="help_permission_wakelock_description">Per abilitare le richieste di aggiornamento asincrone mantenendo l\'app reattiva, è necessario il permesso Wakelock. I compiti in background di Weather non sono lunghi e non terranno il telefono sveglio per molto tempo. Ma il permesso è necessario per eseguire i servizi in background in questo modo.</string>
+    <string name="help_permission_bindservice_description">L\'app meteo abilita i backup con la nostra app Privacy Friendly Backup. Per abilitare questa funzionalità, è necessario il permesso di legarsi ai servizi.</string>
 </resources>

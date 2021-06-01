@@ -174,7 +174,7 @@
     <string name="error_fetch_forecast">Error while updating Forecast, please try again!</string>
     <string name="error_no_internet">Your Device is not connected to the internet!</string>
     <string name="error_radius_search">Error while doing radius search, please try again!</string>
-    <string name="help_privacy_answer">Privacy Friendly Weather only uses the permission to access internet. It further does not include any tracking mechanisms or advertisement.</string>
+    <string name="help_privacy_answer">Privacy Friendly Weather uses the permission \"Internet\\ to retrieve weather data. It further does not include any tracking mechanisms or advertisement. The two permissions for binding service jobs and keeping the phone awake are needed for background data management of the app.</string>
     <string name="help_whatis">What is Privacy Friendly Weather?</string>
     <string name="help_whatis_answer">Privacy Friendly Weather is an App to check the current Weather and Forecasts for your Locations.</string>
     <string name="help_where_from">Where do the weather informations come from?</string>
@@ -251,5 +251,9 @@
     <string name="onedaywidgetchoice">Set the additional value for the one day forecast widget.</string>
     <string name="theme_setting_summary">Select your thematic preference</string>
     <string name="theme_setting_title">Theme</string>
+    <string name="help_permission_wakelock_heading">Permission: Keep the phone awake</string>
+    <string name="help_permission_bindservice_heading">Permission: Bind to Job Service</string>
+    <string name="help_permission_wakelock_description">To enable asynchronous update requests while keeping the app responsive, the Wakelock permission is needed. The background tasks in weather are not long and will not keep your phone awake for long times. But the permission is needed to run background services in this way.</string>
+    <string name="help_permission_bindservice_description">The weather app enables backups with our Privacy Friendly Backup app. To enable this functionality, the permission to bind with services is needed.</string>
 
 </resources>

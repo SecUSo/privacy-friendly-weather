@@ -122,7 +122,7 @@
     <string name="error_fetch_forecast">Erro durante a atualização da previsão, por favor tente novamente!</string>
     <string name="error_no_internet">Seu dispositivo não está conectado à internet!</string>
     <string name="error_radius_search">Erro ao fazer o raio de busca, por favor tente novamente!</string>
-    <string name="help_privacy_answer">Privacy Friendly Weather usa apenas a permissão para acessar a internet. Além disso, não inclui nenhum mecanismo de rastreamento ou anúncio.</string>
+    <string name="help_privacy_answer">Privacy Friendly Weather usa a permissão \"Internet\\ para recuperar dados meteorológicos. Além disso, não inclui quaisquer mecanismos de rastreio ou publicidade. As duas permissões para trabalhos de serviço vinculativos e manter o telefone acordado são necessárias para a gestão de dados de fundo da aplicação.</string>
     <string name="help_whatis">O que é Privacy Friendly Weather?</string>
     <string name="help_whatis_answer">Privacy Friendly Weather é um aplicativo para checar o tempo e as previsões atuais dos seus locais.</string>
     <string name="help_where_from">Onde as informações meteorológicas vêm?</string>
@@ -197,4 +197,8 @@
     <string name="_10pm">22 horas</string>
     <string name="theme_setting_summary">Escolha o seu tema preferido</string>
     <string name="theme_setting_title">Tema</string>
+    <string name="help_permission_wakelock_heading">Autorização: Manter o telefone desperto</string>
+    <string name="help_permission_bindservice_heading">Autorização: Ligar ao Serviço de Emprego</string>
+    <string name="help_permission_wakelock_description">Para permitir pedidos de actualização assíncrona enquanto se mantém a resposta do aplicativo, é necessária a permissão Wakelock. As tarefas de fundo no tempo não são longas e não irão manter o telefone acordado durante muito tempo. Mas a permissão é necessária para executar serviços de fundo desta forma.</string>
+    <string name="help_permission_bindservice_description">A aplicação meteorológica permite cópias de segurança com a nossa aplicação Privacy Friendly Backup. Para activar esta funcionalidade, é necessária a permissão de ligação com serviços.</string>
 </resources>

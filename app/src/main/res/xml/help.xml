@@ -28,6 +28,16 @@
             android:selectable="false"
             android:summary="@string/help_permission_internet_description"
             android:title="@string/help_permission_internet_heading" />
+
+        <Preference
+            android:selectable="false"
+            android:summary="@string/help_permission_wakelock_description"
+            android:title="@string/help_permission_wakelock_heading" />
+
+        <Preference
+            android:selectable="false"
+            android:summary="@string/help_permission_bindservice_description"
+            android:title="@string/help_permission_bindservice_heading" />
     </PreferenceCategory>
 
 </PreferenceScreen>
