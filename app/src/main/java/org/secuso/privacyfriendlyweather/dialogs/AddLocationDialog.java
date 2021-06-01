@@ -119,11 +119,11 @@ public class AddLocationDialog extends DialogFragment {
     }
 
     private void performDone() {
-        CityToWatch newCity = convertCityToWatched();
         if (selectedCity == null) {
             Toast.makeText(activity, R.string.dialog_add_no_city_found, Toast.LENGTH_SHORT).show();
             return;
         }
+        CityToWatch newCity = convertCityToWatched();
         if (database != null && !database.cityToWatchDao().isCityWatched(selectedCity.getCityId())) {
             //insert id is needed immediately if city is ranked or deleted after insert
             newCity.setId((int) database.cityToWatchDao().addCityToWatch(newCity));
