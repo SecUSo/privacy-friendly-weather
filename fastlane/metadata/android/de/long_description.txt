@@ -8,7 +8,7 @@ Alle Wetterdaten werden von OpenWeatherMap bereitstellt, indem die freie API von
 Was unterscheidet die App von anderen, ähnlichen Wetter Apps?
 
 1. Minimale Berechtigungen
-Privacy Friendly Wetter benötigt nur ein Minimum an Berechtigungen, nämlich nur die INTERNET-Berechtigung. Diese ist nötig, um HTTP-Anfragen an entfernte Server zu stellen, um Wetterdaten zu erhalten.
+Privacy Friendly Wetter benötigt nur ein Minimum an Berechtigungen, vor allem die INTERNET-Berechtigung. Diese ist nötig, um HTTP-Anfragen an entfernte Server zu stellen, um Wetterdaten zu erhalten. Zwei weitere Berechtigungen zum wach halten des Telefons und binden mit Services sind nötig für die Verarbeitung der Daten im Hintergrund.
 
 2. Umkreissuche
 Suchen eines Ortes mit dem schönsten Wetter in einem bestimmten Umkreis

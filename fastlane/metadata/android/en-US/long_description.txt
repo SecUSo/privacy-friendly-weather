@@ -7,8 +7,7 @@ The unit of temperatures can be set to Celsius or Fahrenheit and the unit of dis
 All weather data is retrieved from the OpenWeatherMap by using their API (http://openweathermap.com/api) which provides a free service.
 
 1. Minimum permissions
-Privacy Friendly Weather requires only the minimum amount of permission, namely only the INTERNET permission. This permission is necessary to make HTTP requests to remote servers for retrieving weather data.
-For comparison: The Top Ten of similar memory app the Google Play Store (September 2016) in average uses 3,9 permissions. Many apps required a network or internet connection which is totally unnecessary for a memory application.
+Privacy Friendly Weather requires only the minimum amount of permissions, the INTERNET permission which is necessary to make HTTP requests to remote servers for retrieving weather data. The two other permissions for binding services and keeping the phone awake are needed for background data handling.
 
 2. Radius Search
 Find the locations around a given location which have the best weather conditions at the moment.
