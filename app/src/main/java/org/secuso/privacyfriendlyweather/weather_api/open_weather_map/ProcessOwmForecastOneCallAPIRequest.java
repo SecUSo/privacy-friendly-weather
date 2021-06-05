@@ -203,7 +203,7 @@ public class ProcessOwmForecastOneCallAPIRequest implements IProcessHttpRequest 
             h.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, context.getResources().getString(R.string.error_fetch_forecast) + " Error null", Toast.LENGTH_LONG).show();
                 }
             });
         } else if (error.networkResponse.statusCode == 429) {
