@@ -216,6 +216,10 @@ public class AppPreferencesManager {
         }
     }
 
+    public boolean getShowWidgetBackground() {
+        return preferences.getBoolean("showWidgetBackground", true);
+    }
+
     public int get1dayWidgetInfo() {
         return Integer.parseInt(preferences.getString("widgetChoice4", "1"));
     }

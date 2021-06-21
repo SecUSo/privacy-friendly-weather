@@ -255,5 +255,6 @@
     <string name="help_permission_bindservice_heading">Permission: Bind to Job Service</string>
     <string name="help_permission_wakelock_description">To enable asynchronous update requests while keeping the app responsive, the Wakelock permission is needed. The background tasks in weather are not long and will not keep your phone awake for long times. But the permission is needed to run background services in this way.</string>
     <string name="help_permission_bindservice_description">The weather app enables backups with our Privacy Friendly Backup app. To enable this functionality, the permission to bind with services is needed.</string>
+    <string name="showWidgetBackground">Show background</string>
 
 </resources>

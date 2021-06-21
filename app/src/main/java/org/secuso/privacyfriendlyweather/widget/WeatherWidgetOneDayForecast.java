@@ -131,6 +131,8 @@ public class WeatherWidgetOneDayForecast extends AppWidgetProvider {
         views.setImageViewResource(R.id.widget_city_weather_1day_image4, UiResourceProvider.getIconResourceForWeatherCategory((int) data[3][5], true));
         views.setImageViewResource(R.id.widget_city_weather_1day_image5, UiResourceProvider.getIconResourceForWeatherCategory((int) data[4][5], true));
 
+        views.setInt(R.id.widget1day_layout, "setBackgroundResource", prefManager.getShowWidgetBackground() ? R.drawable.rounded_corner_dark : 0);
+
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", city.getCityId());
         PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);

@@ -106,6 +106,7 @@
     <string name="settings_title_API_key_reset">Reset API Key</string>
 
     <string name="widgets_settings">Widgets</string>
+    <string name="showWidgetBackground">Show background</string>
     <string name="fivedaywidgetchoice">Set the additional information for 5-day widgets at the bottom.</string>
     <string name="fivedaywidget">5-day widget</string>
     <string name="threedaywidgetchoice_one">Set the first additional information for 3-day widgets at the bottom.</string>

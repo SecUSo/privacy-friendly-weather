@@ -64,6 +64,7 @@ public class BackupRestorer implements IBackupRestorer {
                 case "":
                     pref.edit().putBoolean(name, reader.nextBoolean()).apply();
                     break;
+                case "showWidgetBackground":
                 case "widgetChoice1":
                 case "widgetChoice2":
                 case "widgetChoice3":
