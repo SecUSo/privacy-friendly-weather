@@ -13,9 +13,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- ###MAIN### -->
-    <string name="activity_main_icon_descriptor">
-        An icon that matches the current weather condition of the corresponding list item.
-    </string>
     <string name="activity_main_location_not_found">
         The server responded that the location was not found. If you are sure that the location
         exists, try again.
@@ -38,7 +35,6 @@
     <string name="card_details_heading" translatable="false">Details</string>
     <string name="card_week_heading">Week</string>
     <string name="card_day_heading">Course of the day</string>
-    <string name="card_sun_heading">Sun</string>
 
     <!-- ###RADIUS_SEARCH### -->
     <string name="radius_search_label">Radius Search</string>
@@ -114,16 +110,11 @@
     <string name="threedaywidget_second">3-day widget (2)</string>
 
     <!-- ###CITY_WEATHER_ACTIVIY### -->
-    <string name="activity_city_weather_label">Weather Overview</string>
     <string name="activity_city_weather_iv_description">An image that fits the weather category</string>
     <string name="activity_city_weather_separator" translatable="false">&#160;|&#160;</string>
-    <string name="activity_city_weather_tv_category">Weather:</string>
     <string name="activity_city_weather_tv_humidity">Humidity:</string>
     <string name="activity_city_weather_tv_pressure">Pressure:</string>
     <string name="activity_city_weather_tv_wind_speed">Wind Speed:</string>
-    <string name="activity_city_weather_tv_sunrise">Time Sunrise:</string>
-    <string name="activity_city_weather_tv_sunset">Time Sunset:</string>
-    <string name="activity_city_weather_tv_details">Course of the day ▼</string>
     <string name="abbreviation_monday">Mo.</string>
     <string name="abbreviation_tuesday">Tu.</string>
     <string name="abbreviation_wednesday">We.</string>
@@ -131,7 +122,6 @@
     <string name="abbreviation_friday">Fr.</string>
     <string name="abbreviation_saturday">Sa.</string>
     <string name="abbreviation_sunday">Su.</string>
-    <string name="info_no_data_for_day">Currently, there are no data available for the selected day.</string>
 
     <!-- ###CITY_WEATHER_DETAILS_ACTIVITY### -->
     <string name="activity_city_weather_details_label">Today\'s Weather</string>
@@ -143,34 +133,16 @@
     <string name="activity_city_weather_details_tv_rain_volume">Rain Volume:</string>
     <string name="activity_city_weather_details_tv_rain_volume_na">n/a</string>
 
-    <!-- ###FORECAST_ACTIVITY### -->
-    <string name="activity_forecast_label">Weather Forecast</string>
-
     <!-- ###DIALOGS### -->
     <string name="dialog_first_app_title">The First Location</string>
     <string name="dialog_first_app_start_message">
         And now add your first Location
     </string>
-    <string name="dialog_first_app_help_button">View Help</string>
-    <string name="dialog_first_app_close_button">Okay</string>
-
-    <string name="progress_dialog_add_location_title">Setting up database…</string>
-    <string name="progress_dialog_add_location_msg">Please wait a few seconds</string>
 
     <string name="dialog_add_label">Enter the location to add:</string>
-    <string name="dialog_add_checkbox_save">Save this location permanently</string>
-    <string name="dialog_add_textedit_error">Please enter a valid location!</string>
-    <string name="dialog_add_added_successfully_template">The location was added successfully.</string>
     <string name="dialog_add_no_city_found">
         No location was found that matches your input. It is recommended to select one of the
         items from the dropdown list.
-    </string>
-    <string name="dialog_add_too_many_cities_found">
-        Your input is not unique. It is recommended to select one of the items from the
-        dropdown list.
-    </string>
-    <string name="dialog_add_already_added">
-        This location is already in the list
     </string>
     <string name="dialog_add_close_button">Close</string>
     <string name="dialog_add_add_button">Add</string>
@@ -194,9 +166,6 @@
     <!-- ###ERRORS###-->
     <string name="convert_to_json_error">
         The retrieved weather data was not well-formed.
-    </string>
-    <string name="insert_into_db_error">
-        There was an error while writing the data into the database.
     </string>
     <string name="settings_confirm_title_API_key_reset">Reset API key</string>
     <string name="settings_confirm_content_API_key_reset">Do you really want to reset to the default API key?</string>
@@ -235,8 +204,6 @@
     <string name="rain_volume">Rain volume</string>
     <string name="wind">Wind</string>
     <string name="humidity">Humidity</string>
-    <string name="activity_city_weather_tv_wind_direction">Wind direction:</string>
-    <string name="activity_city_weather_tv_rain_volume">Rain volume:</string>
     <string name="settings_title_forecastChoice">Display options</string>
     <string name="settings_summary_forecastChoice">Select between 5 day / 3h and 2 day / 1h forecasts</string>
     <string name="settings_forecastChoice">Forecast</string>
