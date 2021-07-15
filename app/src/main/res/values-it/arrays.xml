@@ -52,7 +52,7 @@
     <string name="settings_miles_per_hour">Miglia per ora</string>
     <string name="settings_feet_per_second">Piedi per secondo</string>
     <string name="settings_knots">Nodi</string>
-    <string name="settings_theme_phone">Use phone setting</string>
-    <string name="settings_theme_light">View this app in light theme only</string>
-    <string name="settings_theme_dark">View this app in dark theme only</string>
+    <string name="settings_theme_phone">Utilizzare l\'impostazione del telefono</string>
+    <string name="settings_theme_light">Ver esta aplicação apenas em tema ligeiro</string>
+    <string name="settings_theme_dark">Visualizza questa app solo in tema scuro</string>
 </resources>
