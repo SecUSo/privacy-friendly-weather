@@ -1,1 +1,1 @@
-Lets you watch the weather for cities and locations you are interested in.
+(SECUSO) Lets you watch the weather for cities and locations of your choice
