@@ -53,7 +53,7 @@ public class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.
 
         setIcon((int) dayValues[9], holder.weather);
         holder.humidity.setText(StringFormatUtils.formatInt(dayValues[2], "%rh"));
-        holder.precipitation.setText(StringFormatUtils.formatDecimal(dayValues[4], "mm"));
+        holder.precipitation.setText(StringFormatUtils.formatDecimal(prefManager.convertPrecipitationAmountFromMillimeters(dayValues[4]), prefManager.getPrecipitationAmountUnit()));
         holder.rain_probability.setText(StringFormatUtils.formatInt(dayValues[11], "%\uD83D\uDCA7"));
         holder.uv_index.setText(String.format("UV %s", StringFormatUtils.formatInt(Math.round(dayValues[7]))));
         holder.wind_speed.setText(prefManager.convertToCurrentSpeedUnit(dayValues[5]));

@@ -18,6 +18,13 @@
             android:summary="@string/settings_summary_distance"
             android:title="@string/settings_title_distance" />
         <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/precipitationAmountUnitsArray"
+            android:entryValues="@array/precipitationAmountUnitsValues"
+            android:key="precipitationAmountUnit"
+            android:summary="@string/settings_summary_precipitation_amount"
+            android:title="@string/settings_title_precipitation_amount" />
+        <ListPreference
             android:defaultValue="6"
             android:entries="@array/speedUnitsArray"
             android:entryValues="@array/speedUnitsValues"

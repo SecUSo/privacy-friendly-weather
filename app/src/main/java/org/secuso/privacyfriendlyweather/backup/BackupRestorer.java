@@ -69,6 +69,7 @@ public class BackupRestorer implements IBackupRestorer {
                 case "widgetChoice3":
                 case "widgetChoice4":
                 case "distanceUnit":
+                case "precipitationAmountUnit":
                 case "temperatureUnit":
                 case "API_key_value":
                     pref.edit().putString(name, reader.nextString()).apply();

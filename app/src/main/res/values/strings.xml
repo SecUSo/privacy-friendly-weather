@@ -95,9 +95,13 @@
     <string name="settings_celsius">Celsius</string>
     <string name="settings_fahrenheit">Fahrenheit</string>
     <string name="settings_summary_distance">Set the unit to use for displaying distances</string>
+    <string name="settings_summary_precipitation_amount">Set the unit to use for displaying precipitation amount</string>
     <string name="settings_title_distance">Distances</string>
     <string name="settings_kilometers">Kilometers</string>
     <string name="settings_miles">Miles</string>
+    <string name="settings_title_precipitation_amount">Precipitation</string>
+    <string name="settings_millimeters">Millimeters</string>
+    <string name="settings_inches">Inches</string>
 
     <string name="settings_title_API">API Key</string>
     <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org. This service is limited to 1000 calls per day. You could register your own API key for free to get your own 1000 calls. Otherwise, calls are shared between all users of Privacy Friendly Weather.</string>

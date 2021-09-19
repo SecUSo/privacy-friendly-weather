@@ -127,7 +127,7 @@ public class CourseOfDayAdapter extends RecyclerView.Adapter<CourseOfDayAdapter.
         if (courseOfDayList.get(position).getRainValue() == 0)
             holder.precipitation.setText("-");
         else
-            holder.precipitation.setText(StringFormatUtils.formatDecimal(courseOfDayList.get(position).getRainValue(), "mm"));
+            holder.precipitation.setText(StringFormatUtils.formatDecimal(prefManager.convertPrecipitationAmountFromMillimeters(courseOfDayList.get(position).getRainValue()), prefManager.getPrecipitationAmountUnit()));
     }
 
     //update header according to date in first visible item on the left of recyclerview
