@@ -135,6 +135,8 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
         views.setImageViewResource(R.id.widget_city_weather_3day_image2, UiResourceProvider.getIconResourceForWeatherCategory((int) data[1][9], true));
         views.setImageViewResource(R.id.widget_city_weather_3day_image3, UiResourceProvider.getIconResourceForWeatherCategory((int) data[2][9], true));
 
+        views.setInt(R.id.widget3day_layout, "setBackgroundResource", prefManager.getShowWidgetBackground() ? R.drawable.rounded_corner_dark : 0);
+
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", city.getCityId());
         PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);

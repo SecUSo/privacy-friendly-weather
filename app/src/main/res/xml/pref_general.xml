@@ -54,6 +54,10 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/widgets_settings">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="showWidgetBackground"
+            android:title="@string/showWidgetBackground" />
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/widgetChoiceArray"

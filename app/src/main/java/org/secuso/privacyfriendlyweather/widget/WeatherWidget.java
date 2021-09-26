@@ -83,6 +83,8 @@ public class WeatherWidget extends AppWidgetProvider {
 
         views.setImageViewResource(R.id.widget_city_weather_image_view, UiResourceProvider.getIconResourceForWeatherCategory(weatherData.getWeatherID(), isDay));
 
+        views.setInt(R.id.widget1day_layout, "setBackgroundResource", prefManager.getShowWidgetBackground() ? R.drawable.rounded_corner_dark : 0);
+
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", city.getCityId());
         PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
