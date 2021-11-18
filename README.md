@@ -11,7 +11,7 @@ This application is a privacy friendly weather app. The functionality includes a
 
 ## Motivation
 
-This application has been developed to be used as a basis for a Privacy Friendly App. Privacy Friendly Apps are group of Android applications which are optimized regarding privacy. Further information can be found on secuso.org/pfa
+This application has been developed to be used as a basis for a Privacy Friendly App. Privacy Friendly Apps are group of Android applications which are optimized regarding privacy. Further information can be found on [https://secuso.org/pfa](https://secuso.org/pfa)
 
 ## Building 
 
@@ -40,7 +40,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-The icons used in the navigation drawer are licensed under the [CC BY 2.5] (http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. All other images (the logo of Privacy Friendly Apps, the SECUSO logo, the splash screen icon, the little weather icons and large weather images and the app icon) copyright [SECUSO](www.secuso.org) (2016).
+The icons used in the navigation drawer are licensed under the [CC BY 2.5] (http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. All other images (the logo of Privacy Friendly Apps, the SECUSO logo, the splash screen icon, the little weather icons and large weather images and the app icon) copyright [SECUSO](https://www.secuso.org) (2016).
 
 ## Contributors
 
