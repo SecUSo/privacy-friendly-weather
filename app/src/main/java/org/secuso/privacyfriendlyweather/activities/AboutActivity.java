@@ -19,6 +19,7 @@ public class AboutActivity extends BaseActivity {
 
         ((TextView) findViewById(R.id.secusoWebsite)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) findViewById(R.id.githubURL)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) findViewById(R.id.owmURL)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) findViewById(R.id.textFieldVersionName)).setText(BuildConfig.VERSION_NAME);
 
     }

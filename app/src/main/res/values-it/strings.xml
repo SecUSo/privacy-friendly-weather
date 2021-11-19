@@ -201,4 +201,5 @@
     <string name="help_permission_bindservice_heading">Autorizzazione: Legare al servizio di lavoro</string>
     <string name="help_permission_wakelock_description">Per abilitare le richieste di aggiornamento asincrone mantenendo l\'app reattiva, è necessario il permesso Wakelock. I compiti in background di Weather non sono lunghi e non terranno il telefono sveglio per molto tempo. Ma il permesso è necessario per eseguire i servizi in background in questo modo.</string>
     <string name="help_permission_bindservice_description">L\'app meteo abilita i backup con la nostra app Privacy Friendly Backup. Per abilitare questa funzionalità, è necessario il permesso di legarsi ai servizi.</string>
+    <string name="owm_about">Dati meteo forniti da:</string>
 </resources>

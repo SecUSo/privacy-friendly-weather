@@ -202,4 +202,5 @@
     <string name="help_permission_bindservice_heading">Berechtigung: An Job-Service binden</string>
     <string name="help_permission_wakelock_description">Um asynchrone Aktualisierungsanforderungen zu ermöglichen und gleichzeitig die App reaktionsfähig zu halten, wird die Wakelock-Berechtigung benötigt. Die Hintergrundaufgaben in Wetter sind nicht lang und werden Ihr Telefon nicht für lange Zeit wach halten. Aber die Berechtigung wird benötigt, um Hintergrunddienste auf diese Weise auszuführen.</string>
     <string name="help_permission_bindservice_description">Die Wetter-App ermöglicht Backups mit unserer Privacy Friendly Backup-App. Um diese Funktionalität zu aktivieren, wird die Berechtigung zum Verbinden mit Diensten benötigt.</string>
+    <string name="owm_about">Wetterdaten zur Verfügung gestellt von:</string>
 </resources>

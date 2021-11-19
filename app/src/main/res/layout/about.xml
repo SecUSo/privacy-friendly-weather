@@ -138,5 +138,30 @@
             android:text="@string/github"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="@string/owm_about"
+            android:layout_marginTop="40dp" />
+
+        <TextView
+            android:id="@+id/owmURL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="@string/owm_url"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/owm_logo_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/owm_logo" />
+
+
     </LinearLayout>
 </ScrollView>
