@@ -202,4 +202,5 @@
     <string name="help_permission_wakelock_description">Para permitir pedidos de actualização assíncrona enquanto se mantém a resposta do aplicativo, é necessária a permissão Wakelock. As tarefas de fundo no tempo não são longas e não irão manter o telefone acordado durante muito tempo. Mas a permissão é necessária para executar serviços de fundo desta forma.</string>
     <string name="help_permission_bindservice_description">A aplicação meteorológica permite cópias de segurança com a nossa aplicação Privacy Friendly Backup. Para activar esta funcionalidade, é necessária a permissão de ligação com serviços.</string>
     <string name="owm_about">Dados meteorológicos fornecidos por:</string>
+    <string name="owm_logo_copyright">"O logótipo OpenWeatherMap está licenciado sob\n<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">Creative Commons BY-SA licença.</a>"</string>
 </resources>

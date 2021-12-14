@@ -162,6 +162,13 @@
             android:adjustViewBounds="true"
             android:src="@drawable/owm_logo" />
 
+        <TextView
+            android:id="@+id/owm_copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="@string/owm_logo_copyright" />
 
     </LinearLayout>
 </ScrollView>
