@@ -36,6 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:textColor="?attr/textColor"
+            android:textColorLink="?attr/textColorLink"
             android:layout_marginTop="15dp"
             android:text="@string/app_name_long" />
 
@@ -50,6 +52,8 @@
             <TextView
                 android:id="@+id/textFieldVersion"
                 android:layout_width="wrap_content"
+                android:textColor="?attr/textColor"
+                android:textColorLink="?attr/textColorLink"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/version_number" />
@@ -59,6 +63,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:textColor="?attr/textColor"
+                android:textColorLink="?attr/textColorLink"
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@+id/textFieldVersion" />
 
@@ -69,6 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:textColor="?attr/textColor"
+            android:textColorLink="?attr/textColorLink"
             android:layout_marginTop="5dp"
             android:text="@string/about_author" />
 
@@ -78,6 +86,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
+            android:textColor="?attr/textColor"
+            android:textColorLink="?attr/textColorLink"
             android:textAlignment="center"
             android:text="@string/about_author_names" />
 
@@ -86,6 +96,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:textColor="?attr/textColor"
+            android:textColorLink="?attr/textColorLink"
             android:layout_marginTop="5dp"
             android:text="@string/about_author_contributors" />
 
@@ -94,6 +106,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:textColor="?attr/textColor"
+            android:textColorLink="?attr/textColorLink"
             android:layout_marginTop="30dp"
             android:text="@string/about_affiliation"
             android:textStyle="bold" />
@@ -110,6 +124,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
+            android:textColor="?attr/textColor"
+            android:textColorLink="?attr/textColorLink"
             android:gravity="center_horizontal"
             android:text="@string/privacy_friendly" />
 
@@ -117,6 +133,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:textColor="?attr/textColor"
+            android:textColorLink="?attr/textColorLink"
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="@string/more_info" />
@@ -126,6 +144,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:textColor="?attr/textColor"
+            android:textColorLink="?attr/textColorLink"
             android:text="@string/url"
             android:textStyle="bold" />
 
@@ -135,6 +155,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
+            android:textColorLink="?attr/textColorLink"
+            android:textColor="?attr/textColor"
             android:text="@string/github"
             android:textStyle="bold" />
 
@@ -143,6 +165,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
+            android:textColor="?attr/textColor"
+            android:textColorLink="?attr/textColorLink"
             android:text="@string/owm_about"
             android:layout_marginTop="40dp" />
 
@@ -153,10 +177,13 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:text="@string/owm_url"
+            android:textColor="?attr/textColor"
+            android:textColorLink="?attr/textColorLink"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/owm_logo_about"
+            android:layout_marginTop="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -168,6 +195,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
+            android:textColor="?attr/textColor"
+            android:textColorLink="?attr/textColorLink"
             android:text="@string/owm_logo_copyright" />
 
     </LinearLayout>

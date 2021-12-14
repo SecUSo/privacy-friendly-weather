@@ -12,6 +12,7 @@
         <attr name="circleColor" format="color" />
         <attr name="rectangleColor" format="color" />
         <attr name="textColor" format="color" />
+        <attr name="textColorLink" format="color" />
 
     </declare-styleable>
     <attr name="circlebackground" format="reference" />

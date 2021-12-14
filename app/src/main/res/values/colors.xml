@@ -11,6 +11,7 @@
     <color name="cardBackgroundLightTheme">#37AAFF</color>
     <color name="cardBackgroundDarkTheme">#00192C</color>
     <color name="middlegrey">#A8A8A8</color>
+    <color name="darkgrey">#454545</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="red">#d01530</color>
