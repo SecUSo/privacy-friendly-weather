@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="temperatureUnitsArray">
+        <item>@string/settings_celsius</item>
+        <item>@string/settings_fahrenheit</item>
+    </string-array>
+    <string-array name="temperatureUnitsValues">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="distanceUnitsArray">
+        <item>@string/settings_kilometers</item>
+        <item>@string/settings_miles</item>
+    </string-array>
+    <string-array name="distanceUnitsValues">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="speedUnitsValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string-array name="speedUnitsArray">
+        <item>@string/settings_kilometers_per_hour</item>
+        <item>@string/settings_meters_per_second</item>
+        <item>@string/settings_miles_per_hour</item>
+        <item>@string/settings_feet_per_second</item>
+        <item>@string/settings_knots</item>
+        <item>@string/settings_beaufort</item>
+    </string-array>
+
+    <string-array name="refreshIntervalArray">
+        <item>@string/settings_interval_one</item>
+        <item>@string/settings_interval_two</item>
+        <item>@string/settings_interval_six</item>
+        <item>@string/settings_interval_twelve</item>
+        <item>@string/settings_interval_twentyfour</item>
+    </string-array>
+
+    <string-array name="refreshIntervalValues">
+        <item>1</item>
+        <item>2</item>
+        <item>6</item>
+        <item>12</item>
+        <item>24</item>
+    </string-array>
+
+    <!-- dots inactive colors -->
+    <color name="dot_dark_screen">#026499</color>
+
+    <!-- dots active colors -->
+    <color name="dot_light_screen">#448bb2</color>
+
+    <array name="array_dot_active">
+        <item>@color/dot_light_screen</item>
+        <item>@color/dot_light_screen</item>
+        <item>@color/dot_light_screen</item>
+        <item>@color/dot_light_screen</item>
+        <item>@color/dot_light_screen</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark_screen</item>
+        <item>@color/dot_dark_screen</item>
+        <item>@color/dot_dark_screen</item>
+        <item>@color/dot_dark_screen</item>
+        <item>@color/dot_dark_screen</item>
+    </array>
+
+    <string-array name="forecastChoiceArray">
+        <item>2 dagen / 1u</item>
+        <item>5 dagen / 3u</item>
+    </string-array>
+    <string-array name="forecastChoiceValues">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="widgetChoiceArray">
+        <item>@string/rain_volume</item>
+        <item>@string/wind</item>
+        <item>@string/humidity</item>
+    </string-array>
+    <string-array name="widgetChoiceValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="themeChoiceArray">
+        <item>@string/settings_theme_phone</item>
+        <item>@string/settings_theme_dark</item>
+        <item>@string/settings_theme_light</item>
+    </string-array>
+    <string-array name="themeChoiceValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string name="settings_kilometers_per_hour">Kilometers per uur</string>
+    <string name="settings_meters_per_second">Meters per seconde</string>
+    <string name="settings_miles_per_hour">Mijlen per uur</string>
+    <string name="settings_feet_per_second">Voet per seconde</string>
+    <string name="settings_knots">Knopen</string>
+    <string name="settings_beaufort" translatable="false">Beaufort</string>
+    <string name="settings_theme_phone">Gebruik apparaatinstellingen</string>
+    <string name="settings_theme_light">Bekijk deze app alleen in licht thema</string>
+    <string name="settings_theme_dark">Bekijk deze app alleen in donker thema</string>
+</resources>
