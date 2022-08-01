@@ -4,13 +4,13 @@ def keysFile = rootProject.file('keys.properties')
 
 android {
 
-    compileSdkVersion 30
+    compileSdkVersion 32
 
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         applicationId "org.secuso.privacyfriendlyweather"
         minSdkVersion 17
-        targetSdkVersion 30
+        targetSdkVersion 32
         versionCode 15
         versionName "3.0.3"
 
@@ -35,7 +35,6 @@ android {
         }
 
         buildConfigField "String", "BASE_URL2", "\"https://api.openweathermap.org/data/2.5/\""
-        buildConfigField "String", "BASE_URL", "\"https://eor92rgslonsq98.m.pipedream.net/\""
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -75,26 +74,26 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':backup-api')
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test:runner:1.3.0'
-    androidTestImplementation 'androidx.test:rules:1.3.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
 
     implementation 'com.diogobernardino:williamchart:2.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.j256.ormlite:ormlite-core:5.0'
     implementation 'com.j256.ormlite:ormlite-android:5.0'
-    implementation 'com.android.volley:volley:1.1.1'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
 
-    implementation 'androidx.room:room-runtime:2.2.5'
-    annotationProcessor 'androidx.room:room-compiler:2.2.5'
-    androidTestImplementation 'androidx.room:room-testing:2.2.5'
+    implementation 'androidx.room:room-runtime:2.4.3'
+    annotationProcessor 'androidx.room:room-compiler:2.4.3'
+    androidTestImplementation 'androidx.room:room-testing:2.4.3'
 
     def work_version = "2.4.0"
     implementation "androidx.work:work-runtime:$work_version"
