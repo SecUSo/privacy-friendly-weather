@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+def keysFile = rootProject.file('keys.properties')
+
 android {
 
     compileSdkVersion 30
@@ -8,31 +10,32 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         applicationId "org.secuso.privacyfriendlyweather"
         minSdkVersion 17
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 15
         versionName "3.0.3"
 
-        buildConfigField "String", "DEFAULT_API_KEY1", "\"cf591ca34ede65243c96df755c670f4f\""
-        buildConfigField "String", "DEFAULT_API_KEY2", "\"c7fe92edc0f22f1dcff934a8c97f41a3\""
-        buildConfigField "String", "DEFAULT_API_KEY3", "\"db7241ad27e214a2ed8b2bfd077a489f\""
-        buildConfigField "String", "DEFAULT_API_KEY4", "\"f3eb6986f26729bbbef697f4276d0715\""
-        buildConfigField "String", "DEFAULT_API_KEY5", "\"689205da30f858adcfa4456c1cb11887\""
-        buildConfigField "String", "DEFAULT_API_KEY6", "\"0494ad5990313615961e7f52cd60d9c2\""
-        buildConfigField "String", "DEFAULT_API_KEY7", "\"eebec1d11bdaee73923af0796dcba301\""
-        buildConfigField "String", "DEFAULT_API_KEY8", "\"4efe33647d9b52dde659dadb14282e1e\""
-        buildConfigField "String", "DEFAULT_API_KEY9", "\"e876eb56ca28eb0acc3aeadacc4f1c55\""
-        buildConfigField "String", "DEFAULT_API_KEY10", "\"a7487362846fddda9e950ca1a8356271\""
-        buildConfigField "String", "DEFAULT_API_KEY11", "\"b88c2592ab7dad112134f36b067a17c2\""
-        buildConfigField "String", "DEFAULT_API_KEY12", "\"2cacb967e5bea3290890603dd13de298\""
-        buildConfigField "String", "DEFAULT_API_KEY13", "\"8f667eaf0722d0c91fde1ca1645a0337\""
-        buildConfigField "String", "DEFAULT_API_KEY14", "\"3816aaf2a8224a455dc625d1c657dad5\""
-        buildConfigField "String", "DEFAULT_API_KEY15", "\"35cc68b239833d0b07c49e57298844b5\""
-        buildConfigField "String", "DEFAULT_API_KEY16", "\"3b78f62bb21cad55ea2db4d6297056b0\""
-        buildConfigField "String", "DEFAULT_API_KEY17", "\"713a4f37c09a88d58f1e5d86146bdae3\""
-        buildConfigField "String", "DEFAULT_API_KEY18", "\"4b59291e752831f90bc356896da7497b\""
-        buildConfigField "String", "DEFAULT_API_KEY19", "\"cb6949f1faca7a813f9d9c37c38e8a77\""
-        buildConfigField "String", "DEFAULT_API_KEY20", "\"343efee46509ef886214c82be554b909\""
-        buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/data/2.5/\""
+        if (keysFile.exists()) {
+            def keys = new Properties()
+            keys.load(new FileInputStream(keysFile))
+
+            def keyString = ""
+            def i = 0
+            println keys["$i"]
+            while(keys["$i"] != null) {
+                keyString += "\"" + keys["$i"] + "\""
+                if(keys["${i+1}"] != null) {
+                    keyString += ","
+                }
+                i++
+            }
+
+            buildConfigField "String[]", "DEFAULT_API_KEYS", "{" + keyString + "}"
+        } else {
+            buildConfigField "String[]", "DEFAULT_API_KEYS", "{null}"
+        }
+
+        buildConfigField "String", "BASE_URL2", "\"https://api.openweathermap.org/data/2.5/\""
+        buildConfigField "String", "BASE_URL", "\"https://eor92rgslonsq98.m.pipedream.net/\""
 
         javaCompileOptions {
             annotationProcessorOptions {

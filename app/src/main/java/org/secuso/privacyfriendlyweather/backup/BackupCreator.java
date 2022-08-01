@@ -7,6 +7,9 @@ import android.preference.PreferenceManager;
 import android.util.JsonWriter;
 import android.util.Log;
 
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
+
 import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlybackup.api.backup.DatabaseUtil;
 import org.secuso.privacyfriendlybackup.api.backup.PreferenceUtil;
@@ -21,6 +24,7 @@ import kotlin.Pair;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.secuso.privacyfriendlyweather.database.AppDatabase.DB_NAME;
+import static org.secuso.privacyfriendlyweather.database.AppDatabase.VERSION;
 
 public class BackupCreator implements IBackupCreator {
     @Override
@@ -35,7 +39,8 @@ public class BackupCreator implements IBackupCreator {
 
         try {
             writer.beginObject();
-            SQLiteDatabase dataBase = SQLiteDatabase.openDatabase(context.getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
+
+            SupportSQLiteDatabase dataBase = DatabaseUtil.getSupportSQLiteOpenHelper(context, DB_NAME, VERSION).getWritableDatabase();
 
             //write database info
             Log.d("PFA BackupCreator", "Writing database");
@@ -69,7 +74,7 @@ public class BackupCreator implements IBackupCreator {
             Log.d("PFA BackupCreator", "Writing preferences");
             writer.name("preferences");
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-            PreferenceUtil.writePreferences(writer, pref);
+            PreferenceUtil.writePreferences(writer, pref, new String[]{"availble_keys"});
 
             writer.endObject();
 

@@ -43,7 +43,7 @@ import java.util.List;
 @Database(entities = {City.class, CityToWatch.class, CurrentWeatherData.class, Forecast.class, WeekForecast.class}, version = AppDatabase.VERSION)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DB_NAME = "PF_WEATHER_DB.db";
-    static final int VERSION = 7;
+    public static final int VERSION = 7;
     static final String TAG = AppDatabase.class.getSimpleName();
 
     // DAOs

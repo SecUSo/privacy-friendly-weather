@@ -9,6 +9,16 @@ import org.secuso.privacyfriendlyweather.BuildConfig;
 import org.secuso.privacyfriendlyweather.R;
 import org.secuso.privacyfriendlyweather.ui.Help.StringFormatUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import kotlin.random.Random;
+
 /**
  * This class provides access and methods for relevant preferences.
  */
@@ -243,92 +253,24 @@ public class AppPreferencesManager {
         if (!prefValue.equals(noKeyString)) {
             return prefValue;
         } else {
-            int keyIndex = preferences.getInt("last_used_key", 1);
-            SharedPreferences.Editor editor = preferences.edit();
-            switch (keyIndex) {
-                case 1:
-                    editor.putInt("last_used_key", 2);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY2;
-                case 2:
-                    editor.putInt("last_used_key", 3);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY3;
-                case 3:
-                    editor.putInt("last_used_key", 4);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY4;
-                case 4:
-                    editor.putInt("last_used_key", 5);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY5;
-                case 5:
-                    editor.putInt("last_used_key", 6);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY6;
-                case 6:
-                    editor.putInt("last_used_key", 7);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY7;
-                case 7:
-                    editor.putInt("last_used_key", 8);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY8;
-                case 8:
-                    editor.putInt("last_used_key", 9);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY9;
-                case 9:
-                    editor.putInt("last_used_key", 10);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY10;
-                case 10:
-                    editor.putInt("last_used_key", 11);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY11;
-                case 11:
-                    editor.putInt("last_used_key", 12);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY12;
-                case 12:
-                    editor.putInt("last_used_key", 13);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY13;
-                case 13:
-                    editor.putInt("last_used_key", 14);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY14;
-                case 14:
-                    editor.putInt("last_used_key", 15);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY15;
-                case 15:
-                    editor.putInt("last_used_key", 16);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY16;
-                case 16:
-                    editor.putInt("last_used_key", 17);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY17;
-                case 17:
-                    editor.putInt("last_used_key", 18);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY18;
-                case 18:
-                    editor.putInt("last_used_key", 19);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY19;
-                case 19:
-                    editor.putInt("last_used_key", 20);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY20;
-                default:
-                    editor.putInt("last_used_key", 1);
-                    editor.commit();
-                    return BuildConfig.DEFAULT_API_KEY1;
-            }
-        }
+            String availableKeysString = preferences.getString("availble_keys",  "");
+            List<String> availableKeys = new ArrayList<>(Arrays.asList(availableKeysString.split(",")));
 
+            SharedPreferences.Editor editor = preferences.edit();
+
+            if(availableKeys.isEmpty() || availableKeysString.isEmpty()) {
+                // fill list with shuffled keys
+                availableKeys = new ArrayList<>(Arrays.asList(BuildConfig.DEFAULT_API_KEYS));
+                Collections.shuffle(availableKeys);
+            }
+
+            // get result and remove from possible keys
+            String result = availableKeys.get(0);
+            availableKeys.remove(result);
+            editor.putString("availble_keys",  String.join(",", availableKeys)).commit();
+
+            return result;
+        }
     }
 
 

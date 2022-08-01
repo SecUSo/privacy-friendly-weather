@@ -7,12 +7,16 @@ import android.preference.PreferenceManager;
 import android.util.JsonReader;
 
 import androidx.annotation.NonNull;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import org.jetbrains.annotations.NotNull;
 import org.secuso.privacyfriendlybackup.api.backup.DatabaseUtil;
 import org.secuso.privacyfriendlybackup.api.pfa.IBackupRestorer;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -44,6 +48,8 @@ public class BackupRestorer implements IBackupRestorer {
             }
 
             reader.endObject();
+
+            System.exit(0);
             return true;
         } catch (IOException e) {
             return false;
@@ -71,6 +77,7 @@ public class BackupRestorer implements IBackupRestorer {
                 case "distanceUnit":
                 case "temperatureUnit":
                 case "API_key_value":
+                case "availble_keys":
                     pref.edit().putString(name, reader.nextString()).apply();
                     break;
                 case "last_used_key":
@@ -104,7 +111,10 @@ public class BackupRestorer implements IBackupRestorer {
 
         AppDatabase database = AppDatabase.getInstance(context);
         database.cityDao().getCityById(0);
-        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(context.getDatabasePath(DB_NAME), null);
+
+        RoomDatabase roomDatabase = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DB_NAME).build();
+        SupportSQLiteDatabase db = roomDatabase.getOpenHelper().getWritableDatabase();
+        //SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(context.getDatabasePath(DB_NAME), null);
         db.beginTransaction();
         db.setVersion(version);
 
