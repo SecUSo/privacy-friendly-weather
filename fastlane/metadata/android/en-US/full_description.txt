@@ -14,3 +14,8 @@ Find the locations around a given location which have the best weather condition
 
 3. No advertisement
 Other free apps display advertisement which might result in privacy violations, shorten the device's battery life or use mobile data.
+
+You can reach us via
+Twitter - @SECUSOResearch https://twitter.com/secusoresearch
+Mastodon - @SECUSO_Research@bawü.social https://xn--baw-joa.social/@SECUSO_Research/
+Job opening - https://secuso.aifb.kit.edu/english/Job_Offers_1557.php
