@@ -2,7 +2,6 @@ package org.secuso.privacyfriendlyweather.backup;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.util.JsonReader;
 
@@ -16,7 +15,6 @@ import org.secuso.privacyfriendlybackup.api.backup.DatabaseUtil;
 import org.secuso.privacyfriendlybackup.api.pfa.IBackupRestorer;
 import org.secuso.privacyfriendlyweather.database.AppDatabase;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -59,7 +57,7 @@ public class BackupRestorer implements IBackupRestorer {
     private void readPreferences(@NonNull JsonReader reader, @NonNull Context context) throws IOException {
         reader.beginObject();
 
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
 
         while (reader.hasNext()) {
             String name = reader.nextName();
@@ -68,7 +66,7 @@ public class BackupRestorer implements IBackupRestorer {
                 case "IsFirstTimeLaunch":
                 case "AskedForOWMKey":
                 case "":
-                    pref.edit().putBoolean(name, reader.nextBoolean()).apply();
+                    editor.putBoolean(name, reader.nextBoolean());
                     break;
                 case "widgetChoice1":
                 case "widgetChoice2":
@@ -78,19 +76,20 @@ public class BackupRestorer implements IBackupRestorer {
                 case "temperatureUnit":
                 case "API_key_value":
                 case "availble_keys":
-                    pref.edit().putString(name, reader.nextString()).apply();
+                    editor.putString(name, reader.nextString());
                     break;
                 case "last_used_key":
                 case "shared_calls_used":
-                    pref.edit().putInt(name, reader.nextInt()).apply();
+                    editor.putInt(name, reader.nextInt());
                     break;
                 case "shared_calls_count_start":
-                    pref.edit().putLong(name, reader.nextLong()).apply();
+                    editor.putLong(name, reader.nextLong());
                     break;
                 default:
                     throw new RuntimeException("Unknown preference " + name);
             }
         }
+        editor.commit();
 
         reader.endObject();
     }
