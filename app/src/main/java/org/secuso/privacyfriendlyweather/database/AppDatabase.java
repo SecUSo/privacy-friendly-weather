@@ -114,7 +114,7 @@ public abstract class AppDatabase extends RoomDatabase {
                         Cursor c = db.query("SELECT count(*) FROM CITIES");
                         if(c != null) {
                             if(c.moveToFirst()) {
-                                cityCount = c.getInt(c.getColumnIndex("count(*)"));
+                                cityCount = c.getInt(c.getColumnIndexOrThrow("count(*)"));
                             }
                             c.close();
                         }
@@ -128,7 +128,7 @@ public abstract class AppDatabase extends RoomDatabase {
                         c = db.query("SELECT count(*) FROM CITIES");
                         if(c != null) {
                             if(c.moveToFirst()) {
-                                cityCount = c.getInt(c.getColumnIndex("count(*)"));
+                                cityCount = c.getInt(c.getColumnIndexOrThrow("count(*)"));
                             }
                             c.close();
                         }
