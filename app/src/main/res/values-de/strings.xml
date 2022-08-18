@@ -92,8 +92,8 @@
     <string name="activity_main_location_not_found">Der Server kennt diesen Ort nicht. Sind Sie sich sicher, dass er doch existiert, versuchen Sie es erneut.</string>
     <string name="dialog_first_app_title">Der erste Ort</string>
     <string name="activity_city_weather_tv_details">Tagesverlauf ▼</string>
-    <string name="help_delete_items_text">Orte in der Übersichtsliste können entfernt werden, in dem eine Wischbewegung von links nach rechts oder umgekehrt durchgeführt wird.</string>
-    <string name="help_move_items_text">Die Position von Einträgen in der Übersichtsliste kann geändert werden, in dem lange auf einen Ort geklickt und dieser anschließend nach unten oder oben verschoben wird.</string>
+    <string name="help_delete_items_text">Orte in der Übersichtsliste können entfernt werden, indem eine Wischbewegung von links nach rechts oder umgekehrt durchgeführt wird.</string>
+    <string name="help_move_items_text">Die Position von Einträgen in der Übersichtsliste kann geändert werden, indem lange auf einen Ort geklickt und dieser anschließend nach unten oder oben verschoben wird.</string>
     <string name="help_delete_items_title">Orte löschen</string>
     <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
     <string name="help_move_items_title">Orte verschieben</string>
@@ -128,7 +128,7 @@
     <string name="slide1_heading">Willkommen!</string>
     <string name="slide1_text">Privacy Friendly Wetter überprüft sowohl das aktuelle Wetter, als auch die Vorhersagen für selbst gewählte Orte.</string>
     <string name="slide2_heading">Funktionen</string>
-    <string name="slide2_text">Sie können ihre eigenen Orte wählen und detaillierte Informationen über das aktuelle Wetter erfahren. Sie können das beste Wetter in einem Radius um einen Ort suchen oder ein Widget auf ihrem Startbildschirm platzieren. Eines zeigt das aktuelle Wetter, eines eine drei Tage-Vorhersage und eines eine fünf Tage-Vorhersage.</string>
+    <string name="slide2_text">Sie können ihre eigenen Orte wählen und detaillierte Informationen über das aktuelle Wetter erfahren. Sie können das beste Wetter in einem Radius um einen Ort suchen oder ein Widget auf ihrem Startbildschirm platzieren. Eines zeigt das aktuelle Wetter, eines eine Drei-Tage-Vorhersage und eines eine Fünf-Tage-Vorhersage.</string>
     <string name="slide3_text">Der Quellcode ist auf GitHub verfügbar. Weitere Informationen finden Sie auf der Über-Seite</string>
     <string name="error_add_city">Es ist ein Fehler beim Hinzufügen einer Stadt aufgetreten, bitte versuchen Sie es erneut!</string>
     <string name="error_fetch_cityList">Es ist ein Fehler beim Abrufen der Städteliste aufgetreten, bitte versuchen Sie es erneut!</string>
@@ -185,7 +185,7 @@
     <string name="explanation_owm_key_on_start">Anscheinend verwenden Sie noch keinen <b>persönlichen Wetter-Zugangsschlüssel</b>. Wir empfehlen dies, da die Datenabrufe für den öffentlichen Schlüssel begrenzt sind. Bitte erwägen Sie, sich bei OpenWeatherMap zu registrieren, wodurch Sie Ihren eigenen unabhängigen Zugangsschlüssel erhalten.</string>
     <string name="no_forecast_warning">Keine Vorhersage verfügbar, Zeiten können falsch sein.</string>
     <string name="one_call_limit">Leider nur 20 OneCallAPI-Anfragen mit dem gemeinsamen Schlüssel pro Tag möglich.</string>
-    <string name="api_key_not_accepted">Der API-Schlüssel wurde nicht aktzeptiert. Neu erzeugte Schlüssel können einige Minuten bis Stunden zum Aktivieren brauchen.</string>
+    <string name="api_key_not_accepted">Der API-Schlüssel wurde nicht akzeptiert. Neu erzeugte Schlüssel können einige Minuten bis Stunden zum Aktivieren brauchen.</string>
     <string name="no_rain_data">Keine Regendaten verfügbar</string>
     <string name="settings_title_speed">Geschwindigkeiten</string>
     <string name="settings_summary_speed">Die Einheit, die zur Anzeige von Geschwindigkeiten verwendet wird.</string>
