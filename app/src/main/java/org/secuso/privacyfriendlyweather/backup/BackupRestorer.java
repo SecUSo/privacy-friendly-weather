@@ -76,6 +76,10 @@ public class BackupRestorer implements IBackupRestorer {
                 case "temperatureUnit":
                 case "API_key_value":
                 case "availble_keys":
+                case "themeChoice":
+                case "pref_updateInterval":
+                case "forecastChoice":
+                case "speedUnit":
                     editor.putString(name, reader.nextString());
                     break;
                 case "last_used_key":
