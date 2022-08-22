@@ -137,7 +137,13 @@ public class WeatherWidgetThreeDayForecast extends AppWidgetProvider {
 
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", city.getCityId());
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
+        PendingIntent pendingIntent;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
+        }
+
         views.setOnClickPendingIntent(R.id.widget3day_layout, pendingIntent);
 
         // Instruct the widget manager to update the widget

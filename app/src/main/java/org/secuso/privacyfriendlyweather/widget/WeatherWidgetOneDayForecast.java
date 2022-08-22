@@ -89,13 +89,13 @@ public class WeatherWidgetOneDayForecast extends AppWidgetProvider {
         String extra5 = "";
         //select extra information to display from settings
         int extraInfo = prefManager.get1dayWidgetInfo();
-        if (extraInfo==1){
-            extra1 = String.format("%smm",decimal1Format.format(data[0][4]));
+        if (extraInfo == 1) {
+            extra1 = String.format("%smm", decimal1Format.format(data[0][4]));
             extra2 = String.format("%smm", decimal1Format.format(data[1][4]));
             extra3 = String.format("%smm", decimal1Format.format(data[2][4]));
             extra4 = String.format("%smm", decimal1Format.format(data[3][4]));
             extra5 = String.format("%smm", decimal1Format.format(data[4][4]));
-        } else if (extraInfo==2) {
+        } else if (extraInfo == 2) {
             //wind max & min
             extra1 = prefManager.convertToCurrentSpeedUnit(data[0][3]);
             extra2 = prefManager.convertToCurrentSpeedUnit(data[1][3]);
@@ -111,8 +111,8 @@ public class WeatherWidgetOneDayForecast extends AppWidgetProvider {
         }
 
 
-        views.setTextViewText(R.id.widget_city_name, city.getCityName()+" "+ StringFormatUtils.formatTimeWithoutZone(timestamp));
-        Log.d("widgetOne timestamp",timestamp+"");
+        views.setTextViewText(R.id.widget_city_name, city.getCityName() + " " + StringFormatUtils.formatTimeWithoutZone(timestamp));
+        Log.d("widgetOne timestamp", timestamp + "");
 
         views.setTextViewText(R.id.widget_city_weather_1day_temp1, temperature1);
         views.setTextViewText(R.id.widget_city_weather_1day_temp2, temperature2);
@@ -133,7 +133,12 @@ public class WeatherWidgetOneDayForecast extends AppWidgetProvider {
 
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", city.getCityId());
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
+        PendingIntent pendingIntent;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
+        }
 
         views.setOnClickPendingIntent(R.id.widget1day_layout, pendingIntent);
         // Instruct the widget manager to update the widget

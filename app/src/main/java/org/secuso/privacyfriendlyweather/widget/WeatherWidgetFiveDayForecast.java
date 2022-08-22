@@ -25,7 +25,6 @@ import static androidx.core.app.JobIntentService.enqueueWork;
 import static org.secuso.privacyfriendlyweather.services.UpdateDataService.SKIP_UPDATE_INTERVAL;
 
 
-
 /**
  * Implementation of App Widget functionality.
  * App Widget Configuration implemented in {@link WeatherWidgetConfigureActivity WeatherWidgetConfigureActivity}
@@ -101,13 +100,13 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
         String extra5 = "";
         //select extra information to display from settings
         int extraInfo = prefManager.get5dayWidgetInfo();
-        if (extraInfo==1){
+        if (extraInfo == 1) {
             extra1 = String.format("%s\u200amm", decimal1Format.format(data[0][7]));
             extra2 = String.format("%s\u200amm", decimal1Format.format(data[1][7]));
-            extra3 = String.format("%s\u200amm", decimal1Format.format( data[2][7]));
+            extra3 = String.format("%s\u200amm", decimal1Format.format(data[2][7]));
             extra4 = String.format("%s\u200amm", decimal1Format.format(data[3][7]));
             extra5 = String.format("%s\u200amm", decimal1Format.format(data[4][7]));
-        } else if (extraInfo==2) {
+        } else if (extraInfo == 2) {
             //wind max & min
             extra1 = prefManager.convertToCurrentSpeedUnit(data[0][5]);
             extra2 = prefManager.convertToCurrentSpeedUnit(data[1][5]);
@@ -149,7 +148,12 @@ public class WeatherWidgetFiveDayForecast extends AppWidgetProvider {
 
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", city.getCityId());
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
+        PendingIntent pendingIntent;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
+        }
 
         views.setOnClickPendingIntent(R.id.widget5day_layout, pendingIntent);
         // Instruct the widget manager to update the widget
