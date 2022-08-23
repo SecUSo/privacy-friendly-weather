@@ -11,8 +11,8 @@ android {
         applicationId "org.secuso.privacyfriendlyweather"
         minSdkVersion 17
         targetSdkVersion 32
-        versionCode 16
-        versionName "3.1.0"
+        versionCode 17
+        versionName "3.1.1"
 
         if (keysFile.exists()) {
             def keys = new Properties()
@@ -53,6 +53,12 @@ android {
     testOptions {
         unitTests {
             includeAndroidResources = true
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "pfa-weather-${variant.name}-v${variant.versionName}.apk"
         }
     }
 
