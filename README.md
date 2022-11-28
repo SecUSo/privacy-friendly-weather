@@ -13,14 +13,10 @@ style="float: right; margin-right: 10px;" />
 
 # Privacy Friendly Weather App
 
-This application is a privacy friendly weather app. The functionality includes adding locations and watching the current and future weather for this location with weather details. Also, a radius search can be performed. This lets you find the locations with currently the best weather around a given location.
+> :warning: :warning: :warning: **Please note:** This project is no longer officially maintained. In an attempt to focus our maintenance efforts, we have decided to stop the maintenance of some projects, including this one. This means that there will be no further feature updates or bugfixes planned for this app (exceptions only in cases of severe security or privacy issues). Consequently, the app has also been removed from the stores.
+If someone is interested in taking over the maintenance of this app, please do not hesitate to contact us: pfa@secuso.org
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-alt="Get it on Google Play"
-height="80">](https://play.google.com/store/apps/details?id=org.secuso.privacyfriendlyweather)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-alt="Get it on F-Droid"
-height="80">](https://f-droid.org/packages/org.secuso.privacyfriendlyweather/)
+This application is a privacy friendly weather app. The functionality includes adding locations and watching the current and future weather for this location with weather details. Also, a radius search can be performed. This lets you find the locations with currently the best weather around a given location.
 
 ## Motivation
 
