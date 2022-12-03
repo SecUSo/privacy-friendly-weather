@@ -107,6 +107,23 @@ public class AppPreferencesManager {
     }
 
     /**
+     * This method converts a given distance value into the unit that was set in the preferences.
+     *
+     * @param millimeters The millimeters to convert into the unit that is set in the preferences.
+     *                   Make sure to pass a value in millimeters.
+     * @return Returns the converted distance.
+     */
+    public float convertPrecipitationAmountFromMillimeters(float millimeters) {
+        // 1 = millimeters, 2 = inches
+        int prefValue = Integer.parseInt(preferences.getString("precipitationAmountUnit", "1"));
+        if (prefValue == 1) {
+            return millimeters;
+        } else {
+            return convertMmInInches(millimeters);
+        }
+    }
+
+    /**
      * @return Returns true if kilometers was set as distance unit in the preferences else false.
      */
     public boolean isDistanceUnitKilometers() {
@@ -119,6 +136,22 @@ public class AppPreferencesManager {
      */
     public boolean isDistanceUnitMiles() {
         int prefValue = Integer.parseInt(preferences.getString("distanceUnit", "0"));
+        return (prefValue == 2);
+    }
+
+    /**
+     * @return Returns true if millimeters was set as precipitation amount unit in the preferences else false.
+     */
+    public boolean isPrecipitationMeasureMillimeters() {
+        int prefValue = Integer.parseInt(preferences.getString("precipitationAmountUnit", "0"));
+        return (prefValue == 1);
+    }
+
+    /**
+     * @return Returns true if incges was set as precipitation amount unit in the preferences else false.
+     */
+    public boolean isPrecipitationMeasureInches() {
+        int prefValue = Integer.parseInt(preferences.getString("precipitationAmountUnit", "0"));
         return (prefValue == 2);
     }
 
@@ -145,6 +178,28 @@ public class AppPreferencesManager {
     }
 
     /**
+     * Converts a kilometer value in miles.
+     *
+     * @param km The value to convert to miles.
+     * @return Returns the converted value.
+     */
+    public float convertMmInInches(float mm) {
+        // TODO: Is this the right class for the function???
+        return (float) (mm / 25.4);
+    }
+
+    /**
+     * Converts a miles value in kilometers.
+     *
+     * @param miles The value to convert to kilometers.
+     * @return Returns the converted value.
+     */
+    public float convertInchesInMm(float incges) {
+        // TODO: Is this the right class for the function???
+        return (float) (inches * 25.4);
+    }
+
+    /**
      * @return Returns "°C" in case Celsius is set and "°F" if Fahrenheit was selected.
      */
     public String getWeatherUnit() {
@@ -165,6 +220,18 @@ public class AppPreferencesManager {
             return "km";
         } else {
             return "mi";
+        }
+    }
+
+    /**
+     * @return Returns "nn" in case millimeter is set and "in" if inches was selected.
+     */
+    public String getPrecipitationAmountUnit() {
+        int prefValue = Integer.parseInt(preferences.getString("precipitationAmountUnit", "1"));
+        if (prefValue == 1) {
+            return "mm";
+        } else {
+            return "in";
         }
     }
 
