@@ -1,0 +1,284 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="app_name_long">Privacy Friendly Weather</string>
+
+    <!-- ###DRAWER###-->
+    <string name="action_help">Help</string>
+    <string name="action_about">Over</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="action_main">Main</string>
+    <string name="action_manage">Beheer locaties</string>
+
+    <string name="navigation_drawer_open">Open navigatielade</string>
+    <string name="navigation_drawer_close">Sluit navigatielade</string>
+
+    <!-- ###MAIN### -->
+    <string name="activity_main_icon_descriptor">
+        Een icoon die overeenkomt met de huidige weersomstandigheden van de overeenkomstige items in de lijst.
+    </string>
+    <string name="activity_main_location_not_found">
+        De server antwoordde dat de locatie niet gevonden kon worden. Als je zeker weet dat de locatie bestaat,
+        probeer het nog eens.
+    </string>
+    <string name="activity_main_snackbar_undo_info">Item was verwijderd</string>
+    <string name="activity_main_snackbar_undo_button">UNDO</string>
+
+    <!-- ###TUTORIAL### -->
+    <string name="next">Volgende</string>
+    <string name="skip">Sla over</string>
+    <string name="okay">Oké</string>
+    <string name="slide1_heading">Welkom!</string>
+    <string name="slide1_text">Privacy Friendly Weather is een app om de huidige weersomstandigheden voorspellingen voor je locaties te checken.</string>
+    <string name="slide2_heading">Handleiding</string>
+    <string name="slide2_text">Je kan je eigen locaties kiezen en gedetailleerde informatie krijgen over het huidige weer. Je kan zoeken naar het beste weer in een straal om je heen of widgets op je startscherm plaatsen met het huidige weer, een driedaagse voorspelling of een vijfdaagse voorspelling</string>
+    <string name="slide3_heading" translatable="false">GitHub</string>
+    <string name="slide3_text">De broncode van deze app is beschikbaar op GitHub. Voor meer uitleg, zie de pagina Over.</string>
+
+    <!-- ###CARD_HEADINGs### -->
+    <string name="card_details_heading" translatable="false">Details</string>
+    <string name="card_week_heading">Week</string>
+    <string name="card_day_heading">Verloop over de dag</string>
+    <string name="card_sun_heading">Zon</string>
+
+    <!-- ###RADIUS_SEARCH### -->
+    <string name="radius_search_label">Zoekradius</string>
+    <string name="radius_search_heading">Vind het beste weer in de buurt van een locatie</string>
+    <string name="radius_search_tv_heading">Locatie (midden van het zoekvierkant)</string>
+    <string name="radius_search_tv_edge_length">Lengte van de zijde van het zoekvierkant</string>
+    <string name="radius_search_tv_num_returns">Aantal locaties om op te halen</string>
+    <string name="radius_search_btn_search">Zoek</string>
+
+    <!-- ###RADIUS_SEARCH_RESULT### -->
+    <string name="radius_search_result_label">Zoekresultaat</string>
+
+    <!--###HELP###-->
+    <string name="help">Help</string>
+    <string name="help_overview_heading">Overzicht</string>
+    <string name="help_delete_items_title">Locaties verwijderen</string>
+    <string name="help_delete_items_text">
+        Locatie-items kunnen worden verwijderd van overzichtslijst de door van links naar rechts of van rechts naar links te vegen.
+    </string>
+    <string name="help_move_items_title">Locaties verplaatsen</string>
+    <string name="help_move_items_text">
+        Wijzig de positie van items in de overzichtslijst door ze even vast te houden en ze daarna naar boven of onder te verplaatsen.
+    </string>
+    <string name="help_radius_search_title">Zoekstraal</string>
+    <string name="help_radius_search_text">De zoekstraal biedt een manier om locaties om een bepaalde locatie op te halenwaar het weer het mooist en het warmst is.</string>
+    <string name="help_category">Hulpcategorie</string>
+    <string name="help_privacy_heading">Privacyinfo</string>
+    <string name="help_permission_internet_heading">Rechten: Verbinden met het netwerk</string>
+    <string name="help_permission_internet_description">
+        In deze categorie de "internet"-rechten zijn nodig omdat weersgegevens worden ontvangen door verzoeken te doen aan servers op het internet. Zonder deze rechten kunnen geen weersgegevens worden ontvangen.
+    </string>
+    <string name="help_permissions_heading">Rechten</string>
+    <string name="help_intro">Welkom op de hulppagina. Deze app laat je locaties toevoegen, het huidige weer en weersvoorspellingen bekijken voor deze locaties.
+        \nOok is het mogelijk om het beste weer in de buurt van een bepaalde locatie op te vragen.</string>
+
+    <!--###ABOUT###-->
+    <string name="about">Over</string>
+    <string name="version_number" translatable="false">Versie</string>
+    <string name="about_author">Auteurs: </string>
+    <string name="about_author_names" translatable="false">Patrick Mell, Karola Marky, Christopher Beckmann, Thomas Glaser, Noah Schlegel</string>
+    <string name="about_author_contributors">en mensen die bijdragen.</string>
+    <string name="about_affiliation">In samenwerking met</string>
+    <string name="privacy_friendly">Deze applicaties behoren tot de group van Privacy Friendly Apps die zijn ontwikkeld door de onderzoeksgroep SECUSO. Broncode is gelicenseerd onder de GPLv3. Afbeeldingen hebben auteursrecht van SECUSO en Google Inc.</string>
+    <string name="more_info">Meer informatie kan worden gevonden op:</string>
+    <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-website</a></string>
+    <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-weather-app">GitHub-repo</a></string>
+
+    <!-- ###Settings### -->
+    <string name="title_activity_settings">Instellingen</string>
+    <string name="pref_header_general">Algemeen</string>
+    <string name="settings_title_units">Eenheden</string>
+    <string name="settings_summary_temperature">Stel de eenheid in voor het weergeven van temperaturen</string>
+    <string name="settings_title_temperature">Temperaturen</string>
+    <string name="settings_celsius">Celsius</string>
+    <string name="settings_fahrenheit">Fahrenheit</string>
+    <string name="settings_summary_distance">Stel de eenheid in voor het weergeven van afstanden</string>
+    <string name="settings_title_distance">Afstanden</string>
+    <string name="settings_kilometers">Kilometers</string>
+    <string name="settings_miles">Mijlen</string>
+
+    <string name="settings_title_API">API-sleutel</string>
+    <string name="settings_description_API">Privacy Friendly Weather ontvangt gegevens van de vrije dienst van openweathermap.org. Deze dienst is beperkt tot 1000 gratis opvragingen per dag. Je kan je gratis aanmelden voor je eigen API-sleutel om je eigen 1000 opvragingen te krijgen. Anders worden opgravingen gedeeld onder alle gebruikers van Privacy Friendly Weather.</string>
+    <string name="settings_title_API_key">Voeg API-sleutel in</string>
+    <string name="settings_API_key_default">Geen API-sleutel opgegeven</string>
+    <string name="settings_title_API_key_reset">Reset API Key</string>
+
+    <string name="widgets_settings">Widgets</string>
+    <string name="fivedaywidgetchoice">Stel additionele informatie in voor onderin de 3-dagenwidget.</string>
+    <string name="fivedaywidget">5-dagenwidget</string>
+    <string name="threedaywidgetchoice_one">Stel eerste additionele informatie in voor onderin de 3-dagenwidget.</string>
+    <string name="threedaywidget_first">3-dagenwidget (1)</string>
+    <string name="threedaywidgetchoice_two">Stel tweede additionele informatie in voor onderin de 3-dagenwidget.</string>
+    <string name="threedaywidget_second">3-dagenwidget (2)</string>
+
+    <!-- ###CITY_WEATHER_ACTIVIY### -->
+    <string name="activity_city_weather_label">Weeroverzicht</string>
+    <string name="activity_city_weather_iv_description">Een afbeelding die in de weerscategorie past</string>
+    <string name="activity_city_weather_separator" translatable="false">&#160;|&#160;</string>
+    <string name="activity_city_weather_tv_category">Weer:</string>
+    <string name="activity_city_weather_tv_humidity">Vochtigheidsgraad:</string>
+    <string name="activity_city_weather_tv_pressure">Luchtdruk:</string>
+    <string name="activity_city_weather_tv_wind_speed">Windsnelheid:</string>
+    <string name="activity_city_weather_tv_sunrise">Tijd zonsopkomst:</string>
+    <string name="activity_city_weather_tv_sunset">Tijd zonsondergang:</string>
+    <string name="activity_city_weather_tv_details">Verloop over de dag ▼</string>
+    <string name="abbreviation_monday">Ma.</string>
+    <string name="abbreviation_tuesday">Di.</string>
+    <string name="abbreviation_wednesday">Wo.</string>
+    <string name="abbreviation_thursday">Do.</string>
+    <string name="abbreviation_friday">Vr.</string>
+    <string name="abbreviation_saturday">Za.</string>
+    <string name="abbreviation_sunday">Zo.</string>
+    <string name="info_no_data_for_day">Er zijn momenteel geen gegevens beschikbaar voor de geselecteerde dag.</string>
+
+    <!-- ###CITY_WEATHER_DETAILS_ACTIVITY### -->
+    <string name="activity_city_weather_details_label">Weer vandaag</string>
+    <string name="activity_city_weather_details_tv_category">Weer:</string>
+    <string name="activity_city_weather_details_tv_temperature">Temperatuur:</string>
+    <string name="activity_city_weather_details_tv_humidity">Vochtigheidsgraad:</string>
+    <string name="activity_city_weather_details_tv_pressure">Luchtdruk:</string>
+    <string name="activity_city_weather_details_tv_wind_speed">Windsnelheid:</string>
+    <string name="activity_city_weather_details_tv_rain_volume">Regenvolume:</string>
+    <string name="activity_city_weather_details_tv_rain_volume_na">n.v.t.</string>
+
+    <!-- ###FORECAST_ACTIVITY### -->
+    <string name="activity_forecast_label">Weersvoorspelling</string>
+
+    <!-- ###DIALOGS### -->
+    <string name="dialog_first_app_title">De eerste locatie</string>
+    <string name="dialog_first_app_start_message">
+        Voeg nu je eerste locatie toe
+    </string>
+    <string name="dialog_first_app_help_button">Bekijk help</string>
+    <string name="dialog_first_app_close_button">Oké</string>
+
+    <string name="progress_dialog_add_location_title">Aanmaken database…</string>
+    <string name="progress_dialog_add_location_msg">Wacht a.u.b. een paar seconden</string>
+
+    <string name="dialog_add_label">Voer de toe te voegen locatie in:</string>
+    <string name="dialog_add_checkbox_save">Bewaar permanent deze locatie</string>
+    <string name="dialog_add_textedit_error">Voer a.u.b. een geldige locatie in!</string>
+    <string name="dialog_add_added_successfully_template">De locatie was succesvol toegevoegd.</string>
+    <string name="dialog_add_no_city_found">
+        Er was geen locatie gevonden die overeenkwam met je invoer. Het wordt aangeraden om een van de items
+        uit de dropdownlijst te selecteren.
+    </string>
+    <string name="dialog_add_too_many_cities_found">
+        Je invoer is niet uniek. Het wordt aangeraden om een van de items
+        uit de dropdownlijst te selecteren.
+    </string>
+    <string name="dialog_add_already_added">
+        Deze locatie is al in je lijst
+    </string>
+    <string name="dialog_add_close_button">Sluit</string>
+    <string name="dialog_add_add_button">Voeg toe</string>
+
+    <!-- ###WEATHER CATEGORIES### -->
+    <string name="weather_category_clear_sky">Heldere hemel</string>
+    <string name="weather_category_clouds">Wolken</string>
+    <string name="weather_category_scattered_clouds">Lichte bewolking</string>
+    <string name="weather_category_broken_clouds">Verspreide bewolking</string>
+    <string name="weather_category_overcast_clouds">Zware bewolking</string>
+    <string name="weather_category_drizzle_rain">Miezer</string>
+    <string name="weather_category_light_rain">Lichte regen</string>
+    <string name="weather_category_moderate_rain">Matige regen</string>
+    <string name="weather_category_rain">Regen</string>
+    <string name="weather_category_thunderstorm">Onweer</string>
+    <string name="weather_category_snow">Sneeuw</string>
+    <string name="weather_category_mist">Mist</string>
+    <string name="weather_category_showerrain">Regenbui</string>
+    <string name="weather_category_showersnow">Sneeuwbui</string>
+
+    <!-- ###ERRORS###-->
+    <string name="convert_to_json_error">
+        De opgehaalde weersinformatie is niet leesbaar.
+    </string>
+    <string name="insert_into_db_error">
+        Er was een fout tijdens het schrijven van gegevens in de database.
+    </string>
+    <string name="settings_confirm_title_API_key_reset">Reset API-sleutel</string>
+    <string name="settings_confirm_content_API_key_reset">Weet je zeker dat je een reset wil doen naar de standaard API-sleutel?</string>
+    <string name="reset">reset</string>
+    <string name="appwidget_text">PFA - Weather</string>
+    <string name="configure">Configureer</string>
+    <string name="add_widget">Voeg widget toe</string>
+    <string name="error_no_internet">Je apparaat is niet met het internet verbonden</string>
+    <string name="settings_interval_one" translatable="false">1 u</string>
+    <string name="settings_interval_two" translatable="false">2 u</string>
+    <string name="settings_interval_six" translatable="false">6 u</string>
+    <string name="settings_interval_twelve" translatable="false">12 u</string>
+    <string name="settings_interval_twentyfour" translatable="false">24 u</string>
+    <string name="settings_intervals">Intervallen</string>
+    <string name="settings_update_interval">Update-interval</string>
+    <string name="settings_interval_summary">Stel het interval in voor automatische updates</string>
+
+    <!--  ##HELP## -->
+    <string name="help_whatis_answer">Privacy Friendly Weather is een app het huidige weer en weersvoorspellingen voor je locaties te bekijken.</string>
+    <string name="help_whatis">Wat is Privacy Friendly Weather?</string>
+    <string name="help_privacy_answer">Privacy Friendly Weather gebruikt de rechten \"Internet\" om weersgegevens op te halen. Het heeft verder geen trackingmechanismes of advertenties. De twee rechten om verbindingsdiensten en het apparaat wakker te houden zijn nodig om voor de app gegevensbeheer in de achtergrond te doen.</string>
+    <string name="help_where_from">Waar komt de weersinformatie vandaan?</string>
+    <string name="help_where_from_answer">De informatie wordt opgehaald van de dienst OpenWeatherMap. Als je je eigen sleutel hebt voor OpenWeatherMap, ga naar de instellingen om deze in te voeren.</string>
+    <string name="error_fetch_forecast">Fout tijdens updaten van voorspelling, probeer a.u.b. nog eens!</string>
+    <string name="error_fetch_cityList">Fout tijdens updaten van stedenlijst, probeer a.u.b. nog eens!</string>
+    <string name="error_add_city">Fout tijdens toevoegen van stad, probeer a.u.b. nog eens!</string>
+    <string name="error_radius_search">Fout tijdens zoeken binnen een straal, probeer a.u.b. nog eens!</string>
+    <string name="card_error_heading">Fout ophalen weersgegevens</string>
+    <string name="card_error_content">Probeer a.u.b. een update!</string>
+    <string name="action_refresh">Ververs</string>
+    <string name="activity_city_weather_no_city_selected">Er is geen stad geselecteerd. Om een stad te selecteren, ga naar \"Beheer locaties\".</string>
+    <string name="RainViewer">Regenradar</string>
+    <string name="action_rainviewer">Regenkijker</string>
+    <string name="long_press_text">Houd vast en versleep om te sorteren.</string>
+    <string name="swipe_to_delete">Veeg en verwijder</string>
+    <string name="rain_volume">Regenvolume</string>
+    <string name="wind">Wind</string>
+    <string name="humidity">Vochtigheidsgraad</string>
+    <string name="activity_city_weather_tv_wind_direction">Windrichting:</string>
+    <string name="activity_city_weather_tv_rain_volume">Regenvolume:</string>
+    <string name="settings_title_forecastChoice">Weergaveopties</string>
+    <string name="settings_summary_forecastChoice">Kies tussen 5 dagen / 3u en 2 dagen / 1u voorspellingen</string>
+    <string name="settings_forecastChoice">Voorspelling</string>
+    <string name="widget_needs_city">Een widget heeft nog steeds %1$s nodig. Verwijder a.u.b. eerst alle widgets voor deze stad.</string>
+    <string name="rain60min_text">"Volgende 60 min: "</string>
+    <string name="explanation_owm_key">Het ziet er naar uit dat je nog niet een <b>persoonlijke weertoegangssleutel</b> gebruikt. De verbindingslimiet van de publieke sleutel is voor vandaag bereikt. Overweeg a.u.b. snel te registreren bij OpenWeatherMap, die je je eigen onafhankelijke toegangssleutel zal geven met 1000 eigen opvragingen per dag.</string>
+    <string name="explanation_owm_key_on_start">Het schijnt dat je geen <b>persoonlijke weertoegangssleutel</b> gebruikt. We bevelen aan er een te gebruiken, want er is een limiet aan de publiek toegankelijke opvragingen. Overweeg a.u.b. snel te registreren bij OpenWeatherMap, die je je eigen onafhankelijke toegangssleutel zal geven met 1000 eigen opvragingen per dag.</string>
+    <string name="owm_key_link">Je kan je hier gratis registreren met een e-mailadres: <b>https://home.openweathermap.org/users/sign_up</b></string>
+    <string name="insert_correct_owm_key">Voeg a.u.b. een geldige OWM API-sleutel in. Die moet 32 karakters lang zijn.</string>
+    <string name="tutorial_key_link_heading">OWM API-sleutel</string>
+    <string name="tutorial_owm_key">Overweeg a.u.b. een account aan te maken op</string>
+    <string name="tutorial_owm_link"><a href="https://home.openweathermap.org/users/sign_up">OpenWeatherMaps (onze leverancier van weersgegevens).</a></string>
+    <string name="tutorial_owm_2nd_half">Met je persoonlijke sleutel wordt het aantal aanvragen niet verdeeld over gebruikers. Voer je persoonlijke sleutel hier in.</string>
+    <string name="set_key">Stel sleutel in</string>
+    <string name="abort">Breek af</string>
+    <string name="please_insert_your_personal_key_here_you_can_always_manage_it_in_the_settings">Voer a.u.b. je persoonlijke sleutel hier in. Je kan deze altijd beheren in de instellingen.</string>
+    <string name="do_you_really_want_to_continue_with_the_shared_api_key_weather_requests_are_limited_and_will_be_shared_with_other_users_with_a_personal_key_you_can_update_up_to_1000_times_a_day">Wil je echt doorgaan met de gedeelde API-sleutel? Weeropvragingen zijn beperkt worden gedeeld met andere gebruikers. Met een persoonlijke sleutel kun je tot en met 1000 keer per dag een update doen.</string>
+    <string name="use_shared">gebruik gedeeld</string>
+    <string name="use_personal">gebruik persoonlijk</string>
+    <string name="no_forecast_warning">Geen voorstelling beschikbaar, tijden kunnen verkeerd zijn.</string>
+    <string name="one_call_limit">Helaas zijn er maar 20 OneCallAPI-verzoeken per dag mogelijk met de gedeelde sleutel.</string>
+    <string name="api_key_not_accepted">De API-sleutel werd niet geaccepteerd. Als je een nieuwe hebt aangemaakt, kan het een aantal minuten of uren duren voordat die is geregistreerd.</string>
+    <string name="no_rain_data">Regengegevens zijn niet beschikbaar</string>
+    <string name="settings_title_speed">Snelheden</string>
+    <string name="settings_summary_speed">Stel de eenheid in om snelheden weer te geven</string>
+    <string name="rain60min_text2" translatable="false">9:05</string>
+    <string name="onedaywidgetchoice">Stel de extra waarde in voor de eendagvoorspellingswidget.</string>
+    <string name="onedaywidget">Verloop-over-de-dagwidget</string>
+    <string name="_6_am">06.00</string>
+    <string name="_10am">10 .00</string>
+    <string name="_2pm">14.00</string>
+    <string name="_6pm">18.00</string>
+    <string name="_10pm">22.00</string>
+    <string name="theme_setting_summary">Kies je favoriete thema</string>
+    <string name="theme_setting_title">Thema</string>
+    <string name="help_permission_wakelock_heading">Rechten: Houd apparaat wakker</string>
+    <string name="help_permission_bindservice_heading">Rechten: Verbind met taakdiensten</string>
+    <string name="help_permission_wakelock_description">Om asynchrone updatesopvragen in te schakelen terwijl de app responsief blijft zijn de Houd-apparaat-wakkerrechten nodig. De taken in de achtergrond voor het weer zijn niet lang en zullen het apparaat niet lang wakker maken. Maar de rechten zijn wel nodig om op deze manier diensten in de achtergrond te runnen.</string>
+    <string name="help_permission_bindservice_description">De weerapp kan back-ups maken met onze Privacy Friendly Backup-app. Om deze functionaliteit in te schakelen zijn de rechten om met diensten te verbinden nodig.</string>
+    <string name="owm_url" translatable="false"><a href="https://openweathermap.org">OpenWeatherMap.org</a></string>
+    <string name="owm_about">Weergegevens zijn verzorgd door:</string>
+    <string name="owm_logo_copyright">"Logo OpenWeatherMap heeft de licentie\n<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">Creative Commons BY-SA license."</a></string>
+
+
+</resources>

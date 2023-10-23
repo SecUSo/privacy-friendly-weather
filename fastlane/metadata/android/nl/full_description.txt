@@ -1,0 +1,16 @@
+Privacy Friendly Weather lets you watch the weather for cities and locations you are interested in. The app has been developed by the research group SECUSO at Karlsruhe Institute of Technology. More info can be found on https://secuso.org/pfa
+
+The weather includes current weather as well as a hourly and daily forecasts. The weather data includes details such as temperature, a short description of the current weather condition and humidity, wind and rain. A dark theme as well as 4 different home screen widgets are availble with current day or future day informations.
+Furthermore, Privacy Friendly Weather provides a radius search. This makes it possible to find the locations around a given location which have the best weather conditions at the moment. The search space can be set by the user.
+De temperatuurseenheid kan worden ingesteld op Celsius of Fahrenheit en de eenheid voor afstand in kilometers of mijlen. Multiple wind units are available also.
+
+Alle weerdata wordt opgehaald van OpenWeatherMap door gebruik te maken van hun API (http://openweathermap.com/api) die een gratis dienst levert.
+
+1. Minimum aan rechten
+Privacy Friendly Weather requires only the minimum amount of permissions, the INTERNET permission which is necessary to make HTTP requests to remote servers for retrieving weather data. The two other permissions for binding services and keeping the phone awake are needed for background data handling.
+
+2. Zoekstraal
+Vind locaties rondom een opgegeven locatie die de beste weeromstandigheden op dat hebben.
+
+3. Geen reclames
+Andere gratis apps tonen advertenties die kunnen resulteren in schending van privacy, vermindering van de levensduur van de accu van het apparaat of gebruik mobiele data.
