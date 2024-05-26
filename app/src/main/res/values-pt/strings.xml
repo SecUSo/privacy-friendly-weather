@@ -133,10 +133,10 @@
     <string name="settings_API_key_default">Nenhuma chave de API fornecida</string>
     <string name="settings_confirm_content_API_key_reset">Deseja realmente redefinir a chave da API padrão?</string>
     <string name="settings_confirm_title_API_key_reset">Redefinir chave de API</string>
-    <string name="settings_description_API">O Privacy Friendly Weather recebe dados meteorológicos do serviço gratuito openweathermap.org. Este serviço é limitado a 1000 pedidos por dia. Pode registar a sua própria chave API para obter os seus próprios 1000 pedidos por dia. Caso contrário, os pedidos são partilhados entre todos os utilizadores do Privacy Friendly Weather.</string>
     <string name="settings_interval_summary">Defina o intervalo de atualizações automáticas</string>
     <string name="settings_intervals">Intervalos</string>
     <string name="settings_title_API">Chave API</string>
+    <string name="settings_description_API">Privacy Friendly Weather recebe dados do serviço gratuito de openweathermap.org. Este serviço está limitado a 1000 chamadas por dia. Você precisa registrar sua própria chave de API gratuitamente para receber 1.000 chamadas.</string>
     <string name="settings_title_API_key">Inserir chave de API</string>
     <string name="settings_title_API_key_reset">Redefinir chave de API</string>
     <string name="settings_update_interval">Intervalo de atualização</string>

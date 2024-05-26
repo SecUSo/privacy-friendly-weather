@@ -100,7 +100,7 @@
     <string name="settings_miles">Miles</string>
 
     <string name="settings_title_API">API Key</string>
-    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org. This service is limited to 1000 calls per day. You could register your own API key for free to get your own 1000 calls. Otherwise, calls are shared between all users of Privacy Friendly Weather.</string>
+    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org. This service is limited to 1000 calls per day. You have to register your own API key for free to get your 1000 calls.</string>
     <string name="settings_title_API_key">Enter API Key</string>
     <string name="settings_API_key_default">No API Key provided</string>
     <string name="settings_title_API_key_reset">Reset API Key</string>

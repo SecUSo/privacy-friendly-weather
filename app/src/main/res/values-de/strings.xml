@@ -140,7 +140,7 @@
     <string name="settings_API_key_default">Es wurde kein API Key bereitgestellt</string>
     <string name="settings_confirm_content_API_key_reset">Wirklich den standard API Key wiederherstellen?</string>
     <string name="settings_confirm_title_API_key_reset">API Key zurücksetzen</string>
-    <string name="settings_description_API">Privacy Friendly Wetter erhält die Wetterdaten von dem freien Service openweathermap.org. Dieser Service ist auf 1000 Anfragen pro Tag beschränkt. Sie könnten ihren eigenen API Key registrieren, um ihre eigenen 1000 Anfragen pro Tag zu bekommen. Andernfalls werden die Anfragen zwischen allen Benutzern von Privacy Friendly Wetter geteilt.</string>
+    <string name="settings_description_API">Privacy Friendly Wetter erhält die Wetterdaten von dem freien Service openweathermap.org. Dieser Service ist auf 1000 Anfragen pro Tag beschränkt. Sie müssen ihren eigenen API Key registrieren, um ihre 1000 Anfragen pro Tag zu bekommen.</string>
     <string name="settings_interval_summary">Setzen Sie das Interval der automatischen Updates</string>
     <string name="settings_intervals">Intervalle</string>
     <string name="settings_title_API">API Schlüssel</string>

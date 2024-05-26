@@ -28,7 +28,7 @@ import static org.secuso.privacyfriendlyweather.database.AppDatabase.VERSION;
 
 public class BackupCreator implements IBackupCreator {
     @Override
-    public void writeBackup(@NotNull Context context, @NotNull OutputStream outputStream) {
+    public boolean writeBackup(@NotNull Context context, @NotNull OutputStream outputStream) {
 // lock application, so no changes can be made as long as this backup is created
         // depending on the size of the application - this could take a bit
 
@@ -85,6 +85,6 @@ public class BackupCreator implements IBackupCreator {
         }
 
         Log.d("PFA BackupCreator", "Backup created successfully");
-
+        return true;
     }
 }

@@ -4,13 +4,13 @@ def keysFile = rootProject.file('keys.properties')
 
 android {
 
-    compileSdkVersion 32
+    compileSdk 34
 
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         applicationId "org.secuso.privacyfriendlyweather"
         minSdkVersion 17
-        targetSdkVersion 32
+        targetSdkVersion 34
         versionCode 17
         versionName "3.1.1"
 
@@ -27,6 +27,10 @@ android {
                     keyString += ","
                 }
                 i++
+            }
+
+            if (keyString == "") {
+                keyString = null
             }
 
             buildConfigField "String[]", "DEFAULT_API_KEYS", "{" + keyString + "}"
@@ -97,9 +101,9 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
 
-    implementation 'androidx.room:room-runtime:2.4.3'
-    annotationProcessor 'androidx.room:room-compiler:2.4.3'
-    androidTestImplementation 'androidx.room:room-testing:2.4.3'
+    implementation 'androidx.room:room-runtime:2.6.1'
+    annotationProcessor 'androidx.room:room-compiler:2.6.1'
+    androidTestImplementation 'androidx.room:room-testing:2.6.1'
 
     def work_version = "2.7.1"
     implementation "androidx.work:work-runtime:$work_version"
