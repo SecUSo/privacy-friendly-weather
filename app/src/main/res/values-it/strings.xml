@@ -133,7 +133,7 @@
     <string name="settings_API_key_default">Nessuna chiave API fornita</string>
     <string name="settings_confirm_content_API_key_reset">Volete davvero ripristinare la chiave API di default?</string>
     <string name="settings_confirm_title_API_key_reset">Reimpostare la chiave API</string>
-    <string name="settings_description_API">Privacy Friendly Weather riceve i dati meteo dal servizio gratuito openweathermap.org. Questo servizio è limitato a 1000 richieste al giorno. È possibile registrare la propria chiave API per ottenere le proprie 1000 richieste al giorno. In caso contrario, le richieste sono condivise tra tutti gli utenti di Privacy Friendly Weather.</string>
+    <string name="settings_description_API">Privacy Friendly Weather riceve i dati dal servizio gratuito di openweathermap.org. Questo servizio è limitato a 1000 chiamate al giorno. Devi registrare gratuitamente la tua chiave API per ricevere le tue 1000 chiamate.</string>
     <string name="settings_interval_summary">Impostare l\'intervallo di aggiornamento automatico</string>
     <string name="settings_intervals">Intervalli</string>
     <string name="settings_title_API">API Chiave</string>
@@ -203,4 +203,7 @@
     <string name="help_permission_bindservice_description">L\'app meteo abilita i backup con la nostra app Privacy Friendly Backup. Per abilitare questa funzionalità, è necessario il permesso di legarsi ai servizi.</string>
     <string name="owm_about">Dati meteo forniti da:</string>
     <string name="owm_logo_copyright">"Il logo di OpenWeatherMap è concesso in licenza sotto\n<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">la licenza Creative Commons BY-SA.</a>"</string>
+    <string name="dialog_app_api_deprecation_title">Deprecazione dell\'app e modifiche all\'API</string>
+    <string name="dialog_app_api_deprecation_description">Dal 1 giugno 2024 Open Weather disattiva la sua vecchia API, pertanto le vecchie chiavi API non sono più utilizzabili. \n Poiché l\'app Meteo rispettosa della privacy è deprecata, non ci adatteremo ad alcuna modifica dell\'API e l\'app non funzionerà come previsto. Se vuoi continuare a utilizzare questa app, ottieni la tua chiave API seguendo le <a href="https://openweathermap.org/appid">istruzioni OpenWeather</a>. Dopo aver ottenuto la chiave API, impostala nelle impostazioni.
+    </string>
 </resources>

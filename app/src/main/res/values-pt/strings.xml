@@ -133,10 +133,10 @@
     <string name="settings_API_key_default">Nenhuma chave de API fornecida</string>
     <string name="settings_confirm_content_API_key_reset">Deseja realmente redefinir a chave da API padrão?</string>
     <string name="settings_confirm_title_API_key_reset">Redefinir chave de API</string>
-    <string name="settings_description_API">O Privacy Friendly Weather recebe dados meteorológicos do serviço gratuito openweathermap.org. Este serviço é limitado a 1000 pedidos por dia. Pode registar a sua própria chave API para obter os seus próprios 1000 pedidos por dia. Caso contrário, os pedidos são partilhados entre todos os utilizadores do Privacy Friendly Weather.</string>
     <string name="settings_interval_summary">Defina o intervalo de atualizações automáticas</string>
     <string name="settings_intervals">Intervalos</string>
     <string name="settings_title_API">Chave API</string>
+    <string name="settings_description_API">Privacy Friendly Weather recebe dados do serviço gratuito de openweathermap.org. Este serviço está limitado a 1000 chamadas por dia. Você precisa registrar sua própria chave de API gratuitamente para receber 1.000 chamadas.</string>
     <string name="settings_title_API_key">Inserir chave de API</string>
     <string name="settings_title_API_key_reset">Redefinir chave de API</string>
     <string name="settings_update_interval">Intervalo de atualização</string>
@@ -203,4 +203,12 @@
     <string name="help_permission_bindservice_description">A aplicação meteorológica permite cópias de segurança com a nossa aplicação Privacy Friendly Backup. Para activar esta funcionalidade, é necessária a permissão de ligação com serviços.</string>
     <string name="owm_about">Dados meteorológicos fornecidos por:</string>
     <string name="owm_logo_copyright">"O logótipo OpenWeatherMap está licenciado sob\n<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">Creative Commons BY-SA licença.</a>"</string>
+    <string name="dialog_app_api_deprecation_title">Descontinuação de aplicativos e alterações de API</string>
+    <string name="dialog_app_api_deprecation_description">
+        Em 1º de junho de 2024, o Open Weather desativa sua API antiga, portanto, as chaves da API antigas não podem mais ser usadas.
+        Como o aplicativo Privacy Friendly Weather está obsoleto, não nos ajustaremos a nenhuma alteração na API e o aplicativo não funcionará conforme o esperado.
+
+        Se você quiser continuar usando este aplicativo, obtenha sua própria chave de API seguindo as <a href="https://openweathermap.org/appid">instruções do OpenWeather</a>.
+        Depois de obter sua chave API, defina-a nas configurações.
+    </string>
 </resources>

@@ -185,7 +185,7 @@
     <string name="settings_API_key_default">No API Key provided</string>
     <string name="settings_confirm_content_API_key_reset">Do you really want to reset to the default API key?</string>
     <string name="settings_confirm_title_API_key_reset">Reset API key</string>
-    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org. This service is limited to 1000 calls per day. You could register your own API key for free to get your own 1000 calls. Otherwise, calls are shared between all users of Privacy Friendly Weather.</string>
+    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org. This service is limited to 1000 calls per day. You have to register your own API key for free to get your 1000 calls.</string>
     <string name="settings_interval_summary">Set the interval of automatic updates</string>
     <string name="settings_intervals">Intervals</string>
     <string name="settings_title_API">API Key</string>
@@ -257,5 +257,13 @@
     <string name="help_permission_bindservice_description">The weather app enables backups with our Privacy Friendly Backup app. To enable this functionality, the permission to bind with services is needed.</string>
     <string name="owm_about">Weather data provided by:</string>
     <string name="owm_logo_copyright">"OpenWeatherMap logo is licensed under\n<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">Creative Commons BY-SA license.</a>"</string>
+    <string name="dialog_app_api_deprecation_title">アプリの非推奨と API の変更</string>
+    <string name="dialog_app_api_deprecation_description">
+         2024 年 6 月 1 日に、Open Weather は古い API を非アクティブ化するため、古い API キーは使用できなくなります。
+         プライバシー フレンドリーな天気アプリは廃止されるため、API の変更に対応できず、アプリは期待どおりに機能しません。
+
+         このアプリを引き続き使用する場合は、<a href="https://openweathermap.org/appid">OpenWeather の手順</a>に従って独自の API キーを取得してください。
+         APIキーを取得したら、設定でAPIキーを設定します。
+    </string>
 
 </resources>

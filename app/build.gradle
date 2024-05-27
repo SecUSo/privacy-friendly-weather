@@ -4,15 +4,17 @@ def keysFile = rootProject.file('keys.properties')
 
 android {
 
-    compileSdkVersion 32
+    compileSdk 34
+    namespace "org.secuso.privacyfriendlyweather"
 
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         applicationId "org.secuso.privacyfriendlyweather"
         minSdkVersion 17
-        targetSdkVersion 32
-        versionCode 17
-        versionName "3.1.1"
+        targetSdkVersion 34
+        versionCode 18
+        versionName "3.1.2"
+        multiDexEnabled = true
 
         if (keysFile.exists()) {
             def keys = new Properties()
@@ -29,12 +31,16 @@ android {
                 i++
             }
 
+            if (keyString == "") {
+                keyString = null
+            }
+
             buildConfigField "String[]", "DEFAULT_API_KEYS", "{" + keyString + "}"
         } else {
             buildConfigField "String[]", "DEFAULT_API_KEYS", "{null}"
         }
 
-        buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/data/2.5/\""
+        buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/data/3.0/\""
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -60,6 +66,10 @@ android {
         variant.outputs.all {
             outputFileName = "pfa-weather-${variant.name}-v${variant.versionName}.apk"
         }
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 
     buildTypes {
@@ -97,12 +107,15 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
 
-    implementation 'androidx.room:room-runtime:2.4.3'
-    annotationProcessor 'androidx.room:room-compiler:2.4.3'
-    androidTestImplementation 'androidx.room:room-testing:2.4.3'
+    implementation 'androidx.room:room-runtime:2.6.1'
+    annotationProcessor 'androidx.room:room-compiler:2.6.1'
+    androidTestImplementation 'androidx.room:room-testing:2.6.1'
 
     def work_version = "2.7.1"
     implementation "androidx.work:work-runtime:$work_version"
     implementation "androidx.work:work-runtime-ktx:$work_version"
     androidTestImplementation "androidx.work:work-testing:$work_version"
+
+    def multidex_version = "2.0.1"
+    implementation("androidx.multidex:multidex:$multidex_version")
 }

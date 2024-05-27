@@ -248,30 +248,6 @@ public class AppPreferencesManager {
     }
 
     public String getOWMApiKey(Context context) {
-        String noKeyString = context.getString(R.string.settings_API_key_default);
-        String prefValue = preferences.getString("API_key_value", noKeyString);
-        if (!prefValue.equals(noKeyString)) {
-            return prefValue;
-        } else {
-            String availableKeysString = preferences.getString("availble_keys",  "");
-            List<String> availableKeys = new ArrayList<>(Arrays.asList(availableKeysString.split(",")));
-
-            SharedPreferences.Editor editor = preferences.edit();
-
-            if(availableKeys.isEmpty() || availableKeysString.isEmpty()) {
-                // fill list with shuffled keys
-                availableKeys = new ArrayList<>(Arrays.asList(BuildConfig.DEFAULT_API_KEYS));
-                Collections.shuffle(availableKeys);
-            }
-
-            // get result and remove from possible keys
-            String result = availableKeys.get(0);
-            availableKeys.remove(result);
-            editor.putString("availble_keys",  String.join(",", availableKeys)).commit();
-
-            return result;
-        }
+        return preferences.getString("API_key_value", context.getString(R.string.settings_API_key_default));
     }
-
-
 }

@@ -100,7 +100,7 @@
     <string name="settings_miles">Miles</string>
 
     <string name="settings_title_API">API Key</string>
-    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org. This service is limited to 1000 calls per day. You could register your own API key for free to get your own 1000 calls. Otherwise, calls are shared between all users of Privacy Friendly Weather.</string>
+    <string name="settings_description_API">Privacy Friendly Weather receives data from the free service of openweathermap.org. This service is limited to 1000 calls per day. You have to register your own API key for free to get your 1000 calls.</string>
     <string name="settings_title_API_key">Enter API Key</string>
     <string name="settings_API_key_default">No API Key provided</string>
     <string name="settings_title_API_key_reset">Reset API Key</string>
@@ -174,6 +174,14 @@
     </string>
     <string name="dialog_add_close_button">Close</string>
     <string name="dialog_add_add_button">Add</string>
+    <string name="dialog_app_api_deprecation_title">App Deprecation and API changes</string>
+    <string name="dialog_app_api_deprecation_description">
+        On 1st June, 2024 Open Weather deactivates its old API, therefore the old api keys are not usable anymore.
+        As the Privacy Friendly Weather App is deprecated, we won\'t adjust to any api changes and the app won\'t function as expected.
+
+        If you want to continue using this app, get your own api key by following the <a href="https://openweathermap.org/appid">OpenWeather instruction</a>.
+        After obtaining your api key, set it in the settings.
+    </string>
 
     <!-- ###WEATHER CATEGORIES### -->
     <string name="weather_category_clear_sky">Clear Sky</string>
