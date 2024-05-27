@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -120,11 +121,13 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        if (appPreferencesManager.getOWMApiKey(this) == null) {
-            new AlertDialog.Builder(this).setTitle("")
-                    .setMessage("Get your own API-Key yo")
-                    .setNeutralButton(android.R.string.ok, null)
-                    .show();
+        if (appPreferencesManager.getOWMApiKey(this).equals(getString(R.string.settings_API_key_default))) {
+            TextView textView = new AlertDialog.Builder(this).setTitle(getString(R.string.dialog_app_api_deprecation_title))
+                .setMessage(R.string.dialog_app_api_deprecation_description)
+                .setNeutralButton(android.R.string.ok, null)
+                .show()
+                .findViewById(android.R.id.message);
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
         }
     }
 

@@ -204,6 +204,12 @@
     <string name="help_permission_bindservice_description">Die Wetter-App ermöglicht Backups mit unserer Privacy Friendly Backup-App. Um diese Funktionalität zu aktivieren, wird die Berechtigung zum Verbinden mit Diensten benötigt.</string>
     <string name="owm_about">Wetterdaten zur Verfügung gestellt von:</string>
     <string name="owm_logo_copyright">"Das OpenWeatherMap Logo ist lizensiert unter\n<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">Creative Commons BY-SA.</a>"</string>
-    <string name="dialog_app_api_deprecation_title">App Deprecation and API changes</string>
-    <string name="dialog_app_api_deprecation_description">Am 1. Juni 2024 deaktiviert Open Weather seine alte API, daher sind die alten API-Schlüssel nicht mehr verwendbar.</string>
+    <string name="dialog_app_api_deprecation_title">App-Veraltung und API-Änderungen</string>
+    <string name="dialog_app_api_deprecation_description">
+        Am 1. Juni 2024 deaktiviert Open Weather seine alte API, daher sind die alten API-Schlüssel nicht mehr verwendbar.
+ Da die Privacy Friendly Weather App veraltet ist, werden wir uns nicht an API-Änderungen anpassen und die App wird nicht wie erwartet funktionieren.
+
+ Wenn Sie diese App weiterhin verwenden möchten, besorgen Sie sich Ihren eigenen API-Schlüssel, indem Sie der <a href="https://openweathermap.org/appid">OpenWeather-Anweisung</a> folgen.
+ Nachdem Sie Ihren API-Schlüssel erhalten haben, legen Sie ihn in den Einstellungen fest.
+    </string>
 </resources>

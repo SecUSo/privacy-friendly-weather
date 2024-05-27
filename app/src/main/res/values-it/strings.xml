@@ -204,5 +204,6 @@
     <string name="owm_about">Dati meteo forniti da:</string>
     <string name="owm_logo_copyright">"Il logo di OpenWeatherMap è concesso in licenza sotto\n<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">la licenza Creative Commons BY-SA.</a>"</string>
     <string name="dialog_app_api_deprecation_title">Deprecazione dell\'app e modifiche all\'API</string>
-    <string name="dialog_app_api_deprecation_description">Dal 1° giugno 2024 Open Weather disattiva la sua vecchia API, pertanto le vecchie chiavi API non sono più utilizzabili.</string>
+    <string name="dialog_app_api_deprecation_description">Dal 1 giugno 2024 Open Weather disattiva la sua vecchia API, pertanto le vecchie chiavi API non sono più utilizzabili. \n Poiché l\'app Meteo rispettosa della privacy è deprecata, non ci adatteremo ad alcuna modifica dell\'API e l\'app non funzionerà come previsto. Se vuoi continuare a utilizzare questa app, ottieni la tua chiave API seguendo le <a href="https://openweathermap.org/appid">istruzioni OpenWeather</a>. Dopo aver ottenuto la chiave API, impostala nelle impostazioni.
+    </string>
 </resources>

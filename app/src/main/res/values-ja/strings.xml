@@ -258,6 +258,12 @@
     <string name="owm_about">Weather data provided by:</string>
     <string name="owm_logo_copyright">"OpenWeatherMap logo is licensed under\n<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">Creative Commons BY-SA license.</a>"</string>
     <string name="dialog_app_api_deprecation_title">アプリの非推奨と API の変更</string>
-    <string name="dialog_app_api_deprecation_description">2024 年 6 月 1 日に、Open Weather は古い API を非アクティブ化するため、古い API キーは使用できなくなります。</string>
+    <string name="dialog_app_api_deprecation_description">
+         2024 年 6 月 1 日に、Open Weather は古い API を非アクティブ化するため、古い API キーは使用できなくなります。
+         プライバシー フレンドリーな天気アプリは廃止されるため、API の変更に対応できず、アプリは期待どおりに機能しません。
+
+         このアプリを引き続き使用する場合は、<a href="https://openweathermap.org/appid">OpenWeather の手順</a>に従って独自の API キーを取得してください。
+         APIキーを取得したら、設定でAPIキーを設定します。
+    </string>
 
 </resources>
