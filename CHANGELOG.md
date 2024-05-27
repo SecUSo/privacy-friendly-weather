@@ -1,7 +1,21 @@
 # Changelog
 
+<a name="v3.1.2"></a>
+## [Weather (Privacy Friendly) v3.1.2](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v3.1.2) - 27 May 2024
+
+## What's Changed
+* Remove api keys and updates to API 3.0 by [@coderPaddyS](https://github.com/coderPaddyS) in https://github.com/SecUSo/privacy-friendly-weather/pull/211
+
+## New Contributors
+* [@coderPaddyS](https://github.com/coderPaddyS) made their first contribution in https://github.com/SecUSo/privacy-friendly-weather/pull/211
+
+**Full Changelog**: https://github.com/SecUSo/privacy-friendly-weather/compare/v3.1.1...v3.1.2
+
+[Changes][v3.1.2]
+
+
 <a name="v3.1.1"></a>
-## [Weather (Privacy Friendly) v3.1.1 (v3.1.1)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v3.1.1) - 23 Aug 2022
+## [Weather (Privacy Friendly) v3.1.1](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v3.1.1) - 23 Aug 2022
 
 ## What's Changed
 * Fix German spelling in a few places. by [@swltr](https://github.com/swltr) in https://github.com/SecUSo/privacy-friendly-weather/pull/177
@@ -18,7 +32,7 @@
 
 
 <a name="v3.1.0"></a>
-## [Weather (Privacy Friendly) v3.1.0 (v3.1.0)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v3.1.0) - 03 Aug 2022
+## [Weather (Privacy Friendly) v3.1.0](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v3.1.0) - 03 Aug 2022
 
 ## What's Changed
 * Add Support for Backup App from F-Droid and improve app behavior by [@Kamuno](https://github.com/Kamuno) in https://github.com/SecUSo/privacy-friendly-weather/pull/194
@@ -30,7 +44,7 @@
 
 
 <a name="v3.0.3"></a>
-## [Weather (Privacy Friendly) v3.0.3 (v3.0.3)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v3.0.3) - 15 Dec 2021
+## [Weather (Privacy Friendly) v3.0.3](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v3.0.3) - 15 Dec 2021
 
 - changed F-Droid descriptions
 - changed About page
@@ -40,7 +54,7 @@
 
 
 <a name="v3.0.2"></a>
-## [Privacy Friendly Weather v3.0.2 (v3.0.2)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v3.0.2) - 05 Jun 2021
+## [Privacy Friendly Weather v3.0.2](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v3.0.2) - 05 Jun 2021
 
 - Updated permission descriptions
 - fixed potential crash for empty network errors
@@ -52,7 +66,7 @@
 
 
 <a name="v3.0.1"></a>
-## [Privacy Friendly Weather v3.0.1 (v3.0.1)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v3.0.1) - 20 May 2021
+## [Privacy Friendly Weather v3.0.1](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v3.0.1) - 20 May 2021
 
 UI
 - fixed small display bug on about page: made scrollable
@@ -67,7 +81,7 @@ F-Droid
 
 
 <a name="3.0"></a>
-## [Privacy Friendly Weather v3.0 (3.0)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/3.0) - 12 May 2021
+## [Privacy Friendly Weather v3.0](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/3.0) - 12 May 2021
 
 UI
 - added Toast for non-accepted keys
@@ -95,7 +109,7 @@ Internal
 
 
 <a name="v2.4.2"></a>
-## [Privacy Friendly Weather v2.4.2 (v2.4.2)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.4.2) - 29 Jan 2021
+## [Privacy Friendly Weather v2.4.2](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.4.2) - 29 Jan 2021
 
 Bugfixes:
 - replaces 1 obsolete API key with working one
@@ -105,7 +119,7 @@ Bugfixes:
 
 
 <a name="v2.4.1"></a>
-## [Privacy Friendly Weather v2.4.1 (v2.4.1)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.4.1) - 28 Jan 2021
+## [Privacy Friendly Weather v2.4.1](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.4.1) - 28 Jan 2021
 
 General
 - Increased number of keys used, this is a temporary solution but should enable more "uptime"
@@ -127,7 +141,7 @@ Widgets
 
 
 <a name="v2.4"></a>
-## [Privacy Friendly Weather v2.4 (v2.4)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.4) - 31 Dec 2020
+## [Privacy Friendly Weather v2.4](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.4) - 31 Dec 2020
 
 Widgets:
 - Widget updates more reliable
@@ -173,7 +187,7 @@ General:
 
 
 <a name="v2.2"></a>
-## [Weather (Privacy Friendly) v2.2 (v2.2)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.2) - 02 Jun 2020
+## [Weather (Privacy Friendly) v2.2](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.2) - 02 Jun 2020
 
 - Added fastlane files for f-droid
 - Added timezone support - times are now displayed in their local time
@@ -194,7 +208,7 @@ General:
 
 
 <a name="v2.1.1"></a>
-## [Weather (Privacy Friendly) v2.1.1 (v2.1.1)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.1.1) - 28 Mar 2019
+## [Weather (Privacy Friendly) v2.1.1](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.1.1) - 28 Mar 2019
 
 - fixed some bugs and crashes
 - you can now see a list of all cities you can swipe between
@@ -203,7 +217,7 @@ General:
 
 
 <a name="v2.0"></a>
-## [Privacy Friendly Weather v2.0 (v2.0)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.0) - 14 Mar 2018
+## [Privacy Friendly Weather v2.0](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v2.0) - 14 Mar 2018
 
 - Security Improvements
 - Redesign
@@ -214,7 +228,7 @@ General:
 
 
 <a name="v1.1"></a>
-## [Privacy Friendly Weather v1.1 (v1.1)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v1.1) - 11 Nov 2016
+## [Privacy Friendly Weather v1.1](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v1.1) - 11 Nov 2016
 
 - Issue [#12](https://github.com/SecUSo/privacy-friendly-weather/issues/12) solved
 - Refinement of help
@@ -225,7 +239,7 @@ General:
 
 
 <a name="v1.0"></a>
-## [Privacy Friendly Weather v1.0 (v1.0)](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v1.0) - 05 Nov 2016
+## [Privacy Friendly Weather v1.0](https://github.com/SecUSo/privacy-friendly-weather/releases/tag/v1.0) - 05 Nov 2016
 
 Privacy Friendly Weather is an Android app that lets you watch the weather for cities and locations. This includes the current weather as well as a 5 day / 3 hour forecast. Furthermore, Privacy Friendly Weather provides a radius search. This makes it possible to find the locations around a given location which have the best weather conditions at the moment.
 This app is optimized regarding the user’s privacy. It doesn’t use any tracking mechanisms, neither it displays any advertisement. It belongs to the Privacy Friendly Apps group developed by the Technische Universität Darmstadt.
@@ -234,6 +248,7 @@ This app is optimized regarding the user’s privacy. It doesn’t use any track
 [Changes][v1.0]
 
 
+[v3.1.2]: https://github.com/SecUSo/privacy-friendly-weather/compare/v3.1.1...v3.1.2
 [v3.1.1]: https://github.com/SecUSo/privacy-friendly-weather/compare/v3.1.0...v3.1.1
 [v3.1.0]: https://github.com/SecUSo/privacy-friendly-weather/compare/v3.0.3...v3.1.0
 [v3.0.3]: https://github.com/SecUSo/privacy-friendly-weather/compare/v3.0.2...v3.0.3
@@ -249,4 +264,4 @@ This app is optimized regarding the user’s privacy. It doesn’t use any track
 [v1.1]: https://github.com/SecUSo/privacy-friendly-weather/compare/v1.0...v1.1
 [v1.0]: https://github.com/SecUSo/privacy-friendly-weather/tree/v1.0
 
- <!-- Generated by https://github.com/rhysd/changelog-from-release -->
+<!-- Generated by https://github.com/rhysd/changelog-from-release v3.7.2 -->
