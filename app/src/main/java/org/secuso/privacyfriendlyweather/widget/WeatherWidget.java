@@ -85,12 +85,7 @@ public class WeatherWidget extends AppWidgetProvider {
 
         Intent intent = new Intent(context, ForecastCityActivity.class);
         intent.putExtra("cityId", city.getCityId());
-        PendingIntent pendingIntent;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, PendingIntent.FLAG_IMMUTABLE);
-        } else {
-            pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
-        }
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, PendingIntent.FLAG_IMMUTABLE);
 
         views.setOnClickPendingIntent(R.id.widget1day_layout, pendingIntent);
 

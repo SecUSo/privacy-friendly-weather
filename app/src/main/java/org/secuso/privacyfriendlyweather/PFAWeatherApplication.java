@@ -1,9 +1,9 @@
 package org.secuso.privacyfriendlyweather;
 
-import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.multidex.MultiDexApplication;
 import androidx.work.Configuration;
 
 import org.secuso.privacyfriendlybackup.api.pfa.BackupManager;
@@ -11,7 +11,7 @@ import org.secuso.privacyfriendlyweather.backup.BackupCreator;
 import org.secuso.privacyfriendlyweather.backup.BackupRestorer;
 
 
-public class PFAWeatherApplication extends Application implements Configuration.Provider {
+public class PFAWeatherApplication extends MultiDexApplication implements Configuration.Provider {
 
     @Override
     public void onCreate() {
