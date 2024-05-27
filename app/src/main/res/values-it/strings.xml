@@ -203,4 +203,6 @@
     <string name="help_permission_bindservice_description">L\'app meteo abilita i backup con la nostra app Privacy Friendly Backup. Per abilitare questa funzionalità, è necessario il permesso di legarsi ai servizi.</string>
     <string name="owm_about">Dati meteo forniti da:</string>
     <string name="owm_logo_copyright">"Il logo di OpenWeatherMap è concesso in licenza sotto\n<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">la licenza Creative Commons BY-SA.</a>"</string>
+    <string name="dialog_app_api_deprecation_title">Deprecazione dell\'app e modifiche all\'API</string>
+    <string name="dialog_app_api_deprecation_description">Dal 1° giugno 2024 Open Weather disattiva la sua vecchia API, pertanto le vecchie chiavi API non sono più utilizzabili.</string>
 </resources>

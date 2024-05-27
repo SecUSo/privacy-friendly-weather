@@ -203,4 +203,6 @@
     <string name="help_permission_bindservice_description">A aplicação meteorológica permite cópias de segurança com a nossa aplicação Privacy Friendly Backup. Para activar esta funcionalidade, é necessária a permissão de ligação com serviços.</string>
     <string name="owm_about">Dados meteorológicos fornecidos por:</string>
     <string name="owm_logo_copyright">"O logótipo OpenWeatherMap está licenciado sob\n<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">Creative Commons BY-SA licença.</a>"</string>
+    <string name="dialog_app_api_deprecation_title">Descontinuação de aplicativos e alterações de API</string>
+    <string name="dialog_app_api_deprecation_description">Em 1º de junho de 2024, o Open Weather desativa sua API antiga, portanto, as chaves da API antigas não podem mais ser usadas.</string>
 </resources>

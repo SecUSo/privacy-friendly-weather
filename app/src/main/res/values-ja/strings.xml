@@ -257,5 +257,7 @@
     <string name="help_permission_bindservice_description">The weather app enables backups with our Privacy Friendly Backup app. To enable this functionality, the permission to bind with services is needed.</string>
     <string name="owm_about">Weather data provided by:</string>
     <string name="owm_logo_copyright">"OpenWeatherMap logo is licensed under\n<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">Creative Commons BY-SA license.</a>"</string>
+    <string name="dialog_app_api_deprecation_title">アプリの非推奨と API の変更</string>
+    <string name="dialog_app_api_deprecation_description">2024 年 6 月 1 日に、Open Weather は古い API を非アクティブ化するため、古い API キーは使用できなくなります。</string>
 
 </resources>

@@ -38,7 +38,7 @@ android {
             buildConfigField "String[]", "DEFAULT_API_KEYS", "{null}"
         }
 
-        buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/data/2.5/\""
+        buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/data/3.0/\""
 
         javaCompileOptions {
             annotationProcessorOptions {

@@ -1,7 +1,9 @@
 package org.secuso.privacyfriendlyweather.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,7 @@ import org.secuso.privacyfriendlyweather.database.AppDatabase;
 import org.secuso.privacyfriendlyweather.database.data.CurrentWeatherData;
 import org.secuso.privacyfriendlyweather.database.data.Forecast;
 import org.secuso.privacyfriendlyweather.database.data.WeekForecast;
+import org.secuso.privacyfriendlyweather.preferences.AppPreferencesManager;
 import org.secuso.privacyfriendlyweather.ui.updater.IUpdateableCityUI;
 import org.secuso.privacyfriendlyweather.ui.updater.ViewUpdater;
 import org.secuso.privacyfriendlyweather.ui.viewPager.WeatherPagerAdapter;
@@ -27,6 +30,7 @@ import java.util.List;
 
 public class ForecastCityActivity extends BaseActivity implements IUpdateableCityUI {
     private WeatherPagerAdapter pagerAdapter;
+    private AppPreferencesManager appPreferencesManager;
 
     private MenuItem refreshActionButton;
     private MenuItem rainviewerButton;
@@ -73,7 +77,6 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast_city);
         overridePendingTransition(0, 0);
-
         //cityId = getIntent().getIntExtra("cityId", -1); //done in onResume
 
         initResources();
@@ -113,6 +116,18 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         }
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        if (appPreferencesManager.getOWMApiKey(this) == null) {
+            new AlertDialog.Builder(this).setTitle("")
+                    .setMessage("Get your own API-Key yo")
+                    .setNeutralButton(android.R.string.ok, null)
+                    .show();
+        }
+    }
+
     public void updatePageTitle() {
         if (getSupportActionBar() != null && pagerAdapter.getCount() > 0) {
             getSupportActionBar().setTitle(pagerAdapter.getPageTitleForActionBar(viewPager.getCurrentItem()));
@@ -129,6 +144,7 @@ public class ForecastCityActivity extends BaseActivity implements IUpdateableCit
         viewPager = findViewById(R.id.viewPager);
         pagerAdapter = new WeatherPagerAdapter(this, getSupportFragmentManager());
         noCityText = findViewById(R.id.noCitySelectedText);
+        appPreferencesManager = new AppPreferencesManager(PreferenceManager.getDefaultSharedPreferences(this));
     }
 
     @Override
